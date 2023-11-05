@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 import '../model/ToolDialog.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
+class Register extends StatefulWidget {
+  const Register({super.key, required this.title});
   final String title;
 
   @override
-  State<StatefulWidget> createState() => _LoginState(title: title);
+  State<StatefulWidget> createState() => _RegisterState(title: title);
 }
 
-class _LoginState extends State<Login> {
-  _LoginState({required this.title});
-  final _formKey = GlobalKey<_LoginState>();
+class _RegisterState extends State<Register> {
+  _RegisterState({required this.title});
+  final _formKey = GlobalKey<_RegisterState>();
   final title;
 
   @override
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 登录", style: const TextStyle(color: Colors.white)),
+              Text("$title - 注册", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
         ),
         body: Center(
@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
             constraints: const BoxConstraints(maxWidth: 400.0),
             child: Column(children: <Widget>[
               const Text(
-                "登录到LocyanFrp",
+                "注册LocyanFrp账户",
                 style: TextStyle(fontSize: 30),
               ),
               Form(
@@ -43,10 +43,25 @@ class _LoginState extends State<Login> {
                       obscureText: true,
                       decoration: const InputDecoration(labelText: "密码"),
                     ),
+                    TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(labelText: "重复密码"),
+                    ),
+                    TextFormField(
+                      validator: (value) {
+                        RegExp reg = RegExp(
+                            '^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}\$');
+                        if (reg.hasMatch(value!)) {
+                          return "无效的邮箱";
+                        }
+                        return null;
+                      },
+                      decoration: const InputDecoration(labelText: "邮箱"),
+                    ),
                     Container(
                         margin: const EdgeInsets.all(20.0),
                         child: const ElevatedButton(
-                            onPressed: null, child: Text("登录"))),
+                            onPressed: null, child: Text("注册"))),
                   ],
                 ),
               ),

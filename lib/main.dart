@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nyalcf/ui/auth/login.dart';
+import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
 
 void main() => runApp(const App());
@@ -15,10 +16,11 @@ class App extends StatelessWidget {
       title: 'NyaLCF',
       routes: {
         "/": (context) => Home(title: title),
-        "/login": (context) => Login(title: title)
+        "/login": (context) => Login(title: title),
+        "/register": (context) => Register(title: title)
       },
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         useMaterial3: true,
       )
     );
