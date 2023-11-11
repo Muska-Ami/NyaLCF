@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:nyalcf/dio/auth/loginReq.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 
-import '../model/ToolDialog.dart';
+import '../model/floatingActionButton.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key, required this.title});
+
   final String title;
 
   @override
@@ -13,8 +15,18 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   _LoginState({required this.title});
-  final _formKey = GlobalKey<_LoginState>();
+
   final title;
+
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    userController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,42 +47,43 @@ class _LoginState extends State<Login> {
                 style: TextStyle(fontSize: 30),
               ),
               Form(
-                key: _formKey,
                 child: Column(
                   children: <Widget>[
                     TextFormField(
                       decoration: const InputDecoration(labelText: "账户名/邮箱"),
+                      controller: userController,
                     ),
                     TextFormField(
                       obscureText: true,
                       decoration: const InputDecoration(labelText: "密码"),
+                      controller: passwordController,
                     ),
                     Container(
                         margin: const EdgeInsets.all(20.0),
-                        child: const ElevatedButton(
-                            onPressed: null, child: Text("登录"))),
+                        child: ElevatedButton(
+                            onPressed: () => {_login()}, child: Text("登录"))),
                   ],
                 ),
               ),
             ]),
           ),
         ),
-        floatingActionButton: Builder(builder: (BuildContext context) {
-          return FloatingActionButton(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.pink[100],
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) {
-                  return ToolDialog(context: context).build();
-                }),
-            elevation: 7.0,
-            highlightElevation: 14.0,
-            mini: false,
-            shape: const CircleBorder(),
-            isExtended: false,
-            child: const Icon(Icons.add),
-          );
-        }));
+        floatingActionButton: FloatingActionButtonX().button());
+  }
+
+  _login() async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('正在登录...'),
+    ));
+    if (await LoginReq()
+        .requestLogin(userController.text, passwordController.text)) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('登录成功'),
+      ));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('登录失败'),
+      ));
+    }
   }
 }

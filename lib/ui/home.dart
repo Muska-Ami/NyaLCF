@@ -5,6 +5,7 @@ import 'model/AppbarActions.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key, required this.title});
+
   final String title;
 
   @override

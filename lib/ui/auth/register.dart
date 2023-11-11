@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../model/AppbarActions.dart';
-import '../model/ToolDialog.dart';
+import '../model/floatingActionButton.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key, required this.title});
+
   final String title;
 
   @override
@@ -13,6 +14,7 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   _RegisterState({required this.title});
+
   final _formKey = GlobalKey<_RegisterState>();
   final title;
 
@@ -70,22 +72,6 @@ class _RegisterState extends State<Register> {
             ]),
           ),
         ),
-        floatingActionButton: Builder(builder: (BuildContext context) {
-          return FloatingActionButton(
-            foregroundColor: Colors.white,
-            backgroundColor: Colors.pink[100],
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) {
-                  return ToolDialog(context: context).build();
-                }),
-            elevation: 7.0,
-            highlightElevation: 14.0,
-            mini: false,
-            shape: const CircleBorder(),
-            isExtended: false,
-            child: const Icon(Icons.add),
-          );
-        }));
+        floatingActionButton: FloatingActionButtonX().button());
   }
 }
