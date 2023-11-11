@@ -37,10 +37,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^5.3.3
   url_launcher: ^6.2.1
+  flutter_launcher_icons: ^0.13.1
+  bitsdojo_window: ^0.1.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  image_path: "asset/icon/icon.png"
+  windows:
+    generate: true
+  macos:
+    generate: true
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

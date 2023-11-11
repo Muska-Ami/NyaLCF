@@ -1,9 +1,20 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
 
-void main() => runApp(const App());
+void main() {
+  runApp(const App());
+
+  doWhenWindowReady(() {
+    const initialSize = Size(800, 500);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
+}
 
 class App extends StatelessWidget {
   const App({super.key});

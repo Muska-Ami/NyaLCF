@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nyalcf/ui/model/AppbarActions.dart';
 
 import '../model/ToolDialog.dart';
 
@@ -22,6 +23,7 @@ class _LoginState extends State<Login> {
           title:
               Text("$title - 登录", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
+          actions: AppbarActions(context: context).actions(),
         ),
         body: Center(
           child: Container(

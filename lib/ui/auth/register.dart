@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../model/AppbarActions.dart';
 import '../model/ToolDialog.dart';
 
 class Register extends StatefulWidget {
@@ -22,6 +23,7 @@ class _RegisterState extends State<Register> {
           title:
               Text("$title - 注册", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
+          actions: AppbarActions(context: context).actions(),
         ),
         body: Center(
           child: Container(
