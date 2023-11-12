@@ -11,9 +11,42 @@ class ToolDialog {
       title: const Text("请问您今天想做点什么？"),
       children: <Widget>[
         SimpleDialogOption(
-            child: const Text("访问LocyanFrp官方网站"),
+            child: const Text("LocyanFrp Website"),
             onPressed: () async {
               const url = 'https://www.locyanfrp.cn';
+              if (!await launchUrl(Uri.parse(url))) {
+                const snackBar = SnackBar(
+                  content: Text("无法打开网页，请检查设备是否存在WebView"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }),
+        SimpleDialogOption(
+            child: const Text("LocyanFrp Dashboard"),
+            onPressed: () async {
+              const url = 'https://dashboard.locyanfrp.cn';
+              if (!await launchUrl(Uri.parse(url))) {
+                const snackBar = SnackBar(
+                  content: Text("无法打开网页，请检查设备是否存在WebView"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }),
+        SimpleDialogOption(
+            child: const Text("LocyanFrp Dashboard (Preview)"),
+            onPressed: () async {
+              const url = 'https://preview.locyanfrp.cn';
+              if (!await launchUrl(Uri.parse(url))) {
+                const snackBar = SnackBar(
+                  content: Text("无法打开网页，请检查设备是否存在WebView"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              }
+            }),
+        SimpleDialogOption(
+            child: const Text("中国内网穿透联盟 (China Frp Union)"),
+            onPressed: () async {
+              const url = 'https://xn--v6qw21h0gd43u.xn--fiqs8s/';
               if (!await launchUrl(Uri.parse(url))) {
                 const snackBar = SnackBar(
                   content: Text("无法打开网页，请检查设备是否存在WebView"),

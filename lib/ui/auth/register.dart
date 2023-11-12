@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../model/AppbarActions.dart';
-import '../model/floatingActionButton.dart';
+import '../model/FloatingActionButton.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key, required this.title});

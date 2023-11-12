@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nyalcf/ui/model/floatingActionButton.dart';
+import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import '../model/AppbarActions.dart';
 
@@ -15,6 +15,7 @@ class Home extends StatelessWidget {
           title:
               Text("$title - 首页", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
+          automaticallyImplyLeading: false,
           actions: AppbarActions(context: context).actions(),
         ),
         body: Center(
