@@ -15,7 +15,6 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   _RegisterState({required this.title});
 
-  final _formKey = GlobalKey<_RegisterState>();
   final title;
 
   @override
@@ -37,33 +36,60 @@ class _RegisterState extends State<Register> {
                 style: TextStyle(fontSize: 30),
               ),
               Form(
-                key: _formKey,
                 child: Column(
                   children: <Widget>[
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: "账户名/邮箱"),
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(labelText: "密码"),
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(labelText: "重复密码"),
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        RegExp reg = RegExp(
-                            '^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}\$');
-                        if (reg.hasMatch(value!)) {
-                          return "无效的邮箱";
-                        }
-                        return null;
-                      },
-                      decoration: const InputDecoration(labelText: "邮箱"),
+                    Container(
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: "用户名",
+                          icon: Icon(Icons.person),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
                     ),
                     Container(
-                        margin: const EdgeInsets.all(20.0),
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: "密码",
+                          icon: Icon(Icons.key),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: "重复密码",
+                          icon: Icon(Icons.password),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        validator: (value) {
+                          RegExp reg = RegExp(
+                              '^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}\$');
+                          if (reg.hasMatch(value!)) {
+                            return "无效的邮箱";
+                          }
+                          return null;
+                        },
+                        decoration: const InputDecoration(
+                          labelText: "邮箱",
+                          icon: Icon(Icons.email),
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                    ),
+                    Container(
+                        margin: const EdgeInsets.all(8.0),
                         child: const ElevatedButton(
                             onPressed: null, child: Text("注册"))),
                   ],

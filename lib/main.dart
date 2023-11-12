@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
+import 'package:nyalcf/ui/panel/home.dart';
 
 void main() {
   runApp(const App());
@@ -29,7 +30,8 @@ class App extends StatelessWidget {
         routes: {
           "/": (context) => Home(title: title),
           "/login": (context) => Login(title: title),
-          "/register": (context) => Register(title: title)
+          "/register": (context) => Register(title: title),
+          "/panel/home": (context) => PanelHome(title: title)
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),

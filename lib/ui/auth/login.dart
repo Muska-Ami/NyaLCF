@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:nyalcf/dio/auth/loginReq.dart';
+import 'package:nyalcf/dio/auth.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 
+import '../../model/UserInfo.dart';
 import '../model/FloatingActionButton.dart';
 
 class Login extends StatefulWidget {
@@ -49,17 +50,31 @@ class _LoginState extends State<Login> {
               Form(
                 child: Column(
                   children: <Widget>[
-                    TextFormField(
-                      decoration: const InputDecoration(labelText: "账户名/邮箱"),
-                      controller: userController,
-                    ),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(labelText: "密码"),
-                      controller: passwordController,
+                    Container(
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        decoration: const InputDecoration(
+                          labelText: "用户名",
+                          icon: Icon(Icons.person),
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: userController,
+                      ),
                     ),
                     Container(
-                        margin: const EdgeInsets.all(20.0),
+                      margin: EdgeInsets.all(6.0),
+                      child: TextFormField(
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: "密码",
+                          icon: Icon(Icons.key),
+                          border: OutlineInputBorder(),
+                        ),
+                        controller: passwordController,
+                      ),
+                    ),
+                    Container(
+                        margin: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
                             onPressed: () => {_login()}, child: Text("登录"))),
                   ],
@@ -72,18 +87,32 @@ class _LoginState extends State<Login> {
   }
 
   _login() async {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      content: Text('正在登录...'),
-    ));
-    if (await LoginReq()
-        .requestLogin(userController.text, passwordController.text)) {
+    if (userController.text == "") {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('登录成功'),
+        content: Text('请输入用户名'),
+      ));
+    } else if (passwordController.text == "") {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('请输入密码'),
       ));
     } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('登录失败'),
+        content: Text('正在登录...'),
       ));
+      final res = await Auth()
+          .requestLogin(userController.text, passwordController.text);
+      if (res is UserInfo) {
+        //UserInfoCache.info = res;
+        //print(UserInfoCache.info);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('登录成功，欢迎您 ${res.UserName}'),
+        ));
+        Navigator.of(context).pushNamed("/panel/home");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('登陆失败：${res}'),
+        ));
+      }
     }
   }
 }

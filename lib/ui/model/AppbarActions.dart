@@ -6,7 +6,7 @@ class AppbarActions {
 
   final context;
 
-  List<Widget> actions() {
+  List<Widget> list() {
     return <Widget>[
       IconButton(
         onPressed: () => {appWindow.minimize()},
@@ -19,6 +19,15 @@ class AppbarActions {
         color: Colors.white,
       ),
     ];
+  }
+
+  List<Widget> actions({List<Widget>? append}) {
+    List<Widget> l = list();
+    if (append != null) {
+      return l;
+    }
+    l.addAll(append ?? []);
+    return l;
   }
 
   _closeAlertDialog() async {

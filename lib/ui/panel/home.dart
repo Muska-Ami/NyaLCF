@@ -3,8 +3,8 @@ import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import '../model/AppbarActions.dart';
 
-class Home extends StatelessWidget {
-  const Home({super.key, required this.title});
+class PanelHome extends StatelessWidget {
+  const PanelHome({super.key, required this.title});
 
   final String title;
 
@@ -13,10 +13,16 @@ class Home extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 首页", style: const TextStyle(color: Colors.white)),
+              Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           automaticallyImplyLeading: false,
-          actions: AppbarActions(context: context).actions(),
+          actions: AppbarActions(context: context).actions(append: <Widget>[
+            IconButton(
+              onPressed: () => {},
+              icon: ImageIcon(Image.network("").image),
+              color: Colors.white,
+            ),
+          ]),
         ),
         body: Center(
           child: Container(
@@ -33,4 +39,16 @@ class Home extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButtonX().button());
   }
+
+/*
+  String _avatarUrl() {
+    final info = UserInfoCache.info;
+    if (info != null) {
+      return UserInfoCache.info!.Avatar;
+    } else {
+      print("error: userInfo not found");
+      return "";
+    }
+  }
+  */
 }
