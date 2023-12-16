@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:nyalcf/dio/auth.dart';
+import 'package:nyalcf/util/cache/InfoCache.dart';
+import 'package:nyalcf/util/dio/auth/login.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 
-import '../../model/UserInfo.dart';
+import '../../util/model/User.dart';
 import '../model/FloatingActionButton.dart';
 
 class Login extends StatefulWidget {
@@ -99,11 +100,12 @@ class _LoginState extends State<Login> {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text('正在登录...'),
       ));
-      final res = await Auth()
+      final res = await LoginDio()
           .requestLogin(userController.text, passwordController.text);
-      if (res is UserInfo) {
+      if (res is User) {
         //UserInfoCache.info = res;
         //print(UserInfoCache.info);
+        await InfoCache.setInfo(res);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('登录成功，欢迎您 ${res.UserName}'),
         ));

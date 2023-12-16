@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/dio/basicConfig.dart';
+import '../basicConfig.dart';
 
-import '../model/UserInfo.dart';
+import '../../model/User.dart';
 
-class Auth {
+class LoginDio {
   final dio = Dio();
 
   Future<dynamic> requestLogin(user, password) async {
@@ -16,7 +16,7 @@ class Auth {
       print(responseJson);
       final resData = responseJson["data"];
       if (responseJson["status"] == 200) {
-        final userInfo = UserInfo(
+        final userInfo = User(
             user: resData["username"],
             email: resData["email"],
             token: resData["token"],

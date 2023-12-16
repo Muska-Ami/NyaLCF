@@ -1,5 +1,5 @@
-class UserInfo {
-  UserInfo(
+class User {
+  User(
       {required this.user,
       required this.email,
       required this.token,
@@ -25,4 +25,13 @@ class UserInfo {
   String get Avatar {
     return avatar;
   }
+
+  /*
+  User.fromJson(Map<String, dynamic> json)
+      : user   = json['username'],
+        token  = json['token'],
+        email  = json['email'],
+        avatar = json['avatar'];
+
+   */
 }

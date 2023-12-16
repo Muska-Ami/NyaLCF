@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/util/cache/InfoCache.dart';
+import 'package:nyalcf/util/model/User.dart';
 
 import '../model/AppbarActions.dart';
 
@@ -10,6 +13,11 @@ class PanelHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    // GetX
+    final Controller c = Get.put(Controller());
+    c.load();
+
     return Scaffold(
         appBar: AppBar(
           title:
@@ -29,26 +37,29 @@ class PanelHome extends StatelessWidget {
             margin: const EdgeInsets.all(40.0),
             child: Column(
               children: <Widget>[
-                const Text(
-                  "Panel Home",
-                  style: TextStyle(fontSize: 30),
-                ),
+                Obx(() => Text(
+                    "${c.user}",
+                    style: TextStyle(fontSize: 30),
+                ))
               ],
             ),
           ),
         ),
         floatingActionButton: FloatingActionButtonX().button());
   }
+}
 
-/*
-  String _avatarUrl() {
-    final info = UserInfoCache.info;
-    if (info != null) {
-      return UserInfoCache.info!.Avatar;
-    } else {
-      print("error: userInfo not found");
-      return "";
-    }
+class Controller extends GetxController {
+  var user   = "".obs;
+  var email  = "".obs;
+  var token  = "".obs;
+  var avatar = "".obs;
+
+  load() async {
+    User userinfo = await InfoCache.getInfo();
+    user = userinfo.user.obs;
+    email = userinfo.email.obs;
+    token = userinfo.token.obs;
+    avatar = userinfo.avatar.obs;
   }
-  */
 }
