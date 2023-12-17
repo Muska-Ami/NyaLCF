@@ -27,4 +27,15 @@ class User {
         outbound = json['outbound'],
         frp_token = json['frp_token'],
         traffic = json['traffic'];
+
+  Map<String, dynamic> toJson() => {
+        'username': user,
+        'token': token,
+        'email': email,
+        'avatar': avatar,
+        'inbound': inbound,
+        'outbound': outbound,
+        'frp_token': frp_token,
+        'traffic': traffic
+      };
 }

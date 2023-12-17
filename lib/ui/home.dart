@@ -16,7 +16,7 @@ class Home extends StatelessWidget {
           title:
               Text("$title - 首页", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
-          actions: AppbarActions(context: context).actions(),
+          actions: AppbarActionsX(context: context).actions(),
         ),
         body: Center(
           child: Container(

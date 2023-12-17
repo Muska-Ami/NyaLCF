@@ -96,7 +96,7 @@ flutter:
           - asset: asset/font/HarmonyOS_Sans_SC_Light.ttf
             weight: 100
           - asset: asset/font/HarmonyOS_Sans_SC_Medium.ttf
-            weight: 450
+            weight: 400
           - asset: asset/font/HarmonyOS_Sans_SC_Bold.ttf
             weight: 700
   #   - family: Schyler

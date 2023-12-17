@@ -11,7 +11,7 @@ class FloatingActionButtonX {
         onPressed: () => showDialog(
             context: context,
             builder: (context) {
-              return ToolDialog(context: context).build();
+              return ToolDialogX(context: context).build();
             }),
         elevation: 7.0,
         highlightElevation: 14.0,

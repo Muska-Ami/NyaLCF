@@ -19,7 +19,8 @@ class SettingInjector extends StatelessWidget {
               title: Text("$title - 设置",
                   style: const TextStyle(color: Colors.white)),
               backgroundColor: Colors.pink[100],
-              actions: AppbarActions(context: context).actions(setting: false),
+              actions:
+                  AppbarActionsX(context: context, setting: false).actions(),
               bottom: TabBar(
                 tabs: <Widget>[
                   Tab(

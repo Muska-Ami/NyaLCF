@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
           title:
               Text("$title - 登录", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
-          actions: AppbarActions(context: context).actions(),
+          actions: AppbarActionsX(context: context).actions(),
         ),
         body: Center(
           child: Container(
@@ -106,6 +106,7 @@ class _LoginState extends State<Login> {
         //UserInfoCache.info = res;
         //print(UserInfoCache.info);
         await InfoCache.setInfo(res);
+        InfoCache.saveToFile();
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('登录成功，欢迎您 ${res.user}'),
         ));

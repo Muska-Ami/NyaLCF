@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class ToolDialog {
-  const ToolDialog({required this.context});
+class ToolDialogX {
+  const ToolDialogX({required this.context});
 
   final context;
 

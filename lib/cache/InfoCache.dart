@@ -1,3 +1,4 @@
+import 'package:nyalcf/io/userInfoStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/User.dart';
@@ -13,6 +14,10 @@ class InfoCache {
     prefs.setInt("user_outbound", userinfo.outbound);
     prefs.setString("user_frp_token", userinfo.frp_token);
     prefs.setInt("user_traffic", userinfo.traffic);
+  }
+
+  static Future<void> saveToFile() async {
+    await UserInfoStorage.save(await getInfo());
   }
 
   static Future<User> getInfo() async {
@@ -35,9 +40,5 @@ class InfoCache {
         outbound: outbound,
         frp_token: frp_token,
         traffic: traffic);
-  }
-
-  static void reset() {
-    //_userinfo = null;
   }
 }

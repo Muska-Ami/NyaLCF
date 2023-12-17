@@ -40,12 +40,11 @@ class App extends StatelessWidget {
           "/panel/home": (context) => PanelHome(title: title),
           "/panel/proxies": (context) => PanelProxies(title: title),
           "/panel/console": (context) => PanelConsole(title: title),
-          "/setting/launcher": (context) => SettingInjector(title: title),
+          "/setting": (context) => SettingInjector(title: title),
         },
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
-          useMaterial3: true,
-          fontFamily: 'HarmonyOS Sans'
-        ));
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+            useMaterial3: true,
+            fontFamily: 'HarmonyOS Sans'));
   }
 }

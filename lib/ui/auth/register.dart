@@ -24,7 +24,7 @@ class _RegisterState extends State<Register> {
           title:
               Text("$title - 注册", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
-          actions: AppbarActions(context: context).actions(),
+          actions: AppbarActionsX(context: context).actions(),
         ),
         body: Center(
           child: Container(
