@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/util/cache/InfoCache.dart';
 import 'package:nyalcf/util/dio/auth/login.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
@@ -45,7 +46,7 @@ class _LoginState extends State<Login> {
             constraints: const BoxConstraints(maxWidth: 400.0),
             child: Column(children: <Widget>[
               const Text(
-                "登录到LocyanFrp",
+                "登录到LoCyanFrp",
                 style: TextStyle(fontSize: 30),
               ),
               Form(
@@ -107,9 +108,9 @@ class _LoginState extends State<Login> {
         //print(UserInfoCache.info);
         await InfoCache.setInfo(res);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('登录成功，欢迎您 ${res.UserName}'),
+          content: Text('登录成功，欢迎您 ${res.user}'),
         ));
-        Navigator.of(context).pushNamed("/panel/home");
+        Get.toNamed("/panel/home");
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('登陆失败：${res}'),

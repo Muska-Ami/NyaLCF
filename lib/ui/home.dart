@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import 'model/AppbarActions.dart';
@@ -34,15 +35,13 @@ class Home extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                            onPressed: () =>
-                                Navigator.of(context).pushNamed("/login"),
+                            onPressed: () => Get.toNamed("/login"),
                             child: const Text("登录")),
                       ),
                       Container(
                           margin: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
-                              onPressed: () =>
-                                  Navigator.of(context).pushNamed("/register"),
+                              onPressed: () => Get.toNamed("/register"),
                               child: const Text("注册"))),
                     ],
                   ),

@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
@@ -26,6 +27,7 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    Get.put(Controller());
     return GetMaterialApp(
         title: 'NyaLCF',
         routes: {

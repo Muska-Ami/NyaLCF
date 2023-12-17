@@ -1,8 +1,12 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nyalcf/controller.dart';
 
 class AppbarActions {
   AppbarActions({required this.context});
+
+  final Controller c = Get.find();
 
   final context;
 
@@ -22,11 +26,9 @@ class AppbarActions {
   }
 
   List<Widget> actions({List<Widget>? append}) {
-    List<Widget> l = list();
-    if (append != null) {
-      return l;
-    }
+    List<Widget> l = <Widget>[];
     l.addAll(append ?? []);
+    l.addAll(list());
     return l;
   }
 

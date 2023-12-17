@@ -20,7 +20,11 @@ class LoginDio {
             user: resData["username"],
             email: resData["email"],
             token: resData["token"],
-            avatar: resData["avatar"]);
+            avatar: resData["avatar"],
+            inbound: resData['inbound'],
+            outbound: resData['outbound'],
+            frp_token: resData['frp_token'],
+            traffic: resData['traffic']);
         return userInfo;
       } else {
         return resData["msg"] ?? responseJson["status"];

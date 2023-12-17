@@ -11,7 +11,7 @@ class ToolDialog {
       title: const Text("请问您今天想做点什么？"),
       children: <Widget>[
         SimpleDialogOption(
-            child: const Text("LocyanFrp Website"),
+            child: const Text("LoCyanFrp Website"),
             onPressed: () async {
               const url = 'https://www.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {
@@ -22,7 +22,7 @@ class ToolDialog {
               }
             }),
         SimpleDialogOption(
-            child: const Text("LocyanFrp Dashboard"),
+            child: const Text("LoCyanFrp Dashboard"),
             onPressed: () async {
               const url = 'https://dashboard.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {
@@ -33,7 +33,7 @@ class ToolDialog {
               }
             }),
         SimpleDialogOption(
-            child: const Text("LocyanFrp Dashboard (Preview)"),
+            child: const Text("LoCyanFrp Dashboard (Preview)"),
             onPressed: () async {
               const url = 'https://preview.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {

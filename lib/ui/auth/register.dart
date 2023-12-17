@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
             constraints: const BoxConstraints(maxWidth: 400.0),
             child: Column(children: <Widget>[
               const Text(
-                "注册LocyanFrp账户",
+                "注册LoCyanFrp账户",
                 style: TextStyle(fontSize: 30),
               ),
               Form(
