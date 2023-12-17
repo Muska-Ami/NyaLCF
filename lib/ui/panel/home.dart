@@ -33,7 +33,7 @@ class PanelHome extends StatelessWidget {
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
                   "${c.avatar}",
-                  width: 40,
+                  width: 35,
                 )))
           ]),
         ),
@@ -105,25 +105,29 @@ class PanelHome extends StatelessWidget {
                                         Text("Frp Token"),
                                         ElevatedButton(
                                             onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: c.frp_token.value));
-                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                    content: Text('已复制'),
-                                                  ));
-                                                },
+                                              Clipboard.setData(ClipboardData(
+                                                  text: c.frp_token.value));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text('已复制'),
+                                              ));
+                                            },
                                             child: Text("点击复制"))
                                       ])),
                                       Card(
                                           child: Column(children: <Widget>[
-                                            Text("Token"),
-                                            ElevatedButton(
-                                                onPressed: () {
-                                                  Clipboard.setData(ClipboardData(text: c.token.value));
-                                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                                    content: Text('已复制'),
-                                                  ));
-                                                },
-                                                child: Text("点击复制"))
-                                          ]))
+                                        Text("Token"),
+                                        ElevatedButton(
+                                            onPressed: () {
+                                              Clipboard.setData(ClipboardData(
+                                                  text: c.token.value));
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(SnackBar(
+                                                content: Text('已复制'),
+                                              ));
+                                            },
+                                            child: Text("点击复制"))
+                                      ]))
                                     ],
                                   ),
                                 )
@@ -141,21 +145,22 @@ class PanelHome extends StatelessWidget {
                                 title: Text("公告"),
                               ),
                               Flexible(
-                                fit: FlexFit.loose,
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 15.0, right: 15.0, bottom: 15.0),
-                                    child: MarkdownBody(
-                                        selectable: true,
-                                        onTapLink: (text, url, title) {
-                                          if (url != null) {
-                                            print(
-                                                "Launch url from Announcement: ${url}");
-                                            launchUrl(Uri.parse(url));
-                                          }
-                                        },
-                                        data: "${dp_c.announcement}")),
-                              )
+                                  fit: FlexFit.loose,
+                                  child: Container(
+                                      margin: EdgeInsets.only(
+                                          left: 15.0,
+                                          right: 15.0,
+                                          bottom: 15.0),
+                                      child: Obx(() => MarkdownBody(
+                                          selectable: true,
+                                          onTapLink: (text, url, title) {
+                                            if (url != null) {
+                                              print(
+                                                  "Launch url from Announcement: ${url}");
+                                              launchUrl(Uri.parse(url));
+                                            }
+                                          },
+                                          data: "${dp_c.announcement}"))))
                             ],
                           ),
                         )),

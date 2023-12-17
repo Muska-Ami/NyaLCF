@@ -14,7 +14,7 @@ class AnnouncementDio {
       return resData['broadcast'];
     } catch (ex) {
       print(ex);
-      return "获取失败了啊呜，一定不是猫猫的错QwQ";
+      return "获取失败了啊呜，可能是猫猫把网线偷走了~";
     }
   }
 }

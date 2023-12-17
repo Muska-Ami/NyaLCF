@@ -26,7 +26,7 @@ class PanelProxies extends StatelessWidget {
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
                   "${c.avatar}",
-                  width: 40,
+                  width: 35,
                 )))
           ]),
         ),
@@ -35,6 +35,7 @@ class PanelProxies extends StatelessWidget {
           Obx(() => DataTable(columns: <DataColumn>[
                 DataColumn(label: Expanded(child: Text("ID"))),
                 DataColumn(label: Expanded(child: Text("节点"))),
+                DataColumn(label: Expanded(child: Text("端口"))),
                 DataColumn(label: Expanded(child: Text("操作")))
               ], rows: p_c.proxiesListWidgets))
         ]),

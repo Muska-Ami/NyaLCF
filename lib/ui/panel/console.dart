@@ -24,7 +24,7 @@ class PanelConsole extends StatelessWidget {
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
                   "${c.avatar}",
-                  width: 40,
+                  width: 35,
                 )))
           ]),
         ),

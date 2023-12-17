@@ -25,9 +25,19 @@ class AppbarActions {
     ];
   }
 
-  List<Widget> actions({List<Widget>? append}) {
+  List<Widget> actions({List<Widget>? append, bool? setting}) {
     List<Widget> l = <Widget>[];
     l.addAll(append ?? []);
+    if (setting ?? true) {
+      l.add(IconButton(
+          onPressed: () {
+            Get.toNamed('/setting/launcher');
+          },
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          )));
+    }
     l.addAll(list());
     return l;
   }

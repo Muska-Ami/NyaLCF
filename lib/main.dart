@@ -8,6 +8,7 @@ import 'package:nyalcf/ui/home.dart';
 import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
+import 'package:nyalcf/ui/setting/injector.dart';
 
 void main() {
   runApp(const App());
@@ -38,7 +39,8 @@ class App extends StatelessWidget {
           "/register": (context) => Register(title: title),
           "/panel/home": (context) => PanelHome(title: title),
           "/panel/proxies": (context) => PanelProxies(title: title),
-          "/panel/console": (context) => PanelConsole(title: title)
+          "/panel/console": (context) => PanelConsole(title: title),
+          "/setting/launcher": (context) => SettingInjector(title: title),
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),

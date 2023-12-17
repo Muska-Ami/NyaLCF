@@ -6,6 +6,7 @@ class ProxiesController extends GetxController {
     DataRow(cells: <DataCell>[
       DataCell(Text("加载中喵喵喵？")),
       DataCell(Text("加载中喵喵喵？")),
+      DataCell(Text("加载中喵喵喵？")),
       DataCell(Text("加载中喵喵喵？"))
     ])
   ].obs;

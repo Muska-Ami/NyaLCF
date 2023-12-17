@@ -21,7 +21,7 @@ class DrawerX {
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 DecoratedBox(
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(255, 101, 160, 0.6196078431372549),
+                        color: Color.fromRGBO(255, 101, 160, 0.4196078431372549),
                         borderRadius: BorderRadius.circular(50.0)),
                     child: Center(
                         child: Container(
