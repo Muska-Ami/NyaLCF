@@ -1,6 +1,6 @@
 # NyaLCF
 
-An unoffical LocyanFrp Launcher.
+An unoffical LoCyanFrp launcher.
 
 ## Getting Started
 
