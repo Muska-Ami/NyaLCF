@@ -11,7 +11,5 @@ class ProxiesController extends GetxController {
     ])
   ].obs;
 
-  load() {
-
-  }
+  load() {}
 }

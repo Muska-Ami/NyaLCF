@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import '../basicConfig.dart';
 
 import '../../model/User.dart';
+import '../basicConfig.dart';
 
 class LoginDio {
   final dio = Dio();

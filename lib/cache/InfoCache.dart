@@ -20,7 +20,8 @@ class InfoCache {
     String user = prefs.getString("user_name") ?? "";
     String email = prefs.getString("user_email") ?? "";
     String token = prefs.getString("user_token") ?? "";
-    String avatar = prefs.getString("user_avatar") ?? "https://cravatar.cn/avatar/";
+    String avatar =
+        prefs.getString("user_avatar") ?? "https://cravatar.cn/avatar/";
     int inbound = prefs.getInt("user_inbound") ?? 0;
     int outbound = prefs.getInt("user_outbound") ?? 0;
     String frp_token = prefs.getString("user_frp_token") ?? "";

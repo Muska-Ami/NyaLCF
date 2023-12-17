@@ -16,7 +16,7 @@ class PanelConsole extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-          Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
+              Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActions(context: context).actions(append: <Widget>[
@@ -29,9 +29,7 @@ class PanelConsole extends StatelessWidget {
           ]),
         ),
         drawer: DrawerX(context: context).drawer(),
-        body: ListView(children: [
-
-        ]),
+        body: ListView(children: []),
         floatingActionButton: FloatingActionButtonX().button());
   }
 }

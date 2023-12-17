@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:path_provider/path_provider.dart';
 
 class FileIO {
@@ -9,9 +6,7 @@ class FileIO {
 
   Future<String> get cache_path async {
     String path = "";
-    await _cache_path.then((value) =>
-        path = value.path
-    );
+    await _cache_path.then((value) => path = value.path);
     return path;
   }
 }

@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dpanel.dart';
+import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
-import 'package:nyalcf/controller/user.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/AppbarActions.dart';

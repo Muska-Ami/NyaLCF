@@ -1,8 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/dio/basicConfig.dart';
-import 'package:nyalcf/model/FrpcList.dart';
 import 'package:nyalcf/util/FileIO.dart';
-import 'package:path_provider/path_provider.dart';
 
 class FrpcDownloadDio {
   final dio = Dio();
