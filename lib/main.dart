@@ -1,11 +1,13 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller.dart';
+import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
+import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
+import 'package:nyalcf/ui/panel/proxies.dart';
 
 void main() {
   runApp(const App());
@@ -27,14 +29,16 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Get.put(Controller());
+    Get.put(UserController());
     return GetMaterialApp(
         title: 'NyaLCF',
         routes: {
           "/": (context) => Home(title: title),
           "/login": (context) => Login(title: title),
           "/register": (context) => Register(title: title),
-          "/panel/home": (context) => PanelHome(title: title)
+          "/panel/home": (context) => PanelHome(title: title),
+          "/panel/proxies": (context) => PanelProxies(title: title),
+          "/panel/console": (context) => PanelConsole(title: title)
         },
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/util/cache/InfoCache.dart';
-import 'package:nyalcf/util/dio/auth/login.dart';
+import 'package:nyalcf/cache/InfoCache.dart';
+import 'package:nyalcf/dio/auth/login.dart';
+import 'package:nyalcf/model/User.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
-
-import '../../util/model/User.dart';
-import '../model/FloatingActionButton.dart';
+import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key, required this.title});

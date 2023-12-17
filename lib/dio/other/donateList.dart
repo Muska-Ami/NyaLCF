@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:dio/dio.dart';
-import 'basicConfig.dart';
+import '../basicConfig.dart';
 
-import '../model/DonateInfo.dart';
+import '../../model/DonateInfo.dart';
 
 class DonateList {
   final dio = Dio();

@@ -1,12 +1,12 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller.dart';
+import 'package:nyalcf/controller/user.dart';
 
 class AppbarActions {
   AppbarActions({required this.context});
 
-  final Controller c = Get.find();
+  final UserController c = Get.find();
 
   final context;
 
