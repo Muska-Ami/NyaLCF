@@ -89,7 +89,16 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
+  fonts:
+      - family: "HarmonyOS Sans"
+        fonts:
+          - asset: asset/font/HarmonyOS_Sans_SC_Regular.ttf
+          - asset: asset/font/HarmonyOS_Sans_SC_Light.ttf
+            weight: 100
+          - asset: asset/font/HarmonyOS_Sans_SC_Medium.ttf
+            weight: 450
+          - asset: asset/font/HarmonyOS_Sans_SC_Bold.ttf
+            weight: 700
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

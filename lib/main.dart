@@ -45,6 +45,7 @@ class App extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
           useMaterial3: true,
+          fontFamily: 'HarmonyOS Sans'
         ));
   }
 }
