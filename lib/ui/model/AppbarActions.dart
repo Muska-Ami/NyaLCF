@@ -80,7 +80,7 @@ class AppbarActionsX {
         builder: (context) {
           return AlertDialog(
             title: Text('关闭NyaLCF'),
-            content: Text('确定要关闭NyaLCF吗'),
+            content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
             actions: <Widget>[
               TextButton(
                   child: Text(

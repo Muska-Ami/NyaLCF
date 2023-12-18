@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nyalcf/controller/dsetting.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
@@ -6,12 +8,14 @@ import 'frpcmanager.dart';
 import 'launcher.dart';
 
 class SettingInjector extends StatelessWidget {
-  const SettingInjector({super.key, required this.title});
+  SettingInjector({super.key, required this.title});
 
   final String title;
+  final DSettingController ds_c = Get.put(DSettingController());
 
   @override
   Widget build(BuildContext context) {
+    ds_c.load();
     return DefaultTabController(
         length: 2,
         child: Scaffold(
