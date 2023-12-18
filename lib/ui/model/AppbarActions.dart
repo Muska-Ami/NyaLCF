@@ -21,7 +21,7 @@ class AppbarActionsX {
       WindowTitleBarBox(
         child: MoveWindow(
           child: Transform.translate(
-            offset: Offset(0, -4.5),
+            offset: Offset(0, -5.0),
             child: IconButton(
               onPressed: () => {},
               icon: Icon(Icons.select_all),

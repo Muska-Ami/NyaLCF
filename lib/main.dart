@@ -25,14 +25,14 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
-  final title = "NyaLCF";
+  final title = "Nya LoCyanFrp!";
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     Get.put(UserController());
     return GetMaterialApp(
-        title: 'NyaLCF',
+        title: 'Nya LoCyanFrp!',
         routes: {
           "/": (context) => Home(title: title),
           "/login": (context) => Login(title: title),
@@ -43,8 +43,8 @@ class App extends StatelessWidget {
           "/setting": (context) => SettingInjector(title: title),
         },
         theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
             useMaterial3: true,
-            fontFamily: 'HarmonyOS Sans'));
+            fontFamily: 'HarmonyOS Sans',
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink)));
   }
 }

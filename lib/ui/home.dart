@@ -24,8 +24,11 @@ class Home extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 const Text(
-                  "欢迎使用NyaLCF",
+                  "欢迎使用Nya LoCyanFrp! Launcher",
                   style: TextStyle(fontSize: 30),
+                ),
+                const Text(
+                  "にゃ~にゃ~，请选择一项操作"
                 ),
                 Container(
                   margin: const EdgeInsets.all(20.0),
