@@ -20,10 +20,10 @@ class FrpcDownloadDio {
     try {
       return await dio.download(
           "https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/download/v0.51.3/frp_LoCyanFrp-0.51.3_windows_amd64.zip",
-          "${FileIO().cache_path}/",
+          "${FileIO.cache_path}/frpc.zip",
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback);
-    } on DioException catch (e) {
+    } on DioException {
       if (cancelToken.isCancelled)
         return true;
       else
