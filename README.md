@@ -1,6 +1,16 @@
 # NyaLCF
 
+<img src="https://pan.1l1.icu/f/3YEFv/NyaLCF.png" width="100%" />
+
 An unoffical LoCyanFrp launcher.
+
+## 启动器优势
+
+- [x] 质感，美观，基于 Material Design 3 设计
+- [x] 高性能，低占用
+- [x] 轻量化体积，启动器总大小不超过50MB，本体不足1MB
+- [x] 流畅的界面动画
+- [x] 可爱喵！にゃ~
 
 ## Getting Started
 
