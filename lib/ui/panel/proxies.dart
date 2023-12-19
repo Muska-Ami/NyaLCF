@@ -34,21 +34,37 @@ class PanelProxies extends StatelessWidget {
               .actions(),
         ),
         drawer: DrawerX(context: context).drawer(),
-        body: ListView(children: [
-          Obx(() => DataTable(
-                columnSpacing: 5.0,
-                columns: <DataColumn>[
-                  DataColumn(label: Expanded(child: Text('名称'))),
-                  DataColumn(label: Expanded(child: Text('ID'))),
-                  DataColumn(label: Expanded(child: Text('节点'))),
-                  DataColumn(label: Expanded(child: Text('协议'))),
-                  DataColumn(label: Expanded(child: Text('本地IP'))),
-                  DataColumn(label: Expanded(child: Text('端口'))),
-                  DataColumn(label: Expanded(child: Text('操作')))
-                ],
-                rows: p_c.proxiesListWidgets,
-              ))
-        ]),
+        body: Container(
+          margin: EdgeInsets.all(40.0),
+          child: ListView(
+            children: [
+              ElevatedButton(
+                onPressed: () => {p_c.reload(c.user, c.token)},
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
+                ),
+              ),
+              Obx(() => Column(
+                    children: [
+                      DataTable(
+                        columnSpacing: 5.0,
+                        columns: <DataColumn>[
+                          DataColumn(label: Flexible(child: Text('名称'))),
+                          DataColumn(label: Flexible(child: Text('ID'))),
+                          DataColumn(label: Flexible(child: Text('节点'))),
+                          DataColumn(label: Flexible(child: Text('协议'))),
+                          DataColumn(label: Flexible(child: Text('本地IP'))),
+                          DataColumn(label: Flexible(child: Text('端口'))),
+                          DataColumn(label: Flexible(child: Text('操作')))
+                        ],
+                        rows: p_c.proxiesListWidgets.value,
+                      ),
+                    ],
+                  ))
+            ],
+          ),
+        ),
         floatingActionButton: FloatingActionButtonX().button());
   }
 }

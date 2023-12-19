@@ -11,7 +11,13 @@ class ProxiesController extends GetxController {
   final FrpcController f_c = Get.find();
   var proxiesListWidgets = <DataRow>[
     DataRow(cells: <DataCell>[
-      DataCell(Text('加载中喵喵喵？')),
+      DataCell(SizedBox(
+        height: 22.0,
+        width: 22.0,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
+      )),
       DataCell(Text('-')),
       DataCell(Text('-')),
       DataCell(Text('-')),
@@ -79,5 +85,26 @@ class ProxiesController extends GetxController {
         animationDuration: Duration(milliseconds: 300),
       );
     }
+  }
+
+  reload(username, token) {
+    proxiesListWidgets.value = <DataRow>[
+      DataRow(cells: <DataCell>[
+        DataCell(SizedBox(
+          height: 22.0,
+          width: 22.0,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        )),
+        DataCell(Text('-')),
+        DataCell(Text('-')),
+        DataCell(Text('-')),
+        DataCell(Text('-')),
+        DataCell(Text('-')),
+        DataCell(Text('-')),
+      ])
+    ];
+    load(username, token);
   }
 }
