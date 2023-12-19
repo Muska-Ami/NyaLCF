@@ -89,17 +89,26 @@ class _LoginState extends State<Login> {
 
   _login() async {
     if (userController.text == "") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('请输入用户名'),
-      ));
+      Get.snackbar(
+        "无效数据",
+        '请输入用户名',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: Duration(milliseconds: 300),
+      );
     } else if (passwordController.text == "") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('请输入密码'),
-      ));
+      Get.snackbar(
+        "无效数据",
+        '请输入密码',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: Duration(milliseconds: 300),
+      );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('正在登录...'),
-      ));
+      Get.snackbar(
+        "登录中",
+        '正在请求...',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: Duration(milliseconds: 300),
+      );
       final res = await LoginDio()
           .requestLogin(userController.text, passwordController.text);
       if (res is User) {
@@ -107,14 +116,20 @@ class _LoginState extends State<Login> {
         //print(UserInfoCache.info);
         await InfoCache.setInfo(res);
         InfoCache.saveToFile();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('登录成功，欢迎您 ${res.user}'),
-        ));
+        Get.snackbar(
+          "登录成功",
+          "欢迎您，指挥官 ${res.user}",
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: Duration(milliseconds: 300),
+        );
         Get.toNamed("/panel/home");
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('登陆失败：${res}'),
-        ));
+        Get.snackbar(
+          '登陆失败',
+          res,
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: Duration(milliseconds: 300),
+        );
       }
     }
   }

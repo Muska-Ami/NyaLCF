@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/frpc.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import 'model/AppbarActions.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key, required this.title});
+  Home({super.key, required this.title});
 
   final String title;
+  final FrpcController f_c = Get.put(FrpcController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +29,7 @@ class Home extends StatelessWidget {
                   "欢迎使用Nya LoCyanFrp! Launcher",
                   style: TextStyle(fontSize: 30),
                 ),
-                const Text(
-                  "にゃ~にゃ~，请选择一项操作"
-                ),
+                const Text("にゃ~にゃ~，请选择一项操作"),
                 Container(
                   margin: const EdgeInsets.all(20.0),
                   child: Row(

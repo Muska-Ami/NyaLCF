@@ -4,6 +4,7 @@ import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
@@ -30,7 +31,17 @@ class PanelConsole extends StatelessWidget {
               .actions(),
         ),
         drawer: DrawerX(context: context).drawer(),
-        body: ListView(children: []),
+        body: Center(
+          child: ListView(children: [
+            Text("这里还什么都没有，不过你可以为这里贡献一下ww~"),
+            ElevatedButton(
+              onPressed: () {
+                launchUrl(Uri.parse("https://github.com/Muska-Ami/NyaLCF"));
+              },
+              child: SelectableText("https://github.com/Muska-Ami/NyaLCF"),
+            ),
+          ]),
+        ),
         floatingActionButton: FloatingActionButtonX().button());
   }
 }

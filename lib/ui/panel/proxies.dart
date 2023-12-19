@@ -15,6 +15,8 @@ class PanelProxies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    p_c.load(c.user, c.token);
+
     return Scaffold(
         appBar: AppBar(
           title:
@@ -33,12 +35,19 @@ class PanelProxies extends StatelessWidget {
         ),
         drawer: DrawerX(context: context).drawer(),
         body: ListView(children: [
-          Obx(() => DataTable(columns: <DataColumn>[
-                DataColumn(label: Expanded(child: Text("ID"))),
-                DataColumn(label: Expanded(child: Text("节点"))),
-                DataColumn(label: Expanded(child: Text("端口"))),
-                DataColumn(label: Expanded(child: Text("操作")))
-              ], rows: p_c.proxiesListWidgets))
+          Obx(() => DataTable(
+                columnSpacing: 5.0,
+                columns: <DataColumn>[
+                  DataColumn(label: Expanded(child: Text("名称"))),
+                  DataColumn(label: Expanded(child: Text("ID"))),
+                  DataColumn(label: Expanded(child: Text("节点"))),
+                  DataColumn(label: Expanded(child: Text("协议"))),
+                  DataColumn(label: Expanded(child: Text("本地IP"))),
+                  DataColumn(label: Expanded(child: Text("端口"))),
+                  DataColumn(label: Expanded(child: Text("操作")))
+                ],
+                rows: p_c.proxiesListWidgets,
+              ))
         ]),
         floatingActionButton: FloatingActionButtonX().button());
   }

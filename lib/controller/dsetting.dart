@@ -24,11 +24,12 @@ class DSettingController extends GetxController {
   }
 
   //Future<FrpcList> _getList() async {
-    //final ct = CancelToken();
-    //await FrpcDownloadDio()(arch: 'amd64', platform: 'windows', progressCallback: () {}, cancelToken: ct);
+  //final ct = CancelToken();
+  //await FrpcDownloadDio()(arch: 'amd64', platform: 'windows', progressCallback: () {}, cancelToken: ct);
   //}
 
-  DropdownMenuItem _buildDMIWidget({required String version, required int value}) {
+  DropdownMenuItem _buildDMIWidget(
+      {required String version, required int value}) {
     return DropdownMenuItem(
       child: Text(version),
       value: value,

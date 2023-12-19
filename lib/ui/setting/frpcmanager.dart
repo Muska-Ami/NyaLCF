@@ -4,6 +4,7 @@ import 'package:nyalcf/controller/dsetting.dart';
 
 class FrpcManagerSX {
   final DSettingController ds_c = Get.find();
+
   Widget widget() {
     return ListView(
       children: [
