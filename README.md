@@ -4,13 +4,24 @@
 
 An unoffical LoCyanFrp launcher.
 
-## 启动器优势
+## 为什么使用NyaLCF
 
 - [x] 质感，美观，基于 Material Design 3 设计
+- [x] 跨平台可用
 - [x] 高性能，低占用
 - [x] 轻量化体积，启动器总大小不超过50MB，本体不足1MB
 - [x] 流畅的界面动画
 - [x] 可爱喵！にゃ~
+
+## 设计功能
+
+- [x] 自动登录
+- [ ] Frpc管理
+- [x] Frp Token复制
+- [x] 隧道信息展示
+- [ ] 隧道启动
+- [ ] 隧道编辑
+- [ ] 公告
 
 ## Getting Started
 
