@@ -20,14 +20,14 @@ class PanelProxies extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
+              Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
             Obx(() => ClipRRect(
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
-                  "${c.avatar}",
+                  '${c.avatar}',
                   width: 35,
                 )))
           ], context: context)
@@ -38,13 +38,13 @@ class PanelProxies extends StatelessWidget {
           Obx(() => DataTable(
                 columnSpacing: 5.0,
                 columns: <DataColumn>[
-                  DataColumn(label: Expanded(child: Text("名称"))),
-                  DataColumn(label: Expanded(child: Text("ID"))),
-                  DataColumn(label: Expanded(child: Text("节点"))),
-                  DataColumn(label: Expanded(child: Text("协议"))),
-                  DataColumn(label: Expanded(child: Text("本地IP"))),
-                  DataColumn(label: Expanded(child: Text("端口"))),
-                  DataColumn(label: Expanded(child: Text("操作")))
+                  DataColumn(label: Expanded(child: Text('名称'))),
+                  DataColumn(label: Expanded(child: Text('ID'))),
+                  DataColumn(label: Expanded(child: Text('节点'))),
+                  DataColumn(label: Expanded(child: Text('协议'))),
+                  DataColumn(label: Expanded(child: Text('本地IP'))),
+                  DataColumn(label: Expanded(child: Text('端口'))),
+                  DataColumn(label: Expanded(child: Text('操作')))
                 ],
                 rows: p_c.proxiesListWidgets,
               ))

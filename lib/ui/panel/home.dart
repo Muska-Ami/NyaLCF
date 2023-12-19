@@ -25,14 +25,14 @@ class PanelHome extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
+              Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
             Obx(() => ClipRRect(
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
-                  "${c.avatar}",
+                  '${c.avatar}',
                   width: 35,
                 )))
           ], context: context)
@@ -46,7 +46,7 @@ class PanelHome extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     Obx(() => Text(
-                          "指挥官 ${c.user}，${c.welcomeText}喵！",
+                          '指挥官 ${c.user}，${c.welcomeText}喵！',
                           style: TextStyle(fontSize: 15),
                         )),
                     Row(
@@ -61,7 +61,7 @@ class PanelHome extends StatelessWidget {
                               children: <Widget>[
                                 ListTile(
                                   leading: Icon(Icons.info),
-                                  title: Text("指挥官信息"),
+                                  title: Text('指挥官信息'),
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
@@ -72,11 +72,12 @@ class PanelHome extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Obx(() => Text("用户名：${c.user}")),
-                                      Obx(() => Text("邮箱：${c.email}")),
+                                      Obx(() => Text('用户名：${c.user}')),
+                                      Obx(() => Text('邮箱：${c.email}')),
                                       Obx(() => Text(
-                                          "限制速率：${c.inbound / 1024 * 8}Mbps/${c.outbound / 1024 * 8}Mbps")),
-                                      //Obx(() => Text(""))
+                                          '限制速率：${c.inbound / 1024 * 8}Mbps/${c.outbound / 1024 * 8}Mbps')),
+                                      Obx(() =>
+                                          Text('剩余流量：${c.traffic / 1024}GiB'))
                                     ],
                                   ),
                                 )
@@ -90,7 +91,7 @@ class PanelHome extends StatelessWidget {
                               children: <Widget>[
                                 ListTile(
                                   leading: Icon(Icons.looks),
-                                  title: Text("会话详情"),
+                                  title: Text('会话详情'),
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(
@@ -103,7 +104,7 @@ class PanelHome extends StatelessWidget {
                                     children: <Widget>[
                                       Card(
                                           child: Column(children: <Widget>[
-                                        Text("Frp Token"),
+                                        Text('Frp Token'),
                                         ElevatedButton(
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
@@ -113,11 +114,11 @@ class PanelHome extends StatelessWidget {
                                                 content: Text('已复制'),
                                               ));
                                             },
-                                            child: Text("点击复制"))
+                                            child: Text('点击复制'))
                                       ])),
                                       Card(
                                           child: Column(children: <Widget>[
-                                        Text("Token"),
+                                        Text('Token'),
                                         ElevatedButton(
                                             onPressed: () {
                                               Clipboard.setData(ClipboardData(
@@ -127,7 +128,7 @@ class PanelHome extends StatelessWidget {
                                                 content: Text('已复制'),
                                               ));
                                             },
-                                            child: Text("点击复制"))
+                                            child: Text('点击复制'))
                                       ]))
                                     ],
                                   ),
@@ -143,7 +144,7 @@ class PanelHome extends StatelessWidget {
                             children: <Widget>[
                               ListTile(
                                 leading: Icon(Icons.announcement),
-                                title: Text("公告"),
+                                title: Text('公告'),
                               ),
                               Flexible(
                                   fit: FlexFit.loose,
@@ -157,11 +158,11 @@ class PanelHome extends StatelessWidget {
                                           onTapLink: (text, url, title) {
                                             if (url != null) {
                                               print(
-                                                  "Launch url from Announcement: ${url}");
+                                                  'Launch url from Announcement: ${url}');
                                               launchUrl(Uri.parse(url));
                                             }
                                           },
-                                          data: "${dp_c.announcement}"))))
+                                          data: '${dp_c.announcement}'))))
                             ],
                           ),
                         )),

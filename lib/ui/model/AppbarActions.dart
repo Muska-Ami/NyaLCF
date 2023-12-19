@@ -25,7 +25,7 @@ class AppbarActionsX {
             child: IconButton(
               onPressed: () => {},
               icon: Icon(Icons.select_all),
-              tooltip: "按住移动",
+              tooltip: '按住移动',
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -40,7 +40,7 @@ class AppbarActionsX {
       IconButton(
         onPressed: () => {appWindow.minimize()},
         icon: Icon(Icons.horizontal_rule),
-        tooltip: "最小化",
+        tooltip: '最小化',
         color: Colors.white,
       ),
 
@@ -48,7 +48,7 @@ class AppbarActionsX {
       IconButton(
         onPressed: () => {_closeAlertDialog()},
         icon: Icon(Icons.close),
-        tooltip: "关闭",
+        tooltip: '关闭',
         color: Colors.white,
       ),
     ];
@@ -65,7 +65,7 @@ class AppbarActionsX {
             Icons.settings,
             color: Colors.white,
           ),
-          tooltip: "设置",
+          tooltip: '设置',
           color: Colors.white,
         ),
       );

@@ -22,7 +22,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 注册", style: const TextStyle(color: Colors.white)),
+              Text('$title - 注册', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           actions: AppbarActionsX(context: context).actions(),
         ),
@@ -32,7 +32,7 @@ class _RegisterState extends State<Register> {
             constraints: const BoxConstraints(maxWidth: 400.0),
             child: Column(children: <Widget>[
               const Text(
-                "注册LoCyanFrp账户",
+                '注册LoCyanFrp账户',
                 style: TextStyle(fontSize: 30),
               ),
               Form(
@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
                       margin: EdgeInsets.all(6.0),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                          labelText: "用户名",
+                          labelText: '用户名',
                           icon: Icon(Icons.person),
                           border: OutlineInputBorder(),
                         ),
@@ -53,7 +53,7 @@ class _RegisterState extends State<Register> {
                       child: TextFormField(
                         obscureText: true,
                         decoration: const InputDecoration(
-                          labelText: "密码",
+                          labelText: '密码',
                           icon: Icon(Icons.key),
                           border: OutlineInputBorder(),
                         ),
@@ -64,7 +64,7 @@ class _RegisterState extends State<Register> {
                       child: TextFormField(
                         obscureText: true,
                         decoration: const InputDecoration(
-                          labelText: "重复密码",
+                          labelText: '重复密码',
                           icon: Icon(Icons.password),
                           border: OutlineInputBorder(),
                         ),
@@ -77,12 +77,12 @@ class _RegisterState extends State<Register> {
                           RegExp reg = RegExp(
                               '^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.[a-zA-Z0-9]{2,6}\$');
                           if (reg.hasMatch(value!)) {
-                            return "无效的邮箱";
+                            return '无效的邮箱';
                           }
                           return null;
                         },
                         decoration: const InputDecoration(
-                          labelText: "邮箱",
+                          labelText: '邮箱',
                           icon: Icon(Icons.email),
                           border: OutlineInputBorder(),
                         ),
@@ -91,7 +91,7 @@ class _RegisterState extends State<Register> {
                     Container(
                         margin: const EdgeInsets.all(8.0),
                         child: const ElevatedButton(
-                            onPressed: null, child: Text("注册"))),
+                            onPressed: null, child: Text('注册'))),
                   ],
                 ),
               ),

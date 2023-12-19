@@ -14,7 +14,7 @@ class FrpcManagerSX {
               Expanded(
                 child: ListTile(
                   leading: Icon(Icons.cabin),
-                  title: Text("Frpc版本"),
+                  title: Text('Frpc版本'),
                 ),
               ),
               Container(

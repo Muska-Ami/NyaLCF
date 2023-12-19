@@ -17,14 +17,14 @@ class PanelConsole extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 仪表板", style: const TextStyle(color: Colors.white)),
+              Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
             Obx(() => ClipRRect(
                 borderRadius: BorderRadius.circular(500),
                 child: Image.network(
-                  "${c.avatar}",
+                  '${c.avatar}',
                   width: 35,
                 )))
           ], context: context)
@@ -33,12 +33,12 @@ class PanelConsole extends StatelessWidget {
         drawer: DrawerX(context: context).drawer(),
         body: Center(
           child: ListView(children: [
-            Text("这里还什么都没有，不过你可以为这里贡献一下ww~"),
+            Text('这里还什么都没有，不过你可以为这里贡献一下ww~'),
             ElevatedButton(
               onPressed: () {
-                launchUrl(Uri.parse("https://github.com/Muska-Ami/NyaLCF"));
+                launchUrl(Uri.parse('https://github.com/Muska-Ami/NyaLCF'));
               },
-              child: SelectableText("https://github.com/Muska-Ami/NyaLCF"),
+              child: SelectableText('https://github.com/Muska-Ami/NyaLCF'),
             ),
           ]),
         ),

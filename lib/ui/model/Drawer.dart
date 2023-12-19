@@ -14,7 +14,7 @@ class DrawerX {
           DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: NetworkImage("https://api.imlazy.ink/img"),
+                    image: NetworkImage('https://api.imlazy.ink/img'),
                     fit: BoxFit.cover),
                 color: Colors.pink,
               ),

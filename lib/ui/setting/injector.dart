@@ -20,7 +20,7 @@ class SettingInjector extends StatelessWidget {
         length: 2,
         child: Scaffold(
             appBar: AppBar(
-              title: Text("$title - 设置",
+              title: Text('$title - 设置',
                   style: const TextStyle(color: Colors.white)),
               backgroundColor: Colors.pink[100],
               actions:
@@ -30,14 +30,14 @@ class SettingInjector extends StatelessWidget {
                   Tab(
                     icon: Icon(Icons.launch, color: Colors.white),
                     child: Text(
-                      "启动器",
+                      '启动器',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
                   Tab(
                     icon: Icon(Icons.support, color: Colors.white),
                     child: Text(
-                      "FRPC",
+                      'FRPC',
                       style: TextStyle(color: Colors.white),
                     ),
                   )

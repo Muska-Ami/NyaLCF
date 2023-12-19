@@ -7,7 +7,7 @@ class FrpcDownloadDio {
   /*
   Future<FrpcList> fetchVersion() async {
     final response =
-        await dio.get("${basicConfig.github_api_url}/repos/${basicConfig.frpc_release_repo}/releases/latest");
+        await dio.get('${basicConfig.github_api_url}/repos/${basicConfig.frpc_release_repo}/releases/latest');
     
   }
    */
@@ -19,8 +19,8 @@ class FrpcDownloadDio {
       required CancelToken cancelToken}) async {
     try {
       return await dio.download(
-          "https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/download/v0.51.3/frp_LoCyanFrp-0.51.3_windows_amd64.zip",
-          "${FileIO.cache_path}/frpc.zip",
+          'https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/download/v0.51.3/frp_LoCyanFrp-0.51.3_windows_amd64.zip',
+          '${FileIO.cache_path}/frpc.zip',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback);
     } on DioException {

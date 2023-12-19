@@ -25,7 +25,7 @@ void main() {
 class App extends StatelessWidget {
   const App({super.key});
 
-  final title = "Nya LoCyanFrp!";
+  final title = 'Nya LoCyanFrp!';
 
   // This widget is the root of your application.
   @override
@@ -34,13 +34,13 @@ class App extends StatelessWidget {
     return GetMaterialApp(
         title: 'Nya LoCyanFrp!',
         routes: {
-          "/": (context) => Home(title: title),
-          "/login": (context) => Login(title: title),
-          "/register": (context) => Register(title: title),
-          "/panel/home": (context) => PanelHome(title: title),
-          "/panel/proxies": (context) => PanelProxies(title: title),
-          "/panel/console": (context) => PanelConsole(title: title),
-          "/setting": (context) => SettingInjector(title: title),
+          '/': (context) => Home(title: title),
+          '/login': (context) => Login(title: title),
+          '/register': (context) => Register(title: title),
+          '/panel/home': (context) => PanelHome(title: title),
+          '/panel/proxies': (context) => PanelProxies(title: title),
+          '/panel/console': (context) => PanelConsole(title: title),
+          '/setting': (context) => SettingInjector(title: title),
         },
         theme: ThemeData(
             useMaterial3: true,

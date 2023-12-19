@@ -20,7 +20,7 @@ class ProxiesGetDio {
       //print(options.headers?.keys);
 
       var response = await dio.get(
-        "${basicConfig.api_v2_url}/proxies/getlist",
+        '${basicConfig.api_v2_url}/proxies/getlist',
         queryParameters: params_map,
         options: options,
       );

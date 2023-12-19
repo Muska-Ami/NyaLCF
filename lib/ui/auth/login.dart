@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/cache/InfoCache.dart';
 import 'package:nyalcf/dio/auth/login.dart';
 import 'package:nyalcf/model/User.dart';
+import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
@@ -35,7 +35,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text("$title - 登录", style: const TextStyle(color: Colors.white)),
+              Text('$title - 登录', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           actions: AppbarActionsX(context: context).actions(),
         ),
@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
             constraints: const BoxConstraints(maxWidth: 400.0),
             child: Column(children: <Widget>[
               const Text(
-                "登录到LoCyanFrp",
+                '登录到LoCyanFrp',
                 style: TextStyle(fontSize: 30),
               ),
               Form(
@@ -55,7 +55,7 @@ class _LoginState extends State<Login> {
                       margin: EdgeInsets.all(6.0),
                       child: TextFormField(
                         decoration: const InputDecoration(
-                          labelText: "用户名",
+                          labelText: '用户名',
                           icon: Icon(Icons.person),
                           border: OutlineInputBorder(),
                         ),
@@ -67,7 +67,7 @@ class _LoginState extends State<Login> {
                       child: TextFormField(
                         obscureText: true,
                         decoration: const InputDecoration(
-                          labelText: "密码",
+                          labelText: '密码',
                           icon: Icon(Icons.key),
                           border: OutlineInputBorder(),
                         ),
@@ -77,7 +77,7 @@ class _LoginState extends State<Login> {
                     Container(
                         margin: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                            onPressed: () => {_login()}, child: Text("登录"))),
+                            onPressed: () => {_login()}, child: Text('登录'))),
                   ],
                 ),
               ),
@@ -88,23 +88,23 @@ class _LoginState extends State<Login> {
   }
 
   _login() async {
-    if (userController.text == "") {
+    if (userController.text == '') {
       Get.snackbar(
-        "无效数据",
+        '无效数据',
         '请输入用户名',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: Duration(milliseconds: 300),
       );
-    } else if (passwordController.text == "") {
+    } else if (passwordController.text == '') {
       Get.snackbar(
-        "无效数据",
+        '无效数据',
         '请输入密码',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: Duration(milliseconds: 300),
       );
     } else {
       Get.snackbar(
-        "登录中",
+        '登录中',
         '正在请求...',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: Duration(milliseconds: 300),
@@ -114,15 +114,15 @@ class _LoginState extends State<Login> {
       if (res is User) {
         //UserInfoCache.info = res;
         //print(UserInfoCache.info);
-        await InfoCache.setInfo(res);
-        InfoCache.saveToFile();
+        await UserInfoPrefs.setInfo(res);
+        UserInfoPrefs.saveToFile();
         Get.snackbar(
-          "登录成功",
-          "欢迎您，指挥官 ${res.user}",
+          '登录成功',
+          '欢迎您，指挥官 ${res.user}',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: Duration(milliseconds: 300),
         );
-        Get.toNamed("/panel/home");
+        Get.toNamed('/panel/home');
       } else {
         Get.snackbar(
           '登陆失败',

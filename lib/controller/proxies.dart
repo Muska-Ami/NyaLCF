@@ -11,13 +11,13 @@ class ProxiesController extends GetxController {
   final FrpcController f_c = Get.find();
   var proxiesListWidgets = <DataRow>[
     DataRow(cells: <DataCell>[
-      DataCell(Text("加载中喵喵喵？")),
-      DataCell(Text("-")),
-      DataCell(Text("-")),
-      DataCell(Text("-")),
-      DataCell(Text("-")),
-      DataCell(Text("-")),
-      DataCell(Text("-")),
+      DataCell(Text('加载中喵喵喵？')),
+      DataCell(Text('-')),
+      DataCell(Text('-')),
+      DataCell(Text('-')),
+      DataCell(Text('-')),
+      DataCell(Text('-')),
+      DataCell(Text('-')),
     ])
   ].obs;
 
@@ -38,7 +38,7 @@ class ProxiesController extends GetxController {
             DataCell(SelectableText(element.proxy_type)),
             DataCell(SelectableText(element.local_ip)),
             DataCell(
-              SelectableText("${element.local_port} -> ${element.remote_port}"),
+              SelectableText('${element.local_port} -> ${element.remote_port}'),
             ),
             DataCell(
               Row(
@@ -46,13 +46,13 @@ class ProxiesController extends GetxController {
                   IconButton(
                     icon: Icon(Icons.play_circle),
                     onPressed: () {
-                      Process.run("cmd.exe", ["start", "cmd.exe"]);
+                      Process.run('cmd.exe', ['start', 'cmd.exe']);
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () {
-                      Get.snackbar("谁让你点了？", "还没写，爬去面板编辑喵喵喵！");
+                      Get.snackbar('谁让你点了？', '还没写，爬去面板编辑喵喵喵！');
                     },
                   ),
                 ],
@@ -63,18 +63,18 @@ class ProxiesController extends GetxController {
     } else {
       proxiesListWidgets.value = <DataRow>[
         DataRow(cells: <DataCell>[
-          DataCell(Text("获取失败，请尝试刷新一下~")),
-          DataCell(Text("-")),
-          DataCell(Text("-")),
-          DataCell(Text("-")),
-          DataCell(Text("-")),
-          DataCell(Text("-")),
-          DataCell(Text("-")),
+          DataCell(Text('获取失败，请尝试刷新一下~')),
+          DataCell(Text('-')),
+          DataCell(Text('-')),
+          DataCell(Text('-')),
+          DataCell(Text('-')),
+          DataCell(Text('-')),
+          DataCell(Text('-')),
         ])
       ];
       Get.snackbar(
-        "发生错误",
-        "无法获取隧道列表信息： ${proxies}",
+        '发生错误',
+        '无法获取隧道列表信息： ${proxies}',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: Duration(milliseconds: 300),
       );
