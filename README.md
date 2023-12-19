@@ -21,7 +21,7 @@ An unoffical LoCyanFrp launcher.
 - [x] 隧道信息展示
 - [ ] 隧道启动
 - [ ] 隧道编辑
-- [ ] 公告
+- [x] 公告
 
 ## Getting Started
 
