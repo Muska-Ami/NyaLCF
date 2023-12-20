@@ -14,7 +14,7 @@ class AccountDialogX {
       children: <Widget>[
         SimpleDialogOption(
             child: const ListTile(
-              leading: Icon(Icons.transit_enterexit),
+              leading: Icon(Icons.redo),
               title: Text('退出登录'),
             ),
             onPressed: () async {
@@ -32,7 +32,7 @@ class AccountDialogX {
             }),
         SimpleDialogOption(
             child: const ListTile(
-              leading: Icon(Icons.headset),
+              leading: Icon(Icons.face),
               title: Text('编辑头像'),
             ),
             onPressed: () async {

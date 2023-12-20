@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/util/FileIO.dart';
 
 class FrpcController extends GetxController {
@@ -9,21 +11,16 @@ class FrpcController extends GetxController {
   var version = ''.obs;
 
   load() async {
-    exist.value = await file().exists();
+    exist.value = await file.exists();
   }
 
   /// 获取Frpc文件对象
-  File file() {
-    String path = '';
-    _support_path.then((value) {
-      path = value + '/frpc/${version}/frpc';
-    });
-    if (Platform.isWindows) path += '.exe';
-    return File(path);
-  }
+  get file => FrpcManagerStorage.getFile(version.value);
 
   Future<String> getVersion() async {
-    String path = await _support_path + '/frpc/frpc_info.json';
-    return await File(path).readAsString();
+    String path = await _support_path + '/setting/frpc.json';
+    final setting = File(path).readAsString();
+    final Map<String, dynamic> settingJson = jsonDecode(await setting);
+    return settingJson['use_version'];
   }
 }

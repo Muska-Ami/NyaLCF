@@ -49,14 +49,19 @@ class _HC extends GetxController {
       '欢迎使用Nya LoCyanFrp! Launcher',
       style: TextStyle(fontSize: 30),
     ),
-    const Text('にゃ~にゃ~，请选择一项操作'),
-    SizedBox(
-      height: 22.0,
-      width: 22.0,
-      child: CircularProgressIndicator(
-        strokeWidth: 2,
-      ),
-    )
+    const Text('にゃ~にゃ~，检测到保存数据，正在校验以自动登录'),
+    Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          height: 22.0,
+          width: 22.0,
+          child: CircularProgressIndicator(
+            strokeWidth: 2,
+          ),
+        ),
+      ],
+    ),
   ].obs;
 
   load() async {
@@ -64,6 +69,12 @@ class _HC extends GetxController {
     if (userinfo != null) {
       if (await CheckDio().checkToken(userinfo.token)) {
         w.value = <Widget>[];
+        Get.snackbar(
+          '欢迎回来',
+          '已经自动登录啦~',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: Duration(milliseconds: 300),
+        );
         Get.toNamed('/panel/home');
       } else {
         Get.snackbar(
