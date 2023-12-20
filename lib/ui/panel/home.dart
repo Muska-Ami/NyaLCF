@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dpanel.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,12 +30,21 @@ class PanelHome extends StatelessWidget {
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
-            Obx(() => ClipRRect(
-                borderRadius: BorderRadius.circular(500),
-                child: Image.network(
-                  '${c.avatar}',
-                  width: 35,
-                )))
+            Obx(() => IconButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (x) {
+                        return AccountDialogX(context: context).build();
+                      });
+                },
+                icon: ClipRRect(
+                  borderRadius: BorderRadius.circular(500),
+                  child: Image.network(
+                    '${c.avatar}',
+                    width: 35,
+                  ),
+                ))),
           ], context: context)
               .actions(),
         ),

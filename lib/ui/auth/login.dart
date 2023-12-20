@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
       } else {
         Get.snackbar(
           '登陆失败',
-          res,
+          res.toString(),
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: Duration(milliseconds: 300),
         );

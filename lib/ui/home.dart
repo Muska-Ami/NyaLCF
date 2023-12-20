@@ -26,11 +26,17 @@ class Home extends StatelessWidget {
               Text('$title - 首页', style: const TextStyle(color: Colors.white)),
           backgroundColor: Colors.pink[100],
           actions: AppbarActionsX(context: context).actions(),
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Container(
             margin: const EdgeInsets.all(40.0),
-            child: Column(children: hc.w),
+            child: Obx(
+              () => ListView(
+                shrinkWrap: true,
+                children: hc.w,
+              ),
+            ),
           ),
         ),
         floatingActionButton: FloatingActionButtonX().button());
