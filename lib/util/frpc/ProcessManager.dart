@@ -9,6 +9,7 @@ class ProcessManager {
 
   final FrpcController f_c = Get.find();
 
+  final List<Process> process_list = <Process>[];
   final frpc_work_path = FrpcManagerStorage.getRunPath('0.51.3');
 
   void nwprcs({
@@ -25,6 +26,7 @@ class ProcessManager {
       ],
       workingDirectory: await FrpcManagerStorage.getRunPath('0.51.3'),
     );
+    process_list.add(process);
     // Process [stdout, stderr]
     process.stdout.forEach((element) {
       final fmt_str = utf8.decode(element).trim();
