@@ -6,11 +6,16 @@ class DSettingController extends GetxController {
   var _frpc_version = ''.obs;
   var frpc_version_widgets = <DropdownMenuItem>[].obs;
   var frpc_version_value = 0.obs;
+  var github_proxy_url = ''.obs;
+  var github_proxy_url_value = 0.obs;
+  var github_proxy_widgets = <DropdownMenuItem>[].obs;
 
   load() async {
-    final versions = await FrpcManagerStorage.versionList;
-    final list = _buildDMIWidgetList(versions);
-    frpc_version_widgets.value = //list;
+    //final List<String> versions = await FrpcManagerStorage.downloadedVersions;
+    //final list = _buildDMIWidgetList(versions);
+    //github_proxy_url.value = await FrpcManagerStorage.proxyUrl;
+    //github_proxy_widgets.value = await FrpcManagerStorage.proxyUrl;
+    /*frpc_version_widgets.value = //list;
         <DropdownMenuItem>[
       DropdownMenuItem(
         child: Text('0.51.3'),
@@ -25,6 +30,8 @@ class DSettingController extends GetxController {
         value: 2,
       ),
     ];
+
+     */
   }
 
   //Future<FrpcList> _getList() async {

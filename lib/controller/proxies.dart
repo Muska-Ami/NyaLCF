@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/dio/proxies/get.dart';
+import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/ProxyInfo.dart';
 
 import 'frpc.dart';
 
 class ProxiesController extends GetxController {
   final FrpcController f_c = Get.find();
+  final UserController c = Get.find();
   var proxiesListWidgets = <DataRow>[
     DataRow(cells: <DataCell>[
       DataCell(SizedBox(
@@ -51,8 +54,21 @@ class ProxiesController extends GetxController {
                 children: [
                   IconButton(
                     icon: Icon(Icons.play_circle),
-                    onPressed: () {
-                      Process.run('cmd.exe', ['start', 'cmd.exe']);
+                    onPressed: () async {
+                      var runner = await Process.start(
+                        await FrpcManagerStorage.getFilePath('0.51.3'),
+                        [
+                          '-u',
+                          c.frp_token.value,
+                          '-p',
+                          element.id.toString(),
+                        ],
+                        workingDirectory:
+                            await FrpcManagerStorage.getRunPath('0.51.3'),
+
+                      );
+                      stdout.addStream(runner.stdout);
+                      stderr.addStream(runner.stderr);
                     },
                   ),
                   IconButton(

@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
@@ -30,6 +31,9 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // 初始化Frpc配置
+    FrpcManagerStorage.init();
+
     Get.put(UserController());
     return GetMaterialApp(
         title: 'Nya LoCyanFrp!',
@@ -45,6 +49,13 @@ class App extends StatelessWidget {
         theme: ThemeData(
             useMaterial3: true,
             fontFamily: 'HarmonyOS Sans',
+            iconButtonTheme: IconButtonThemeData(
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(
+                  Colors.white
+                )
+              )
+            ),
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade300)
                 .copyWith(
                     primary: Colors.pink.shade500,
