@@ -19,6 +19,7 @@ void main() {
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;
+    appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
     appWindow.show();
   });
 }
