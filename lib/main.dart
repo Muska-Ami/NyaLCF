@@ -37,29 +37,26 @@ class App extends StatelessWidget {
 
     Get.put(UserController());
     return GetMaterialApp(
-        title: 'Nya LoCyanFrp!',
-        routes: {
-          '/': (context) => Home(title: title),
-          '/login': (context) => Login(title: title),
-          '/register': (context) => Register(title: title),
-          '/panel/home': (context) => PanelHome(title: title),
-          '/panel/proxies': (context) => PanelProxies(title: title),
-          '/panel/console': (context) => PanelConsole(title: title),
-          '/setting': (context) => SettingInjector(title: title),
-        },
-        theme: ThemeData(
-            useMaterial3: true,
-            fontFamily: 'HarmonyOS Sans',
-            iconButtonTheme: IconButtonThemeData(
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(
-                  Colors.white
-                )
-              )
-            ),
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink.shade300)
-                .copyWith(
-                    primary: Colors.pink.shade500,
-                    secondary: Colors.pink.shade400)));
+      title: 'Nya LoCyanFrp!',
+      routes: {
+        '/': (context) => Home(title: title),
+        '/login': (context) => Login(title: title),
+        '/register': (context) => Register(title: title),
+        '/panel/home': (context) => PanelHome(title: title),
+        '/panel/proxies': (context) => PanelProxies(title: title),
+        '/panel/console': (context) => PanelConsole(title: title),
+        '/setting': (context) => SettingInjector(title: title),
+      },
+      theme: ThemeData(
+        useMaterial3: true,
+        fontFamily: 'HarmonyOS Sans',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pink.shade300,
+        ).copyWith(
+          primary: Colors.pink.shade500,
+          secondary: Colors.pink.shade400,
+        ),
+      ),
+    );
   }
 }

@@ -99,6 +99,9 @@ flutter:
             weight: 400
           - asset: asset/font/HarmonyOS_Sans_SC_Bold.ttf
             weight: 700
+      - family: "Droid Sans Mono"
+        fonts:
+          - asset: asset/font/Droid_Sans_Mono.ttf
   #   - family: Schyler
   #     fonts:
   #       - asset: fonts/Schyler-Regular.ttf

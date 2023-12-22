@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/frpc.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
@@ -11,6 +12,7 @@ class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
 
   final UserController c = Get.find();
+  final FrpcController f_c = Get.find();
   final String title;
 
   @override
@@ -42,15 +44,32 @@ class PanelConsole extends StatelessWidget {
         ),
         drawer: DrawerX(context: context).drawer(),
         body: Center(
-          child: ListView(children: [
-            Text('这里还什么都没有，不过你可以为这里贡献一下ww~'),
-            ElevatedButton(
-              onPressed: () {
-                launchUrl(Uri.parse('https://github.com/Muska-Ami/NyaLCF'));
-              },
-              child: SelectableText('https://github.com/Muska-Ami/NyaLCF'),
-            ),
-          ]),
+          child: ListView(
+            children: [
+              Obx(
+                () => Card(
+                  margin: EdgeInsets.all(20.0),
+                  child: SizedBox(
+                    width: Checkbox.width,
+                    height: 340.0,
+                    child: Container(
+                      margin: EdgeInsets.all(10.0),
+                      child: ListView(
+                        children: f_c.process_out,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Text('这里还是只读视图，不过你可以为这里贡献一下ww~'),
+              ElevatedButton(
+                onPressed: () {
+                  launchUrl(Uri.parse('https://github.com/Muska-Ami/NyaLCF'));
+                },
+                child: SelectableText('https://github.com/Muska-Ami/NyaLCF'),
+              ),
+            ],
+          ),
         ),
         floatingActionButton: FloatingActionButtonX().button());
   }
