@@ -34,16 +34,36 @@ class ProcessManager {
         print('[${proxy_id}][FRPC][WARN] ${fmt_str}');
         f_c.appendWarnLog(fmt_str);
         process.kill();
+        process_list.remove(process);
       } else {
         print('[${proxy_id}][FRPC][INFO] ${fmt_str}');
         f_c.appendInfoLog(fmt_str);
       }
+
+      //print('Process length: ${process_list.length}');
     });
     process.stderr.forEach((element) {
       final fmt_str = utf8.decode(element).trim();
       print('[${proxy_id}][FRPC][ERROR] ${fmt_str}');
       f_c.appendErrorLog(fmt_str);
       process.kill();
+      process_list.remove(process);
     });
+
+    //print('Process length: ${process_list.length}');
+  }
+
+  void killAll() {
+    print('Killing all process');
+    print('Process length: ${process_list.length}');
+    f_c.appendInfoLog('[SYSTEM][INFO] Killing all process...');
+    process_list.forEach((element) {
+      print('Killing frpc process, pid: ${element.pid}');
+      f_c.appendInfoLog('[SYSTEM][INFO] Killing process, pid: ${element.pid}');
+      element.kill();
+      process_list.remove(element);
+    });
+
+    print('Process length: ${process_list.length}');
   }
 }

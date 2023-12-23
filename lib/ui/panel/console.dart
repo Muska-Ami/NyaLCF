@@ -6,7 +6,7 @@ import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
@@ -49,6 +49,7 @@ class PanelConsole extends StatelessWidget {
               Obx(
                 () => Card(
                   margin: EdgeInsets.all(20.0),
+                  color: Colors.grey.shade900,
                   child: SizedBox(
                     width: Checkbox.width,
                     height: 340.0,
@@ -61,12 +62,28 @@ class PanelConsole extends StatelessWidget {
                   ),
                 ),
               ),
-              Text('这里还是只读视图，不过你可以为这里贡献一下ww~'),
-              ElevatedButton(
-                onPressed: () {
-                  launchUrl(Uri.parse('https://github.com/Muska-Ami/NyaLCF'));
-                },
-                child: SelectableText('https://github.com/Muska-Ami/NyaLCF'),
+              Container(
+                margin: EdgeInsets.only(left: 20.0, right: 20.0),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('查看进程列表'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        ProcessManager().killAll();
+                      },
+                      child: Text('关闭所有进程',
+                          style: TextStyle(
+                            color: Colors.white,
+                          )),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.red),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
