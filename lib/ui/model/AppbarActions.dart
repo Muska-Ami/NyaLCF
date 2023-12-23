@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
@@ -95,6 +96,7 @@ class AppbarActionsX {
                   style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () {
+                  ProcessManager().killAll();
                   Navigator.pop(context, true);
                 },
               ),
