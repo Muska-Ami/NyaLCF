@@ -31,8 +31,8 @@ class ProxiesController extends GetxController {
   load(username, token) async {
     var proxies = await ProxiesGetDio().get(username, token);
     if (proxies is List<ProxyInfo>) {
-      List<DataRow> widgets = <DataRow>[];
-      proxies.forEach((element) => widgets.add(DataRow(cells: <DataCell>[
+      proxiesListWidgets.value = <DataRow>[];
+      proxies.forEach((element) => proxiesListWidgets.add(DataRow(cells: <DataCell>[
             DataCell(
               Container(
                 width: 150.0,
@@ -67,7 +67,7 @@ class ProxiesController extends GetxController {
               ),
             ),
           ])));
-      proxiesListWidgets.value = widgets;
+      proxiesListWidgets.refresh();
     } else {
       proxiesListWidgets.value = <DataRow>[
         DataRow(cells: <DataCell>[

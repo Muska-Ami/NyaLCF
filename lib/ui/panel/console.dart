@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/dconsole.dart';
 import 'package:nyalcf/controller/frpc.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/ui/model/ProcessListDialog.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class PanelConsole extends StatelessWidget {
@@ -13,10 +15,12 @@ class PanelConsole extends StatelessWidget {
 
   final UserController c = Get.find();
   final FrpcController f_c = Get.find();
+  final ConsoleController c_c = Get.put(ConsoleController());
   final String title;
 
   @override
   Widget build(BuildContext context) {
+    c_c.load();
     return Scaffold(
         appBar: AppBar(
           title:
@@ -24,11 +28,13 @@ class PanelConsole extends StatelessWidget {
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
-            Obx(() => IconButton(
+            Obx(
+              () => IconButton(
                 onPressed: () {
                   showDialog(
                       context: context,
                       builder: (x) {
+                        c_c.load();
                         return AccountDialogX(context: context).build();
                       });
                 },
@@ -38,7 +44,9 @@ class PanelConsole extends StatelessWidget {
                     '${c.avatar}',
                     width: 35,
                   ),
-                ))),
+                ),
+              ),
+            ),
           ], context: context)
               .actions(),
         ),
@@ -67,7 +75,14 @@ class PanelConsole extends StatelessWidget {
                 child: Row(
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (x) {
+                              return ProcessListDialogX(context: context)
+                                  .build();
+                            });
+                      },
                       child: Text('查看进程列表'),
                     ),
                     ElevatedButton(

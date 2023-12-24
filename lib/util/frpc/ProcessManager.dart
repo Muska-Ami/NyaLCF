@@ -8,13 +8,14 @@ import 'package:nyalcf/io/frpcManagerStorage.dart';
 class FrpcProcessManager {
   final FrpcController f_c = Get.find();
 
-  final List<Process> process_list = <Process>[];
+  static final List<Map> process_list = <Map>[];
   final frpc_work_path = FrpcManagerStorage.getRunPath('0.51.3');
 
   void nwprcs({
     required String frp_token,
     required int proxy_id,
   }) async {
+    final Map<String, dynamic> p_map = Map();
     final process = await Process.start(
       await FrpcManagerStorage.getFilePath('0.51.3'),
       [
@@ -25,15 +26,17 @@ class FrpcProcessManager {
       ],
       workingDirectory: await FrpcManagerStorage.getRunPath('0.51.3'),
     );
-    process_list.add(process);
-    // Process [stdout, stderr]
+    p_map['process'] = process;
+    p_map['proxy_id'] = proxy_id;
+    process_list.add(p_map);
+    /// Process [stdout, stderr]
     process.stdout.forEach((element) {
       final fmt_str = utf8.decode(element).trim();
       if (fmt_str.contains('stopped') || fmt_str.contains('启动失败')) {
         print('[${proxy_id}][FRPC][WARN] ${fmt_str}');
         f_c.appendWarnLog(fmt_str);
         process.kill();
-        process_list.remove(process);
+        process_list.remove(p_map);
       } else {
         print('[${proxy_id}][FRPC][INFO] ${fmt_str}');
         f_c.appendInfoLog(fmt_str);
@@ -46,7 +49,7 @@ class FrpcProcessManager {
       print('[${proxy_id}][FRPC][ERROR] ${fmt_str}');
       f_c.appendErrorLog(fmt_str);
       process.kill();
-      process_list.remove(process);
+      process_list.remove(p_map);
     });
 
     //print('Process length: ${process_list.length}');
@@ -57,11 +60,12 @@ class FrpcProcessManager {
     print('Process length: ${process_list.length}');
     f_c.appendInfoLog('[SYSTEM][INFO] Killing all process...');
     process_list.forEach((element) {
-      print('Killing frpc process, pid: ${element.pid}');
-      f_c.appendInfoLog('[SYSTEM][INFO] Killing process, pid: ${element.pid}');
-      element.kill();
-      process_list.remove(element);
+      print('Killing frpc process, pid: ${element['process'].pid}');
+      f_c.appendInfoLog(
+          '[SYSTEM][INFO] Killing process, pid: ${element['process'].pid}');
+      element['process'].kill();
     });
+    process_list.clear();
 
     print('Process length: ${process_list.length}');
   }
