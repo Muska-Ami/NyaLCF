@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
 
 class DSettingController extends GetxController {
   var _frpc_version = ''.obs;

@@ -59,10 +59,13 @@ class FrpcManagerSX {
                   )
                 ],
               ),
-              Obx(() => Text('当前代理：${ds_c.github_proxy_url}', style: TextStyle(
-                color: Colors.grey,
-                fontStyle: FontStyle.italic,
-              ),)),
+              Obx(() => Text(
+                    '当前代理：${ds_c.github_proxy_url}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontStyle: FontStyle.italic,
+                    ),
+                  )),
               ElevatedButton(onPressed: null, child: Text('保存'))
             ],
           ),

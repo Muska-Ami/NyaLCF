@@ -5,8 +5,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controller/frpc.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 
-class ProcessManager {
-
+class FrpcProcessManager {
   final FrpcController f_c = Get.find();
 
   final List<Process> process_list = <Process>[];

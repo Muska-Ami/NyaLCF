@@ -53,7 +53,8 @@ class ProxiesController extends GetxController {
                   IconButton(
                     icon: Icon(Icons.play_circle),
                     onPressed: () => {
-                      ProcessManager().nwprcs(frp_token: c.frp_token.value, proxy_id: element.id)
+                      FrpcProcessManager().nwprcs(
+                          frp_token: c.frp_token.value, proxy_id: element.id)
                     },
                   ),
                   IconButton(

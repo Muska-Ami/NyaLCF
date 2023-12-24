@@ -1,3 +1,1 @@
-class SettingStorage {
-
-}
+class SettingStorage {}

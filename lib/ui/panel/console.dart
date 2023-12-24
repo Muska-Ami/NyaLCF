@@ -72,7 +72,7 @@ class PanelConsole extends StatelessWidget {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        ProcessManager().killAll();
+                        FrpcProcessManager().killAll();
                       },
                       child: Text('关闭所有进程',
                           style: TextStyle(

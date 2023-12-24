@@ -43,6 +43,7 @@ dependencies:
   shared_preferences: ^2.2.2
   get: ^4.6.6
   flutter_markdown: ^0.6.18+2
+  archive: ^3.4.9
 
 dev_dependencies:
   flutter_test:

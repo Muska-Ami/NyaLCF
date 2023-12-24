@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path_provider/path_provider.dart';
 
 class FileIO {
@@ -22,5 +24,27 @@ class FileIO {
     await _support_path.then((value) => path = value.path);
     print('Get support path: $path');
     return path;
+  }
+
+  /**
+   * 移动文件夹
+   */
+  static void moveDirectory(Directory sourceDir, Directory targetDir) {
+    if (!targetDir.existsSync()) {
+      targetDir.createSync(recursive: true);
+    }
+
+    sourceDir.listSync().forEach((FileSystemEntity entity) {
+      String newPath = targetDir.path + '/' + entity.uri.pathSegments.last;
+
+      if (entity is File) {
+        File newFile = File(newPath);
+        entity.renameSync(newFile.path);
+      } else if (entity is Directory) {
+        Directory newDir = Directory(newPath);
+        moveDirectory(entity, newDir);
+        entity.deleteSync();
+      }
+    });
   }
 }

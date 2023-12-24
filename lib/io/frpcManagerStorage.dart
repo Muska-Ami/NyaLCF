@@ -5,9 +5,11 @@ import 'package:nyalcf/util/FileIO.dart';
 
 class FrpcManagerStorage {
   static final _s_path = FileIO.support_path;
+
   static Future<String> get _path async {
     return '${await _s_path}/frpc';
   }
+
   static get infoJson async {
     final infoString = File('${await _path}/info.json').readAsString();
     return jsonDecode(await infoString);
@@ -74,5 +76,4 @@ class FrpcManagerStorage {
     print(versions);
     return versions;
   }
-
 }
