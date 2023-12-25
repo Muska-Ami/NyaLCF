@@ -49,7 +49,7 @@ jobs:
           
       - name: Setup Inno Setup 6
         run: |-
-          powershell curl -o setup.exe \"https://jrsoftware.org/download.php/is.exe\"
+          powershell curl -o setup.exe "https://jrsoftware.org/download.php/is.exe"
           setup.exe /VERYSLIENT
       - name: Pack EXE Installer
         run: |-
