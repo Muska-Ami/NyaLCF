@@ -48,7 +48,9 @@ jobs:
         run: dart pub global activate flutter_distributor
           
       - name: Setup Inno Setup 6
-        uses: zhuzichu520/inno-setup-action@v1.0.1
+        run: |-
+          powershell curl -o setup.exe \"https://jrsoftware.org/download.php/is.exe\"
+          setup.exe /VERYSLIENT
       - name: Pack EXE Installer
         run: |-
           flutter_distributor package --platform windows --target exe
@@ -153,7 +155,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: lts
+          node-version: 21
 
       - name: Install Dependencies
         run: |-
