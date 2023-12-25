@@ -50,7 +50,7 @@ jobs:
       - name: Setup Inno Setup 6
         run: |-
           powershell curl -o setup.exe "https://jrsoftware.org/download.php/is.exe"
-          setup.exe /VERYSLIENT
+          powershell ./setup.exe /VERYSLIENT
       - name: Pack EXE Installer
         run: |-
           flutter_distributor package --platform windows --target exe
