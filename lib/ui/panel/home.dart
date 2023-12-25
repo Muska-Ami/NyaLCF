@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/dconsole.dart';
 import 'package:nyalcf/controller/dpanel.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
@@ -16,6 +17,7 @@ class PanelHome extends StatelessWidget {
 
   final UserController c = Get.find();
   final DPanelController dp_c = Get.put(DPanelController());
+  final ConsoleController c_c = Get.put(ConsoleController());
   final String title;
 
   @override

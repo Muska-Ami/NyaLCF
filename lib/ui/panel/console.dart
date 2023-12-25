@@ -15,7 +15,7 @@ class PanelConsole extends StatelessWidget {
 
   final UserController c = Get.find();
   final FrpcController f_c = Get.find();
-  final ConsoleController c_c = Get.put(ConsoleController());
+  final ConsoleController c_c = Get.find();
   final String title;
 
   @override
@@ -34,7 +34,6 @@ class PanelConsole extends StatelessWidget {
                   showDialog(
                       context: context,
                       builder: (x) {
-                        c_c.load();
                         return AccountDialogX(context: context).build();
                       });
                 },
@@ -79,8 +78,8 @@ class PanelConsole extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (x) {
-                              return ProcessListDialogX(context: context)
-                                  .build();
+                              return Obx(() =>
+                                  ProcessListDialogX(context: context).build());
                             });
                       },
                       child: Text('查看进程列表'),

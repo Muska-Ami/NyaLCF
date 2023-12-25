@@ -16,6 +16,7 @@ class ProcessListDialogX {
           columns: [
             DataColumn(label: Text('进程PID')),
             DataColumn(label: Text('隧道ID')),
+            DataColumn(label: Text('操作')),
           ],
           rows: c_c.widgets,
         ),
