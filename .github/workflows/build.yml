@@ -160,7 +160,7 @@ jobs:
       - name: Install Dependencies
         run: |-
           flutter pub get
-          npm -g i appimg
+          npm install -g appdmg
           dart pub global activate flutter_distributor
 
       - name: Pack DMG Installer
