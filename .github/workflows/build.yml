@@ -51,6 +51,7 @@ jobs:
         run: |-
           powershell curl -o setup.exe "https://jrsoftware.org/download.php/is.exe"
           powershell ./setup.exe /VERYSLIENT
+          powershell curl -o "C:\Program Files (x86)\Inno Setup 6\Languages\ChineseSimplified.isl" "https://raw.github.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl"
       - name: Pack EXE Installer
         run: |-
           flutter_distributor package --platform windows --target exe
