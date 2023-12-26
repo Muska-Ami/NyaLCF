@@ -50,8 +50,7 @@ jobs:
       - name: Setup Inno Setup 6
         shell: pwsh
         run: |-
-          curl -o setup.exe "https://jrsoftware.org/download.php/is.exe"
-          ./setup.exe /VERYSLIENT
+          ./asset/is.exe /VERYSLIENT
           mkdir "C:\Program Files (x86)\Inno Setup 6\Languages"
           curl -o "C:\Program Files (x86)\Inno Setup 6\Languages\ChineseSimplified.isl" "https://raw.github.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl"
       - name: Pack EXE Installer
@@ -108,7 +107,7 @@ jobs:
 
       - name: Setup AppImageTool
         run: |-
-          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          curl -o appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
           sudo chmod a+x appimagetool
           sudo mv appimagetool /usr/local/bin/
 
