@@ -115,12 +115,19 @@ jobs:
           flutter_distributor package --platform linux --target appimage
           ls
           pwd
+          cd dist
+          ls
+          pwd
+          cd 0.1.0-beta-2
+          ls
+          pwd
+          cd ../../
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Linux Artifact(Dist - AppImage)
-          path: dist
+          path: dist/*
   dist-linux-deb:
     needs:
       - build-linux
