@@ -18,7 +18,7 @@ class ProcessListDialogX {
                 DataColumn(label: Text('隧道ID')),
                 DataColumn(label: Text('操作')),
               ],
-              rows: c_c.widgets,
+              rows: c_c.widgets.value,
             ),
           ],
         ));
