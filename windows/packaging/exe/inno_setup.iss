@@ -50,8 +50,8 @@ ArchitecturesInstallIn64BitMode=x64
 {% endfor %}
 
 [Tasks]
-Name: "{group}\{{DISPLAY_NAME}}}"; Filename: "{app}\{{DISPLAY_NAME}}}"
-Name: "{group}\{cm:UninstallProgram,{{DISPLAY_NAME}}}"; Filename: "{uninstallexe}"
+Name: "{group}\{{INSTALL_DIR_NAME}}}"; Filename: "{app}\启动 NyaLCF"
+Name: "{group}\{cm:UninstallProgram,{{INSTALL_DIR_NAME}}}"; Filename: "{uninstallexe}"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: {% if CREATE_DESKTOP_ICON != true %}unchecked{% else %}checkedonce{% endif %}
 Name: "launchAtStartup"; Description: "{cm:AutoStartProgram,{{DISPLAY_NAME}}}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: {% if LAUNCH_AT_STARTUP != true %}unchecked{% else %}checkedonce{% endif %}
 [Files]
