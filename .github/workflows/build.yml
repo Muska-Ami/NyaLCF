@@ -140,7 +140,8 @@ jobs:
 
       - name: Pack DEB Installer
         run: |-
-          flutter_distributor package --platform linux --target deb
+          echo "Coming"
+          #flutter_distributor package --platform linux --target deb
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4

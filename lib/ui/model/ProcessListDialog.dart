@@ -9,18 +9,18 @@ class ProcessListDialogX {
   final ConsoleController c_c = Get.find();
 
   Widget build() {
-    return SimpleDialog(
-      title: const Text('Frpc进程列表'),
-      children: <Widget>[
-        DataTable(
-          columns: [
-            DataColumn(label: Text('进程PID')),
-            DataColumn(label: Text('隧道ID')),
-            DataColumn(label: Text('操作')),
+    return Obx(() => SimpleDialog(
+          title: const Text('Frpc进程列表'),
+          children: <Widget>[
+            DataTable(
+              columns: <DataColumn>[
+                DataColumn(label: Text('进程PID')),
+                DataColumn(label: Text('隧道ID')),
+                DataColumn(label: Text('操作')),
+              ],
+              rows: c_c.widgets,
+            ),
           ],
-          rows: c_c.widgets,
-        ),
-      ],
-    );
+        ));
   }
 }
