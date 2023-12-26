@@ -51,7 +51,6 @@ jobs:
         shell: pwsh
         run: |-
           ./asset/is.exe /VERYSLIENT
-          mkdir "C:\Program Files (x86)\Inno Setup 6\Languages"
           curl -o "C:\Program Files (x86)\Inno Setup 6\Languages\ChineseSimplified.isl" "https://raw.github.com/jrsoftware/issrc/main/Files/Languages/Unofficial/ChineseSimplified.isl"
       - name: Pack EXE Installer
         run: |-
