@@ -6,5 +6,4 @@ create_desktop_icon: true
 install_dir_name: NyaLCF
 script_template: inno_setup.iss
 locales:
-  - en
   - zh
