@@ -1,5 +1,8 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class DSettingController extends GetxController {
   var _frpc_version = ''.obs;
@@ -9,7 +12,15 @@ class DSettingController extends GetxController {
   var github_proxy_url_value = 0.obs;
   var github_proxy_widgets = <DropdownMenuItem>[].obs;
 
+  var app_name = ''.obs;
+  var app_version = ''.obs;
+  var app_package_name = ''.obs;
+
   load() async {
+    final packageInfo = await PackageInfo.fromPlatform();
+    app_name.value = packageInfo.appName;
+    app_version.value = packageInfo.version;
+    app_package_name.value = packageInfo.packageName;
     //final List<String> versions = await FrpcManagerStorage.downloadedVersions;
     //final list = _buildDMIWidgetList(versions);
     //github_proxy_url.value = await FrpcManagerStorage.proxyUrl;

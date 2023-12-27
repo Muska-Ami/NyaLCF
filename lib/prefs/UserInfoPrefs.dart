@@ -44,6 +44,7 @@ class UserInfoPrefs {
         inbound: inbound,
         outbound: outbound,
         frp_token: frp_token,
-        traffic: traffic);
+        traffic: traffic,
+    );
   }
 }

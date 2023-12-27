@@ -11,8 +11,10 @@ class CheckDio {
       Map<String, dynamic> params_map = Map();
       params_map['token'] = token;
 
-      final res = await dio.get('${basicConfig.api_v2_url}/check/token',
-          queryParameters: params_map);
+      final res = await dio.get(
+        '${basicConfig.api_v2_url}/check/token',
+        queryParameters: params_map,
+      );
       print(res.data);
 
       return true;

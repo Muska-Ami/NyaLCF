@@ -31,19 +31,20 @@ class ProxiesGetDio {
       List<ProxyInfo> list = <ProxyInfo>[];
       proxies.forEach((element) {
         list.add(ProxyInfo(
-            proxy_name: element['proxy_name'],
-            use_compression: bool.parse(element['use_compression']),
-            local_ip: element['local_ip'],
-            node: element['node'],
-            local_port: element['local_port'],
-            remote_port: int.parse(element['remote_port']),
-            domain: element['domain'],
-            icp: element['icp'],
-            sk: element['sk'],
-            id: element['id'],
-            proxy_type: element['proxy_type'],
-            use_encryption: bool.parse(element['use_encryption']),
-            status: element['status']));
+          proxy_name: element['proxy_name'],
+          use_compression: bool.parse(element['use_compression']),
+          local_ip: element['local_ip'],
+          node: element['node'],
+          local_port: element['local_port'],
+          remote_port: int.parse(element['remote_port']),
+          domain: element['domain'],
+          icp: element['icp'],
+          sk: element['sk'],
+          id: element['id'],
+          proxy_type: element['proxy_type'],
+          use_encryption: bool.parse(element['use_encryption']),
+          status: element['status'],
+        ));
       });
       return list;
     } catch (e) {
