@@ -30,6 +30,7 @@ class FrpcProcessManager {
     p_map['process'] = process;
     p_map['proxy_id'] = proxy_id;
     c_c.addProcess(p_map);
+
     /// Process [stdout, stderr]
     process.stdout.forEach((element) {
       final fmt_str = utf8.decode(element).trim();
@@ -73,7 +74,8 @@ class FrpcProcessManager {
 
   void kill(prs) {
     print('Killing frpc process, pid: ${prs['process'].pid}');
-    f_c.appendInfoLog('[SYSTEM][INFO] Killing process, pid: ${prs['process'].pid}');
+    f_c.appendInfoLog(
+        '[SYSTEM][INFO] Killing process, pid: ${prs['process'].pid}');
     prs['process'].kill();
     c_c.removeProcess(prs);
 

@@ -78,7 +78,8 @@ class PanelConsole extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (x) {
-                              return ProcessListDialogX(context: context).build();
+                              return ProcessListDialogX(context: context)
+                                  .build();
                             });
                       },
                       child: Text('查看进程列表'),

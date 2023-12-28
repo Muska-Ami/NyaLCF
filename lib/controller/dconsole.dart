@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class ConsoleController extends GetxController {
-
   var widgets = <DataRow>[].obs;
   var process_list = <Map>[].obs;
 
@@ -11,10 +10,12 @@ class ConsoleController extends GetxController {
     process_list.add(p_map);
     process_list.refresh();
   }
+
   removeProcess(p_map) {
     process_list.remove(p_map);
     process_list.refresh();
   }
+
   clearProcess() {
     process_list.clear();
     process_list.refresh();

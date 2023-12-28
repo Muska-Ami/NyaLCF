@@ -1,19 +1,12 @@
 import 'package:dio/dio.dart';
 
-import '../../model/User.dart';
 import '../basicConfig.dart';
 
 class RegisterDio {
   final dio = Dio();
 
   Future<dynamic> requestRegister(
-    user,
-    password,
-    confirmPassword,
-    email,
-    verify,
-    qq
-  ) async {
+      user, password, confirmPassword, email, verify, qq) async {
     FormData data = FormData.fromMap({
       'username': user,
       'password': password,
@@ -23,23 +16,15 @@ class RegisterDio {
       'qq': qq,
     });
     try {
-      print('Post register: ${user} - ${email} / ${password} - ${confirmPassword}');
-      final response =
-          await dio.post('${basicConfig.api_v2_url}/users/login', data: data);
+      print(
+          'Post register: ${user} - ${email} / ${password} - ${confirmPassword} / ${verify}');
+      final response = await dio
+          .post('${basicConfig.api_v2_url}/users/register', data: data);
       Map<String, dynamic> responseJson = response.data;
       print(responseJson);
       final resData = responseJson['data'];
       if (responseJson['status'] == 200) {
-        final userInfo = User(
-            user: resData['username'],
-            email: resData['email'],
-            token: resData['token'],
-            avatar: resData['avatar'],
-            inbound: resData['inbound'],
-            outbound: resData['outbound'],
-            frp_token: resData['frp_token'],
-            traffic: resData['traffic']);
-        return userInfo;
+        return true;
       } else {
         return resData['msg'] ?? responseJson['status'];
       }

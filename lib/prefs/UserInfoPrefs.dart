@@ -37,14 +37,14 @@ class UserInfoPrefs {
     String frp_token = prefs.getString('user_frp_token') ?? '';
     int traffic = prefs.getInt('user_traffic') ?? 0;
     return User(
-        user: user,
-        email: email,
-        token: token,
-        avatar: avatar,
-        inbound: inbound,
-        outbound: outbound,
-        frp_token: frp_token,
-        traffic: traffic,
+      user: user,
+      email: email,
+      token: token,
+      avatar: avatar,
+      inbound: inbound,
+      outbound: outbound,
+      frp_token: frp_token,
+      traffic: traffic,
     );
   }
 }

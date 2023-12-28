@@ -32,7 +32,8 @@ class ProxiesController extends GetxController {
     var proxies = await ProxiesGetDio().get(username, token);
     if (proxies is List<ProxyInfo>) {
       proxiesListWidgets.value = <DataRow>[];
-      proxies.forEach((element) => proxiesListWidgets.add(DataRow(cells: <DataCell>[
+      proxies.forEach((element) =>
+          proxiesListWidgets.add(DataRow(cells: <DataCell>[
             DataCell(
               Container(
                 width: 150.0,
