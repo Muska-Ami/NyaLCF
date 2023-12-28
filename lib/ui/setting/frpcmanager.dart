@@ -9,6 +9,11 @@ class FrpcManagerSX {
     return ListView(
       children: [
         Card(
+          child: Container(),
+        ),
+
+        /*
+        Card(
           child: Row(
             children: [
               Expanded(
@@ -69,7 +74,7 @@ class FrpcManagerSX {
               ElevatedButton(onPressed: null, child: Text('保存'))
             ],
           ),
-        ),
+        ),*/
       ],
     );
   }

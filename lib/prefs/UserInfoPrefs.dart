@@ -16,6 +16,14 @@ class UserInfoPrefs {
     prefs.setInt('user_traffic', userinfo.traffic);
   }
 
+  static Future<void> setInbound(int inbound) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('user_inbound', inbound);
+  }
+  static Future<void> setOutbound(int outbound) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('user_outbound', outbound);
+  }
   static Future<void> setTraffic(int traffic) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setInt('user_traffic', traffic);

@@ -53,14 +53,14 @@ class ProxiesController extends GetxController {
                 children: [
                   IconButton(
                     icon: Icon(Icons.play_circle),
-                    onPressed: () => {
+                    onPressed: () async => {
                       FrpcProcessManager().nwprcs(
                           frp_token: c.frp_token.value, proxy_id: element.id)
                     },
                   ),
                   IconButton(
                     icon: Icon(Icons.edit),
-                    onPressed: () {
+                    onPressed: () async {
                       Get.snackbar('谁让你点了？', '还没写，爬去面板编辑喵喵喵！');
                     },
                   ),

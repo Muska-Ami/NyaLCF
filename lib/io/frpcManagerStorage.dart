@@ -21,10 +21,10 @@ class FrpcManagerStorage {
       final infoF = File('${path}/info.json');
       if (!infoF.existsSync()) {
         Map<String, dynamic> json = Map();
-        json['using_version'] = '';
-        json['downloaded_versions'] = <String>[];
-        json['github_proxies'] = <String>[];
-        json['using_github_proxy'] = <String>[];
+        json['settings']['using_version'] = '';
+        json['settings']['using_github_proxy'] = <String>[];
+        json['lists']['downloaded_versions'] = <String>[];
+        json['lists']['github_proxies'] = <String>[];
         infoF.writeAsStringSync(jsonEncode(json));
       }
     });

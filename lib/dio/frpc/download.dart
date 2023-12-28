@@ -5,19 +5,6 @@ import 'package:nyalcf/util/FileIO.dart';
 class FrpcDownloadDio {
   final dio = Dio();
 
-  /*
-  Future<FrpcList> fetchVersion() async {
-    final response =
-        await dio.get('${basicConfig.github_api_url}/repos/${basicConfig.frpc_release_repo}/releases/latest');
-    final Map<String, dynamic> resJson = jsonDecode(response.data);
-    final Map<int, dynamic> assets = resJson['assets'];
-    for (var i in assets.) {
-
-    }
-  }
-
-   */
-
   /// 下载Frpc
   Future<dynamic> download({
     required String arch,

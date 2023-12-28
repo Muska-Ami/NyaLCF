@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/frpc.dart';
-import 'package:nyalcf/dio/auth/check.dart';
+import 'package:nyalcf/dio/auth/userUtil.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
 import 'package:nyalcf/model/User.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
@@ -67,7 +67,8 @@ class _HC extends GetxController {
   load() async {
     User? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
-      if (await CheckDio().checkToken(userinfo.token)) {
+      if (await UserUtilDio().checkToken(userinfo.token)) {
+        await UserUtilDio().refresh(userinfo.token, userinfo.user);
         w.value = <Widget>[];
         Get.snackbar(
           '欢迎回来',
