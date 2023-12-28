@@ -147,7 +147,36 @@ class PanelHome extends StatelessWidget {
                                 )
                               ],
                             ),
-                          )
+                          ),
+                          Container(
+                              child: Card(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                ListTile(
+                                  leading: Icon(Icons.access_time),
+                                  title: Text('通知'),
+                                ),
+                                Flexible(
+                                    fit: FlexFit.loose,
+                                    child: Container(
+                                        margin: EdgeInsets.only(
+                                            left: 15.0,
+                                            right: 15.0,
+                                            bottom: 15.0),
+                                        child: Obx(() => MarkdownBody(
+                                            selectable: true,
+                                            onTapLink: (text, url, title) {
+                                              if (url != null) {
+                                                print(
+                                                    'Launch url from Announcement: ${url}');
+                                                launchUrl(Uri.parse(url));
+                                              }
+                                            },
+                                            data: '${dp_c.announcement_common}'))))
+                              ],
+                            ),
+                          )),
                         ])),
                         Expanded(
                             child: Card(
