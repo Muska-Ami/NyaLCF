@@ -6,13 +6,13 @@ class FrpcManagerSX {
   final DSettingController ds_c = Get.find();
 
   Widget widget() {
-    return ListView(
-      children: [
-        Card(
-          child: Container(),
-        ),
+    return Container(
+      margin: EdgeInsets.all(15.0),
+      child: ListView(
+        children: <Widget>[
+          Obx(() => ds_c.frpc_download_tip.value),
 
-        /*
+          /*
         Card(
           child: Row(
             children: [
@@ -75,7 +75,8 @@ class FrpcManagerSX {
             ],
           ),
         ),*/
-      ],
+        ],
+      ),
     );
   }
 }

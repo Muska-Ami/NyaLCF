@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/util/FileIO.dart';
 
 class FrpcManagerStorage {
@@ -10,21 +11,29 @@ class FrpcManagerStorage {
     return '${await _s_path}/frpc';
   }
 
-  static get infoJson async {
-    final infoString = File('${await _path}/info.json').readAsString();
-    return jsonDecode(await infoString);
+  static Future<FrpcConfig?> get _info async {
+    try {
+      final String result = await File('${await _path}/info.json')
+          .readAsString(encoding: utf8);
+      return FrpcConfig.fromJson(jsonDecode(result));
+    } catch (e) {
+      return null;
+    }
   }
 
-  static init() {
+  static void init() {
     _path.then((path) {
       if (!Directory(path).existsSync()) Directory(path).createSync();
       final infoF = File('${path}/info.json');
       if (!infoF.existsSync()) {
         Map<String, dynamic> json = Map();
-        json['settings']['using_version'] = '';
-        json['settings']['using_github_proxy'] = <String>[];
-        json['lists']['downloaded_versions'] = <String>[];
-        json['lists']['github_proxies'] = <String>[];
+        json['settings']['frpc_version'] = '';
+        json['settings']['github_proxy'] = <String>[];
+        json['lists']['frpc_downloaded_versions'] = <String>[];
+        json['lists']['github_proxies'] = <String>[
+          'https://mirror.ghproxy.com/',
+          'https://ghproxy.com/',
+        ];
         infoF.writeAsStringSync(jsonEncode(json));
       }
     });
@@ -53,26 +62,26 @@ class FrpcManagerStorage {
   }
 
   /// 获取正在使用的版本
-  static get usingVersion async {
-    final version = await infoJson['using_version'];
+  static Future<String> get usingVersion async {
+    final version = (await _info)?.frpc_version ?? '';
     return version;
   }
 
   /// 自定义GitHub代理列表
-  static get proxies async {
-    final url = await infoJson['github_proxies'];
+  static Future<List<String>> get proxies async {
+    final url = (await _info)?.github_proxies ?? [];
     return url;
   }
 
   /// GitHub代理
-  static get proxyUrl async {
-    final url = await infoJson['using_github_proxy'];
+  static Future<String> get proxyUrl async {
+    final url = (await _info)?.github_proxy ?? '';
     return url;
   }
 
   /// 获取已安装版本列表
   static Future<List<String>> get downloadedVersions async {
-    final versions = await infoJson['downloaded_versions'];
+    final versions = (await _info)?.frpc_downloaded_versions ?? [];
     print(versions);
     return versions;
   }

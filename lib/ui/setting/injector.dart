@@ -16,6 +16,7 @@ class SettingInjector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ds_c.load();
+
     return DefaultTabController(
         length: 2,
         child: Scaffold(
