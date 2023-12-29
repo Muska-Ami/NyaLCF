@@ -35,12 +35,15 @@ class FrpcDownloadDialogX {
                     },
                     barrierDismissible: false,
                   );
-                  FrpcDownloadDio().download(
-                      arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
-                      platform: ds_c.platform,
-                      version: '0.51.3',
-                      progressCallback: ds_c.downloadFrpcCallback,
-                      cancelToken: ds_c.downloadCancelToken);
+                  final res = await FrpcDownloadDio().download(
+                    arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
+                    platform: ds_c.platform,
+                    version: '0.51.3',
+                    progressCallback: ds_c.downloadFrpcCallback,
+                    cancelToken: ds_c.downloadCancelToken,
+                  );
+                  ds_c.frpc_download_cancel = res;
+                  ds_c.refreshDownloadShow();
                 },
                 child: Text('开始下载'),
               ),
@@ -60,9 +63,7 @@ class FrpcDownloadDialogX {
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
             children: [
-              Obx(() => LinearProgressIndicator(
-                    value: ds_c.frpc_download_progress.value,
-                  )),
+              Obx(() => Column(children: ds_c.frpc_download_show.value)),
               Obx(() => Text('进度：${ds_c.frpc_download_progress.value * 100}%')),
               ElevatedButton(
                 onPressed: () async {
@@ -70,6 +71,29 @@ class FrpcDownloadDialogX {
                   Navigator.of(context).pop();
                 },
                 child: Text('取消'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget unarchiving() {
+    return SimpleDialog(
+      title: const Text('正在解压...'),
+      children: <Widget>[
+        Container(
+          margin:
+              EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 22.0,
+                width: 22.0,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
               ),
             ],
           ),

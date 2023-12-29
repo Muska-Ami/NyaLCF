@@ -20,7 +20,7 @@ class FrpcDownloadDio {
         print('Windows, download zip');
         return await dio.download(
           '${proxy + basicConfig.github_main_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.zip',
-          '${FileIO.cache_path}/frpc.zip',
+          '${await FileIO.cache_path}/frpc.zip',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
         );
@@ -28,18 +28,18 @@ class FrpcDownloadDio {
         print('Download tar.gz');
         return await dio.download(
           '${proxy + basicConfig.github_main_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.tar.gz',
-          '${FileIO.cache_path}/frpc.tar.gz',
+          '${await FileIO.cache_path}/frpc.tar.gz',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
         );
       }
-    } on DioException {
+    } on DioException catch (e) {
       if (cancelToken.isCancelled)
         return true;
       else
-        return false;
+        return e;
     } catch (e) {
-      return false;
+      return e;
     }
   }
 }

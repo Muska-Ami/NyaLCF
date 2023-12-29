@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/prefs/SettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
+import 'package:nyalcf/util/frpc/Archive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DSettingController extends GetxController {
@@ -21,6 +23,8 @@ class DSettingController extends GetxController {
   ].obs;
   var frpc_download_arch = 0.obs;
   var frpc_download_progress = 0.0.obs;
+  var frpc_download_show = <Widget>[].obs;
+  dynamic frpc_download_cancel = false;
 
   var frpc_version = ''.obs;
 
@@ -93,6 +97,62 @@ class DSettingController extends GetxController {
   void _load_frpc_dropdownitem() {
     frpc_download_arch_list.value = _buildArchDMIWidgetList();
     print(frpc_download_arch_list);
+  }
+
+  void refreshDownloadShow() async {
+    if (frpc_download_cancel is bool) {
+      if (frpc_download_cancel) {
+        frpc_download_show.clear();
+        frpc_download_show.add(Text(
+          '下载取消',
+          style: TextStyle(color: Colors.orange),
+        ));
+      } else {
+        frpc_download_show.clear();
+        frpc_download_show.add(LinearProgressIndicator(
+          value: frpc_download_progress.value,
+        ));
+      }
+    } else if (frpc_download_cancel is Response) {
+      Navigator.of(context).pop();
+      showDialog(
+          context: context,
+          builder: (context) {
+            return FrpcDownloadDialogX(context: context).unarchiving();
+          });
+      FrpcArchive.unarchive(
+              platform: platform,
+              arch: arch[frpc_download_arch.value]['arch'],
+              version: '0.51.3')
+          .then((value) {
+            if (value) {
+              SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            } else {
+              Get.snackbar(
+                '解压 Frpc 时发生错误..呜呜..',
+                '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
+                snackPosition: SnackPosition.BOTTOM,
+                animationDuration: Duration(milliseconds: 300),
+              );
+              Navigator.of(context).pop();
+              Navigator.of(context).pop();
+            }
+      });
+    } else {
+      frpc_download_show.clear();
+      frpc_download_show.add(Text(
+        '发生错误',
+        style: TextStyle(color: Colors.red),
+      ));
+      Get.snackbar(
+        '下载 Frpc 时发生错误..呜呜..',
+        frpc_download_cancel.toString(),
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: Duration(milliseconds: 300),
+      );
+    }
   }
 
   /// 构建Arch列表
@@ -171,10 +231,15 @@ class DSettingController extends GetxController {
 
   void downloadFrpcCallback(received, total) {
     print('Download callback: ${received}');
-    if (total != -1) if (!downloadCancelToken.isCancelled) {
-      frpc_download_progress.value = received / total;
+    if (total != -1) {
+      if (!downloadCancelToken.isCancelled) {
+        frpc_download_progress.value = received / total;
+      } else {
+        frpc_download_progress.value = -1;
+      }
     } else {
-      frpc_download_progress.value = -1;
+      print('Download failed: file total is -1');
     }
+    refreshDownloadShow();
   }
 }

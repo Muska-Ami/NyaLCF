@@ -11,7 +11,15 @@ class SettingPrefs {
     prefs.setStringList('list@github_proxies', frpcinfo.github_proxies);
   }
 
-  static Future<FrpcConfig> getFrpcInfo(FrpcConfig frpcinfo) async {
+  static Future<void> setFrpcDownloadedVersionsInfo(String version) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final newlist = (await getFrpcInfo()).lists['frpc_downloaded_versions'] ?? [];
+    newlist.add(version);
+    prefs.setStringList(
+        'list@frpc_downloaded_versions', newlist);
+  }
+
+  static Future<FrpcConfig> getFrpcInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final s_frpc_version = prefs.getString('setting@frpc_version') ?? '';
     final l_frpc_downloaded_versions =

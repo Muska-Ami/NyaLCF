@@ -7,11 +7,11 @@ class FrpcArchive {
   static final _c_path = FileIO.cache_path;
   static final _s_path = FileIO.support_path;
 
-  static bool unarchive({
+  static Future<bool> unarchive({
     required platform,
     required arch,
     required version,
-  }) {
+  }) async {
     File f;
     _c_path.then((c_path) {
       if (Platform.isWindows)
