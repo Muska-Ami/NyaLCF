@@ -24,6 +24,7 @@ class UserUtilDio {
       return false;
     }
   }
+
   Future<bool> refresh(token, username) async {
     try {
       print('Refresh user info');
@@ -33,7 +34,7 @@ class UserUtilDio {
       Options options = Options();
       Map<String, dynamic> options_map = Map();
       options_map['Content-Type'] =
-      'application/x-www-form-urlencoded;charset=UTF-8';
+          'application/x-www-form-urlencoded;charset=UTF-8';
       options_map['Authorization'] = 'Bearer $token';
       options = options.copyWith(headers: options_map);
 

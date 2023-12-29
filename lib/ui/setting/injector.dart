@@ -11,10 +11,11 @@ class SettingInjector extends StatelessWidget {
   SettingInjector({super.key, required this.title});
 
   final String title;
-  final DSettingController ds_c = Get.put(DSettingController());
 
   @override
   Widget build(BuildContext context) {
+    final DSettingController ds_c =
+        Get.put(DSettingController(context: context));
     ds_c.load();
 
     return DefaultTabController(

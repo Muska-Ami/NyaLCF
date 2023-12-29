@@ -10,12 +10,15 @@ class FrpcConfig {
   String get frpc_version {
     return settings['frpc_version'];
   }
+
   String get github_proxy {
     return settings['github_proxy'];
   }
+
   List<String> get frpc_downloaded_versions {
     return lists['frpc_downloaded_versions'] ?? [];
   }
+
   List<String> get github_proxies {
     return lists['github_proxies'] ?? [];
   }

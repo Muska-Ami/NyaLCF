@@ -22,8 +22,7 @@ class AnnouncementDio {
   Future<String> getCommon() async {
     try {
       print('Get common announcement');
-      final response =
-      await dio.get('${basicConfig.api_v1_url}/App');
+      final response = await dio.get('${basicConfig.api_v1_url}/App');
       print(response);
       final Map<String, dynamic> resData = response.data;
       return resData['ads'];

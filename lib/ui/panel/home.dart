@@ -173,7 +173,8 @@ class PanelHome extends StatelessWidget {
                                                 launchUrl(Uri.parse(url));
                                               }
                                             },
-                                            data: '${dp_c.announcement_common}'))))
+                                            data:
+                                                '${dp_c.announcement_common}'))))
                               ],
                             ),
                           )),

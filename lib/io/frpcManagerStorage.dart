@@ -13,8 +13,8 @@ class FrpcManagerStorage {
 
   static Future<FrpcConfig?> get _info async {
     try {
-      final String result = await File('${await _path}/info.json')
-          .readAsString(encoding: utf8);
+      final String result =
+          await File('${await _path}/info.json').readAsString(encoding: utf8);
       return FrpcConfig.fromJson(jsonDecode(result));
     } catch (e) {
       return null;
