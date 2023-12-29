@@ -7,6 +7,9 @@ import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 import 'frpc.dart';
 
+/**
+ * 代理控制器
+ */
 class ProxiesController extends GetxController {
   final FrpcController f_c = Get.find();
   final UserController c = Get.find();
@@ -28,6 +31,9 @@ class ProxiesController extends GetxController {
     ])
   ].obs;
 
+  /**
+   * 加载代理列表
+   */
   load(username, token) async {
     var proxies = await ProxiesGetDio().get(username, token);
     if (proxies is List<ProxyInfo>) {
@@ -90,6 +96,9 @@ class ProxiesController extends GetxController {
     }
   }
 
+  /**
+   * 重新加载代理列表
+   */
   reload(username, token) {
     proxiesListWidgets.value = <DataRow>[
       DataRow(cells: <DataCell>[
