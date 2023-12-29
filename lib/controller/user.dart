@@ -28,7 +28,9 @@ class UserController extends GetxController {
     frp_token.value = userinfo.frp_token;
     traffic.value = userinfo.traffic;
 
-    int hour = DateTime.now().hour;
+    int hour = DateTime
+        .now()
+        .hour;
 
     /// 根据小时确定欢迎文字
     if (hour <= 8) {
@@ -38,3 +40,4 @@ class UserController extends GetxController {
     } else {
       welcomeText.value = '下午好';
     }
+  }
