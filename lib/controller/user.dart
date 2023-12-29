@@ -7,7 +7,7 @@ class UserController extends GetxController {
   var user = ''.obs; // 用户名
   var email = ''.obs; // 邮箱
   var token = ''.obs; // 令牌
-  var avatar = 'https://gravatar-proxy.ymworkers.asia/'.obs; // 头像链接，使用CloudFlare Workers代理
+  var avatar = 'https://cravatar.cn/avatar/'.obs; // 头像链接，使用CloudFlare Workers代理
   var inbound = 0.obs; // 流入流量
   var outbound = 0.obs; // 流出流量
   var frp_token = ''.obs; // FRP令牌
@@ -38,4 +38,3 @@ class UserController extends GetxController {
     } else {
       welcomeText.value = '下午好';
     }
-    // 虽然我也不知道为啥IDE报错，但是我不管不知道彳亍不彳亍（？）
