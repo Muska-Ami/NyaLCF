@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 
 class FrpcController extends GetxController {
+  /// 是否存在的标志
   var exist = false.obs;
+  /// 过滤后的输出文本
   var process_out = <SelectableText>[
     SelectableText(
       '[SYSTEM] Welcome to frpc console.',
@@ -14,8 +16,10 @@ class FrpcController extends GetxController {
       ),
     )
   ].obs;
+  /// 版本号
   var version = ''.obs;
 
+  /// 加载方法
   load() async {
     exist.value = await file.exists();
   }
@@ -23,12 +27,16 @@ class FrpcController extends GetxController {
   /// 获取Frpc文件对象
   get file => FrpcManagerStorage.getFile(version.value);
 
+  /// 获取版本号
   Future<String> getVersion() async {
     return await FrpcManagerStorage.usingVersion;
   }
 
+  /// 追加信息日志
   void appendInfoLog(element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+    /// 添加信息日志文本
     process_out.add(
       SelectableText(
         '[FRPC][INFO] $element',
@@ -39,11 +47,15 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+    /// 刷新输出文本
     process_out.refresh();
   }
 
+  /// 追加警告日志
   void appendWarnLog(element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+    /// 添加警告日志文本
     process_out.add(
       SelectableText(
         '[FRPC][WARN] $element',
@@ -54,11 +66,15 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+    /// 刷新输出文本
     process_out.refresh();
   }
 
+  /// 追加错误日志
   void appendErrorLog(element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+    /// 添加错误日志文本
     process_out.add(
       SelectableText(
         '[FRPC][ERROR] $element',
@@ -69,6 +85,7 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+    /// 刷新输出文本
     process_out.refresh();
   }
 }
