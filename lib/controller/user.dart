@@ -2,19 +2,22 @@ import 'package:get/get.dart';
 import 'package:nyalcf/model/User.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 
+// 用户控制器
 class UserController extends GetxController {
-  var user = ''.obs;
-  var email = ''.obs;
-  var token = ''.obs;
-  var avatar = 'https://cravatar.cn/avatar/'.obs;
-  var inbound = 0.obs;
-  var outbound = 0.obs;
-  var frp_token = ''.obs;
-  var traffic = 0.obs;
+  var user = ''.obs; // 用户名
+  var email = ''.obs; // 邮箱
+  var token = ''.obs; // 令牌
+  var avatar = 'https://gravatar-proxy.ymworkers.asia/'.obs; // 头像链接，使用CloudFlare Workers代理
+  var inbound = 0.obs; // 流入流量
+  var outbound = 0.obs; // 流出流量
+  var frp_token = ''.obs; // FRP令牌
+  var traffic = 0.obs; // 总流量
 
-  var welcomeText = '好'.obs;
+  var welcomeText = '好'.obs; // 欢迎文字
 
+  // 加载方法
   load() async {
+    // 获取用户信息
     User userinfo = await UserInfoPrefs.getInfo();
     user.value = userinfo.user;
     email.value = userinfo.email;
@@ -27,10 +30,12 @@ class UserController extends GetxController {
 
     int hour = DateTime.now().hour;
 
-    if (hour <= 12) {
+    // 根据小时确定欢迎文字
+    if (hour <= 8) {
+      welcomeText.value = '凌晨好';
+    } else if (hour <= 12) {
       welcomeText.value = '上午好';
     } else {
       welcomeText.value = '下午好';
     }
-  }
-}
+    // 虽然我也不知道为啥IDE报错，但是我不管不知道彳亍不彳亍（？）
