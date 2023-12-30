@@ -18,7 +18,7 @@ class FrpcArchive {
       f = File('${await _c_path}/frpc.zip');
     else
       f = File('${await _c_path}/frpc.tar.gz');
-    /// 确认 Frpc 是否已存在
+    /// 确认 Frpc 是否存在
     if (await f.exists()) {
       extractFileToDisk(f.path, await _c_path);
       final dir = Directory(
