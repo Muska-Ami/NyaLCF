@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
         Get.toNamed('/panel/home');
       } else {
         Get.snackbar(
-          '登陆失败',
+          '登录失败',
           res.toString(),
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: Duration(milliseconds: 300),
