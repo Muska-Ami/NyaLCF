@@ -126,29 +126,35 @@ class DSettingController extends GetxController {
             return FrpcDownloadDialogX(context: context).unarchiving();
           });*/
       Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(), barrierDismissible: false);
-      final unarchive = await FrpcArchive.unarchive(
-        platform: platform,
-        arch: arch[frpc_download_arch.value]['arch'],
-        version: '0.51.3',
-      );
-      if (unarchive) {
-        SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
-        FrpcManagerStorage.save(
-          FrpcConfig(
-              settings: (await SettingPrefs.getFrpcInfo()).settings,
-              lists: (await SettingPrefs.getFrpcInfo()).lists),
+      Future.delayed(const Duration(milliseconds: 3000), () async {
+        //延时执行
+        final unarchive = await FrpcArchive.unarchive(
+          platform: platform,
+          arch: arch[frpc_download_arch.value]['arch'],
+          version: '0.51.3',
         );
-      } else {
-        Get.snackbar(
-          '解压 Frpc 时发生错误..呜呜..',
-          '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
-          snackPosition: SnackPosition.BOTTOM,
-          animationDuration: Duration(milliseconds: 300),
-        );
-      }
-      /// 关闭对话框
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
+        if (unarchive) {
+          SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
+          FrpcManagerStorage.save(
+            FrpcConfig(
+                settings: (await SettingPrefs.getFrpcInfo()).settings,
+                lists: (await SettingPrefs.getFrpcInfo()).lists),
+          );
+          if (!Platform.isWindows) {
+            await FrpcManagerStorage.setRunPermission();
+          }
+        } else {
+          Get.snackbar(
+            '解压 Frpc 时发生错误..呜呜..',
+            '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
+            snackPosition: SnackPosition.BOTTOM,
+            animationDuration: Duration(milliseconds: 300),
+          );
+        }
+        /// 关闭对话框
+        Navigator.of(context).pop();
+        Navigator.of(context).pop();
+      });
     } else {
       frpc_download_show.clear();
       frpc_download_show.add(Text(

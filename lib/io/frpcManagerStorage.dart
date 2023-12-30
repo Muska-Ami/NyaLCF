@@ -92,4 +92,14 @@ class FrpcManagerStorage {
     await File('${await _path}/info.json')
         .writeAsString(write_data, encoding: utf8);
   }
+
+  static Future<void> setRunPermission() async {
+    await Process.run(
+      'chmod',
+      [
+        '+x',
+        await getFilePath('0.51.3'),
+      ],
+    );
+  }
 }
