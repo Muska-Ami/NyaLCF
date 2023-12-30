@@ -98,8 +98,10 @@ class AppbarActionsX {
                 onPressed: () {
                     try {
                       FrpcProcessManager().killAll();
-                      Navigator.pop(context, true);
-                    } catch (ignore) {}
+                    } catch (e) {
+                      print('Failed to close all process: ${e}');
+                    }
+                    Navigator.pop(context, true);
                   },
               ),
             ],

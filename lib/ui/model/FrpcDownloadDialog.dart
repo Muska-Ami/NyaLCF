@@ -29,13 +29,8 @@ class FrpcDownloadDialogX {
                   )),
               ElevatedButton(
                 onPressed: () async {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return _downloading();
-                    },
-                    barrierDismissible: false,
-                  );
+                  /// 开始下载
+                  Get.dialog(_downloading(), barrierDismissible: false);
                   final res = await FrpcDownloadDio().download(
                     arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
                     platform: ds_c.platform,

@@ -35,8 +35,9 @@ class FileIO {
     }
 
     sourceDir.listSync().forEach((FileSystemEntity entity) {
-      String newPath = targetDir.path + '/' + entity.uri.pathSegments.last;
+      String newPath = targetDir.path + '/' + Uri.decodeFull(entity.uri.pathSegments.last);
 
+      print(newPath);
       if (entity is File) {
         File newFile = File(newPath);
         entity.renameSync(newFile.path);

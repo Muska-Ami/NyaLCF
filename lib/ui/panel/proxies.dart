@@ -27,11 +27,7 @@ class PanelProxies extends StatelessWidget {
           actions: AppbarActionsX(append: <Widget>[
             Obx(() => IconButton(
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (x) {
-                        return AccountDialogX(context: context).build();
-                      });
+                  Get.dialog(AccountDialogX(context: context).build());
                 },
                 icon: ClipRRect(
                   borderRadius: BorderRadius.circular(500),

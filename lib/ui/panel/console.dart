@@ -31,11 +31,7 @@ class PanelConsole extends StatelessWidget {
             Obx(
               () => IconButton(
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (x) {
-                        return AccountDialogX(context: context).build();
-                      });
+                  Get.dialog(AccountDialogX(context: context).build());
                 },
                 icon: ClipRRect(
                   borderRadius: BorderRadius.circular(500),
@@ -75,12 +71,7 @@ class PanelConsole extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (x) {
-                              return ProcessListDialogX(context: context)
-                                  .build();
-                            });
+                        Get.dialog(ProcessListDialogX(context: context).build());
                       },
                       child: Text('查看进程列表'),
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'ToolDialog.dart';
 
@@ -8,11 +9,7 @@ class FloatingActionButtonX {
       return FloatingActionButton(
         foregroundColor: Colors.white,
         backgroundColor: Colors.pink[100],
-        onPressed: () => showDialog(
-            context: context,
-            builder: (context) {
-              return ToolDialogX(context: context).build();
-            }),
+        onPressed: () => Get.dialog(ToolDialogX(context: context).build()),
         elevation: 7.0,
         highlightElevation: 14.0,
         mini: false,
