@@ -20,15 +20,19 @@ An unoffical LoCyanFrp launcher.
 
 标识\*的代表未完全实现，或未达到预期效果仍需测试。
 
+- [x] 登录
+- [x] 注册
 - [x] 自动登录
 - [ ] Frpc管理
 - [x] *进程管理器
-- [x] Frp Token复制
+- [x] Token复制
 - [x] 隧道信息展示
 - [x] 隧道启动
+- [ ] 高级启动
 - [x] *控制台
 - [ ] 隧道编辑
 - [x] 公告
+- [x] 通知
 
 ## Getting Started
 
