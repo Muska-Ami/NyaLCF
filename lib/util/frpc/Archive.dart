@@ -13,23 +13,20 @@ class FrpcArchive {
     required version,
   }) async {
     File f;
-    _c_path.then((c_path) {
-      if (Platform.isWindows)
-        f = File('${c_path}/frpc.zip');
-      else
-        f = File('${c_path}/frpc.tar.gz');
-      if (f.existsSync()) {
-        extractFileToDisk(f.path, c_path);
-        _s_path.then((s_path) {
-          final dir = Directory(
-              '${c_path}/frp_LoCyanFrp-${version}_${platform}_${arch}');
-          FileIO.moveDirectory(dir, Directory('${s_path}/frpc/${version}'));
-          return true;
-        });
-      } else {
-        return false;
-      }
-    });
-    return false;
+    /// 判定平台确定压缩包名称
+    if (Platform.isWindows)
+      f = File('${await _c_path}/frpc.zip');
+    else
+      f = File('${await _c_path}/frpc.tar.gz');
+    /// 确认 Frpc 是否已存在
+    if (await f.exists()) {
+      extractFileToDisk(f.path, await _c_path);
+      final dir = Directory(
+          '${await _c_path}/frp_LoCyanFrp-${version}_${platform}_${arch}');
+      FileIO.moveDirectory(dir, Directory('${await _s_path}/frpc/${version}'));
+      return true;
+    } else {
+      return false;
+    }
   }
 }

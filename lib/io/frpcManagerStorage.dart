@@ -85,4 +85,11 @@ class FrpcManagerStorage {
     print(versions);
     return versions;
   }
+
+  /// 存储至磁盘
+  static Future<void> save(FrpcConfig data) async {
+    final String write_data = jsonEncode(data);
+    await File('${await _path}/info.json')
+        .writeAsString(write_data, encoding: utf8);
+  }
 }

@@ -26,4 +26,8 @@ class FrpcConfig {
   FrpcConfig.fromJson(Map<String, dynamic> json)
       : settings = json['settings'],
         lists = json['lists'];
+  Map<String, dynamic> toJson() => {
+    'settings': settings,
+    'lists': lists,
+  };
 }

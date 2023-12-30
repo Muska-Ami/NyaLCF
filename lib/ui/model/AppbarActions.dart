@@ -96,9 +96,11 @@ class AppbarActionsX {
                   style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () {
-                  FrpcProcessManager().killAll();
-                  Navigator.pop(context, true);
-                },
+                    try {
+                      FrpcProcessManager().killAll();
+                      Navigator.pop(context, true);
+                    } catch (ignore) {}
+                  },
               ),
             ],
           );

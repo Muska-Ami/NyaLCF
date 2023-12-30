@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/prefs/SettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
 import 'package:nyalcf/util/frpc/Archive.dart';
@@ -124,21 +125,26 @@ class DSettingController extends GetxController {
               platform: platform,
               arch: arch[frpc_download_arch.value]['arch'],
               version: '0.51.3')
-          .then((value) {
-            if (value) {
-              SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            } else {
-              Get.snackbar(
-                '解压 Frpc 时发生错误..呜呜..',
-                '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
-                snackPosition: SnackPosition.BOTTOM,
-                animationDuration: Duration(milliseconds: 300),
-              );
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-            }
+          .then((value) async {
+        if (value) {
+          SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
+          FrpcManagerStorage.save(
+            FrpcConfig(
+                settings: (await SettingPrefs.getFrpcInfo()).settings,
+                lists: (await SettingPrefs.getFrpcInfo()).lists),
+          );
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        } else {
+          Get.snackbar(
+            '解压 Frpc 时发生错误..呜呜..',
+            '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
+            snackPosition: SnackPosition.BOTTOM,
+            animationDuration: Duration(milliseconds: 300),
+          );
+          Navigator.of(context).pop();
+          Navigator.of(context).pop();
+        }
       });
     } else {
       frpc_download_show.clear();
