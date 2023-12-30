@@ -95,8 +95,9 @@ class FrpcManagerStorage {
 
   static Future<void> setRunPermission() async {
     await Process.run(
-      'chmod',
+      'sudo',
       [
+        'chmod',
         '+x',
         await getFilePath('0.51.3'),
       ],

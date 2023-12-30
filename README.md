@@ -1,6 +1,6 @@
 # Nya LoCyanFrp! Launcher
 
-<img src="https://pan.1l1.icu/f/J3VsZ/NyaLCF%20-%202.png" width="100%" />
+<img src="https://pan.1l1.icu/f/J3VsZ/NyaLCF%20-%202.png" width="100%" alt="NyaLCF Banner" />
 
 一个由非官方打造的 LoCyanFrp 启动器。
 
@@ -34,15 +34,12 @@ An unoffical LoCyanFrp launcher.
 - [x] 公告
 - [x] 通知
 
-## Getting Started
+## Repo stats
 
-This project is a starting point for a Flutter application.
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/de384a8e9f2a47b5b26f80c61c2a8bfd)](https://app.codacy.com/gh/Muska-Ami/NyaLCF/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-A few resources to get you started if this is your first Flutter project:
+<img src="https://repobeats.axiom.co/api/embed/8657905cfb65146e66a5d6039165f705d6403531.svg" alt="Repobeats analytics image" width="100%">
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### How to contribute
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+请 Fork `dev` 分支，并在此分支基础上修改。在 `Pull request` 之前，请先测试是否能够正常运行。请不要 `Pull request` 到 `main` 分支。
