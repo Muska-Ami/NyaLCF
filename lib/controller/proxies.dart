@@ -8,7 +8,7 @@ import 'package:nyalcf/util/frpc/ProcessManager.dart';
 import 'frpc.dart';
 
 /**
- * 代理控制器
+ * 代理 GetX 状态控制器
  */
 class ProxiesController extends GetxController {
   final FrpcController f_c = Get.find();

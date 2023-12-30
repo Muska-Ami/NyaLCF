@@ -4,34 +4,24 @@ import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 
 // 用户控制器
 class UserController extends GetxController {
-  var user = ''.obs;
-
   /// 用户名
-  var email = ''.obs;
-
+  var user = ''.obs;
   /// 邮箱
-  var token = ''.obs;
-
+  var email = ''.obs;
   /// 令牌
+  var token = ''.obs;
+  /// 头像链接
   var avatar = 'https://cravatar.cn/avatar/'.obs;
-
-  /// 头像链接，爱来自cravatar（？）
-  var inbound = 0.obs;
-
   /// 流入流量
-  var outbound = 0.obs;
-
+  var inbound = 0.obs;
   /// 流出流量
-  var frp_token = ''.obs;
-
+  var outbound = 0.obs;
   /// FRP令牌
-  var traffic = 0.obs;
-
+  var frp_token = ''.obs;
   /// 总流量
-
-  var welcomeText = '好'.obs;
-
+  var traffic = 0.obs;
   /// 欢迎文字
+  var welcomeText = '好'.obs;
 
   /// 加载方法
   load() async {
