@@ -1,3 +1,4 @@
+import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,10 +14,10 @@ class SettingPrefs {
 
   static Future<void> setFrpcDownloadedVersionsInfo(String version) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final newlist = (await getFrpcInfo()).lists['frpc_downloaded_versions'] ?? [];
+    final newlist =
+        (await getFrpcInfo()).lists['frpc_downloaded_versions'] ?? [];
     newlist.add(version);
-    prefs.setStringList(
-        'list@frpc_downloaded_versions', newlist);
+    prefs.setStringList('list@frpc_downloaded_versions', newlist);
   }
 
   static Future<FrpcConfig> getFrpcInfo() async {
@@ -37,4 +38,6 @@ class SettingPrefs {
 
     return FrpcConfig(settings: settings, lists: lists);
   }
+
+  static Future<void> refresh() async => { if (await FrpcManagerStorage.read() != null) setFrpcInfo((await FrpcManagerStorage.read())!)};
 }

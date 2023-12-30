@@ -7,6 +7,7 @@ import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/prefs/SettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
+import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
 import 'package:nyalcf/util/CPUArch.dart';
 import 'package:nyalcf/util/frpc/Archive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -26,6 +27,7 @@ class DSettingController extends GetxController {
   var frpc_download_arch = 0.obs;
   var frpc_download_progress = 0.0.obs;
   var frpc_download_show = <Widget>[].obs;
+  var _frpc_downloaded_versions = [];
   dynamic frpc_download_cancel = false;
 
   var frpc_version = ''.obs;
@@ -36,7 +38,6 @@ class DSettingController extends GetxController {
 
   var github_proxy = ''.obs;
 
-  var _frpc_downloaded_versions = [];
   var cpu_arch = ''.obs;
 
   load() async {
@@ -55,46 +56,9 @@ class DSettingController extends GetxController {
   void _load_tip() async {
     _frpc_downloaded_versions = await FrpcManagerStorage.downloadedVersions;
     if (_frpc_downloaded_versions.length == 0) {
-      frpc_download_tip.value = Container(
-        child: Card(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.warning),
-                title: Text('尚未安装任何版本的 Frpc'),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text('无法启动隧道了...呜呜...'),
-                    Container(
-                      margin: EdgeInsets.only(top: 10.0),
-                      child: Row(
-                        children: <Widget>[
-                          ElevatedButton(
-                            onPressed: () async {
-                              showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return FrpcDownloadDialogX(context: context)
-                                        .build();
-                                  });
-                            },
-                            child: Text('下载'),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      );
+      frpc_download_tip.value = FrpcDownloadTip.tip(context: context);
+    } else {
+      frpc_download_tip.value = await FrpcDownloadTip.downloaded(context: context);
     }
   }
 
@@ -143,6 +107,7 @@ class DSettingController extends GetxController {
           if (!Platform.isWindows) {
             await FrpcManagerStorage.setRunPermission();
           }
+          _load_tip();
         } else {
           Get.snackbar(
             '解压 Frpc 时发生错误..呜呜..',
