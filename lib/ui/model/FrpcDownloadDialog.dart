@@ -18,6 +18,7 @@ class FrpcDownloadDialogX {
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
             children: <Widget>[
+              Text('猫猫翻遍了系统变量，识别到 CPU 架构为：${ds_c.cpu_arch}，然后累死惹'),
               Obx(() => DropdownButton(
                     value: ds_c.frpc_download_arch.value,
                     items: ds_c.frpc_download_arch_list,

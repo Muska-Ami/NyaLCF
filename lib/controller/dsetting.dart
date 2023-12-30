@@ -7,6 +7,7 @@ import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/prefs/SettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
+import 'package:nyalcf/util/CPUArch.dart';
 import 'package:nyalcf/util/frpc/Archive.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -36,12 +37,15 @@ class DSettingController extends GetxController {
   var github_proxy = ''.obs;
 
   var _frpc_downloaded_versions = [];
+  var cpu_arch = ''.obs;
 
   load() async {
     final packageInfo = await PackageInfo.fromPlatform();
     app_name.value = packageInfo.appName;
     app_version.value = packageInfo.version;
     app_package_name.value = packageInfo.packageName;
+
+    cpu_arch.value = await CPUArch.getCPUArchitecture();
 
     frpc_version.value = await FrpcManagerStorage.usingVersion;
     _load_tip();
