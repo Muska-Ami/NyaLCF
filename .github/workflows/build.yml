@@ -100,8 +100,8 @@ jobs:
 
       - name: Install Dependencies
         run: |-
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev locate
           flutter pub get
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
           dart pub global activate flutter_distributor
 
       - name: Setup AppImageTool
@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Linux Artifact(Dist - AppImage)
-          path: dist/*
+          path: dist
   dist-linux-deb:
     needs:
       - build-linux

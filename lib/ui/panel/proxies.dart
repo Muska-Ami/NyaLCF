@@ -52,23 +52,25 @@ class PanelProxies extends StatelessWidget {
                   children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
                 ),
               ),
-              Obx(() => Column(
-                    children: [
-                      DataTable(
-                        columnSpacing: 5.0,
-                        columns: <DataColumn>[
-                          DataColumn(label: Flexible(child: Text('名称'))),
-                          DataColumn(label: Flexible(child: Text('ID'))),
-                          DataColumn(label: Flexible(child: Text('节点'))),
-                          DataColumn(label: Flexible(child: Text('协议'))),
-                          DataColumn(label: Flexible(child: Text('本地IP'))),
-                          DataColumn(label: Flexible(child: Text('端口'))),
-                          DataColumn(label: Flexible(child: Text('操作')))
-                        ],
-                        rows: p_c.proxiesListWidgets.value,
-                      ),
-                    ],
-                  ))
+              Obx(
+                () => Column(
+                  children: [
+                    DataTable(
+                      columnSpacing: 5.0,
+                      columns: <DataColumn>[
+                        DataColumn(label: Flexible(child: Text('名称'))),
+                        DataColumn(label: Flexible(child: Text('ID'))),
+                        DataColumn(label: Flexible(child: Text('节点'))),
+                        DataColumn(label: Flexible(child: Text('协议'))),
+                        DataColumn(label: Flexible(child: Text('本地IP'))),
+                        DataColumn(label: Flexible(child: Text('端口'))),
+                        DataColumn(label: Flexible(child: Text('操作')))
+                      ],
+                      rows: p_c.proxiesListWidgets.value,
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

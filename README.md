@@ -28,7 +28,7 @@ An unoffical LoCyanFrp launcher.
 - [x] Token复制
 - [x] 隧道信息展示
 - [x] 隧道启动
-- [ ] 高级启动
+- [x] 高级启动
 - [x] *控制台
 - [ ] 隧道编辑
 - [x] 公告
