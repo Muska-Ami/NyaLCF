@@ -11,11 +11,12 @@ class PanelProxies extends StatelessWidget {
   PanelProxies({required this.title});
 
   final UserController c = Get.find();
-  final p_c = Get.put(ProxiesController());
   final String title;
 
   @override
   Widget build(BuildContext context) {
+    final p_c = Get.put(ProxiesController(context: context));
+
     p_c.load(c.user, c.token);
 
     return Scaffold(

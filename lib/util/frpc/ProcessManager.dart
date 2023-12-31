@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dconsole.dart';
 import 'package:nyalcf/controller/frpc.dart';
+import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 
 class FrpcProcessManager {
@@ -17,14 +18,26 @@ class FrpcProcessManager {
     required int proxy_id,
   }) async {
     final Map<String, dynamic> p_map = Map();
-    final process = await Process.start(
-      await FrpcManagerStorage.getFilePath('0.51.3'),
-      [
+    List<String> arguments = [];
+
+    final conf_path = await FrpcConfigurationStorage.getConfigPath(proxy_id);
+    if (conf_path != null) {
+      arguments = [
+        '-c',
+        conf_path
+      ];
+    } else {
+      arguments = [
         '-u',
         frp_token,
         '-p',
         proxy_id.toString(),
-      ],
+      ];
+    }
+
+    final process = await Process.start(
+      await FrpcManagerStorage.getFilePath('0.51.3'),
+      arguments,
       workingDirectory: await FrpcManagerStorage.getRunPath('0.51.3'),
     );
     p_map['process'] = process;
