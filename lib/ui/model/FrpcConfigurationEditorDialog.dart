@@ -4,6 +4,8 @@ import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:get/get.dart';
 import 'package:highlight/languages/ini.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
+import 'package:nyalcf/controller/proxies.dart';
+import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 
 class FrpcConfigEditorDialogX {
@@ -12,6 +14,9 @@ class FrpcConfigEditorDialogX {
   });
 
   final context;
+
+  final UserController u_c = Get.find();
+  final ProxiesController p_c = Get.find();
 
   CodeController _controller(def_text) => CodeController(
         text: def_text,
@@ -55,6 +60,7 @@ class FrpcConfigEditorDialogX {
           onPressed: () async {
             //关闭 返回true
             await FrpcConfigurationStorage.setConfig(proxy_id, c.fullText);
+            p_c.reload(u_c.user, u_c.token);
             Get.close(0);
           },
         ),
