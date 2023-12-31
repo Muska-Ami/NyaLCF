@@ -3,15 +3,18 @@ package_name: nyanana
 maintainer:
   name: Muska-Ami
   email: xmcn@1l1.icu
-co_authors: []
+co_authors:
+  - '\n'
 priority: optional
 section: x11
 installed_size: 6604
 essential: false
 icon: asset/icon/icon.png
 
-postinstall_scripts: []
+postinstall_scripts:
+  - 'echo "Nya LoCyanFrp! Powered by love."'
 postuninstall_scripts: []
+
 keywords:
   - NyaLCF
   - Nya LoCyanFrp!
