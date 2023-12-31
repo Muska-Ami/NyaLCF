@@ -36,7 +36,7 @@ class DrawerX {
             leading: Icon(Icons.dashboard),
             title: const Text('仪表板'),
             onTap: () {
-              Navigator.pop(context);
+              Get.close(0);
               Get.toNamed('/panel/home');
             },
           ),
@@ -44,7 +44,7 @@ class DrawerX {
             leading: Icon(Icons.list),
             title: const Text('隧道列表'),
             onTap: () {
-              Navigator.pop(context);
+              Get.close(0);
               Get.toNamed('/panel/proxies');
             },
           ),
@@ -52,7 +52,7 @@ class DrawerX {
             leading: Icon(Icons.last_page),
             title: const Text('控制台'),
             onTap: () {
-              Navigator.pop(context);
+              Get.close(0);
               Get.toNamed('/panel/console');
             },
           )

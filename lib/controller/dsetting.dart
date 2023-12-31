@@ -83,7 +83,7 @@ class DSettingController extends GetxController {
         ));
       }
     } else if (frpc_download_cancel is Response) {
-      Navigator.of(context).pop();
+      Get.close(0);
       /*await showDialog(
           context: context,
           builder: (context) {
@@ -117,8 +117,8 @@ class DSettingController extends GetxController {
           );
         }
         /// 关闭对话框
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
+        Get.close(0);
+        Get.close(0);
       });
     } else {
       frpc_download_show.clear();

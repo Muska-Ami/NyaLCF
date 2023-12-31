@@ -64,7 +64,7 @@ class FrpcDownloadDialogX {
               ElevatedButton(
                 onPressed: () async {
                   ds_c.downloadCancelToken.cancel();
-                  Navigator.of(context).pop();
+                  Get.close(0);
                 },
                 child: Text('取消'),
               ),

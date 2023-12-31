@@ -27,7 +27,7 @@ class LauncherSX {
                       children: <Widget>[
                         SelectableText('通用软件名称：Nya LoCyanFrp! 乐青映射启动器'),
                         SelectableText('内部软件名称：${ds_c.app_name}'),
-                        SelectableText('内壁软件包名：${ds_c.app_package_name}'),
+                        SelectableText('内部软件包名：${ds_c.app_package_name}'),
                         SelectableText('软件版本：${ds_c.app_version}'),
                         SelectableText('著作权信息：登记中'),
                       ],

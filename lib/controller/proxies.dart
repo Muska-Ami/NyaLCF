@@ -1,8 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/dio/proxies/configuration.dart';
 import 'package:nyalcf/dio/proxies/get.dart';
+import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/model/ProxyInfo.dart';
+import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 import 'frpc.dart';
@@ -11,8 +16,13 @@ import 'frpc.dart';
  * 代理 GetX 状态控制器
  */
 class ProxiesController extends GetxController {
+  ProxiesController({required this.context});
+
+  final context;
+
   final FrpcController f_c = Get.find();
   final UserController c = Get.find();
+
   var proxiesListWidgets = <DataRow>[
     DataRow(cells: <DataCell>[
       DataCell(SizedBox(
@@ -67,7 +77,60 @@ class ProxiesController extends GetxController {
                   IconButton(
                     icon: Icon(Icons.edit),
                     onPressed: () async {
-                      Get.snackbar('谁让你点了？', '还没写，爬去面板编辑喵喵喵！');
+                      /// 展示编辑框
+                      void showDialogX(text) {
+                        Get.dialog(
+                          FrpcConfigEditorDialogX(context: context).dialog(
+                            text,
+                            proxy_id: element.id,
+                          ),
+                          barrierDismissible: false,
+                        );
+                      }
+
+                      final fp = await FrpcConfigurationStorage.getConfigPath(
+                          element.id);
+                      String text = '';
+
+                      /// 判空
+                      if (fp != null) {
+                        /// 配置已存在
+                        final f = File(fp);
+                        text = await f.readAsString();
+                        showDialogX(text);
+                      } else {
+                        /// 配置不存在，获取写入
+                        Get.dialog(
+                            FrpcConfigEditorDialogX(context: context).loading(),
+                            barrierDismissible: false);
+                        final res = await ProxiesConfigurationDio()
+                            .get(c.frp_token.value, element.id);
+                        if (res is String) {
+                          print('success');
+                          text = res;
+                          FrpcConfigurationStorage.setConfig(element.id, res);
+                          Get.close(0);
+                          showDialogX(text);
+                        } else if (res == null) {
+                          Get.snackbar(
+                            '获取配置文件失败',
+                            '返回值无效',
+                            snackPosition: SnackPosition.BOTTOM,
+                            animationDuration: Duration(milliseconds: 300),
+                          );
+                          Get.close(0);
+                        } else {
+                          print(res);
+                          Get.snackbar(
+                            '获取配置文件失败',
+                            res.toString(),
+                            snackPosition: SnackPosition.BOTTOM,
+                            animationDuration: Duration(milliseconds: 300),
+                          );
+                          Get.close(0);
+                        }
+                        // Get.snackbar('谁让你点了？', '还没写，爬去面板编辑喵喵喵！');
+                      }
                     },
                   ),
                 ],
