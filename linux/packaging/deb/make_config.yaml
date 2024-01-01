@@ -3,7 +3,8 @@ package_name: nyanana
 maintainer:
   name: Muska-Ami
   email: xmcn@1l1.icu
-co_authors: []
+co_authors:
+  -
 priority: optional
 section: x11
 installed_size: 6604

@@ -105,6 +105,7 @@ class DSettingController extends GetxController {
                 lists: (await SettingPrefs.getFrpcInfo()).lists),
           );
           if (!Platform.isWindows) {
+            print('Not windows platform, change file permission');
             await FrpcManagerStorage.setRunPermission();
           }
           _load_tip();
