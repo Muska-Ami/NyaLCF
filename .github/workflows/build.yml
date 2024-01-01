@@ -100,7 +100,7 @@ jobs:
 
       - name: Install Dependencies
         run: |-
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev locate
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev locate libfuse2
           flutter pub get
           dart pub global activate flutter_distributor
 
