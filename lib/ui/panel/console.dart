@@ -28,19 +28,17 @@ class PanelConsole extends StatelessWidget {
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
-            Obx(
-              () => IconButton(
-                onPressed: () {
-                  Get.dialog(AccountDialogX(context: context).build());
-                },
-                icon: ClipRRect(
-                  borderRadius: BorderRadius.circular(500),
-                  child: Image.network(
-                    '${c.avatar}',
-                    width: 35,
-                  ),
-                ),
-              ),
+            IconButton(
+              onPressed: () {
+                Get.dialog(AccountDialogX(context: context).build());
+              },
+              icon: Obx(() => ClipRRect(
+                    borderRadius: BorderRadius.circular(500),
+                    child: Image.network(
+                      '${c.avatar}',
+                      width: 35,
+                    ),
+                  )),
             ),
           ], context: context)
               .actions(),
@@ -71,7 +69,8 @@ class PanelConsole extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Get.dialog(ProcessListDialogX(context: context).build());
+                        Get.dialog(
+                            ProcessListDialogX(context: context).build());
                       },
                       child: Text('查看进程列表'),
                     ),

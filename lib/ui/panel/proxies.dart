@@ -26,17 +26,18 @@ class PanelProxies extends StatelessWidget {
           backgroundColor: Colors.pink[100],
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
-            Obx(() => IconButton(
-                onPressed: () {
-                  Get.dialog(AccountDialogX(context: context).build());
-                },
-                icon: ClipRRect(
-                  borderRadius: BorderRadius.circular(500),
-                  child: Image.network(
-                    '${c.avatar}',
-                    width: 35,
-                  ),
-                ))),
+            IconButton(
+              onPressed: () {
+                Get.dialog(AccountDialogX(context: context).build());
+              },
+              icon: Obx(() => ClipRRect(
+                borderRadius: BorderRadius.circular(500),
+                child: Image.network(
+                  '${c.avatar}',
+                  width: 35,
+                ),
+              )),
+            ),
           ], context: context)
               .actions(),
         ),
@@ -56,7 +57,7 @@ class PanelProxies extends StatelessWidget {
                 () => Column(
                   children: [
                     DataTable(
-                      columnSpacing: 5.0,
+                      columnSpacing: 10.0,
                       columns: <DataColumn>[
                         DataColumn(label: Flexible(child: Text('名称'))),
                         DataColumn(label: Flexible(child: Text('ID'))),
