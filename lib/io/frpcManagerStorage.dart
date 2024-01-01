@@ -105,7 +105,7 @@ class FrpcManagerStorage {
     final process = await Process.run(
       'chmod',
       [
-        '+x',
+        'u+x',
         await getFilePath('0.51.3'),
       ],
     );
