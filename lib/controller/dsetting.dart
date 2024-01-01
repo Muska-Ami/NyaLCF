@@ -187,7 +187,7 @@ class DSettingController extends GetxController {
     }
     return dmil;
   }
-
+/*
   /// 构建已下载选项列表
   List<DropdownMenuItem> _buildDownloadedDMIWidgetList(List<String> versions) {
     final List<DropdownMenuItem> dmil = <DropdownMenuItem>[];
@@ -195,7 +195,7 @@ class DSettingController extends GetxController {
       dmil.add(_buildDMIWidget(version: versions[i], value: i));
     }
     return dmil;
-  }
+  }*/
 
   /// 构建选项
   DropdownMenuItem _buildDMIWidget({
