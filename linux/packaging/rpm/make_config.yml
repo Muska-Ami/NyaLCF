@@ -1,0 +1,23 @@
+icon: asset/icon/icon.png
+summary: Nya LoCyanFrp! 乐青映射启动器
+group: Application/Network
+vendor: Muska_Ami
+packager: Muska_Ami
+packagerEmail: xmcn@1l1.icu
+license: MIT
+url: https://github.com/Muska-Ami/NyaLCF
+
+display_name: Nya LoCyanFrp!
+
+keywords:
+  - NyaLCF
+  - Nya LoCyanFrp!
+  - nyanana
+  - LoCyanFrp
+
+generic_name: NyaLCF
+
+categories:
+  - Network
+
+startup_notify: true
