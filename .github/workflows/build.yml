@@ -106,9 +106,8 @@ jobs:
 
       - name: Setup AppImageTool
         run: |-
-          curl -o appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
-          sudo chmod a+x appimagetool
-          sudo mv appimagetool /usr/local/bin/
+          sudo mv asset/appimagetool-x86_64.AppImage /usr/local/bin/appimagetool
+          sudo chmod a+x /usr/local/bin/appimagetool
 
       - name: Pack AppImage Installer
         run: |-
@@ -140,8 +139,7 @@ jobs:
 
       - name: Pack DEB Installer
         run: |-
-          echo "Coming"
-          #flutter_distributor package --platform linux --target deb
+          flutter_distributor package --platform linux --target deb
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
