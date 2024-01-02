@@ -119,6 +119,7 @@ class DSettingController extends GetxController {
             animationDuration: Duration(milliseconds: 300),
           );
         }
+
         /// 关闭对话框
         Get.close(0);
         Get.close(0);

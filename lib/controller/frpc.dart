@@ -5,6 +5,7 @@ import 'package:nyalcf/io/frpcManagerStorage.dart';
 class FrpcController extends GetxController {
   /// 是否存在的标志
   var exist = false.obs;
+
   /// 过滤后的输出文本
   var process_out = <SelectableText>[
     SelectableText(
@@ -16,6 +17,7 @@ class FrpcController extends GetxController {
       ),
     )
   ].obs;
+
   /// 版本号
   var version = ''.obs;
 
@@ -36,6 +38,7 @@ class FrpcController extends GetxController {
   void appendInfoLog(element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+
     /// 添加信息日志文本
     process_out.add(
       SelectableText(
@@ -47,6 +50,7 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+
     /// 刷新输出文本
     process_out.refresh();
   }
@@ -55,6 +59,7 @@ class FrpcController extends GetxController {
   void appendWarnLog(element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+
     /// 添加警告日志文本
     process_out.add(
       SelectableText(
@@ -66,6 +71,7 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+
     /// 刷新输出文本
     process_out.refresh();
   }
@@ -74,6 +80,7 @@ class FrpcController extends GetxController {
   void appendErrorLog(element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (process_out.length >= 500) process_out.remove(process_out.first);
+
     /// 添加错误日志文本
     process_out.add(
       SelectableText(
@@ -85,6 +92,7 @@ class FrpcController extends GetxController {
         ),
       ),
     );
+
     /// 刷新输出文本
     process_out.refresh();
   }

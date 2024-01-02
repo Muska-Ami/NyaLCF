@@ -96,13 +96,13 @@ class AppbarActionsX {
                   style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () {
-                    try {
-                      FrpcProcessManager().killAll();
-                    } catch (e) {
-                      print('Failed to close all process: ${e}');
-                    }
-                    Navigator.pop(context, true);
-                  },
+                  try {
+                    FrpcProcessManager().killAll();
+                  } catch (e) {
+                    print('Failed to close all process: ${e}');
+                  }
+                  Navigator.pop(context, true);
+                },
               ),
             ],
           );

@@ -37,12 +37,12 @@ class PanelHome extends StatelessWidget {
                 Get.dialog(AccountDialogX(context: context).build());
               },
               icon: Obx(() => ClipRRect(
-                borderRadius: BorderRadius.circular(500),
-                child: Image.network(
-                  '${c.avatar}',
-                  width: 35,
-                ),
-              )),
+                    borderRadius: BorderRadius.circular(500),
+                    child: Image.network(
+                      '${c.avatar}',
+                      width: 35,
+                    ),
+                  )),
             ),
           ], context: context)
               .actions(),

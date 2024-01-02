@@ -26,10 +26,7 @@ class FrpcProcessManager {
 
     final conf_path = await FrpcConfigurationStorage.getConfigPath(proxy_id);
     if (conf_path != null) {
-      arguments = [
-        '-c',
-        conf_path
-      ];
+      arguments = ['-c', conf_path];
     } else {
       arguments = [
         '-u',

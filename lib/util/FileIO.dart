@@ -36,7 +36,8 @@ class FileIO {
 
     final sourceDirList = await sourceDir.list();
     await sourceDirList.forEach((FileSystemEntity entity) async {
-      String newPath = targetDir.path + '/' + Uri.decodeFull(entity.uri.pathSegments.last);
+      String newPath =
+          targetDir.path + '/' + Uri.decodeFull(entity.uri.pathSegments.last);
 
       print(newPath);
       if (entity is File) {
