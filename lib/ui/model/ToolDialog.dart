@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ToolDialogX {
@@ -15,10 +16,12 @@ class ToolDialogX {
             onPressed: () async {
               const url = 'https://www.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {
-                const snackBar = SnackBar(
-                  content: Text('无法打开网页，请检查设备是否存在WebView'),
+                Get.snackbar(
+                  '发生错误',
+                  '无法打开网页，请检查设备是否存在WebView',
+                  snackPosition: SnackPosition.BOTTOM,
+                  animationDuration: Duration(milliseconds: 300),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }),
         SimpleDialogOption(
@@ -26,10 +29,12 @@ class ToolDialogX {
             onPressed: () async {
               const url = 'https://dashboard.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {
-                const snackBar = SnackBar(
-                  content: Text('无法打开网页，请检查设备是否存在WebView'),
+                Get.snackbar(
+                  '发生错误',
+                  '无法打开网页，请检查设备是否存在WebView',
+                  snackPosition: SnackPosition.BOTTOM,
+                  animationDuration: Duration(milliseconds: 300),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }),
         SimpleDialogOption(
@@ -37,10 +42,12 @@ class ToolDialogX {
             onPressed: () async {
               const url = 'https://preview.locyanfrp.cn';
               if (!await launchUrl(Uri.parse(url))) {
-                const snackBar = SnackBar(
-                  content: Text('无法打开网页，请检查设备是否存在WebView'),
+                Get.snackbar(
+                  '发生错误',
+                  '无法打开网页，请检查设备是否存在WebView',
+                  snackPosition: SnackPosition.BOTTOM,
+                  animationDuration: Duration(milliseconds: 300),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }),
         SimpleDialogOption(
@@ -48,10 +55,12 @@ class ToolDialogX {
             onPressed: () async {
               const url = 'https://xn--v6qw21h0gd43u.xn--fiqs8s/';
               if (!await launchUrl(Uri.parse(url))) {
-                const snackBar = SnackBar(
-                  content: Text('无法打开网页，请检查设备是否存在WebView'),
+                Get.snackbar(
+                  '发生错误',
+                  '无法打开网页，请检查设备是否存在WebView',
+                  snackPosition: SnackPosition.BOTTOM,
+                  animationDuration: Duration(milliseconds: 300),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               }
             }),
       ],

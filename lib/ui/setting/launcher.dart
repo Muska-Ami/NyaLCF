@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsetting.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSX {
   final DSettingController ds_c = Get.find();
@@ -47,6 +48,48 @@ class LauncherSX {
                     style: TextStyle(
                       color: Color.fromRGBO(57, 186, 255, 1.0),
                     ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.bug_report),
+                  title: Text('帮助我们做的更好'),
+                ),
+                Container(
+                  margin:
+                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issues来向我们反馈。'),
+                      TextButton(
+                        child: ListTile(
+                          leading: Icon(Icons.link),
+                          title: Text(
+                            'https://github.com/Muska-Ami/NyaLCF/issues',
+                            style: TextStyle(color: Colors.pink),
+                          ),
+                        ),
+                        onPressed: () async {
+                          const url = 'https://github.com/Muska-Ami/NyaLCF/issues';
+                          if (!await launchUrl(Uri.parse(url))) {
+                            Get.snackbar(
+                              '发生错误',
+                              '无法打开网页，请检查设备是否存在WebView',
+                              snackPosition: SnackPosition.BOTTOM,
+                              animationDuration: Duration(milliseconds: 300),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

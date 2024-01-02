@@ -115,9 +115,12 @@ class PanelHome extends StatelessWidget {
                                           child: Column(children: <Widget>[
                                         Text('Frp Token'),
                                         ElevatedButton(
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(
-                                                  text: c.frp_token.value));
+                                            onPressed: () async {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                  text: c.frp_token.value,
+                                                ),
+                                              );
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                 content: Text('已复制'),
@@ -129,9 +132,12 @@ class PanelHome extends StatelessWidget {
                                           child: Column(children: <Widget>[
                                         Text('Token'),
                                         ElevatedButton(
-                                            onPressed: () {
-                                              Clipboard.setData(ClipboardData(
-                                                  text: c.token.value));
+                                            onPressed: () async {
+                                              Clipboard.setData(
+                                                ClipboardData(
+                                                  text: c.token.value,
+                                                ),
+                                              );
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(SnackBar(
                                                 content: Text('已复制'),
