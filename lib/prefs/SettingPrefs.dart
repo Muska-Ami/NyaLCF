@@ -39,5 +39,8 @@ class SettingPrefs {
     return FrpcConfig(settings: settings, lists: lists);
   }
 
-  static Future<void> refresh() async => { if (await FrpcManagerStorage.read() != null) setFrpcInfo((await FrpcManagerStorage.read())!)};
+  static Future<void> refresh() async => {
+        if (await FrpcManagerStorage.read() != null)
+          setFrpcInfo((await FrpcManagerStorage.read())!)
+      };
 }

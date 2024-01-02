@@ -23,7 +23,7 @@ class FrpcConfigEditorDialogX {
         analyzer: DefaultLocalAnalyzer(),
       );
 
-  Widget dialog(text,{required proxy_id}) {
+  Widget dialog(text, {required proxy_id}) {
     final c = _controller(text);
     return AlertDialog(
       title: Text('编辑配置文件'),

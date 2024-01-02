@@ -13,11 +13,13 @@ class FrpcArchive {
     required version,
   }) async {
     File f;
+
     /// 判定平台确定压缩包名称
     if (Platform.isWindows)
       f = File('${await _c_path}/frpc.zip');
     else
       f = File('${await _c_path}/frpc.tar.gz');
+
     /// 确认 Frpc 是否存在
     if (await f.exists()) {
       extractFileToDisk(f.path, await _c_path);

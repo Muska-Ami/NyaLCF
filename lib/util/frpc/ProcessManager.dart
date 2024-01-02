@@ -17,15 +17,16 @@ class FrpcProcessManager {
     required String frp_token,
     required int proxy_id,
   }) async {
+    if (!Platform.isWindows) {
+      print('*nix platform, change file permission');
+      await FrpcManagerStorage.setRunPermission();
+    }
     final Map<String, dynamic> p_map = Map();
     List<String> arguments = [];
 
     final conf_path = await FrpcConfigurationStorage.getConfigPath(proxy_id);
     if (conf_path != null) {
-      arguments = [
-        '-c',
-        conf_path
-      ];
+      arguments = ['-c', conf_path];
     } else {
       arguments = [
         '-u',

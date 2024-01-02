@@ -58,7 +58,8 @@ class DSettingController extends GetxController {
     if (_frpc_downloaded_versions.length == 0) {
       frpc_download_tip.value = FrpcDownloadTip.tip(context: context);
     } else {
-      frpc_download_tip.value = await FrpcDownloadTip.downloaded(context: context);
+      frpc_download_tip.value =
+          await FrpcDownloadTip.downloaded(context: context);
     }
   }
 
@@ -89,7 +90,8 @@ class DSettingController extends GetxController {
           builder: (context) {
             return FrpcDownloadDialogX(context: context).unarchiving();
           });*/
-      Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(), barrierDismissible: false);
+      Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(),
+          barrierDismissible: false);
       Future.delayed(const Duration(milliseconds: 3000), () async {
         //延时执行
         final unarchive = await FrpcArchive.unarchive(
@@ -104,10 +106,10 @@ class DSettingController extends GetxController {
                 settings: (await SettingPrefs.getFrpcInfo()).settings,
                 lists: (await SettingPrefs.getFrpcInfo()).lists),
           );
-          if (!Platform.isWindows) {
-            print('Not windows platform, change file permission');
+          /**if (!Platform.isWindows) {
+            print('*nix platform, change file permission');
             await FrpcManagerStorage.setRunPermission();
-          }
+          }*/
           _load_tip();
         } else {
           Get.snackbar(
@@ -117,6 +119,7 @@ class DSettingController extends GetxController {
             animationDuration: Duration(milliseconds: 300),
           );
         }
+
         /// 关闭对话框
         Get.close(0);
         Get.close(0);

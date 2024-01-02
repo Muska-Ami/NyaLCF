@@ -6,20 +6,28 @@ import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 class UserController extends GetxController {
   /// 用户名
   var user = ''.obs;
+
   /// 邮箱
   var email = ''.obs;
+
   /// 令牌
   var token = ''.obs;
+
   /// 头像链接
   var avatar = 'https://cravatar.cn/avatar/'.obs;
+
   /// 流入流量
   var inbound = 0.obs;
+
   /// 流出流量
   var outbound = 0.obs;
+
   /// FRP令牌
   var frp_token = ''.obs;
+
   /// 总流量
   var traffic = 0.obs;
+
   /// 欢迎文字
   var welcomeText = '好'.obs;
 
@@ -36,9 +44,7 @@ class UserController extends GetxController {
     frp_token.value = userinfo.frp_token;
     traffic.value = userinfo.traffic;
 
-    int hour = DateTime
-        .now()
-        .hour;
+    int hour = DateTime.now().hour;
 
     /// 根据小时确定欢迎文字
     if (hour <= 8) {
