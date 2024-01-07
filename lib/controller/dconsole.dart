@@ -50,6 +50,7 @@ class ConsoleController extends GetxController {
             onPressed: () {
               /// 杀死进程
               FrpcProcessManager().kill(element);
+              load();
             },
           ),
         ),
