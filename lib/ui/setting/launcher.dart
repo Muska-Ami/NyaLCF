@@ -11,6 +11,63 @@ class LauncherSX {
       margin: EdgeInsets.all(15.0),
       child: ListView(
         children: <Widget>[
+          Container(
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.color_lens),
+                    title: Text('主题'),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                    padding: EdgeInsets.only(left: 30.0, right: 50.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.dark_mode),
+                                title: Text('深色主题'),
+                              ),
+                            ),
+                            Switch(value: false, onChanged: null),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.dark_mode),
+                                title: Text('浅色主题自定义主题色种子'),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: Container(
+                                padding: EdgeInsets.only(bottom: 10.0),
+                                child: TextField(
+                                  decoration: const InputDecoration(
+                                    labelText: '十六进制颜色',
+                                  ),
+                                  readOnly: true,
+                                ),
+                              ),
+                            ),
+                            Switch(value: false, onChanged: null),
+                          ],
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +135,8 @@ class LauncherSX {
                           ),
                         ),
                         onPressed: () async {
-                          const url = 'https://github.com/Muska-Ami/NyaLCF/issues';
+                          const url =
+                              'https://github.com/Muska-Ami/NyaLCF/issues';
                           if (!await launchUrl(Uri.parse(url))) {
                             Get.snackbar(
                               '发生错误',
