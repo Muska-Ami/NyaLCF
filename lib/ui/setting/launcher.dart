@@ -42,7 +42,7 @@ class LauncherSX {
                           children: [
                             Expanded(
                               child: ListTile(
-                                leading: Icon(Icons.dark_mode),
+                                leading: Icon(Icons.colorize),
                                 title: Text('浅色主题自定义主题色种子'),
                               ),
                             ),
