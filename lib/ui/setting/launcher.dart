@@ -31,6 +31,17 @@ class LauncherSX {
                           children: [
                             Expanded(
                               child: ListTile(
+                                leading: Icon(Icons.auto_awesome),
+                                title: Text('自动设置主题'),
+                              ),
+                            ),
+                            Switch(value: false, onChanged: null),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ListTile(
                                 leading: Icon(Icons.dark_mode),
                                 title: Text('深色主题'),
                               ),

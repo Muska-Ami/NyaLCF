@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
-import 'package:nyalcf/prefs/SettingPrefs.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
 import 'package:nyalcf/util/CPUArch.dart';
@@ -100,11 +100,11 @@ class DSettingController extends GetxController {
           version: '0.51.3',
         );
         if (unarchive) {
-          SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
+          FrpcSettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
           FrpcManagerStorage.save(
             FrpcConfig(
-                settings: (await SettingPrefs.getFrpcInfo()).settings,
-                lists: (await SettingPrefs.getFrpcInfo()).lists),
+                settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
+                lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );
           /**if (!Platform.isWindows) {
             print('*nix platform, change file permission');
