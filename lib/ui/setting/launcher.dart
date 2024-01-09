@@ -1,15 +1,92 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsetting.dart';
+import 'package:nyalcf/controller/dsettinglauncher.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSX {
-  final DSettingController ds_c = Get.find();
+  final DSettingLauncherController ds_c = Get.find();
 
   Widget widget() {
     return Container(
       margin: EdgeInsets.all(15.0),
       child: ListView(
         children: <Widget>[
+          Container(
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.color_lens),
+                    title: Text('主题'),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                    padding: EdgeInsets.only(left: 30.0, right: 50.0),
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.auto_awesome),
+                                  title: Text('自动设置主题'),
+                                ),
+                              ),
+                              Switch(
+                                  value: ds_c.theme_auto.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.dark_mode),
+                                  title: Text('深色主题'),
+                                ),
+                              ),
+                              Switch(
+                                  value: ds_c.theme_dark.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.colorize),
+                                  title: Text('浅色主题自定义主题色种子'),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 200,
+                                child: Container(
+                                  padding: EdgeInsets.only(bottom: 10.0),
+                                  child: TextField(
+                                    decoration: const InputDecoration(
+                                      labelText: '十六进制颜色',
+                                    ),
+                                    readOnly: true,
+                                  ),
+                                ),
+                              ),
+                              Switch(
+                                  value: ds_c.theme_light_seed_enable.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +124,49 @@ class LauncherSX {
                     style: TextStyle(
                       color: Color.fromRGBO(57, 186, 255, 1.0),
                     ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.bug_report),
+                  title: Text('帮助我们做的更好'),
+                ),
+                Container(
+                  margin:
+                      EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issues来向我们反馈。'),
+                      TextButton(
+                        child: ListTile(
+                          leading: Icon(Icons.link),
+                          title: Text(
+                            'https://github.com/Muska-Ami/NyaLCF/issues',
+                            style: TextStyle(color: Colors.pink),
+                          ),
+                        ),
+                        onPressed: () async {
+                          const url =
+                              'https://github.com/Muska-Ami/NyaLCF/issues';
+                          if (!await launchUrl(Uri.parse(url))) {
+                            Get.snackbar(
+                              '发生错误',
+                              '无法打开网页，请检查设备是否存在WebView',
+                              snackPosition: SnackPosition.BOTTOM,
+                              animationDuration: Duration(milliseconds: 300),
+                            );
+                          }
+                        },
+                      ),
+                    ],
                   ),
                 ),
               ],

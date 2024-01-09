@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:nyalcf/model/FrpcConfig.dart';
-import 'package:nyalcf/prefs/SettingPrefs.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/util/FileIO.dart';
 
 class FrpcManagerStorage {
@@ -22,7 +22,7 @@ class FrpcManagerStorage {
     }
   }
 
-  static Future<FrpcConfig> get _info async => SettingPrefs.getFrpcInfo();
+  static Future<FrpcConfig> get _info async => FrpcSettingPrefs.getFrpcInfo();
 
   static void init() {
     _path.then((path) {

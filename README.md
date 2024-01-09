@@ -24,15 +24,16 @@ An unoffical LoCyanFrp launcher.
 - [x] 注册
 - [x] 自动登录
 - [ ] Frpc管理
-- [x] *进程管理器
+- [x] 进程管理器
 - [x] Token复制
 - [x] 隧道信息展示
 - [x] 隧道启动
 - [x] 高级启动
-- [x] *控制台
+- [x] 控制台
 - [ ] 隧道编辑
 - [x] 公告
 - [x] 通知
+- [ ] 暗色主题
 
 ## Repo stats
 

@@ -1,8 +1,12 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/io/settingStorage.dart';
+import 'package:nyalcf/model/Setting.dart';
+import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
@@ -11,7 +15,14 @@ import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
 
-void main() {
+Setting? _settings = null;
+
+void main() async {
+  /// 初始化配置文件
+  SettingStorage.init();
+  FrpcManagerStorage.init();
+  _settings = await SettingStorage.read();
+
   runApp(const App());
 
   doWhenWindowReady(() {
@@ -29,11 +40,51 @@ class App extends StatelessWidget {
 
   final title = 'Nya LoCyanFrp!';
 
-  // This widget is the root of your application.
+  /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    // 初始化Frpc配置
-    FrpcManagerStorage.init();
+    LauncherSettingPrefs.setInfo(_settings ??
+        Setting(
+          theme_auto: true,
+          theme_dark: false,
+          theme_light_seed_enable: false,
+          theme_light_seed: '66ccff',
+        ));
+
+    ThemeData _theme_data;
+
+    final bool isDarkMode = (Theme.of(context).brightness == Brightness.dark ||
+            Theme.of(context).colorScheme.brightness == Brightness.dark) ||
+        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+            Brightness.dark ||
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
+    print('dark mode: ${isDarkMode}');
+
+    /// 判定是否需要切换暗色主题
+    if (((_settings?.theme_auto ?? true) && isDarkMode) ||
+        (_settings?.theme_dark ?? false)) {
+      _theme_data = ThemeData.dark(useMaterial3: true);
+    } else if ((_settings?.theme_light_seed_enable ?? false)) {
+      _theme_data = ThemeData(
+          useMaterial3: true,
+          fontFamily: 'HarmonyOS Sans',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor:
+                Color('0x${_settings?.theme_light_seed ?? '66ccff'}' as int),
+          ));
+    } else {
+      _theme_data = ThemeData(
+        useMaterial3: true,
+        fontFamily: 'HarmonyOS Sans',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pink.shade300,
+        ).copyWith(
+          primary: Colors.pink.shade500,
+          secondary: Colors.pink.shade400,
+        ),
+      );
+    }
 
     Get.put(UserController());
     return GetMaterialApp(
@@ -47,16 +98,7 @@ class App extends StatelessWidget {
         '/panel/console': (context) => PanelConsole(title: title),
         '/setting': (context) => SettingInjector(title: title),
       },
-      theme: ThemeData(
-        useMaterial3: true,
-        fontFamily: 'HarmonyOS Sans',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink.shade300,
-        ).copyWith(
-          primary: Colors.pink.shade500,
-          secondary: Colors.pink.shade400,
-        ),
-      ),
+      theme: _theme_data,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nyalcf/prefs/SettingPrefs.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 import 'FrpcDownloadDialog.dart';
 
@@ -60,7 +60,7 @@ class FrpcDownloadTip {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('已安装版本列表：'),
-                    Text((await SettingPrefs.getFrpcInfo())
+                    Text((await FrpcSettingPrefs.getFrpcInfo())
                         .lists['frpc_downloaded_versions']
                         .toString()),
                   ],

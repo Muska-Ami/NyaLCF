@@ -5,15 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
-import 'package:nyalcf/prefs/SettingPrefs.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
 import 'package:nyalcf/util/CPUArch.dart';
 import 'package:nyalcf/util/frpc/Archive.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 
-class DSettingController extends GetxController {
-  DSettingController({required this.context});
+class DSettingFrpcController extends GetxController {
+  DSettingFrpcController({required this.context});
 
   final context;
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
@@ -32,20 +31,11 @@ class DSettingController extends GetxController {
 
   var frpc_version = ''.obs;
 
-  var app_name = ''.obs;
-  var app_version = ''.obs;
-  var app_package_name = ''.obs;
-
   var github_proxy = ''.obs;
 
   var cpu_arch = ''.obs;
 
   load() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    app_name.value = packageInfo.appName;
-    app_version.value = packageInfo.version;
-    app_package_name.value = packageInfo.packageName;
-
     cpu_arch.value = await CPUArch.getCPUArchitecture();
 
     frpc_version.value = await FrpcManagerStorage.usingVersion;
@@ -100,11 +90,11 @@ class DSettingController extends GetxController {
           version: '0.51.3',
         );
         if (unarchive) {
-          SettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
+          FrpcSettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
           FrpcManagerStorage.save(
             FrpcConfig(
-                settings: (await SettingPrefs.getFrpcInfo()).settings,
-                lists: (await SettingPrefs.getFrpcInfo()).lists),
+                settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
+                lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );
           /**if (!Platform.isWindows) {
             print('*nix platform, change file permission');
