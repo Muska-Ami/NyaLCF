@@ -69,7 +69,8 @@ class PanelConsole extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Get.dialog(ProcessListDialogX(context: context).build());
+                        Get.dialog(
+                            ProcessListDialogX(context: context).build());
                       },
                       child: Text('查看进程列表'),
                     ),

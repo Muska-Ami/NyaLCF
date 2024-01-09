@@ -17,7 +17,8 @@ class SettingInjector extends StatelessWidget {
   Widget build(BuildContext context) {
     final DSettingFrpcController dsf_c =
         Get.put(DSettingFrpcController(context: context));
-    final DSettingLauncherController dsc_c = Get.put(DSettingLauncherController());
+    final DSettingLauncherController dsc_c =
+        Get.put(DSettingLauncherController());
     dsf_c.load();
     dsc_c.load();
 

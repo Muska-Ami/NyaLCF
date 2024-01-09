@@ -39,16 +39,13 @@ class SettingStorage {
   }
 
   /// 读取数据
-  static Setting? read() {
+  static Future<Setting?> read() async {
     try {
-      _path.then((path) {
-        final String result = File('${path}/settings.json')
-            .readAsStringSync(encoding: utf8);
-        return Setting.fromJson(jsonDecode(result));
-      });
+      final String result =
+          File('${await _path}/settings.json').readAsStringSync(encoding: utf8);
+      return Setting.fromJson(jsonDecode(result));
     } catch (e) {
       return null;
     }
-    return null;
   }
 }

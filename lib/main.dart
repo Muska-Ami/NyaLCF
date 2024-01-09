@@ -6,6 +6,7 @@ import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/settingStorage.dart';
 import 'package:nyalcf/model/Setting.dart';
+import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
@@ -14,7 +15,14 @@ import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
 
-void main() {
+Setting? _settings = null;
+
+void main() async {
+  /// 初始化配置文件
+  SettingStorage.init();
+  FrpcManagerStorage.init();
+  _settings = await SettingStorage.read();
+
   runApp(const App());
 
   doWhenWindowReady(() {
@@ -27,8 +35,6 @@ void main() {
   });
 }
 
-final Setting? _settings = SettingStorage.read();
-
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -37,15 +43,20 @@ class App extends StatelessWidget {
   /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    /// 初始化配置文件
-    SettingStorage.init();
-    FrpcManagerStorage.init();
+    LauncherSettingPrefs.setInfo(_settings ??
+        Setting(
+          theme_auto: true,
+          theme_dark: false,
+          theme_light_seed_enable: false,
+          theme_light_seed: '66ccff',
+        ));
 
     ThemeData _theme_data;
 
     final bool isDarkMode = (Theme.of(context).brightness == Brightness.dark ||
-        Theme.of(context).colorScheme.brightness == Brightness.dark) ||
-        SchedulerBinding.instance.platformDispatcher.platformBrightness == Brightness.dark ||
+            Theme.of(context).colorScheme.brightness == Brightness.dark) ||
+        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+            Brightness.dark ||
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     print('dark mode: ${isDarkMode}');

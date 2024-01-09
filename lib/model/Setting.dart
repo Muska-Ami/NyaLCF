@@ -6,10 +6,10 @@ class Setting {
     required this.theme_light_seed,
   });
 
-  final theme_auto;
-  final theme_dark;
-  final theme_light_seed_enable;
-  final theme_light_seed;
+  final bool theme_auto;
+  final bool theme_dark;
+  final bool theme_light_seed_enable;
+  final String theme_light_seed;
 
   Map<String, dynamic> toJson() => {
         'theme': {

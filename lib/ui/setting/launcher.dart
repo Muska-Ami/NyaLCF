@@ -24,55 +24,63 @@ class LauncherSX {
                     margin:
                         EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                     padding: EdgeInsets.only(left: 30.0, right: 50.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                leading: Icon(Icons.auto_awesome),
-                                title: Text('自动设置主题'),
-                              ),
-                            ),
-                            Switch(value: false, onChanged: null),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                leading: Icon(Icons.dark_mode),
-                                title: Text('深色主题'),
-                              ),
-                            ),
-                            Switch(value: false, onChanged: null),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                leading: Icon(Icons.colorize),
-                                title: Text('浅色主题自定义主题色种子'),
-                              ),
-                            ),
-                            SizedBox(
-                              width: 200,
-                              child: Container(
-                                padding: EdgeInsets.only(bottom: 10.0),
-                                child: TextField(
-                                  decoration: const InputDecoration(
-                                    labelText: '十六进制颜色',
-                                  ),
-                                  readOnly: true,
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.auto_awesome),
+                                  title: Text('自动设置主题'),
                                 ),
                               ),
-                            ),
-                            Switch(value: false, onChanged: null),
-                          ],
-                        ),
-                      ],
+                              Switch(
+                                  value: ds_c.theme_auto.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.dark_mode),
+                                  title: Text('深色主题'),
+                                ),
+                              ),
+                              Switch(
+                                  value: ds_c.theme_dark.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.colorize),
+                                  title: Text('浅色主题自定义主题色种子'),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 200,
+                                child: Container(
+                                  padding: EdgeInsets.only(bottom: 10.0),
+                                  child: TextField(
+                                    decoration: const InputDecoration(
+                                      labelText: '十六进制颜色',
+                                    ),
+                                    readOnly: true,
+                                  ),
+                                ),
+                              ),
+                              Switch(
+                                  value: ds_c.theme_light_seed_enable.value,
+                                  onChanged: null),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 ],
