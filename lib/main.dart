@@ -59,7 +59,7 @@ class App extends StatelessWidget {
             Brightness.dark ||
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
-    print('dark mode: ${isDarkMode}');
+    print('System dark mode: ${isDarkMode}');
 
     /// 判定是否需要切换暗色主题
     if (((_settings?.theme_auto ?? true) && isDarkMode) ||
