@@ -30,6 +30,12 @@ class LauncherSX {
                       () => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Text(
+                            '需要重启启动器生效',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                           Row(
                             children: [
                               Expanded(
