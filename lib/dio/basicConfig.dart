@@ -4,5 +4,6 @@ class basicConfig {
   static final frpc_config_url = 'https://www.locyanfrp.cn/api';
   static final github_api_url = 'https://api.github.com';
   static final github_main_url = 'https://github.com';
+  static final github_mirrors_url = 'https://mirror.ghproxy.com';
   // static final frpc_release_repo = 'LoCyan-Team/LoCyanFrpPureApp';
 }
