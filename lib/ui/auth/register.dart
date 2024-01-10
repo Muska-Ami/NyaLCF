@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
         appBar: AppBar(
           title:
               Text('$title - 注册', style: const TextStyle(color: Colors.white)),
-          backgroundColor: Colors.pink[100],
+          backgroundColor: Get.theme.primaryColor,
           actions: AppbarActionsX(context: context).actions(),
         ),
         body: ListView(

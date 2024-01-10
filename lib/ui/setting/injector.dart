@@ -28,7 +28,7 @@ class SettingInjector extends StatelessWidget {
             appBar: AppBar(
               title: Text('$title - 设置',
                   style: const TextStyle(color: Colors.white)),
-              backgroundColor: Colors.pink[100],
+              backgroundColor: Get.theme.primaryColor,
               actions:
                   AppbarActionsX(context: context, setting: false).actions(),
               bottom: TabBar(
