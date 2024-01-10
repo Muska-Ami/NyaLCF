@@ -59,7 +59,7 @@ class App extends StatelessWidget {
             Brightness.dark ||
         MediaQuery.of(context).platformBrightness == Brightness.dark;
 
-    print('dark mode: ${isDarkMode}');
+    print('System dark mode: ${isDarkMode}');
 
     /// 判定是否需要切换暗色主题
     if (((_settings?.theme_auto ?? true) && isDarkMode) ||
@@ -75,20 +75,20 @@ class App extends StatelessWidget {
           ));
     } else {
       _theme_data = ThemeData(
-          useMaterial3: true,
-          fontFamily: 'HarmonyOS Sans',
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.pink.shade300,
-          ).copyWith(
-            primary: Colors.pink.shade400,
-            secondary: Colors.pink.shade300,
-          ),
-          appBarTheme: AppBarTheme(
-            color: Colors.pink.shade100,
-          ),
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: Colors.pink.shade200,
-          ),
+        useMaterial3: true,
+        fontFamily: 'HarmonyOS Sans',
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.pink.shade300,
+        ).copyWith(
+          primary: Colors.pink.shade400,
+          secondary: Colors.pink.shade300,
+        ),
+        appBarTheme: AppBarTheme(
+          color: Colors.pink.shade100,
+        ),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: Colors.pink.shade200,
+        ),
       );
     }
 

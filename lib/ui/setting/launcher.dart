@@ -30,6 +30,12 @@ class LauncherSX {
                       () => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
+                          Text(
+                            '需要重启启动器生效',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
                           Row(
                             children: [
                               Expanded(
@@ -45,24 +51,12 @@ class LauncherSX {
                                   ds_c.theme_auto.value = value;
                                   SettingStorage.save(
                                       await LauncherSettingPrefs.getInfo());
+                                  ds_c.loadx();
                                 },
                               ),
                             ],
                           ),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ListTile(
-                                  leading: Icon(Icons.dark_mode),
-                                  title: Text('深色主题'),
-                                ),
-                              ),
-                              Switch(
-                                value: ds_c.theme_dark.value,
-                                onChanged: ds_c.switch_theme_dark_event.value,
-                              ),
-                            ],
-                          ),
+                          ds_c.switch_theme_dark.value,
                           Row(
                             children: [
                               Expanded(

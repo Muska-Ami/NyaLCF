@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/io/settingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
@@ -13,7 +14,7 @@ class DSettingLauncherController extends GetxController {
   var theme_light_seed = ''.obs;
   var theme_light_seed_enable = false.obs;
 
-  Rx<Function(bool)?> switch_theme_dark_event = null.obs;
+  var switch_theme_dark = Row().obs;
 
   load() async {
     final packageInfo = await PackageInfo.fromPlatform();
@@ -30,12 +31,31 @@ class DSettingLauncherController extends GetxController {
   }
 
   void loadx() {
-    if (theme_dark.value) switch_theme_dark_event.value = switchDarkTheme;
+    if (!(theme_auto.value)) {
+      print('Auto theme is disabled, add button to switch theme');
+      switch_theme_dark.value = Row(
+        children: [
+          Expanded(
+            child: ListTile(
+              leading: Icon(Icons.dark_mode),
+              title: Text('深色主题'),
+            ),
+          ),
+          Switch(
+            value: theme_dark.value,
+            onChanged: switchDarkTheme,
+          ),
+        ],
+      );
+    } else {
+      switch_theme_dark.value = Row();
+    }
   }
 
   void switchDarkTheme(value) async {
     LauncherSettingPrefs.setThemeDark(value);
     theme_dark.value = value;
     SettingStorage.save(await LauncherSettingPrefs.getInfo());
+    loadx();
   }
 }

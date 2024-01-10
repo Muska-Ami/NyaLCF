@@ -41,7 +41,7 @@ class LauncherSettingPrefs {
 
   static Future<void> setThemeDark(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('setting@theme@dark', value.toString());
+    prefs.setString('setting@theme@dark@enable', value.toString());
   }
 }
 
