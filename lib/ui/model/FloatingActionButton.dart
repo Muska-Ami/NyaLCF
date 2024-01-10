@@ -8,7 +8,6 @@ class FloatingActionButtonX {
     return Builder(builder: (BuildContext context) {
       return FloatingActionButton(
         foregroundColor: Colors.white,
-        backgroundColor: Colors.pink[100],
         onPressed: () => Get.dialog(ToolDialogX(context: context).build()),
         elevation: 7.0,
         highlightElevation: 14.0,

@@ -33,6 +33,16 @@ class LauncherSettingPrefs {
     final res = await SettingStorage.read();
     if (res != null) setInfo(res);
   }
+
+  static Future<void> setThemeAuto(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('setting@theme@auto', value.toString());
+  }
+
+  static Future<void> setThemeDark(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('setting@theme@dark', value.toString());
+  }
 }
 
 extension on String {

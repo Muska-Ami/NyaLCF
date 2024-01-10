@@ -25,7 +25,7 @@ class PanelConsole extends StatelessWidget {
         appBar: AppBar(
           title:
               Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
-          backgroundColor: Colors.pink[100],
+
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
             IconButton(

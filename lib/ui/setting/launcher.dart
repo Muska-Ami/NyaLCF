@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsettinglauncher.dart';
+import 'package:nyalcf/io/settingStorage.dart';
+import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSX {
@@ -37,8 +39,14 @@ class LauncherSX {
                                 ),
                               ),
                               Switch(
-                                  value: ds_c.theme_auto.value,
-                                  onChanged: null),
+                                value: ds_c.theme_auto.value,
+                                onChanged: (value) async {
+                                  LauncherSettingPrefs.setThemeAuto(value);
+                                  ds_c.theme_auto.value = value;
+                                  SettingStorage.save(
+                                      await LauncherSettingPrefs.getInfo());
+                                },
+                              ),
                             ],
                           ),
                           Row(
@@ -50,8 +58,9 @@ class LauncherSX {
                                 ),
                               ),
                               Switch(
-                                  value: ds_c.theme_dark.value,
-                                  onChanged: null),
+                                value: ds_c.theme_dark.value,
+                                onChanged: ds_c.switch_theme_dark_event.value,
+                              ),
                             ],
                           ),
                           Row(
