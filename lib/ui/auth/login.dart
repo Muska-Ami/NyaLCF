@@ -36,7 +36,6 @@ class _LoginState extends State<Login> {
         appBar: AppBar(
           title:
               Text('$title - 登录', style: const TextStyle(color: Colors.white)),
-          backgroundColor: Get.theme.primaryColor,
           actions: AppbarActionsX(context: context).actions(),
         ),
         body: Center(

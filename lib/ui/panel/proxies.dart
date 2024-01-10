@@ -23,7 +23,7 @@ class PanelProxies extends StatelessWidget {
         appBar: AppBar(
           title:
               Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
-          backgroundColor: Get.theme.primaryColor,
+
           //automaticallyImplyLeading: false,
           actions: AppbarActionsX(append: <Widget>[
             IconButton(

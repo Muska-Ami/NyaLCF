@@ -75,14 +75,20 @@ class App extends StatelessWidget {
           ));
     } else {
       _theme_data = ThemeData(
-        useMaterial3: true,
-        fontFamily: 'HarmonyOS Sans',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink.shade300,
-        ).copyWith(
-          primary: Colors.pink.shade500,
-          secondary: Colors.pink.shade400,
-        ),
+          useMaterial3: true,
+          fontFamily: 'HarmonyOS Sans',
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.pink.shade300,
+          ).copyWith(
+            primary: Colors.pink.shade400,
+            secondary: Colors.pink.shade300,
+          ),
+          appBarTheme: AppBarTheme(
+            color: Colors.pink.shade100,
+          ),
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: Colors.pink.shade200,
+          ),
       );
     }
 
