@@ -31,6 +31,11 @@ jobs:
         with:
           name: Windows Artifact(Build)
           path: build
+          
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   dist-windows:
     needs: 
       - build-windows
@@ -85,6 +90,11 @@ jobs:
         with:
           name: Linux Artifact(Build)
           path: build
+          
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   dist-linux-appimage:
     needs:
       - build-linux
@@ -195,6 +205,11 @@ jobs:
         with:
           name: MacOS Artifact(Build)
           path: build
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
   dist-macos:
     needs:
       - build-macos
