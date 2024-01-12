@@ -67,6 +67,8 @@ class DSettingFrpcController extends GetxController {
           '下载取消',
           style: TextStyle(color: Colors.orange),
         ));
+        frpc_download_cancel = false;
+        downloadCancelToken = new CancelToken();
       } else {
         frpc_download_show.clear();
         frpc_download_show.add(LinearProgressIndicator(
@@ -201,7 +203,7 @@ class DSettingFrpcController extends GetxController {
     );
   }
 
-  final downloadCancelToken = CancelToken();
+  CancelToken downloadCancelToken = CancelToken();
 
   void downloadFrpcCallback(received, total) {
     print('Download callback: ${received}');
