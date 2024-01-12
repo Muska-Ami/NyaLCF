@@ -42,10 +42,9 @@ An unoffical LoCyanFrp launcher.
 
 <img src="https://repobeats.axiom.co/api/embed/8657905cfb65146e66a5d6039165f705d6403531.svg" alt="Repobeats analytics image" width="100%">
 
+### License Status
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF?ref=badge_large)
+
 ### How to contribute
 
 请 Fork `dev` 分支，并在此分支基础上修改。在 `Pull request` 之前，请先测试是否能够正常运行。请不要 `Pull request` 到 `main` 分支。
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF?ref=badge_large)
