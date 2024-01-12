@@ -79,7 +79,7 @@ class FrpcDownloadDialogX {
 
   Widget unarchiving() {
     return SimpleDialog(
-      title: const Text('正在解压...'),
+      title: const Text('正在解压\n（Linux可能会稍慢，稍安勿躁喵）...'),
       children: <Widget>[
         Container(
           margin:
