@@ -24,11 +24,10 @@ void main() async {
   FrpcManagerStorage.init();
   _settings = await SettingStorage.read();
 
-  SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-
   runApp(const App());
 
   doWhenWindowReady(() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     const initialSize = Size(800, 500);
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
@@ -67,7 +66,11 @@ class App extends StatelessWidget {
     /// 判定是否需要切换暗色主题
     if (((_settings?.theme_auto ?? true) && isDarkMode) ||
         (_settings?.theme_dark ?? false)) {
-      _theme_data = ThemeData.dark(useMaterial3: true);
+      _theme_data = ThemeData(
+        useMaterial3: true,
+        fontFamily: 'HarmonyOS Sans',
+        brightness: Brightness.dark,
+      );
     } else if ((_settings?.theme_light_seed_enable ?? false)) {
       _theme_data = ThemeData(
           useMaterial3: true,
