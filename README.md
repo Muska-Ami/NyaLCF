@@ -2,9 +2,9 @@
 
 <img src="https://pan.1l1.icu/f/J3VsZ/NyaLCF%20-%202.png" width="100%" alt="NyaLCF Banner" />
 
-一个由非官方打造的 LoCyanFrp 启动器。
+一个由官方打造的 LoCyanFrp 启动器。
 
-An unoffical LoCyanFrp launcher.
+An offical LoCyanFrp launcher.
 
 ## NyaLCF 特色
 
