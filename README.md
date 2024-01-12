@@ -33,7 +33,7 @@ An unoffical LoCyanFrp launcher.
 - [ ] 隧道编辑
 - [x] 公告
 - [x] 通知
-- [ ] 暗色主题
+- [x] 暗色主题
 
 ## Repo stats
 
