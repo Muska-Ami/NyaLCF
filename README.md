@@ -2,9 +2,9 @@
 
 <img src="https://pan.1l1.icu/f/J3VsZ/NyaLCF%20-%202.png" width="100%" alt="NyaLCF Banner" />
 
-一个由非官方打造的 LoCyanFrp 启动器。
+一个由官方打造的 LoCyanFrp 启动器。
 
-An unoffical LoCyanFrp launcher.
+An offical LoCyanFrp launcher.
 
 ## NyaLCF 特色
 
@@ -38,8 +38,12 @@ An unoffical LoCyanFrp launcher.
 ## Repo stats
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de384a8e9f2a47b5b26f80c61c2a8bfd)](https://app.codacy.com/gh/Muska-Ami/NyaLCF/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF?ref=badge_shield)
 
 <img src="https://repobeats.axiom.co/api/embed/8657905cfb65146e66a5d6039165f705d6403531.svg" alt="Repobeats analytics image" width="100%">
+
+### License Status
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FMuska-Ami%2FNyaLCF?ref=badge_large)
 
 ### How to contribute
 
