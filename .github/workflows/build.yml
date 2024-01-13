@@ -33,6 +33,52 @@ jobs:
         with:
           name: Windows Artifact(Build)
           path: build
+
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: Install Dependencies
+        run: |-
+          flutter pub get
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+      - name: Build Application
+        run: flutter build linux --release
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux Artifact(Build)
+          path: build
+
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install Dependencies
+        run: flutter pub get
+      - name: Build Application
+        run: flutter build macos --release
+        
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MacOS Artifact(Build)
+          path: build
+          
   dist-windows:
     needs: 
       - build-windows
@@ -64,37 +110,24 @@ jobs:
           name: Windows Artifact(Dist)
           path: dist
 
-  build-linux:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          
-      - name: Install Dependencies
-        run: |-
-          flutter pub get
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-      - name: Build Application
-        run: flutter build linux --release
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Linux Artifact(Build)
-          path: build
   dist-linux-appimage:
     needs:
       - build-linux
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        architecture:
+          - amd64
+          - arm64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup QEMU
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -118,16 +151,26 @@ jobs:
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Dist - AppImage)
+          name: Linux Artifact(Dist - ${{ matrix.architecture }} - AppImage)
           path: dist
   dist-linux-deb:
     needs:
       - build-linux
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        architecture:
+          - amd64
+          - arm64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup QEMU
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -146,16 +189,26 @@ jobs:
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Dist - DEB)
+          name: Linux Artifact(Dist - ${{ matrix.architecture }} - DEB)
           path: dist
   dist-linux-rpm:
     needs:
       - build-linux
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+        architecture:
+          - amd64
+          - arm64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup QEMU
+        run: |
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -174,29 +227,9 @@ jobs:
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Dist - RPM)
+          name: Linux Artifact(Dist - ${{ matrix.architecture }} - RPM)
           path: dist
 
-  build-macos:
-    runs-on: macos-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Install Dependencies
-        run: flutter pub get
-      - name: Build Application
-        run: flutter build macos --release
-        
-      - uses: actions/upload-artifact@v4
-        with:
-          name: MacOS Artifact(Build)
-          path: build
   dist-macos:
     needs:
       - build-macos
