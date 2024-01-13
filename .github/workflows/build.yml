@@ -110,24 +110,14 @@ jobs:
           name: Windows Artifact(Dist)
           path: dist
 
-  dist-linux-appimage:
+  dist-linux:
     needs:
       - build-linux
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-        architecture:
-          - amd64
-          - arm64
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Setup QEMU
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -135,99 +125,24 @@ jobs:
 
       - name: Install Dependencies
         run: |-
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev locate libfuse2
-          flutter pub get
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm patchelf locate libfuse2
           dart pub global activate flutter_distributor
+          flutter pub get
+        
 
       - name: Setup AppImageTool
         run: |-
           sudo mv asset/appimagetool-x86_64.AppImage /usr/local/bin/appimagetool
           sudo chmod a+x /usr/local/bin/appimagetool
 
-      - name: Pack AppImage Installer
+      - name: Pack Installers
         run: |-
-          flutter_distributor package --platform linux --target appimage
+          flutter_distributor package --platform linux --targets appimage,deb,rpm
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Dist - ${{ matrix.architecture }} - AppImage)
-          path: dist
-  dist-linux-deb:
-    needs:
-      - build-linux
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-        architecture:
-          - amd64
-          - arm64
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup QEMU
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Install Dependencies
-        run: |-
-          flutter pub get
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          dart pub global activate flutter_distributor
-
-      - name: Pack DEB Installer
-        run: |-
-          flutter_distributor package --platform linux --target deb
-
-      - name: Upload Dist Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Linux Artifact(Dist - ${{ matrix.architecture }} - DEB)
-          path: dist
-  dist-linux-rpm:
-    needs:
-      - build-linux
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-        architecture:
-          - amd64
-          - arm64
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup QEMU
-        run: |
-          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Install Dependencies
-        run: |-
-          flutter pub get
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm patchelf
-          dart pub global activate flutter_distributor
-
-      - name: Pack RPM Installer
-        run: |-
-          flutter_distributor package --platform linux --target rpm
-
-      - name: Upload Dist Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Linux Artifact(Dist - ${{ matrix.architecture }} - RPM)
+          name: Linux Artifact(Dist)
           path: dist
 
   dist-macos:
