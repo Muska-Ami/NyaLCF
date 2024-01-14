@@ -25,6 +25,8 @@ jobs:
         with:
           channel: 'stable'
 
+      - run: uname -a
+
       - name: Install Dependencies
         run: |-
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm patchelf locate libfuse2
@@ -41,12 +43,12 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux (${{ matrix.os }}) Artifact(Build)
+          name: Linux (${{ matrix.os }} ${{ matrix.architecture }}) Artifact(Build)
           path: build
-      - name: Upload Build Artifact
+      - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux (${{ matrix.os }}) Artifact(Dist)
+          name: Linux (${{ matrix.os }} ${{ matrix.architecture }}) Artifact(Dist)
           path: dist
 
   # # Linux ARM64的构建任务
