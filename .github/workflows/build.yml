@@ -35,7 +35,7 @@ jobs:
 
   # 新增一个针对Linux ARM64的构建任务
   build-linux-arm64:
-    runs-on: ubuntu-22.04-arm64 # 使用ARM64运行器
+    runs-on: ubuntu-20.04-arm64 # 使用ARM64运行器
 
     steps:
       - name: Checkout
