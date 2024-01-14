@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-linux:
-    runs-on: [linux, aarch64]
+    runs-on: [linux, arm64]
           
     steps:
       - name: Checkout
