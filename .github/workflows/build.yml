@@ -18,7 +18,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-          
+
       - name: Install Dependencies
         run: |-
           flutter pub get
@@ -58,6 +58,30 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Linux ARM64 Artifact(Build)
+          path: build
+
+  # Windows (AMD64) 构建任务
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Application
+        run: flutter build windows --release
+        
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Artifact(Build)
           path: build
 
   # 修改macOS构建任务，这里保持为默认的Apple Silicon ARM64
