@@ -7,6 +7,32 @@ on:
       - dev
 
 jobs:
+  # 原有的Linux AMD64构建任务
+  build-linux-amd64:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: Install Dependencies
+        run: |-
+          flutter pub get
+          sudo apt-get update && sudo apt-get install -y clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+      - name: Build Application
+        run: flutter build linux --release
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux AMD64 Artifact(Build)
+          path: build
+
   # 新增一个针对Linux ARM64的构建任务
   build-linux-arm64:
     runs-on: ubuntu-22.04-arm64 # 使用ARM64运行器
@@ -34,9 +60,9 @@ jobs:
           name: Linux ARM64 Artifact(Build)
           path: build
 
-  # 修改macOS构建任务为ARM64
-  build-macos-arm64:
-    runs-on: macos-12-arm64 # 使用Apple Silicon ARM64运行器
+  # 修改macOS构建任务，这里保持为默认的Apple Silicon ARM64
+  build-macos:
+    runs-on: macos-latest # 默认使用最新的Apple Silicon ARM64运行器
 
     steps:
       - name: Checkout
@@ -54,5 +80,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: MacOS ARM64 Artifact(Build)
+          name: MacOS Artifact(Build)
           path: build
