@@ -7,9 +7,16 @@ on:
       - dev
 
 jobs:
-  # 原有的Linux AMD64构建任务
-  build-linux-amd64:
-    runs-on: ubuntu-latest
+  build-linux:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-latest-arm64
+        architecture:
+          - amd64
+          - arm64
 
     steps:
       - name: Checkout
@@ -21,44 +28,53 @@ jobs:
 
       - name: Install Dependencies
         run: |-
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm patchelf locate libfuse2
+          dart pub global activate flutter_distributor
           flutter pub get
-          sudo apt-get update && sudo apt-get install -y clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-
-      - name: Build Application
-        run: flutter build linux --release
-
-      - name: Upload Build Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Linux AMD64 Artifact(Build)
-          path: build
-
-  # 新增一个针对Linux ARM64的构建任务
-  build-linux-arm64:
-    runs-on: ubuntu-latest-arm64 # 使用ARM64运行器
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-
-      - name: Install Dependencies
+      - name: Setup AppImageTool
         run: |-
-          flutter pub get
-          sudo apt-get update && sudo apt-get install -y clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
-          # 确保安装的是适用于ARM64架构的依赖包
+          sudo mv asset/appimagetool-x86_64.AppImage /usr/local/bin/appimagetool
+          sudo chmod a+x /usr/local/bin/appimagetool
 
       - name: Build Application
-        run: flutter build linux --release --target-platform=linux-arm64
+        run: flutter_distributor package --platform linux --targets appimage,deb,rpm
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux ARM64 Artifact(Build)
+          name: Linux Artifact(Build)
           path: build
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux (${{ matrix.architecture }}) Artifact(Dist)
+          path: dist
+
+  # # Linux ARM64的构建任务
+  # build-linux-arm64:
+  #   runs-on: ubuntu-latest-arm64
+
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #     - name: Setup Flutter
+  #       uses: subosito/flutter-action@v2
+  #       with:
+  #         channel: 'stable'
+
+  #     - name: Install Dependencies
+  #       run: |-
+  #         flutter pub get
+  #         sudo apt-get update && sudo apt-get install -y clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+
+  #     - name: Build Application
+  #       run: flutter build linux --release --target-platform=linux-arm64
+
+  #     - name: Upload Build Artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: Linux ARM64 Artifact(Build)
+  #         path: build
 
   # Windows (AMD64) 构建任务
   build-windows:
@@ -71,22 +87,33 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-
+          
       - name: Install Dependencies
-        run: flutter pub get
+        run: dart pub global activate flutter_distributor
 
+      - name: Setup Inno Setup 6
+        shell: pwsh
+        run: |-
+          ./asset/is.exe /VERYSLIENT
+          Copy-Item "./asset/ChineseSimplified.isl" -Destination "C:\Program Files (x86)\Inno Setup 6\Languages"
       - name: Build Application
-        run: flutter build windows --release
-        
+        run: |-
+          flutter_distributor package --platform windows --target exe
+
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Windows Artifact(Build)
           path: build
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Artifact(Dist)
+          path: dist
 
-  # 修改macOS构建任务，这里保持为默认的Apple Silicon ARM64
+  # MacOS 构建任务
   build-macos:
-    runs-on: macos-latest # 默认使用最新的Apple Silicon ARM64运行器
+    runs-on: macos-latest
 
     steps:
       - name: Checkout
@@ -95,14 +122,28 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: |-
+          flutter pub get
+          npm install -g appdmg
+          dart pub global activate flutter_distributor
 
       - name: Build Application
-        run: flutter build macos --release
+        run: |-
+          flutter_distributor package --platform macos --target dmg
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: MacOS Artifact(Build)
           path: build
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOS Artifact(Dist)
+          path: dist
