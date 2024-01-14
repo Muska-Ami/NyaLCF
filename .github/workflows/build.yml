@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-linux:
-    runs-on: [self-hosted, linux, aarch64]
+    runs-on: [linux, aarch64]
     strategy:
       matrix:
         os:
