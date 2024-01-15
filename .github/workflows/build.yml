@@ -49,13 +49,7 @@ jobs:
           path: dist
 
   linux:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os:
-          - ubuntu-latest
-          - armbian-self-armv7l
-          - android-ubuntu-self-armv8a
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
@@ -84,12 +78,12 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux ${{ matrix.os }} Artifact(Build)
+          name: Linux Artifact(Build)
           path: build
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux ${{ matrix.os }} Artifact(Dist)
+          name: Linux Artifact(Dist)
           path: dist
 
   macos:
