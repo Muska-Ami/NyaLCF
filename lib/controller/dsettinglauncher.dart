@@ -57,5 +57,6 @@ class DSettingLauncherController extends GetxController {
     theme_dark.value = value;
     SettingStorage.save(await LauncherSettingPrefs.getInfo());
     loadx();
+    // ThemeControl.switchDarkTheme(value);
   }
 }

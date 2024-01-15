@@ -52,6 +52,7 @@ class LauncherSX {
                                   SettingStorage.save(
                                       await LauncherSettingPrefs.getInfo());
                                   ds_c.loadx();
+                                  // ThemeControl.autoSet();
                                 },
                               ),
                             ],
@@ -78,8 +79,9 @@ class LauncherSX {
                                 ),
                               ),
                               Switch(
-                                  value: ds_c.theme_light_seed_enable.value,
-                                  onChanged: null),
+                                value: ds_c.theme_light_seed_enable.value,
+                                onChanged: null,
+                              ),
                             ],
                           ),
                         ],

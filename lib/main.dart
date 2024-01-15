@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:get/get.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/settingStorage.dart';
@@ -15,6 +15,7 @@ import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
+import 'package:nyalcf/util/ThemeControl.dart';
 
 Setting? _settings = null;
 
@@ -55,47 +56,18 @@ class App extends StatelessWidget {
 
     ThemeData _theme_data;
 
-    final bool isDarkMode = (Theme.of(context).brightness == Brightness.dark ||
-            Theme.of(context).colorScheme.brightness == Brightness.dark) ||
+    final bool isDarkMode =
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark ||
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
+            Brightness.dark;
 
     print('System dark mode: ${isDarkMode}');
 
     /// 判定是否需要切换暗色主题
     if (((_settings?.theme_auto ?? true) && isDarkMode) ||
         (_settings?.theme_dark ?? false)) {
-      _theme_data = ThemeData(
-        useMaterial3: true,
-        fontFamily: 'HarmonyOS Sans',
-        brightness: Brightness.dark,
-      );
-    } else if ((_settings?.theme_light_seed_enable ?? false)) {
-      _theme_data = ThemeData(
-          useMaterial3: true,
-          fontFamily: 'HarmonyOS Sans',
-          colorScheme: ColorScheme.fromSeed(
-            seedColor:
-                Color('0x${_settings?.theme_light_seed ?? '66ccff'}' as int),
-          ));
+      _theme_data = ThemeControl.dark;
     } else {
-      _theme_data = ThemeData(
-        useMaterial3: true,
-        fontFamily: 'HarmonyOS Sans',
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.pink.shade300,
-        ).copyWith(
-          primary: Colors.pink.shade400,
-          secondary: Colors.pink.shade300,
-        ),
-        appBarTheme: AppBarTheme(
-          color: Colors.pink.shade100,
-        ),
-        floatingActionButtonTheme: FloatingActionButtonThemeData(
-          backgroundColor: Colors.pink.shade200,
-        ),
-      );
+      _theme_data = ThemeControl.light;
     }
 
     Get.put(UserController());

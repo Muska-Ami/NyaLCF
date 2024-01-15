@@ -29,7 +29,7 @@ class FrpcDownloadDialogX {
                   )),
               ElevatedButton(
                 onPressed: () async {
-                  /// 刷新一下UI
+                  /// 刷新UI，下载frpc
                   ds_c.refreshDownloadShow();
                   /// 开始下载
                   Get.dialog(_downloading(), barrierDismissible: false);
@@ -80,7 +80,12 @@ class FrpcDownloadDialogX {
 
   Widget unarchiving() {
     return SimpleDialog(
-      title: const Text('正在解压...'),
+      title: const Column(
+        children: [
+          Text('正在解压...'),
+          Text('这可能需要几分钟时间，稍安勿躁喵~'),
+        ],
+      ),
       children: <Widget>[
         Container(
           margin:

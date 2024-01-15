@@ -99,9 +99,9 @@ class DSettingFrpcController extends GetxController {
                 lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );
           /**if (!Platform.isWindows) {
-            print('*nix platform, change file permission');
-            await FrpcManagerStorage.setRunPermission();
-          }*/
+              print('*nix platform, change file permission');
+              await FrpcManagerStorage.setRunPermission();
+              }*/
           _load_tip();
         } else {
           Get.snackbar(
@@ -182,6 +182,7 @@ class DSettingFrpcController extends GetxController {
     }
     return dmil;
   }
+
 /*
   /// 构建已下载选项列表
   List<DropdownMenuItem> _buildDownloadedDMIWidgetList(List<String> versions) {
