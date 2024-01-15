@@ -49,7 +49,7 @@ jobs:
           path: dist
 
   linux:
-    runs-on: ${{ martrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os:
@@ -84,12 +84,12 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux ${{ martrix.os }} Artifact(Build)
+          name: Linux ${{ matrix.os }} Artifact(Build)
           path: build
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux ${{ martrix.os }} Artifact(Dist)
+          name: Linux ${{ matrix.os }} Artifact(Dist)
           path: dist
 
   macos:
