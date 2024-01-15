@@ -6,6 +6,7 @@ packager: Muska_Ami
 packagerEmail: xmcn@1l1.icu
 license: MIT
 url: https://github.com/Muska-Ami/NyaLCF
+build_arch: noarch
 
 display_name: Nya LoCyanFrp!
 
