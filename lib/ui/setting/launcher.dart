@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsettinglauncher.dart';
 import 'package:nyalcf/io/settingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
-import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSX {
@@ -80,8 +79,9 @@ class LauncherSX {
                                 ),
                               ),
                               Switch(
-                                  value: ds_c.theme_light_seed_enable.value,
-                                  onChanged: null,),
+                                value: ds_c.theme_light_seed_enable.value,
+                                onChanged: null,
+                              ),
                             ],
                           ),
                         ],

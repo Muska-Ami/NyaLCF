@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/io/settingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
-import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class DSettingLauncherController extends GetxController {

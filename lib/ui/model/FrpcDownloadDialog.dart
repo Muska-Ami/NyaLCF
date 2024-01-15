@@ -31,6 +31,7 @@ class FrpcDownloadDialogX {
                 onPressed: () async {
                   /// 刷新UI，下载frpc
                   ds_c.refreshDownloadShow();
+                  /// 开始下载
                   Get.dialog(_downloading(), barrierDismissible: false);
                   final res = await FrpcDownloadDio().download(
                     arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
