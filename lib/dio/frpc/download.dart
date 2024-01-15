@@ -12,14 +12,19 @@ class FrpcDownloadDio {
     required String version,
     required ProgressCallback progressCallback,
     required CancelToken cancelToken,
-    String proxy = '',
+    required bool useMirror,
   }) async {
     print('Start download: ${platform} | ${version} | ${arch}');
     try {
+      final download_basic_url;
+      if (useMirror)
+        download_basic_url = basicConfig.github_mirrors_url;
+      else
+        download_basic_url = basicConfig.github_main_url;
       if (platform == 'windows') {
         print('Windows, download zip');
         return await dio.download(
-          '${proxy + basicConfig.github_main_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.zip',
+          '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.zip',
           '${await FileIO.cache_path}/frpc.zip',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
@@ -27,7 +32,7 @@ class FrpcDownloadDio {
       } else {
         print('Download tar.gz');
         return await dio.download(
-          '${proxy + basicConfig.github_main_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.tar.gz',
+          '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.tar.gz',
           '${await FileIO.cache_path}/frpc.tar.gz',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,

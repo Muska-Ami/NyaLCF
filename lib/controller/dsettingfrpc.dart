@@ -28,6 +28,7 @@ class DSettingFrpcController extends GetxController {
   var frpc_download_show = <Widget>[].obs;
   var _frpc_downloaded_versions = [];
   dynamic frpc_download_cancel = false;
+  var frpc_download_use_mirror = false.obs;
 
   var frpc_version = ''.obs;
 
@@ -37,6 +38,9 @@ class DSettingFrpcController extends GetxController {
 
   load() async {
     cpu_arch.value = await CPUArch.getCPUArchitecture();
+    await FrpcSettingPrefs.refresh();
+    final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
+    frpc_download_use_mirror.value = frpcinfo.github_mirror;
 
     frpc_version.value = await FrpcManagerStorage.usingVersion;
     _load_tip();
