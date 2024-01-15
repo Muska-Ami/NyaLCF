@@ -39,7 +39,7 @@ dependencies:
   url_launcher: ^6.2.1
   flutter_launcher_icons: ^0.13.1
   bitsdojo_window: ^0.1.5
-  path_provider: ^2.1.1
+  path_provider: ^2.1.2
   shared_preferences: ^2.2.2
   get: ^4.6.6
   flutter_markdown: ^0.6.18+2
