@@ -37,8 +37,7 @@ class FrpcManagerStorage {
           'lists': {
             'frpc_downloaded_versions': <String>[],
             'github_proxies': <String>[
-              'https://mirror.ghproxy.com/',
-              'https://ghproxy.com/',
+              'https://mirror.ghproxy.com/' /// 目前可用的代理
             ],
           },
         };
