@@ -11,6 +11,38 @@ class FrpcManagerSX {
       child: ListView(
         children: <Widget>[
           Obx(() => ds_c.frpc_download_tip.value),
+          Container(
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.warning),
+                    title: Text('下载源镜像设置'),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        /// TODO: 镜像选择
+                        /// 纵向
+                        Container(
+                          margin: EdgeInsets.only(top: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              /// 横向Container#1
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
