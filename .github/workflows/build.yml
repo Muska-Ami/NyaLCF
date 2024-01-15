@@ -36,6 +36,7 @@ jobs:
           Copy-Item "./asset/ChineseSimplified.isl" -Destination "C:\Program Files (x86)\Inno Setup 6\Languages"
       - name: Pack EXE Installer
         run: |-
+          Set-Alias -Name eof -Value exit
           flutter_distributor package --platform windows --target exe
 
       - name: Upload Build Artifact
