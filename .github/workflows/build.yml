@@ -35,9 +35,7 @@ jobs:
           ./asset/is.exe /VERYSLIENT
           Copy-Item "./asset/ChineseSimplified.isl" -Destination "C:\Program Files (x86)\Inno Setup 6\Languages"
       - name: Pack EXE Installer
-        run: |-
-          Set-Alias -Name eof -Value exit
-          flutter_distributor package --platform windows --target exe
+        run: flutter_distributor package --platform windows --target exe
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -75,8 +73,7 @@ jobs:
           sudo chmod a+x /usr/local/bin/appimagetool
 
       - name: Pack Installers
-        run: |-
-          flutter_distributor package --platform linux --targets appimage,deb,rpm
+        run: flutter_distributor package --platform linux --targets appimage,deb,rpm
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
@@ -113,8 +110,7 @@ jobs:
           dart pub global activate -s path tool/flutter_distributor/packages/flutter_distributor
 
       - name: Pack DMG Installer
-        run: |-
-          flutter_distributor package --platform macos --target dmg
+        run: flutter_distributor package --platform macos --target dmg
 
       - uses: actions/upload-artifact@v4
         with:
