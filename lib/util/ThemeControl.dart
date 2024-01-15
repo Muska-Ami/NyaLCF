@@ -3,7 +3,6 @@ import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 
 class ThemeControl {
-
   static void autoSet() {
     final bool isDarkMode =
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
@@ -43,5 +42,4 @@ class ThemeControl {
       backgroundColor: Colors.pink.shade200,
     ),
   );
-
 }
