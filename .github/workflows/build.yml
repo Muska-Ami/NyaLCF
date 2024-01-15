@@ -87,8 +87,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Checkout submodules
-        run: git submodule update --recursive --remote
+        with:
+          submodules: true
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -120,8 +120,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Checkout submodules
-        run: git submodule update --recursive --remote
+        with:
+          submodules: true
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -157,8 +157,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Checkout submodules
-        run: git submodule update --recursive --remote
+        with:
+          submodules: true
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
