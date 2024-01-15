@@ -13,8 +13,6 @@ on:
 
 jobs:
   windows:
-    needs: 
-      - build-windows
     runs-on: windows-latest
 
     steps:
@@ -52,8 +50,6 @@ jobs:
           path: dist
 
   linux:
-    needs:
-      - build-linux
     runs-on: ubuntu-latest
 
     steps:
@@ -93,8 +89,6 @@ jobs:
           path: dist
 
   macos:
-    needs:
-      - build-macos
     runs-on: macos-latest
 
     steps:
