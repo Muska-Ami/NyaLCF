@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/proxies.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
@@ -17,6 +18,7 @@ class PanelProxies extends StatelessWidget {
   Widget build(BuildContext context) {
     final p_c = Get.put(ProxiesController(context: context));
 
+    FrpcSettingPrefs.refresh();
     p_c.load(c.user, c.token);
 
     return Scaffold(

@@ -7,6 +7,7 @@ import 'package:nyalcf/dio/proxies/configuration.dart';
 import 'package:nyalcf/dio/proxies/get.dart';
 import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/model/ProxyInfo.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
@@ -101,10 +102,20 @@ class ProxiesController extends GetxController {
       IconButton(
         icon: Icon(Icons.play_circle),
         tooltip: '启动',
-        onPressed: () async => {
-          FrpcProcessManager()
-              .nwprcs(frp_token: c.frp_token.value, proxy_id: element.id)
-        },
+        onPressed: () async {
+          final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
+          if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
+            FrpcProcessManager()
+                .nwprcs(frp_token: c.frp_token.value, proxy_id: element.id);
+          } else {
+            Get.snackbar(
+              '笨..笨蛋！',
+              '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+              snackPosition: SnackPosition.BOTTOM,
+              animationDuration: Duration(milliseconds: 300),
+            );
+          }
+          },
       ),
       IconButton(
         icon: Icon(Icons.edit),

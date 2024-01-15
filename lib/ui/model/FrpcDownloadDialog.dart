@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsettingfrpc.dart';
 import 'package:nyalcf/dio/frpc/download.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
@@ -31,15 +32,17 @@ class FrpcDownloadDialogX {
                 onPressed: () async {
                   /// 刷新UI，下载frpc
                   ds_c.refreshDownloadShow();
+
                   /// 开始下载
                   Get.dialog(_downloading(), barrierDismissible: false);
                   final res = await FrpcDownloadDio().download(
-                    arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
-                    platform: ds_c.platform,
-                    version: '0.51.3',
-                    progressCallback: ds_c.downloadFrpcCallback,
-                    cancelToken: ds_c.downloadCancelToken,
-                  );
+                      arch: ds_c.arch[ds_c.frpc_download_arch.value]['arch'],
+                      platform: ds_c.platform,
+                      version: '0.51.3',
+                      progressCallback: ds_c.downloadFrpcCallback,
+                      cancelToken: ds_c.downloadCancelToken,
+                      useMirror:
+                          (await FrpcSettingPrefs.getFrpcInfo()).github_mirror);
                   ds_c.frpc_download_cancel = res;
                   ds_c.refreshDownloadShow();
                 },
@@ -83,7 +86,10 @@ class FrpcDownloadDialogX {
       title: const Column(
         children: [
           Text('正在解压...'),
-          Text('这可能需要几分钟时间，稍安勿躁喵~'),
+          Text(
+            '这可能需要几分钟时间，稍安勿躁喵~',
+            style: TextStyle(fontSize: 15.0),
+          ),
         ],
       ),
       children: <Widget>[
