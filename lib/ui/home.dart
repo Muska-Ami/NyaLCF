@@ -23,7 +23,7 @@ class Home extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title:
-              Text('$title - 首页', style: const TextStyle(color: Colors.white)),
+          Text('$title - 首页', style: const TextStyle(color: Colors.white)),
           actions: AppbarActionsX(context: context).actions(),
           automaticallyImplyLeading: false,
         ),
@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
           child: Container(
             margin: const EdgeInsets.all(40.0),
             child: Obx(
-              () => ListView(
+                  () => ListView(
                 shrinkWrap: true,
                 children: hc.w,
               ),
