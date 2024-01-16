@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:macos_window_utils/macos_window_utils.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
@@ -28,12 +28,20 @@ void main() async {
   runApp(const App());
 
   doWhenWindowReady(() {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     const initialSize = Size(800, 500);
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;
     appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
+
+    /// MacOS窗口优化
+    WindowManipulator.disableCloseButton();
+    WindowManipulator.disableMiniaturizeButton();
+    WindowManipulator.disableZoomButton();
+    WindowManipulator.hideCloseButton();
+    WindowManipulator.hideMiniaturizeButton();
+    WindowManipulator.hideZoomButton();
+
     appWindow.show();
   });
 }
