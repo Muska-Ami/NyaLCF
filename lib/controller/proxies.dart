@@ -107,6 +107,12 @@ class ProxiesController extends GetxController {
           if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
             FrpcProcessManager()
                 .nwprcs(frp_token: c.frp_token.value, proxy_id: element.id);
+            Get.snackbar(
+              '启动命令已发出',
+              '请查看控制台确认是否启动成功',
+              snackPosition: SnackPosition.BOTTOM,
+              animationDuration: Duration(milliseconds: 300),
+            );
           } else {
             Get.snackbar(
               '笨..笨蛋！',
