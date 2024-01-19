@@ -20,7 +20,7 @@ class ProxyInfo {
   final int node;
   final int local_port;
   final int remote_port;
-  final String domain;
+  final String? domain;
   final String? icp;
   final String sk;
   final int id;
