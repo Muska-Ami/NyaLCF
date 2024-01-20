@@ -1,5 +1,5 @@
-class Setting {
-  Setting({
+class LauncherSetting {
+  LauncherSetting({
     required this.theme_auto,
     required this.theme_dark,
     required this.theme_light_seed_enable,
@@ -26,7 +26,7 @@ class Setting {
         },
       };
 
-  Setting.fromJson(Map<String, dynamic> json)
+  LauncherSetting.fromJson(Map<String, dynamic> json)
       : theme_auto = json['theme']['auto'],
         theme_dark = json['theme']['dark']['enable'],
         theme_light_seed = json['theme']['light']['seed']['value'],

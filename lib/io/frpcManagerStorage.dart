@@ -32,7 +32,7 @@ class FrpcManagerStorage {
         Map<String, dynamic> json = {
           'settings': {
             'frpc_version': '',
-            'github_proxy': <String>[],
+            'github_mirror': true,
           },
           'lists': {
             'frpc_downloaded_versions': <String>[],
@@ -81,9 +81,9 @@ class FrpcManagerStorage {
   }
 
   /// GitHub代理
-  static Future<String> get proxyUrl async {
-    final url = (await _info).github_proxy;
-    return url;
+  static Future<bool> get useGithubMirror async {
+    final mirror = (await _info).github_mirror;
+    return mirror;
   }
 
   /// 获取已安装版本列表
@@ -101,6 +101,7 @@ class FrpcManagerStorage {
   }
 
   static Future<void> setRunPermission() async {
+    print('Set run permission: ${await getFilePath('0.51.3')}');
     final process = await Process.run(
       'chmod',
       [

@@ -5,8 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/io/settingStorage.dart';
-import 'package:nyalcf/model/Setting.dart';
+import 'package:nyalcf/io/launcherSettingStorage.dart';
+import 'package:nyalcf/model/LauncherSetting.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
@@ -17,13 +17,13 @@ import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 
-Setting? _settings = null;
+LauncherSetting? _settings = null;
 
 void main() async {
   /// 初始化配置文件
-  SettingStorage.init();
+  LauncherSettingStorage.init();
   FrpcManagerStorage.init();
-  _settings = await SettingStorage.read();
+  _settings = await LauncherSettingStorage.read();
 
   runApp(const App());
 
@@ -47,7 +47,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LauncherSettingPrefs.setInfo(_settings ??
-        Setting(
+        LauncherSetting(
           theme_auto: true,
           theme_dark: false,
           theme_light_seed_enable: false,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsettingfrpc.dart';
+import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 class FrpcManagerSX {
   final DSettingFrpcController ds_c = Get.find();
@@ -17,16 +19,35 @@ class FrpcManagerSX {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   ListTile(
-                    leading: Icon(Icons.warning),
+                    leading: Icon(Icons.trip_origin),
                     title: Text('下载源镜像设置'),
                   ),
                   Container(
                     margin:
                         EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                    child: Column(
+                    child: Obx(() => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        /// TODO: 镜像选择
+                        Row(
+                          children: [
+                            Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.auto_awesome),
+                                title: Text('启用下载镜像源'),
+                              ),
+                            ),
+                            Switch(
+                              value: ds_c.frpc_download_use_mirror.value,
+                              onChanged: (value) async {
+                                FrpcSettingPrefs.setDownloadUseMirror(value);
+                                ds_c.frpc_download_use_mirror.value = value;
+                                FrpcManagerStorage.save(
+                                    await FrpcSettingPrefs.getFrpcInfo());
+                              },
+                            ),
+                          ],
+                        ),
+                        /*/// TODO: 镜像选择
                         /// 纵向
                         Container(
                           margin: EdgeInsets.only(top: 10.0),
@@ -35,9 +56,9 @@ class FrpcManagerSX {
                               /// 横向Container#1
                             ],
                           ),
-                        ),
+                        ),*/
                       ],
-                    ),
+                    ),),
                   )
                 ],
               ),

@@ -11,8 +11,9 @@ class FrpcConfig {
     return settings['frpc_version'];
   }
 
-  String get github_proxy {
-    return settings['github_proxy'];
+  bool get github_mirror {
+    print('Mir: ${settings['github_mirror']}');
+    return settings['github_mirror'];
   }
 
   List<String> get frpc_downloaded_versions {

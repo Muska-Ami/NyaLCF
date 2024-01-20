@@ -12,8 +12,7 @@ installed_size: 6604
 essential: false
 icon: asset/icon/icon.png
 
-postinstall_scripts:
-  - 'echo "Nya LoCyanFrp! Powered by love."'
+postinstall_scripts: []
 postuninstall_scripts: []
 
 keywords:

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/io/settingStorage.dart';
+import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -55,7 +55,7 @@ class DSettingLauncherController extends GetxController {
   void switchDarkTheme(value) async {
     LauncherSettingPrefs.setThemeDark(value);
     theme_dark.value = value;
-    SettingStorage.save(await LauncherSettingPrefs.getInfo());
+    LauncherSettingStorage.save(await LauncherSettingPrefs.getInfo());
     loadx();
     // ThemeControl.switchDarkTheme(value);
   }
