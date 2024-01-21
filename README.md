@@ -52,5 +52,3 @@ The next generation of LoCyanFrp launcher.
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" />
 </a>
-
-Made with [contrib.rocks](https://contrib.rocks).
