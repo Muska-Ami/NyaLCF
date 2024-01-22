@@ -36,9 +36,6 @@ class FrpcManagerStorage {
           },
           'lists': {
             'frpc_downloaded_versions': <String>[],
-            'github_proxies': <String>[
-              'https://mirror.ghproxy.com/' /// 目前可用的代理
-            ],
           },
         };
         infoF.writeAsStringSync(jsonEncode(json));
@@ -74,11 +71,11 @@ class FrpcManagerStorage {
     return version;
   }
 
-  /// 自定义GitHub代理列表
+  /*/// 自定义GitHub代理列表
   static Future<List<String>> get proxies async {
     final url = (await _info).github_proxies;
     return url;
-  }
+  }*/
 
   /// GitHub代理
   static Future<bool> get useGithubMirror async {
