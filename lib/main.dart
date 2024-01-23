@@ -22,6 +22,7 @@ import 'package:nyalcf/util/Updater.dart';
 LauncherSetting? _settings = null;
 
 void main() async {
+  await Logger.clear();
   /// 初始化配置文件
   LauncherSettingStorage.init();
   FrpcManagerStorage.init();

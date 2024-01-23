@@ -9,6 +9,12 @@ class Logger {
       LoU.FileOutput(file: File('${await _s_path}/run.log'));
   static LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();
 
+  /// 重置日志文件
+  static clear() async {
+    await File(('${(await _s_path)}/run.log')).delete();
+    await File(('${(await _s_path)}/run.log')).create();
+  }
+
   static get _logger async {
     List<LoU.LogOutput> multiOutput = [await _fileOutPut, await _consoleOutput];
     return await LoU.Logger(
