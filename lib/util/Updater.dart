@@ -19,7 +19,7 @@ class Updater {
         Logger.debug('${u_if?.version} | v${pak_inf.version}');
 
         /// 比对是否一致
-        if ('v${pak_inf.version}' != u_if?.version) {
+        if (u_if?.version != null && 'v${pak_inf.version}' != u_if?.version) {
           /// 否
           Logger.info('New version: ${u_if?.version}');
           Get.dialog(AlertDialog(

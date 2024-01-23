@@ -20,10 +20,10 @@ class Logger {
         debug: LoU.PrettyPrinter(
           printEmojis: false,
           printTime: true,
-            levelColors: {
-              LoU.Level.debug: LoU.AnsiColor.fg(126)
-            }
-        )
+          levelColors: {
+            LoU.Level.debug: LoU.AnsiColor.fg(126),
+          },
+        ),
       ),
       output: LoU.MultiOutput(
         multiOutput,
@@ -61,5 +61,13 @@ class Logger {
 
   static Future<void> frpc_error(s) async {
     await error('[FRPC][ERROR]$s');
+  }
+
+  static Future<void> getxLogWriter(String text, {bool isError = false}) async {
+    if (isError) {
+      await error(text);
+    } else {
+      await info(text);
+    }
   }
 }

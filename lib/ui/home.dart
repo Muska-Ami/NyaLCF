@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/frpc.dart';
+import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/dio/auth/userUtil.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
 import 'package:nyalcf/model/User.dart';
@@ -22,6 +23,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController());
     // 加载hc控制器
     hc.load();
 

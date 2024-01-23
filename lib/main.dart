@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/model/LauncherSetting.dart';
@@ -78,8 +77,8 @@ class App extends StatelessWidget {
       _theme_data = ThemeControl.light;
     }
 
-    Get.put(UserController());
     return GetMaterialApp(
+      logWriterCallback: Logger.getxLogWriter,
       title: 'Nya LoCyanFrp!',
       routes: {
         '/': (context) => Home(title: title),
