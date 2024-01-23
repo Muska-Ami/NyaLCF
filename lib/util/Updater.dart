@@ -53,6 +53,8 @@ class Updater {
                       snackPosition: SnackPosition.BOTTOM,
                       animationDuration: Duration(milliseconds: 300),
                     );
+                  } else {
+                    Get.close(0);
                   }
                 },
               ),
