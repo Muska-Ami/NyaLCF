@@ -16,6 +16,7 @@ import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
+import 'package:nyalcf/util/Updater.dart';
 
 LauncherSetting? _settings = null;
 
@@ -24,6 +25,9 @@ void main() async {
   LauncherSettingStorage.init();
   FrpcManagerStorage.init();
   _settings = await LauncherSettingStorage.read();
+
+  /// 启动更新
+  Updater.startUp();
 
   runApp(const App());
 

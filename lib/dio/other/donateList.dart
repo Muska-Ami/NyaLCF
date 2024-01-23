@@ -1,3 +1,4 @@
+/*
 import 'dart:math';
 
 import 'package:dio/dio.dart';
@@ -26,3 +27,4 @@ class DonateList {
     }
   }
 }
+*/
