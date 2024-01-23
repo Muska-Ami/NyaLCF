@@ -31,7 +31,7 @@ class Home extends StatelessWidget {
         appBar: AppBar(
           // 设置应用栏标题
           title:
-          Text('$title - 首页', style: const TextStyle(color: Colors.white)),
+              Text('$title - 首页', style: const TextStyle(color: Colors.white)),
           // 设置应用栏操作按钮
           actions: AppbarActionsX(context: context).actions(),
           automaticallyImplyLeading: false,
@@ -43,7 +43,7 @@ class Home extends StatelessWidget {
             margin: const EdgeInsets.all(40.0),
             // 使用Obx包裹ListView
             child: Obx(
-                  () => ListView(
+              () => ListView(
                 // 设置自动缩小
                 shrinkWrap: true,
                 // 设置内容列表项

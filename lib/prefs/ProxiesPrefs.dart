@@ -1,3 +1,1 @@
-class ProxiesPrefs {
-
-}
+class ProxiesPrefs {}

@@ -8,11 +8,18 @@ class Updater {
   static void startUp() async {
     print('Checking update...');
     final packageInfo = PackageInfo.fromPlatform();
+
+    /// 获取内部包版本
     packageInfo.then((pak_inf) {
       final result = LauncherUpdateDio().getUpdate();
+
+      /// 获取远程源版本
       result.then((u_if) {
         print('${u_if?.version} | v${pak_inf.version}');
+
+        /// 比对是否一致
         if ('v${pak_inf.version}' != u_if?.version) {
+          /// 否
           print('New version: ${u_if?.version}');
           Get.dialog(AlertDialog(
             icon: Icon(Icons.update),
@@ -53,6 +60,7 @@ class Updater {
             ],
           ));
         } else {
+          /// 是
           print('You are running latest version.');
           Future.delayed(Duration(hours: 1), () {
             startUp();

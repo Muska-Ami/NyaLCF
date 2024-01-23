@@ -8,7 +8,8 @@ class FrpcSettingPrefs {
     prefs.setString('frpc@setting@frpc_version', frpcinfo.frpc_version);
     prefs.setStringList('frpc@list@frpc_downloaded_versions',
         frpcinfo.frpc_downloaded_versions);
-    prefs.setString('frpc@setting@github_mirror', frpcinfo.github_mirror.toString());
+    prefs.setString(
+        'frpc@setting@github_mirror', frpcinfo.github_mirror.toString());
     prefs.setStringList('frpc@list@github_proxies', frpcinfo.github_proxies);
   }
 
@@ -30,7 +31,8 @@ class FrpcSettingPrefs {
     final s_frpc_version = prefs.getString('frpc@setting@frpc_version') ?? '';
     final l_frpc_downloaded_versions =
         prefs.getStringList('frpc@list@frpc_downloaded_versions') ?? [];
-    final s_github_mirror = prefs.getString('frpc@setting@github_mirror') ?? 'false';
+    final s_github_mirror =
+        prefs.getString('frpc@setting@github_mirror') ?? 'false';
     final l_github_proxies =
         prefs.getStringList('frpc@list@github_proxies') ?? [];
 
@@ -57,7 +59,7 @@ extension on String {
     return (this.toLowerCase() == 'true' || this.toLowerCase() == '1')
         ? true
         : (this.toLowerCase() == 'false' || this.toLowerCase() == '0'
-        ? false
-        : throw UnsupportedError);
+            ? false
+            : throw UnsupportedError);
   }
 }

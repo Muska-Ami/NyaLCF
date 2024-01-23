@@ -25,29 +25,30 @@ class FrpcManagerSX {
                   Container(
                     margin:
                         EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-                    child: Obx(() => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                leading: Icon(Icons.auto_awesome),
-                                title: Text('启用下载镜像源'),
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.auto_awesome),
+                                  title: Text('启用下载镜像源'),
+                                ),
                               ),
-                            ),
-                            Switch(
-                              value: ds_c.frpc_download_use_mirror.value,
-                              onChanged: (value) async {
-                                FrpcSettingPrefs.setDownloadUseMirror(value);
-                                ds_c.frpc_download_use_mirror.value = value;
-                                FrpcManagerStorage.save(
-                                    await FrpcSettingPrefs.getFrpcInfo());
-                              },
-                            ),
-                          ],
-                        ),
-                        /*/// TODO: 镜像选择
+                              Switch(
+                                value: ds_c.frpc_download_use_mirror.value,
+                                onChanged: (value) async {
+                                  FrpcSettingPrefs.setDownloadUseMirror(value);
+                                  ds_c.frpc_download_use_mirror.value = value;
+                                  FrpcManagerStorage.save(
+                                      await FrpcSettingPrefs.getFrpcInfo());
+                                },
+                              ),
+                            ],
+                          ),
+                          /*/// TODO: 镜像选择
                         /// 纵向
                         Container(
                           margin: EdgeInsets.only(top: 10.0),
@@ -57,8 +58,9 @@ class FrpcManagerSX {
                             ],
                           ),
                         ),*/
-                      ],
-                    ),),
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
