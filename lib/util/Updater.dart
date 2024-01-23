@@ -43,7 +43,6 @@ class Updater {
               TextButton(
                 child: Text(
                   '确定',
-                  style: TextStyle(color: Colors.red),
                 ),
                 onPressed: () async {
                   const url = 'https://nyalcf.1l1.icu/download';
