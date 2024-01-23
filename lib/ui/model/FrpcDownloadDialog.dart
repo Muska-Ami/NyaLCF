@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controller/dsettingfrpc.dart';
 import 'package:nyalcf/dio/frpc/download.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
@@ -24,7 +25,7 @@ class FrpcDownloadDialogX {
                     value: ds_c.frpc_download_arch.value,
                     items: ds_c.frpc_download_arch_list,
                     onChanged: (value) {
-                      print('Selected arch: ${ds_c.arch[value]['arch']}');
+                      Logger.info('Selected arch: ${ds_c.arch[value]['arch']}');
                       ds_c.frpc_download_arch.value = value;
                     },
                   )),

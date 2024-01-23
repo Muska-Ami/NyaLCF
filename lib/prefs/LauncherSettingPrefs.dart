@@ -1,5 +1,6 @@
 import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/model/LauncherSetting.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LauncherSettingPrefs {
@@ -47,7 +48,7 @@ class LauncherSettingPrefs {
 
 extension on String {
   bool toBoolean() {
-    print(this);
+    Logger.debug(this);
     return (this.toLowerCase() == 'true' || this.toLowerCase() == '1')
         ? true
         : (this.toLowerCase() == 'false' || this.toLowerCase() == '0'

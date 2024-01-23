@@ -8,6 +8,7 @@ import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/AppbarActions.dart';
@@ -171,7 +172,7 @@ class PanelHome extends StatelessWidget {
                                             selectable: true,
                                             onTapLink: (text, url, title) {
                                               if (url != null) {
-                                                print(
+                                                Logger.debug(
                                                     'Launch url from Announcement: ${url}');
                                                 launchUrl(Uri.parse(url));
                                               }
@@ -202,7 +203,7 @@ class PanelHome extends StatelessWidget {
                                           selectable: true,
                                           onTapLink: (text, url, title) {
                                             if (url != null) {
-                                              print(
+                                              Logger.debug(
                                                   'Launch url from Announcement: ${url}');
                                               launchUrl(Uri.parse(url));
                                             }

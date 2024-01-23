@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/util/FileIO.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class FrpcManagerStorage {
   static final _s_path = FileIO.support_path;
@@ -86,7 +87,7 @@ class FrpcManagerStorage {
   /// 获取已安装版本列表
   static Future<List<String>> get downloadedVersions async {
     final versions = (await _info).frpc_downloaded_versions;
-    print(versions);
+    Logger.debug(versions);
     return versions;
   }
 
@@ -98,7 +99,7 @@ class FrpcManagerStorage {
   }
 
   static Future<void> setRunPermission() async {
-    print('Set run permission: ${await getFilePath('0.51.3')}');
+    Logger.info('Set run permission: ${await getFilePath('0.51.3')}');
     final process = await Process.run(
       'chmod',
       [
@@ -106,7 +107,7 @@ class FrpcManagerStorage {
         await getFilePath('0.51.3'),
       ],
     );
-    print(process.stdout.toString());
-    print(process.stderr.toString());
+    Logger.debug(process.stdout.toString());
+    Logger.debug(process.stderr.toString());
   }
 }

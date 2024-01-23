@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 import '../basicConfig.dart';
 
@@ -8,7 +9,7 @@ class UserUtilDio {
 
   Future<bool> checkToken(token) async {
     try {
-      print('Check token if is valid');
+      Logger.info('Check token if is valid');
       Map<String, dynamic> params_map = Map();
       params_map['token'] = token;
 
@@ -16,18 +17,18 @@ class UserUtilDio {
         '${basicConfig.api_v2_url}/check/token',
         queryParameters: params_map,
       );
-      print(res.data);
+      Logger.debug(res.data);
 
       return true;
     } catch (e) {
-      print(e);
+      Logger.error(e);
       return false;
     }
   }
 
   Future<bool> refresh(token, username) async {
     try {
-      print('Refresh user info');
+      Logger.info('Refresh user info');
       Map<String, dynamic> params_map = Map();
       params_map['username'] = username;
 
@@ -44,7 +45,7 @@ class UserUtilDio {
         options: options,
       );
       final resData = res.data['data'];
-      print(res.data);
+      Logger.debug(res.data);
 
       UserInfoPrefs.setTraffic(resData['traffic']);
       //UserInfoPrefs.setInbound(resData['inbound']);
@@ -52,7 +53,7 @@ class UserUtilDio {
 
       return true;
     } catch (e) {
-      print(e);
+      Logger.error(e);
       return false;
     }
   }

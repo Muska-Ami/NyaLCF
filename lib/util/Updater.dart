@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/dio/launcher/update.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Updater {
   static void startUp() async {
-    print('Checking update...');
+    Logger.info('Checking update...');
     final packageInfo = PackageInfo.fromPlatform();
 
     /// 获取内部包版本
@@ -15,12 +16,12 @@ class Updater {
 
       /// 获取远程源版本
       result.then((u_if) {
-        print('${u_if?.version} | v${pak_inf.version}');
+        Logger.debug('${u_if?.version} | v${pak_inf.version}');
 
         /// 比对是否一致
         if ('v${pak_inf.version}' != u_if?.version) {
           /// 否
-          print('New version: ${u_if?.version}');
+          Logger.info('New version: ${u_if?.version}');
           Get.dialog(AlertDialog(
             icon: Icon(Icons.update),
             title: Text('好耶！是新版本！'),
@@ -62,7 +63,7 @@ class Updater {
           ));
         } else {
           /// 是
-          print('You are running latest version.');
+          Logger.info('You are running latest version.');
           Future.delayed(Duration(hours: 1), () {
             startUp();
           });

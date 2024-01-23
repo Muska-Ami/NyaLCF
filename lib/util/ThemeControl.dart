@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class ThemeControl {
   /**
@@ -20,10 +21,10 @@ class ThemeControl {
   static void switchDarkTheme(bool value) {
     if (value) {
       Get.changeTheme(dark);
-      print('切换到暗色主题 / ${value}');
+      Logger.info('切换到暗色主题 / ${value}');
     } else {
       Get.changeTheme(light);
-      print('切换到亮色主题 / ${value}');
+      Logger.info('切换到亮色主题 / ${value}');
     }
   }
 

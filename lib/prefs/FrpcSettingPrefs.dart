@@ -1,5 +1,6 @@
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FrpcSettingPrefs {
@@ -55,7 +56,7 @@ class FrpcSettingPrefs {
 
 extension on String {
   bool toBoolean() {
-    print(this);
+    Logger.debug(this);
     return (this.toLowerCase() == 'true' || this.toLowerCase() == '1')
         ? true
         : (this.toLowerCase() == 'false' || this.toLowerCase() == '0'

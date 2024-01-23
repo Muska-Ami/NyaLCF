@@ -16,6 +16,7 @@ import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:nyalcf/util/Updater.dart';
 
@@ -67,7 +68,7 @@ class App extends StatelessWidget {
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
             Brightness.dark;
 
-    print('System dark mode: ${isDarkMode}');
+    Logger.info('System dark mode: ${isDarkMode}');
 
     /// 判定是否需要切换暗色主题
     if (((_settings?.theme_auto ?? true) && isDarkMode) ||
@@ -95,5 +96,5 @@ class App extends StatelessWidget {
 }
 
 void callback(deepLink) {
-  print(deepLink);
+  Logger.debug(deepLink);
 }

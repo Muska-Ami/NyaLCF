@@ -10,6 +10,7 @@ import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/model/ProxyInfo.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 import 'frpc.dart';
@@ -155,7 +156,7 @@ class ProxiesController extends GetxController {
             final res = await ProxiesConfigurationDio()
                 .get(c.frp_token.value, element.id);
             if (res is String) {
-              print('Successfully get config ini');
+              Logger.info('Successfully get config ini');
               text = res;
               FrpcConfigurationStorage.setConfig(element.id, res);
               Get.close(0);
@@ -169,7 +170,7 @@ class ProxiesController extends GetxController {
               );
               Get.close(0);
             } else {
-              print(res);
+              Logger.debug(res);
               Get.snackbar(
                 '获取配置文件失败',
                 res.toString(),

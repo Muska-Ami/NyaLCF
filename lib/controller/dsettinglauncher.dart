@@ -4,6 +4,8 @@ import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import '../util/Logger.dart';
+
 class DSettingLauncherController extends GetxController {
   var app_name = ''.obs;
   var app_version = ''.obs;
@@ -32,7 +34,7 @@ class DSettingLauncherController extends GetxController {
 
   void loadx() {
     if (!(theme_auto.value)) {
-      print('Auto theme is disabled, add button to switch theme');
+      Logger.info('Auto theme is disabled, add button to switch theme');
       switch_theme_dark.value = Row(
         children: [
           Expanded(

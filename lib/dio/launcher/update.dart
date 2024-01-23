@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/dio/basicConfig.dart';
 import 'package:nyalcf/model/UpdateInfo.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class LauncherUpdateDio {
   final dio = Dio();
@@ -17,7 +18,7 @@ class LauncherUpdateDio {
         download_url: resData['assets'],
       );
     } catch (e) {
-      print(e);
+      Logger.error(e);
       return null;
     }
   }

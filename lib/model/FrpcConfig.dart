@@ -1,3 +1,5 @@
+import 'package:nyalcf/util/Logger.dart';
+
 class FrpcConfig {
   FrpcConfig({
     required this.settings,
@@ -12,7 +14,7 @@ class FrpcConfig {
   }
 
   bool get github_mirror {
-    print('Mir: ${settings['github_mirror']}');
+    Logger.debug('Mir: ${settings['github_mirror']}');
     return settings['github_mirror'];
   }
 

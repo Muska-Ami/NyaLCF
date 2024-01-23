@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class AppbarActionsX {
@@ -99,7 +100,7 @@ class AppbarActionsX {
                   try {
                     FrpcProcessManager().killAll();
                   } catch (e) {
-                    print('Failed to close all process: ${e}');
+                    Logger.error('Failed to close all process: ${e}');
                   }
                   Navigator.pop(context, true);
                 },

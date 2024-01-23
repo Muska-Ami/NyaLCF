@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/model/FrpcConfig.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
@@ -60,7 +61,7 @@ class DSettingFrpcController extends GetxController {
   /// 加载Frpc下载列表
   void _load_frpc_dropdownitem() {
     frpc_download_arch_list.value = _buildArchDMIWidgetList();
-    print(frpc_download_arch_list);
+    Logger.debug(frpc_download_arch_list);
   }
 
   void refreshDownloadShow() async {
@@ -143,7 +144,7 @@ class DSettingFrpcController extends GetxController {
     /// Platform = Windows
     if (Platform.isWindows) {
       platform = 'windows';
-      print('Build windows platform arch list');
+      Logger.info('Build windows platform arch list');
       _arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': '386', 'name': 'x86/i386/amd32'},
@@ -154,7 +155,7 @@ class DSettingFrpcController extends GetxController {
     /// Platform = Linux
     if (Platform.isLinux) {
       platform = 'linux';
-      print('Build linux platform arch list');
+      Logger.info('Build linux platform arch list');
       _arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': '386', 'name': 'x86/i386/amd32'},
@@ -171,7 +172,7 @@ class DSettingFrpcController extends GetxController {
     /// Platform = MacOS
     if (Platform.isMacOS) {
       platform = 'darwin';
-      print('Build macos platform arch list');
+      Logger.info('Build macos platform arch list');
       _arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': 'arm64', 'name': 'arm64/armv8'},
@@ -182,7 +183,7 @@ class DSettingFrpcController extends GetxController {
     /// 遍历构建
     for (var i = 0; i <= arch.length - 1; i++) {
       dmil.add(_buildDMIWidget(version: arch[i]['name'], value: i));
-      print(arch[i]);
+      Logger.info(arch[i]);
     }
     return dmil;
   }
@@ -211,7 +212,7 @@ class DSettingFrpcController extends GetxController {
   CancelToken downloadCancelToken = CancelToken();
 
   void downloadFrpcCallback(received, total) {
-    print('Download callback: ${received}');
+    Logger.debug('Download callback: ${received}');
     if (total != -1) {
       if (!downloadCancelToken.isCancelled) {
         frpc_download_progress.value = received / total;
@@ -219,7 +220,7 @@ class DSettingFrpcController extends GetxController {
         frpc_download_progress.value = -1;
       }
     } else {
-      print('Download failed: file total is -1');
+      Logger.info('Download failed: file total is -1');
     }
     refreshDownloadShow();
   }
