@@ -8,6 +8,7 @@ import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/model/LauncherSetting.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
+import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
 import 'package:nyalcf/ui/home.dart';
@@ -31,7 +32,7 @@ void main() async {
 
   runApp(const App());
 
-  doWhenWindowReady(() {
+  doWhenWindowReady(() async {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     const initialSize = Size(800, 500);
     appWindow.minSize = initialSize;
@@ -39,6 +40,8 @@ void main() async {
     appWindow.alignment = Alignment.center;
     appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
     appWindow.show();
+
+    await ProtocolActivation.registerProtocolActivation(callback);
   });
 }
 
@@ -89,4 +92,8 @@ class App extends StatelessWidget {
       theme: _theme_data,
     );
   }
+}
+
+void callback(deepLink) {
+  print(deepLink);
 }
