@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:nyalcf/util/Logger.dart';
 import 'package:path_provider/path_provider.dart';
 
 class FileIO {
@@ -11,7 +12,6 @@ class FileIO {
    */
   static Future<String> get cache_path async {
     String path = (await _cache_path).path;
-    print('Get cache path $path');
     return path;
   }
 
@@ -20,7 +20,6 @@ class FileIO {
    */
   static Future<String> get support_path async {
     String path = (await _support_path).path;
-    print('Get support path: $path');
     return path;
   }
 
@@ -37,7 +36,7 @@ class FileIO {
       String newPath =
           targetDir.path + '/' + Uri.decodeFull(entity.uri.pathSegments.last);
 
-      print(newPath);
+      Logger.debug(newPath);
       if (entity is File) {
         File newFile = File(newPath);
         await entity.rename(newFile.path);

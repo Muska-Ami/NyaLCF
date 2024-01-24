@@ -37,7 +37,7 @@ class LauncherSX {
                             ),
                           ),
                           Row(
-                            children: [
+                            children: <Widget>[
                               Expanded(
                                 child: ListTile(
                                   leading: Icon(Icons.auto_awesome),
@@ -59,7 +59,7 @@ class LauncherSX {
                           ),
                           ds_c.switch_theme_dark.value,
                           Row(
-                            children: [
+                            children: <Widget>[
                               Expanded(
                                 child: ListTile(
                                   leading: Icon(Icons.colorize),

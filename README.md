@@ -1,6 +1,6 @@
 # Nya LoCyanFrp! Launcher
 
-<img src="https://pan.1l1.icu/f/J3VsZ/NyaLCF%20-%202.png" width="100%" alt="NyaLCF Banner" />
+<img src="https://cloud.1l1.icu/f/b1HJ/NyaLCF%20-%202.png" width="100%" alt="NyaLCF Banner" />
 
 下一代 LoCyanFrp 启动器。
 
@@ -48,3 +48,8 @@ The next generation of LoCyanFrp launcher.
 ### How to contribute
 
 请 Fork `dev` 分支，并在此分支基础上修改。在 `Pull request` 之前，请先测试是否能够正常运行。请不要 `Pull request` 到 `main` 分支。
+
+### 感谢我们的开发者！是他们使NyaLCF变的更好！
+<a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px" />
+</a>

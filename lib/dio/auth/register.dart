@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 import '../basicConfig.dart';
 
@@ -16,12 +17,12 @@ class RegisterDio {
       'qq': qq,
     });
     try {
-      print(
+      Logger.debug(
           'Post register: ${user} - ${email} / ${password} - ${confirmPassword} / ${verify}');
       final response = await dio
           .post('${basicConfig.api_v2_url}/users/register', data: data);
       Map<String, dynamic> responseJson = response.data;
-      print(responseJson);
+      Logger.debug(responseJson);
       final resData = responseJson['data'];
       if (responseJson['status'] == 200) {
         return true;
@@ -29,14 +30,14 @@ class RegisterDio {
         return resData['msg'] ?? responseJson['status'];
       }
     } catch (ex) {
-      print(ex);
+      Logger.error(ex);
       return ex;
     }
   }
 
   Future<dynamic> requestCode(email) async {
     try {
-      print('Requesting email code, email: ${email}');
+      Logger.debug('Requesting email code, email: ${email}');
       Map<String, dynamic> params_map = Map();
       params_map['email'] = email;
       final response = await dio.get(
@@ -49,7 +50,7 @@ class RegisterDio {
       else
         return resData['msg'];
     } catch (ex) {
-      print(ex);
+      Logger.error(ex);
       return ex;
     }
   }

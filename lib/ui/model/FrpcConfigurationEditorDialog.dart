@@ -75,7 +75,7 @@ class FrpcConfigEditorDialogX {
           margin:
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: 22.0,
                 width: 22.0,

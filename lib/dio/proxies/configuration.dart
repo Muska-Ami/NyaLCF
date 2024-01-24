@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:nyalcf/dio/basicConfig.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class ProxiesConfigurationDio {
   final dio = Dio();
@@ -17,7 +18,7 @@ class ProxiesConfigurationDio {
           queryParameters: params_map);
       try {
         final Map<String, dynamic> resData = jsonDecode(res.data);
-        print(res);
+        Logger.debug(res);
         if (resData['success']) {
           return resData['cfg'].replaceAll('\\n', '''
 ''');
@@ -25,7 +26,7 @@ class ProxiesConfigurationDio {
           return null;
         }
       } catch (ie) {
-        print(ie);
+        Logger.error(ie);
         return null;
       }
     } catch (e) {

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/user.dart';
 import 'package:nyalcf/dio/proxies/configuration.dart';
@@ -9,6 +10,7 @@ import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/model/ProxyInfo.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 import 'frpc.dart';
@@ -121,7 +123,7 @@ class ProxiesController extends GetxController {
               animationDuration: Duration(milliseconds: 300),
             );
           }
-          },
+        },
       ),
       IconButton(
         icon: Icon(Icons.edit),
@@ -154,7 +156,7 @@ class ProxiesController extends GetxController {
             final res = await ProxiesConfigurationDio()
                 .get(c.frp_token.value, element.id);
             if (res is String) {
-              print('Successfully get config ini');
+              Logger.info('Successfully get config ini');
               text = res;
               FrpcConfigurationStorage.setConfig(element.id, res);
               Get.close(0);
@@ -168,7 +170,7 @@ class ProxiesController extends GetxController {
               );
               Get.close(0);
             } else {
-              print(res);
+              Logger.debug(res);
               Get.snackbar(
                 '获取配置文件失败',
                 res.toString(),
@@ -182,6 +184,23 @@ class ProxiesController extends GetxController {
         },
       ),
     ];
+
+    if (element.domain != null) {
+      list.add(IconButton(
+        icon: Icon(Icons.copy),
+        tooltip: '复制绑定域名：${element.domain}',
+        onPressed: () {
+          Clipboard.setData(
+            ClipboardData(
+              text: element.domain,
+            ),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('已复制'),
+          ));
+        },
+      ));
+    }
 
     final fcsp = await FrpcConfigurationStorage.getConfigPath(element.id);
 

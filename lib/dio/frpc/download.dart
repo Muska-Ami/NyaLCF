@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/dio/basicConfig.dart';
 import 'package:nyalcf/util/FileIO.dart';
+import 'package:nyalcf/util/Logger.dart';
 
 class FrpcDownloadDio {
   final dio = Dio();
@@ -14,7 +15,7 @@ class FrpcDownloadDio {
     required CancelToken cancelToken,
     required bool useMirror,
   }) async {
-    print('Start download: ${platform} | ${version} | ${arch}');
+    Logger.info('Start download: ${platform} | ${version} | ${arch}');
     try {
       final download_basic_url;
       if (useMirror)
@@ -22,7 +23,7 @@ class FrpcDownloadDio {
       else
         download_basic_url = basicConfig.github_main_url;
       if (platform == 'windows') {
-        print('Windows, download zip');
+        Logger.debug('Windows, download zip');
         return await dio.download(
           '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.zip',
           '${await FileIO.cache_path}/frpc.zip',
@@ -30,7 +31,7 @@ class FrpcDownloadDio {
           onReceiveProgress: progressCallback,
         );
       } else {
-        print('Download tar.gz');
+        Logger.debug('Download tar.gz');
         return await dio.download(
           '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.tar.gz',
           '${await FileIO.cache_path}/frpc.tar.gz',

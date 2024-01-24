@@ -22,61 +22,62 @@ class PanelProxies extends StatelessWidget {
     p_c.load(c.user, c.token);
 
     return Scaffold(
-        appBar: AppBar(
-          title:
-              Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
+      appBar: AppBar(
+        title:
+            Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
 
-          //automaticallyImplyLeading: false,
-          actions: AppbarActionsX(append: <Widget>[
-            IconButton(
-              onPressed: () {
-                Get.dialog(AccountDialogX(context: context).build());
-              },
-              icon: Obx(() => ClipRRect(
-                    borderRadius: BorderRadius.circular(500),
-                    child: Image.network(
-                      '${c.avatar}',
-                      width: 35,
-                    ),
-                  )),
-            ),
-          ], context: context)
-              .actions(),
-        ),
-        drawer: DrawerX(context: context).drawer(),
-        body: Container(
-          margin: EdgeInsets.all(40.0),
-          child: ListView(
-            children: [
-              ElevatedButton(
-                onPressed: () => {p_c.reload(c.user, c.token)},
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
-                ),
-              ),
-              Obx(
-                () => Column(
-                  children: [
-                    DataTable(
-                      columnSpacing: 10.0,
-                      columns: <DataColumn>[
-                        DataColumn(label: Flexible(child: Text('名称'))),
-                        DataColumn(label: Flexible(child: Text('ID'))),
-                        DataColumn(label: Flexible(child: Text('节点'))),
-                        DataColumn(label: Flexible(child: Text('协议'))),
-                        DataColumn(label: Flexible(child: Text('本地IP'))),
-                        DataColumn(label: Flexible(child: Text('端口'))),
-                        DataColumn(label: Flexible(child: Text('操作')))
-                      ],
-                      rows: p_c.proxiesListWidgets.value,
-                    ),
-                  ],
-                ),
-              ),
-            ],
+        //automaticallyImplyLeading: false,
+        actions: AppbarActionsX(append: <Widget>[
+          IconButton(
+            onPressed: () {
+              Get.dialog(AccountDialogX(context: context).build());
+            },
+            icon: Obx(() => ClipRRect(
+                  borderRadius: BorderRadius.circular(500),
+                  child: Image.network(
+                    '${c.avatar}',
+                    width: 35,
+                  ),
+                )),
           ),
+        ], context: context)
+            .actions(),
+      ),
+      drawer: DrawerX(context: context).drawer(),
+      body: Container(
+        margin: EdgeInsets.all(40.0),
+        child: ListView(
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () => {p_c.reload(c.user, c.token)},
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
+              ),
+            ),
+            Obx(
+              () => Column(
+                children: <Widget>[
+                  DataTable(
+                    columnSpacing: 10.0,
+                    columns: <DataColumn>[
+                      DataColumn(label: Flexible(child: Text('名称'))),
+                      DataColumn(label: Flexible(child: Text('ID'))),
+                      DataColumn(label: Flexible(child: Text('节点'))),
+                      DataColumn(label: Flexible(child: Text('协议'))),
+                      DataColumn(label: Flexible(child: Text('本地IP'))),
+                      DataColumn(label: Flexible(child: Text('端口'))),
+                      DataColumn(label: Flexible(child: Text('操作')))
+                    ],
+                    rows: p_c.proxiesListWidgets.value,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-        floatingActionButton: FloatingActionButtonX().button());
+      ),
+      floatingActionButton: FloatingActionButtonX().button(),
+    );
   }
 }

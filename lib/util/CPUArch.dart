@@ -1,9 +1,9 @@
 import 'dart:io';
 
-/// Copy & modify from GitHub Gists
+/// 从GitHub Gists复制和修改
 /// https://gist.github.com/corbindavenport/d04085e2ac42da303efbaccaa717f223
 class CPUArch {
-  // Function get current CPU architecture
+  // 获取当前CPU架构的函数
   static Future<String> getCPUArchitecture() async {
     var cpu;
     if (Platform.isWindows) {
