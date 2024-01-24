@@ -30,7 +30,7 @@ class FrpcManagerSX {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
-                            children: [
+                            children: <Widget>[
                               Expanded(
                                 child: ListTile(
                                   leading: Icon(Icons.auto_awesome),

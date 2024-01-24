@@ -10,11 +10,13 @@ import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
+import 'package:nyalcf/ui/auth/tokenmode.dart';
 import 'package:nyalcf/ui/home.dart';
 import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
+import 'package:nyalcf/ui/tokenmode/panel.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:nyalcf/util/Updater.dart';
@@ -23,6 +25,7 @@ LauncherSetting? _settings = null;
 
 void main() async {
   await Logger.clear();
+
   /// 初始化配置文件
   LauncherSettingStorage.init();
   FrpcManagerStorage.init();
@@ -83,8 +86,10 @@ class App extends StatelessWidget {
       title: 'Nya LoCyanFrp!',
       routes: {
         '/': (context) => Home(title: title),
-        '/login': (context) => Login(title: title),
-        '/register': (context) => Register(title: title),
+        '/auth/login': (context) => Login(title: title),
+        '/auth/register': (context) => Register(title: title),
+        '/token_mode/login': (context) => TokenModeAuth(title: title),
+        '/token_mode/panel': (context) => TokenModePanel(title: title),
         '/panel/home': (context) => PanelHome(title: title),
         '/panel/proxies': (context) => PanelProxies(title: title),
         '/panel/console': (context) => PanelConsole(title: title),

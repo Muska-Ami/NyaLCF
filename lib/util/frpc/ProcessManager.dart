@@ -48,18 +48,22 @@ class FrpcProcessManager {
 
     /// Process [stdout, stderr]
     process.stdout.forEach((element) {
-      final fmt_str = utf8.decode(element).trim();
+      final regex = RegExp(r'\x1B\[[0-9;]*[mK]');
+      final fmt_str = utf8.decode(element).trim().replaceAll(regex, '');
       if (fmt_str.contains('stopped') || fmt_str.contains('启动失败')) {
         Logger.frpc_warn('[${proxy_id}] ${fmt_str}');
         f_c.appendWarnLog(fmt_str);
         process.kill();
         c_c.removeProcess(p_map);
-      } else {
+      } else if (fmt_str.contains('failed') || fmt_str.contains('err')) {
         Logger.frpc_error('[${proxy_id}] ${fmt_str}');
+        f_c.appendErrorLog(fmt_str);
+        process.kill();
+        c_c.removeProcess(p_map);
+      } else {
+        Logger.frpc_info('[${proxy_id}] ${fmt_str}');
         f_c.appendInfoLog(fmt_str);
       }
-
-      //print('Process length: ${process_list.length}');
     });
     process.stderr.forEach((element) {
       final fmt_str = utf8.decode(element).trim();
@@ -81,8 +85,7 @@ class FrpcProcessManager {
     });
     c_c.clearProcess();
     Logger.info('All process killed');
-    f_c.appendInfoLog(
-        '[SYSTEM][INFO] All process killed');
+    f_c.appendInfoLog('[SYSTEM][INFO] All process killed');
   }
 
   void kill(prs) {

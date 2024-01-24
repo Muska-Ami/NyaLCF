@@ -29,33 +29,33 @@ class Home extends StatelessWidget {
 
     // 构建首页Scaffold
     return Scaffold(
-        // 构建应用栏
-        appBar: AppBar(
-          // 设置应用栏标题
-          title:
-              Text('$title - 首页', style: const TextStyle(color: Colors.white)),
-          // 设置应用栏操作按钮
-          actions: AppbarActionsX(context: context).actions(),
-          automaticallyImplyLeading: false,
-        ),
-        // 构建首页内容区域
-        body: Center(
-          child: Container(
-            // 设置内容区域外边距
-            margin: const EdgeInsets.all(40.0),
-            // 使用Obx包裹ListView
-            child: Obx(
-              () => ListView(
-                // 设置自动缩小
-                shrinkWrap: true,
-                // 设置内容列表项
-                children: hc.w,
-              ),
+      // 构建应用栏
+      appBar: AppBar(
+        // 设置应用栏标题
+        title: Text('$title - 首页', style: const TextStyle(color: Colors.white)),
+        // 设置应用栏操作按钮
+        actions: AppbarActionsX(context: context).actions(),
+        automaticallyImplyLeading: false,
+      ),
+      // 构建首页内容区域
+      body: Center(
+        child: Container(
+          // 设置内容区域外边距
+          margin: const EdgeInsets.all(40.0),
+          // 使用Obx包裹ListView
+          child: Obx(
+            () => ListView(
+              // 设置自动缩小
+              shrinkWrap: true,
+              // 设置内容列表项
+              children: hc.w,
             ),
           ),
         ),
-        // 构建底部浮动生成按钮
-        floatingActionButton: FloatingActionButtonX().button());
+      ),
+      // 构建底部浮动生成按钮
+      floatingActionButton: FloatingActionButtonX().button(),
+    );
   }
 }
 
@@ -70,7 +70,7 @@ class _HC extends GetxController {
     const Text('にゃ~にゃ~，检测到保存数据，正在校验以自动登录'),
     Row(
       mainAxisSize: MainAxisSize.min,
-      children: [
+      children: <Widget>[
         SizedBox(
           height: 22.0,
           width: 22.0,
@@ -129,23 +129,47 @@ class _HC extends GetxController {
       const Text('にゃ~にゃ~，请选择一项操作'),
       Container(
         margin: const EdgeInsets.all(20.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () => Get.toNamed('/login'),
-                  child: const Text('登录')),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () => Get.toNamed('/auth/login'),
+                    child: const Text('登录'),
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () => Get.toNamed('/auth/register'),
+                    child: const Text('注册'),
+                  ),
+                ),
+              ],
             ),
             Container(
-                margin: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                    onPressed: () => Get.toNamed('/register'),
-                    child: const Text('注册'))),
+              margin: const EdgeInsets.all(8.0),
+              child: TextButton(
+                onPressed: () => Get.toNamed('/token_mode/login'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Icon(Icons.arrow_right),
+                    Container(
+                      /// 对齐，防止强迫症当场死亡
+                      margin: EdgeInsets.only(right: 7.0),
+                      child: const Text('仅使用使用Frp Token登录'),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
-      )
+      ),
     ];
   }
 }

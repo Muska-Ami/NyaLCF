@@ -18,7 +18,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   _LoginState({required this.title});
 
-  final title;
+  final String title;
 
   final userController = TextEditingController();
   final passwordController = TextEditingController();
@@ -33,57 +33,57 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title:
-              Text('$title - 登录', style: const TextStyle(color: Colors.white)),
-          actions: AppbarActionsX(context: context).actions(),
-        ),
-        body: Center(
-          child: Container(
-            margin: const EdgeInsets.all(40.0),
-            constraints: const BoxConstraints(maxWidth: 400.0),
-            child: Column(children: <Widget>[
-              const Text(
-                '登录到LoCyanFrp',
-                style: TextStyle(fontSize: 30),
-              ),
-              Form(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.all(6.0),
-                      child: TextFormField(
-                        decoration: const InputDecoration(
-                          labelText: '用户名',
-                          icon: Icon(Icons.person),
-                          border: OutlineInputBorder(),
-                        ),
-                        controller: userController,
+      appBar: AppBar(
+        title: Text('$title - 登录', style: const TextStyle(color: Colors.white)),
+        actions: AppbarActionsX(context: context).actions(),
+      ),
+      body: Center(
+        child: Container(
+          margin: const EdgeInsets.all(40.0),
+          constraints: const BoxConstraints(maxWidth: 400.0),
+          child: Column(children: <Widget>[
+            const Text(
+              '登录到LoCyanFrp',
+              style: TextStyle(fontSize: 30),
+            ),
+            Form(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.all(6.0),
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: '用户名',
+                        prefixIcon: Icon(Icons.person),
+                        border: OutlineInputBorder(),
                       ),
+                      controller: userController,
                     ),
-                    Container(
-                      margin: EdgeInsets.all(6.0),
-                      child: TextFormField(
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: '密码',
-                          icon: Icon(Icons.key),
-                          border: OutlineInputBorder(),
-                        ),
-                        controller: passwordController,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(6.0),
+                    child: TextFormField(
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: '密码',
+                        prefixIcon: Icon(Icons.key),
+                        border: OutlineInputBorder(),
                       ),
+                      controller: passwordController,
                     ),
-                    Container(
-                        margin: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                            onPressed: () => {_login()}, child: Text('登录'))),
-                  ],
-                ),
+                  ),
+                  Container(
+                      margin: const EdgeInsets.all(8.0),
+                      child: ElevatedButton(
+                          onPressed: () => {_login()}, child: Text('登录'))),
+                ],
               ),
-            ]),
-          ),
+            ),
+          ]),
         ),
-        floatingActionButton: FloatingActionButtonX().button());
+      ),
+      floatingActionButton: FloatingActionButtonX().button(),
+    );
   }
 
   _login() async {

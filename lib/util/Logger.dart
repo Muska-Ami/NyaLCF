@@ -11,24 +11,31 @@ class Logger {
 
   /// 重置日志文件
   static clear() async {
-    await File(('${(await _s_path)}/run.log')).delete();
-    await File(('${(await _s_path)}/run.log')).create();
+    final file = await File(('${(await _s_path)}/run.log'));
+    if (await file.exists()) await file.delete();
   }
 
   static get _logger async {
     List<LoU.LogOutput> multiOutput = [await _fileOutPut, await _consoleOutput];
     return await LoU.Logger(
+      filter: LoU.ProductionFilter(),
       printer: LoU.HybridPrinter(
         LoU.PrettyPrinter(
           printEmojis: false,
           printTime: true,
+          methodCount: 0,
+          lineLength: 60,
+          errorMethodCount: null,
         ),
         debug: LoU.PrettyPrinter(
           printEmojis: false,
           printTime: true,
+          lineLength: 60,
           levelColors: {
             LoU.Level.debug: LoU.AnsiColor.fg(126),
           },
+          methodCount: 0,
+          errorMethodCount: null,
         ),
       ),
       output: LoU.MultiOutput(
