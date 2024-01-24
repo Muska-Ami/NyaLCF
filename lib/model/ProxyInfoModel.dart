@@ -1,5 +1,5 @@
-class ProxyInfo {
-  ProxyInfo({
+class ProxyInfoModel {
+  ProxyInfoModel({
     required this.proxy_name,
     required this.use_compression,
     required this.local_ip,

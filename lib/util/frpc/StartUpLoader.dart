@@ -1,4 +1,3 @@
-
 class FrpcStartUpLoader {
   /// TODO: 自动启动隧道
   void onProgramStartUp() {

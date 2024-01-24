@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/model/FrpcConfig.dart';
+import 'package:nyalcf/model/FrpcConfigModel.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
 import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
@@ -99,7 +99,7 @@ class DSettingFrpcController extends GetxController {
         if (unarchive) {
           FrpcSettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
           FrpcManagerStorage.save(
-            FrpcConfig(
+            FrpcConfigModel(
                 settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
                 lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );

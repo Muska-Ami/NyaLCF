@@ -1,5 +1,5 @@
-class UpdateInfo {
-  UpdateInfo({
+class UpdateInfoModel {
+  UpdateInfoModel({
     required this.version,
     required this.tag,
     required this.download_url,

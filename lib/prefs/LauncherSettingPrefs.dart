@@ -1,9 +1,9 @@
 import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSetting.dart';
+import 'package:nyalcf/model/LauncherSettingModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LauncherSettingPrefs {
-  static Future<void> setInfo(LauncherSetting data) async {
+  static Future<void> setInfo(LauncherSettingModel data) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('setting@theme@auto', data.theme_auto);
     prefs.setBool('setting@theme@dark@enable', data.theme_dark);
@@ -12,7 +12,7 @@ class LauncherSettingPrefs {
     prefs.setString('setting@theme@light@seed@value', data.theme_light_seed);
   }
 
-  static Future<LauncherSetting> getInfo() async {
+  static Future<LauncherSettingModel> getInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     final theme_auto = prefs.getBool('setting@theme@auto') ?? true;
@@ -21,7 +21,7 @@ class LauncherSettingPrefs {
         prefs.getBool('setting@theme@light@seed@enable') ?? false;
     final theme_light_seed =
         prefs.getString('setting@theme@light@seed@value') ?? '';
-    return LauncherSetting(
+    return LauncherSettingModel(
       theme_auto: theme_auto,
       theme_dark: theme_dark,
       theme_light_seed: theme_light_seed,

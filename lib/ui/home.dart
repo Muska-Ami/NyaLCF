@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/frpc.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/frpcController.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/dio/auth/userUtil.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
-import 'package:nyalcf/model/User.dart';
+import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import 'model/AppbarActions.dart';
@@ -35,6 +35,7 @@ class Home extends StatelessWidget {
         title: Text('$title - 首页', style: const TextStyle(color: Colors.white)),
         // 设置应用栏操作按钮
         actions: AppbarActionsX(context: context).actions(),
+        iconTheme: Theme.of(context).iconTheme,
         automaticallyImplyLeading: false,
       ),
       // 构建首页内容区域
@@ -85,7 +86,7 @@ class _HC extends GetxController {
   // 加载控制器
   load() async {
     // 读取用户信息
-    User? userinfo = await UserInfoStorage.read();
+    UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
       // 检查用户令牌是否有效
       if (await UserUtilDio().checkToken(userinfo.token)) {

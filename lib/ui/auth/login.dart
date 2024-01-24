@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/dio/auth/login.dart';
-import 'package:nyalcf/model/User.dart';
+import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
@@ -36,6 +36,7 @@ class _LoginState extends State<Login> {
       appBar: AppBar(
         title: Text('$title - 登录', style: const TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: Center(
         child: Container(
@@ -110,7 +111,7 @@ class _LoginState extends State<Login> {
       );
       final res = await LoginDio()
           .requestLogin(userController.text, passwordController.text);
-      if (res is User) {
+      if (res is UserInfoModel) {
         //UserInfoCache.info = res;
         //print(UserInfoCache.info);
         await UserInfoPrefs.setInfo(res);

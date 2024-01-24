@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSetting.dart';
+import 'package:nyalcf/model/LauncherSettingModel.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
@@ -21,7 +21,7 @@ import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:nyalcf/util/Updater.dart';
 
-LauncherSetting? _settings = null;
+LauncherSettingModel? _settings = null;
 
 void main() async {
   await Logger.clear();
@@ -58,7 +58,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LauncherSettingPrefs.setInfo(_settings ??
-        LauncherSetting(
+        LauncherSettingModel(
           theme_auto: true,
           theme_dark: false,
           theme_light_seed_enable: false,

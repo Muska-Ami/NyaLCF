@@ -1,5 +1,5 @@
-class FrpcList {
-  FrpcList({
+class FrpcListModel {
+  FrpcListModel({
     required this.name,
     required this.description,
     required this.assets,

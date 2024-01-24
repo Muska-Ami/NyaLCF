@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/dio/basicConfig.dart';
-import 'package:nyalcf/model/ProxyInfo.dart';
+import 'package:nyalcf/model/ProxyInfoModel.dart';
 import 'package:nyalcf/util/Logger.dart';
 
 class ProxiesGetDio {
@@ -29,9 +29,9 @@ class ProxiesGetDio {
       Map<String, dynamic> resData = resJson['data'];
       Logger.debug(resData['proxies']);
       List<Map<String, dynamic>> proxies = List.from(resData['proxies']);
-      List<ProxyInfo> list = <ProxyInfo>[];
+      List<ProxyInfoModel> list = <ProxyInfoModel>[];
       proxies.forEach((element) {
-        list.add(ProxyInfo(
+        list.add(ProxyInfoModel(
           proxy_name: element['proxy_name'],
           use_compression: bool.parse(element['use_compression']),
           local_ip: element['local_ip'],

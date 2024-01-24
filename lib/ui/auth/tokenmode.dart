@@ -33,6 +33,7 @@ class _TokenModeAuthState extends State {
         title: Text('$title - TokenMode',
             style: const TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
         children: <Widget>[
@@ -65,8 +66,18 @@ class _TokenModeAuthState extends State {
                           margin: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                             onPressed: () async {
-                              TokenModePrefs.setToken(tokenController.text);
-                              Get.toNamed('/token_mode/panel');
+                              if (tokenController.text != '') {
+                                TokenModePrefs.setToken(tokenController.text);
+                                Get.toNamed('/token_mode/panel');
+                              } else {
+                                Get.snackbar(
+                                  '无效数据',
+                                  '请输入Frp Token',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  animationDuration:
+                                      Duration(milliseconds: 300),
+                                );
+                              }
                             },
                             child: Text('下一步'),
                           ),

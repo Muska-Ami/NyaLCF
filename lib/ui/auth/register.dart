@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/dio/auth/login.dart';
 import 'package:nyalcf/dio/auth/register.dart';
-import 'package:nyalcf/model/User.dart';
+import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 
 import '../model/AppbarActions.dart';
@@ -46,6 +46,7 @@ class _RegisterState extends State<Register> {
       appBar: AppBar(
         title: Text('$title - 注册', style: const TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
+        iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
         children: <Widget>[
@@ -229,7 +230,7 @@ class _RegisterState extends State<Register> {
                                   );
 
                                   /// 从登录页面抄过来的
-                                  if (res_login is User) {
+                                  if (res_login is UserInfoModel) {
                                     //UserInfoCache.info = res;
                                     //print(UserInfoCache.info);
                                     await UserInfoPrefs.setInfo(res_login);

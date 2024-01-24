@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/model/FrpcConfig.dart';
+import 'package:nyalcf/model/FrpcConfigModel.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/util/FileIO.dart';
 import 'package:nyalcf/util/Logger.dart';
@@ -13,17 +13,18 @@ class FrpcManagerStorage {
     return '${await _s_path}/frpc';
   }
 
-  static Future<FrpcConfig?> read() async {
+  static Future<FrpcConfigModel?> read() async {
     try {
       final String result =
           await File('${await _path}/info.json').readAsString(encoding: utf8);
-      return FrpcConfig.fromJson(jsonDecode(result));
+      return FrpcConfigModel.fromJson(jsonDecode(result));
     } catch (e) {
       return null;
     }
   }
 
-  static Future<FrpcConfig> get _info async => FrpcSettingPrefs.getFrpcInfo();
+  static Future<FrpcConfigModel> get _info async =>
+      FrpcSettingPrefs.getFrpcInfo();
 
   static void init() {
     _path.then((path) {
@@ -92,7 +93,7 @@ class FrpcManagerStorage {
   }
 
   /// 存储至磁盘
-  static Future<void> save(FrpcConfig data) async {
+  static Future<void> save(FrpcConfigModel data) async {
     final String write_data = jsonEncode(data);
     await File('${await _path}/info.json')
         .writeAsString(write_data, encoding: utf8);
