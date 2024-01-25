@@ -21,6 +21,7 @@ class DSettingFrpcController extends GetxController {
   var platform = '';
 
   var frpc_download_tip = Container().obs;
+  var frpc_download_end = false.obs;
   var frpc_download_arch_list = <DropdownMenuItem>[
     DropdownMenuItem(value: 0, child: Text('加载中')),
   ].obs;
@@ -89,7 +90,7 @@ class DSettingFrpcController extends GetxController {
           });*/
       Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(),
           barrierDismissible: false);
-      Future.delayed(const Duration(milliseconds: 3000), () async {
+      Future.delayed(const Duration(seconds: 2), () async {
         //延时执行
         final unarchive = await FrpcArchive.unarchive(
           platform: platform,
@@ -103,6 +104,7 @@ class DSettingFrpcController extends GetxController {
                 settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
                 lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );
+          frpc_download_end.value = true;
           /**if (!Platform.isWindows) {
               print('*nix platform, change file permission');
               await FrpcManagerStorage.setRunPermission();

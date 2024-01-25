@@ -17,7 +17,7 @@ class FrpcSettingPrefs {
     final newlist =
         (await getFrpcInfo()).lists['frpc_downloaded_versions'] ?? [];
     newlist.add(version);
-    prefs.setStringList('frpc@list@frpc_downloaded_versions', newlist);
+    prefs.setStringList('frpc@list@frpc_downloaded_versions', newlist.toSet().toList());
   }
 
   static Future<void> setDownloadUseMirror(bool value) async {

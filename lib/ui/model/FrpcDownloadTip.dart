@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:nyalcf/controller/dsettingfrpc.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 import 'FrpcDownloadDialog.dart';
 
 class FrpcDownloadTip {
+
+  static final DSettingFrpcController ds_c = Get.find();
+
   static Container tip({required context}) => Container(
         child: Card(
           child: Column(
@@ -28,7 +33,7 @@ class FrpcDownloadTip {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return FrpcDownloadDialogX(context: context)
+                                    return new FrpcDownloadDialogX(context: context)
                                         .build();
                                   });
                             },
@@ -55,7 +60,7 @@ class FrpcDownloadTip {
                 title: Text('可用的 Frpc 版本已安装！素晴らしい！'),
               ),
               Container(
-                margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -65,9 +70,32 @@ class FrpcDownloadTip {
                         .toString()),
                   ],
                 ),
-              )
+              ),
+              Container(
+                margin: EdgeInsets.only(left: 20.0, bottom: 20.0),
+                child: Row(
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: reDownloadPress(context),
+                      child: Text('重新下载'),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       );
+
+  static dynamic reDownloadPress(context) {
+    if (ds_c.frpc_download_end.value) return null;
+    else return () async {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return new FrpcDownloadDialogX(context: context)
+                .build();
+          });
+    };
+  }
 }
