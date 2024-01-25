@@ -5,8 +5,8 @@ import 'package:nyalcf/controller/launcherSettingController.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
-import 'frpcmanager.dart';
-import 'launcher.dart';
+import 'frpcSetting.dart';
+import 'launcherSetting.dart';
 
 class SettingInjector extends StatelessWidget {
   SettingInjector({super.key, required this.title});
@@ -51,8 +51,8 @@ class SettingInjector extends StatelessWidget {
             ),
             body: TabBarView(
               children: <Widget>[
-                LauncherSX().widget(),
-                FrpcManagerSX().widget()
+                LauncherSetting().widget(),
+                FrpcSetting().widget()
               ],
             ),
             floatingActionButton: FloatingActionButtonX().button()));

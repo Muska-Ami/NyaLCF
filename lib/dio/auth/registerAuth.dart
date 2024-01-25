@@ -3,7 +3,7 @@ import 'package:nyalcf/util/Logger.dart';
 
 import '../basicConfig.dart';
 
-class RegisterDio {
+class RegisterAuth {
   final dio = Dio();
 
   Future<dynamic> requestRegister(

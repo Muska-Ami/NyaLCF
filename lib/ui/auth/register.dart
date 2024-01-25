@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/dio/auth/login.dart';
-import 'package:nyalcf/dio/auth/register.dart';
+import 'package:nyalcf/dio/auth/loginAuth.dart';
+import 'package:nyalcf/dio/auth/registerAuth.dart';
 import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 
@@ -140,7 +140,7 @@ class _RegisterState extends State<Register> {
                                             animationDuration:
                                                 Duration(milliseconds: 300),
                                           );
-                                          final res = await RegisterDio()
+                                          final res = await RegisterAuth()
                                               .requestCode(
                                                   emailController.text);
                                           if (res is bool) {
@@ -206,7 +206,7 @@ class _RegisterState extends State<Register> {
                           margin: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                             onPressed: () async {
-                              final res = await RegisterDio().requestRegister(
+                              final res = await RegisterAuth().requestRegister(
                                 userController.text,
                                 passwordController.text,
                                 confirmPasswordController.text,
@@ -224,7 +224,7 @@ class _RegisterState extends State<Register> {
                                         Duration(milliseconds: 300),
                                   );
                                   final res_login =
-                                      await LoginDio().requestLogin(
+                                      await LoginAuth().requestLogin(
                                     userController.text,
                                     passwordController.text,
                                   );

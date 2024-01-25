@@ -4,7 +4,7 @@ import 'package:nyalcf/util/Logger.dart';
 import '../../model/UserInfoModel.dart';
 import '../basicConfig.dart';
 
-class LoginDio {
+class LoginAuth {
   final dio = Dio();
 
   Future<dynamic> requestLogin(user, password) async {

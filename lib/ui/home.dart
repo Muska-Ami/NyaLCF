@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controller/frpcController.dart';
 import 'package:nyalcf/controller/userController.dart';
-import 'package:nyalcf/dio/auth/userUtil.dart';
+import 'package:nyalcf/dio/auth/userAuth.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
 import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
@@ -89,9 +89,9 @@ class _HC extends GetxController {
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
       // 检查用户令牌是否有效
-      if (await UserUtilDio().checkToken(userinfo.token)) {
+      if (await UserAuth().checkToken(userinfo.token)) {
         // 刷新用户信息
-        await UserUtilDio().refresh(userinfo.token, userinfo.user);
+        await UserAuth().refresh(userinfo.token, userinfo.user);
         // 清空内容列表
         w.value = <Widget>[];
         // 显示自动登录的SnackBar
