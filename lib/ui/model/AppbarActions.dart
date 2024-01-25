@@ -1,7 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 

@@ -1,10 +1,10 @@
 import 'package:nyalcf/io/userInfoStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/User.dart';
+import 'package:nyalcf/model/UserInfoModel.dart';
 
 class UserInfoPrefs {
-  static Future<void> setInfo(User userinfo) async {
+  static Future<void> setInfo(UserInfoModel userinfo) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('user_name', userinfo.user);
     prefs.setString('user_email', userinfo.email);
@@ -35,7 +35,7 @@ class UserInfoPrefs {
     await UserInfoStorage.save(await getInfo());
   }
 
-  static Future<User> getInfo() async {
+  static Future<UserInfoModel> getInfo() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String user = prefs.getString('user_name') ?? '';
     String email = prefs.getString('user_email') ?? '';
@@ -46,7 +46,7 @@ class UserInfoPrefs {
     int outbound = prefs.getInt('user_outbound') ?? 0;
     String frp_token = prefs.getString('user_frp_token') ?? '';
     int traffic = prefs.getInt('user_traffic') ?? 0;
-    return User(
+    return UserInfoModel(
       user: user,
       email: email,
       token: token,

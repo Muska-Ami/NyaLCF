@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/model/LauncherSetting.dart';
+import 'package:nyalcf/model/LauncherSettingModel.dart';
 import 'package:nyalcf/util/FileIO.dart';
 
 class LauncherSettingStorage {
@@ -32,18 +32,18 @@ class LauncherSettingStorage {
   }
 
   /// 保存数据
-  static Future<void> save(LauncherSetting data) async {
+  static Future<void> save(LauncherSettingModel data) async {
     final String write_data = jsonEncode(data);
     await File('${await _path}/settings.json')
         .writeAsString(write_data, encoding: utf8);
   }
 
   /// 读取数据
-  static Future<LauncherSetting?> read() async {
+  static Future<LauncherSettingModel?> read() async {
     try {
       final String result =
           File('${await _path}/settings.json').readAsStringSync(encoding: utf8);
-      return LauncherSetting.fromJson(jsonDecode(result));
+      return LauncherSettingModel.fromJson(jsonDecode(result));
     } catch (e) {
       return null;
     }

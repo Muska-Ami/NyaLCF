@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dconsole.dart';
-import 'package:nyalcf/controller/frpc.dart';
+import 'package:nyalcf/controller/consoleController.dart';
+import 'package:nyalcf/controller/frpcController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/prefs/TokenModePrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
@@ -41,6 +41,8 @@ class _TokenModePanelState extends State {
         title: Text('$title - TokenMode',
             style: const TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
+        iconTheme: Theme.of(context).iconTheme,
+        automaticallyImplyLeading: false,
       ),
       body: ListView(
         padding: EdgeInsets.all(20.0),

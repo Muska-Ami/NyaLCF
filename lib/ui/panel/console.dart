@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dconsole.dart';
-import 'package:nyalcf/controller/frpc.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/consoleController.dart';
+import 'package:nyalcf/controller/frpcController.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';

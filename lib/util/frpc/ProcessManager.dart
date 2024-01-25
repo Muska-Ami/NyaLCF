@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dconsole.dart';
-import 'package:nyalcf/controller/frpc.dart';
+import 'package:nyalcf/controller/consoleController.dart';
+import 'package:nyalcf/controller/frpcController.dart';
 import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/util/Logger.dart';

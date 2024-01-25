@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/proxies.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/proxiesController.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';

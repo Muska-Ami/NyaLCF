@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/dio/basicConfig.dart';
-import 'package:nyalcf/model/ProxyInfo.dart';
+import 'package:nyalcf/model/ProxyInfoModel.dart';
 import 'package:nyalcf/util/Logger.dart';
 
 class ProxiesGetDio {
@@ -29,22 +29,23 @@ class ProxiesGetDio {
       Map<String, dynamic> resData = resJson['data'];
       Logger.debug(resData['proxies']);
       List<Map<String, dynamic>> proxies = List.from(resData['proxies']);
-      List<ProxyInfo> list = <ProxyInfo>[];
-      proxies.forEach((element) {
-        list.add(ProxyInfo(
-          proxy_name: element['proxy_name'],
-          use_compression: bool.parse(element['use_compression']),
-          local_ip: element['local_ip'],
-          node: element['node'],
-          local_port: element['local_port'],
-          remote_port: int.parse(element['remote_port']),
-          domain: element['domain'],
-          icp: element['icp'],
-          sk: element['sk'],
-          id: element['id'],
-          proxy_type: element['proxy_type'],
-          use_encryption: bool.parse(element['use_encryption']),
-          status: element['status'],
+      List<ProxyInfoModel> list = <ProxyInfoModel>[];
+      proxies.forEach((proxy) {
+        list.add(ProxyInfoModel(
+          proxy_name: proxy['proxy_name'],
+          use_compression: proxy['use_compression'],
+          local_ip: proxy['local_ip'],
+          node: proxy['node'],
+          local_port: proxy['local_port'],
+          // remote_port: int.parse(proxy['remote_port']),
+          remote_port: proxy['remote_port'],
+          domain: proxy['domain'],
+          icp: proxy['icp'],
+          sk: proxy['sk'],
+          id: proxy['id'],
+          proxy_type: proxy['proxy_type'],
+          use_encryption: proxy['use_encryption'],
+          status: proxy['status'],
         ));
       });
       return list;

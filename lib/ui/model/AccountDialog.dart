@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controller/consoleController.dart';
+import 'package:nyalcf/controller/panelController.dart';
+import 'package:nyalcf/controller/proxiesController.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
+import 'package:nyalcf/util/Logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AccountDialogX {
@@ -28,6 +32,19 @@ class AccountDialogX {
                   animationDuration: Duration(milliseconds: 300),
                 );
               }
+              Logger.info('Dispose controllers');
+              try {
+                final DPanelController dp_c = Get.find();
+                dp_c.dispose();
+              } catch (ignore) {}
+              try {
+                final ProxiesController p_c = Get.find();
+                p_c.dispose();
+              } catch (ignore) {}
+              try {
+                final ConsoleController c_c = Get.find();
+                c_c.dispose();
+              } catch (ignore) {}
               Get.toNamed('/');
             }),
         SimpleDialogOption(

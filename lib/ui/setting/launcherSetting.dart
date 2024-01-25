@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsettinglauncher.dart';
+import 'package:nyalcf/controller/launcherSettingController.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class LauncherSX {
+class LauncherSetting {
   final DSettingLauncherController ds_c = Get.find();
 
   Widget widget() {

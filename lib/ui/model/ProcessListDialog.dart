@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dconsole.dart';
+import 'package:nyalcf/controller/consoleController.dart';
 
 class ProcessListDialogX {
   ProcessListDialogX({required this.context});
