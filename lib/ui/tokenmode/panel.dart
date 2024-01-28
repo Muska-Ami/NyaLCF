@@ -42,7 +42,6 @@ class _TokenModePanelState extends State {
             style: const TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
-        automaticallyImplyLeading: false,
       ),
       body: ListView(
         padding: EdgeInsets.all(20.0),
