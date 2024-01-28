@@ -34,6 +34,7 @@ The next generation of LoCyanFrp launcher.
 - [x] 公告
 - [x] 通知
 - [x] 暗色主题
+- [x] 仅Frp Token模式
 
 ## Repo stats
 
