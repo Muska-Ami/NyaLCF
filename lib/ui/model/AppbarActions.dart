@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:window_manager/window_manager.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
@@ -100,6 +101,7 @@ class AppbarActionsX {
               Logger.error('Failed to close all process: ${e}');
             }
             appWindow.close();
+            windowManager.destroy();
           },
         ),
       ],
