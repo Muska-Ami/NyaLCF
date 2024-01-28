@@ -1,8 +1,11 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:nyalcf/ui/model/AppbarActions.dart';
+import 'package:tray_manager/tray_manager.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/model/LauncherSettingModel.dart';
@@ -24,6 +27,7 @@ import 'package:nyalcf/util/Updater.dart';
 LauncherSettingModel? _settings = null;
 
 void main() async {
+
   await Logger.clear();
 
   /// 初始化配置文件
@@ -44,16 +48,44 @@ void main() async {
     appWindow.alignment = Alignment.center;
     appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
     appWindow.show();
+    await trayManager.setToolTip('Nya~');
+    await trayManager.setIcon(
+      Platform.isWindows
+          ? 'asset/icon/icon.ico'
+          : 'asset/icon/icon.png',
+    );
+    Menu menu = Menu(
+      items: [
+        MenuItem(
+          key: 'show_window',
+          label: '打开界面',
+        ),
+        MenuItem(
+          key: 'hide_window',
+          label: '隐藏界面',
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: 'exit_app',
+          label: '退出',
+        ),
+      ],
+    );
+    trayManager.setContextMenu(menu);
 
     await ProtocolActivation.registerProtocolActivation(callback);
   });
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
-  final title = 'Nya LoCyanFrp!';
+  @override
+  _AppState createState() => _AppState();
+}
 
+class _AppState extends State<App> with TrayListener {
+  final title = 'Nya LoCyanFrp!';
   /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -98,6 +130,54 @@ class App extends StatelessWidget {
       theme: _theme_data,
     );
   }
+
+  /// 组件初始化时操作
+  @override
+  void initState() {
+    trayManager.addListener(this);
+    super.initState();
+  }
+
+  /// 组件销毁时操作
+  @override
+  void dispose() {
+    trayManager.removeListener(this);
+    super.dispose();
+  }
+
+  /// 鼠标左件托盘图标
+  @override
+  void onTrayIconMouseDown() {
+    appWindow.restore();
+  }
+
+  /// 鼠标右键托盘图标
+  @override
+  void onTrayIconRightMouseDown() {
+    trayManager.popUpContextMenu();
+  }
+
+  // /// 保留备用
+  // @override
+  // void onTrayIconRightMouseUp() {}
+
+  /// 托盘菜单点击事件
+  @override
+  void onTrayMenuItemClick(MenuItem menuItem) {
+    switch (menuItem.key) {
+      case 'show_window':
+        appWindow.restore();
+        break;
+      case 'hide_window':
+        appWindow.hide();
+        break;
+      case 'exit_app':
+        appWindow.restore();
+        AppbarActionsX().closeAlertDialog();
+        break;
+    }
+  }
+
 }
 
 void callback(deepLink) {

@@ -7,13 +7,13 @@ import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
-      {required this.context,
+      {this.context = null,
       List<Widget> this.append = const <Widget>[],
       this.setting = true});
 
   final UserController c = Get.find();
 
-  final BuildContext context;
+  final BuildContext? context;
   bool setting;
   final List<Widget> append;
 
@@ -48,7 +48,7 @@ class AppbarActionsX {
 
       /// 关闭
       IconButton(
-        onPressed: () => {_closeAlertDialog()},
+        onPressed: () => {closeAlertDialog()},
         icon: Icon(Icons.close),
         tooltip: '关闭',
         color: Colors.white,
@@ -76,39 +76,33 @@ class AppbarActionsX {
     return l;
   }
 
-  _closeAlertDialog() async {
-    var result = await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('关闭NyaLCF'),
-            content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
-            actions: <Widget>[
-              TextButton(
-                  child: Text(
-                    '取消',
-                  ),
-                  onPressed: () {
-                    Navigator.pop(context, false);
-                  }),
-              TextButton(
-                child: Text(
-                  '确定',
-                  style: TextStyle(color: Colors.red),
-                ),
-                onPressed: () {
-                  try {
-                    FrpcProcessManager().killAll();
-                  } catch (e) {
-                    Logger.error('Failed to close all process: ${e}');
-                  }
-                  Navigator.pop(context, true);
-                },
-              ),
-            ],
-          );
-        });
-
-    if (result) appWindow.close();
+  closeAlertDialog() async {
+    await Get.dialog(AlertDialog(
+      title: Text('关闭NyaLCF'),
+      content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
+      actions: <Widget>[
+        TextButton(
+            child: Text(
+              '取消',
+            ),
+            onPressed: () async {
+              Get.close(0);
+            }),
+        TextButton(
+          child: Text(
+            '确定',
+            style: TextStyle(color: Colors.red),
+          ),
+          onPressed: () {
+            try {
+              FrpcProcessManager().killAll();
+            } catch (e) {
+              Logger.error('Failed to close all process: ${e}');
+            }
+            appWindow.close();
+          },
+        ),
+      ],
+    ));
   }
 }

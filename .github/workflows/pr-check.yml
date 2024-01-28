@@ -40,7 +40,7 @@ jobs:
       - name: Install Dependencies
         run: |-
           flutter pub get
-          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libayatana-appindicator3-dev libstdc++-12-dev
       - name: Build Application
         run: flutter build linux --release
 
