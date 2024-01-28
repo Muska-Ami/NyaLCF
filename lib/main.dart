@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
+import 'package:nyalcf/util/frpc/ProcessManager.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -23,11 +24,13 @@ import 'package:nyalcf/ui/tokenmode/panel.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:nyalcf/util/Updater.dart';
+import 'package:window_manager/window_manager.dart';
 
 LauncherSettingModel? _settings = null;
 
 void main() async {
-
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   await Logger.clear();
 
   /// 初始化配置文件
@@ -50,9 +53,7 @@ void main() async {
     appWindow.show();
     await trayManager.setToolTip('Nya~');
     await trayManager.setIcon(
-      Platform.isWindows
-          ? 'asset/icon/icon.ico'
-          : 'asset/icon/icon.png',
+      Platform.isWindows ? 'asset/icon/icon.ico' : 'asset/icon/icon.png',
     );
     Menu menu = Menu(
       items: [
@@ -84,8 +85,9 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> with TrayListener {
+class _AppState extends State<App> with TrayListener, WindowListener {
   final title = 'Nya LoCyanFrp!';
+
   /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -135,12 +137,56 @@ class _AppState extends State<App> with TrayListener {
   @override
   void initState() {
     trayManager.addListener(this);
+    windowManager.addListener(this);
     super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    await windowManager.setPreventClose(true);
+    setState(() {});
+  }
+
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      appWindow.restore();
+      await Get.dialog(AlertDialog(
+        title: Text('关闭NyaLCF'),
+        content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
+        actions: <Widget>[
+          TextButton(
+              child: Text(
+                '取消',
+              ),
+              onPressed: () async {
+                Get.close(0);
+              }),
+          TextButton(
+            child: Text(
+              '确定',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              try {
+                FrpcProcessManager().killAll();
+              } catch (e) {
+                Logger.error('Failed to close all process: ${e}');
+              }
+              appWindow.close();
+              windowManager.destroy();
+            },
+          ),
+        ],
+      ));
+    }
   }
 
   /// 组件销毁时操作
   @override
   void dispose() {
+    windowManager.removeListener(this);
     trayManager.removeListener(this);
     super.dispose();
   }
@@ -177,7 +223,6 @@ class _AppState extends State<App> with TrayListener {
         break;
     }
   }
-
 }
 
 void callback(deepLink) {
