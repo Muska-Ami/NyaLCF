@@ -1,0 +1,28 @@
+name: 新功能请求
+description: 有的东西坏掉了吗？
+title: "[FEAT]: "
+labels: ["enhancement:功能"]
+projects: ["Muska-Ami/5"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您前来提交功能请求。在提交之前，有几个小小的要求~
+  - type: checkboxes
+    id: before-issue
+    attributes:
+      label: 问前检查
+      options:
+        - label: 我确保本功能尚未加入
+          required: true
+        - label: 我确保没有其他 Issue 提出此功能
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 功能描述
+      description: 这个功能要怎样运作呢
+      placeholder: 请描述...
+    validations:
+      required: true
