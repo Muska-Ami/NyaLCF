@@ -1,0 +1,46 @@
+name: 问题报告
+description: 有的东西坏掉了吗？
+title: "[BUG]: "
+labels: ["bug:漏洞"]
+projects: ["Muska-Ami/5"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢您前来提交问题报告。在提交之前，有几个小小的要求~
+  - type: checkboxes
+    id: before-issue
+    attributes:
+      label: 问前检查
+      options:
+        - label: 我在提问之前，已经自己排查过问题
+          required: true
+        - label: 我确保我已经搜索了相关资料，但仍无法解决
+          required: true
+        - label: 我确保这个BUG未曾被报告过
+          required: true
+        - label: 我确保这个BUG在最新版本可复现
+          required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述&复现过程
+      description: 发生什么事了
+      placeholder: 请描述问题...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本
+      description: 您正在使用的 NyaLCF 版本号
+      placeholder: 请提供版本号...
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: 运行日志
+      description: 请提供您的运行日志，以便分析原因。日志位于 `${SupportPath}/moe.xmcn.nyanana/nyanana/run.log`
+      render: shell
