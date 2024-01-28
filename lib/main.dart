@@ -131,33 +131,37 @@ class _AppState extends State<App> with TrayListener {
     );
   }
 
+  /// 组件初始化时操作
   @override
   void initState() {
     trayManager.addListener(this);
     super.initState();
   }
 
+  /// 组件销毁时操作
   @override
   void dispose() {
     trayManager.removeListener(this);
     super.dispose();
   }
 
+  /// 鼠标左件托盘图标
   @override
   void onTrayIconMouseDown() {
     appWindow.restore();
   }
 
+  /// 鼠标右键托盘图标
   @override
   void onTrayIconRightMouseDown() {
     trayManager.popUpContextMenu();
   }
 
-  @override
-  void onTrayIconRightMouseUp() {
+  // /// 保留备用
+  // @override
+  // void onTrayIconRightMouseUp() {}
 
-  }
-
+  /// 托盘菜单点击事件
   @override
   void onTrayMenuItemClick(MenuItem menuItem) {
     switch (menuItem.key) {
