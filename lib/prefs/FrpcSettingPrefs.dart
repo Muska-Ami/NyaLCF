@@ -31,7 +31,7 @@ class FrpcSettingPrefs {
     final l_frpc_downloaded_versions =
         prefs.getStringList('frpc@list@frpc_downloaded_versions') ?? [];
     final s_github_mirror =
-        prefs.getBool('frpc@setting@github_mirror') ?? false;
+        prefs.getBool('frpc@setting@github_mirror') ?? true;
     final l_github_proxies =
         prefs.getStringList('frpc@list@github_proxies') ?? [];
 
