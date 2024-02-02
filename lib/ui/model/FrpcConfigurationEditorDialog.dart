@@ -3,8 +3,8 @@ import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:get/get.dart';
 import 'package:highlight/languages/ini.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
-import 'package:nyalcf/controller/proxies.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/proxiesController.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/io/frpcConfigurationStorage.dart';
 
 class FrpcConfigEditorDialogX {
@@ -75,7 +75,7 @@ class FrpcConfigEditorDialogX {
           margin:
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: 22.0,
                 width: 22.0,

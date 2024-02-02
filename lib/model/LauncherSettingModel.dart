@@ -1,5 +1,5 @@
-class LauncherSetting {
-  LauncherSetting({
+class LauncherSettingModel {
+  LauncherSettingModel({
     required this.theme_auto,
     required this.theme_dark,
     required this.theme_light_seed_enable,
@@ -26,7 +26,7 @@ class LauncherSetting {
         },
       };
 
-  LauncherSetting.fromJson(Map<String, dynamic> json)
+  LauncherSettingModel.fromJson(Map<String, dynamic> json)
       : theme_auto = json['theme']['auto'],
         theme_dark = json['theme']['dark']['enable'],
         theme_light_seed = json['theme']['light']['seed']['value'],

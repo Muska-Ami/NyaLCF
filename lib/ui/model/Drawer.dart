@@ -10,7 +10,7 @@ class DrawerX {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
-        children: [
+        children: <Widget>[
           DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(

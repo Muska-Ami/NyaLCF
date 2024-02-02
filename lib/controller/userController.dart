@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:nyalcf/model/User.dart';
+import 'package:nyalcf/model/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 
 // 用户控制器
@@ -34,7 +34,7 @@ class UserController extends GetxController {
   /// 加载方法
   load() async {
     /// 获取用户信息
-    User userinfo = await UserInfoPrefs.getInfo();
+    UserInfoModel userinfo = await UserInfoPrefs.getInfo();
     user.value = userinfo.user;
     email.value = userinfo.email;
     token.value = userinfo.token;

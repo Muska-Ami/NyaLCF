@@ -1,7 +1,7 @@
 import 'package:nyalcf/util/Logger.dart';
 
-class FrpcConfig {
-  FrpcConfig({
+class FrpcConfigModel {
+  FrpcConfigModel({
     required this.settings,
     required this.lists,
   });
@@ -26,7 +26,7 @@ class FrpcConfig {
     return lists['github_proxies'] ?? [];
   }
 
-  FrpcConfig.fromJson(Map<String, dynamic> json)
+  FrpcConfigModel.fromJson(Map<String, dynamic> json)
       : settings = json['settings'],
         lists = json['lists'];
 

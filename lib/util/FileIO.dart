@@ -12,7 +12,6 @@ class FileIO {
    */
   static Future<String> get cache_path async {
     String path = (await _cache_path).path;
-    Logger.debug('Get cache path $path');
     return path;
   }
 
@@ -21,7 +20,6 @@ class FileIO {
    */
   static Future<String> get support_path async {
     String path = (await _support_path).path;
-    Logger.debug('Get support path: $path');
     return path;
   }
 

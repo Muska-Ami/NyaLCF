@@ -336,6 +336,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.0"
+  menu_base:
+    dependency: transitive
+    description:
+      name: menu_base
+      sha256: "820368014a171bd1241030278e6c2617354f492f5c703d7b7d4570a6b8b84405"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.1"
   meta:
     dependency: transitive
     description:
@@ -456,6 +464,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.3"
+  screen_retriever:
+    dependency: transitive
+    description:
+      name: screen_retriever
+      sha256: "6ee02c8a1158e6dae7ca430da79436e3b1c9563c8cf02f524af997c201ac2b90"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.9"
   scrollable_positioned_list:
     dependency: transitive
     description:
@@ -520,6 +536,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
+  shortid:
+    dependency: transitive
+    description:
+      name: shortid
+      sha256: d0b40e3dbb50497dad107e19c54ca7de0d1a274eb9b4404991e443dadb9ebedb
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -573,6 +597,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.1"
+  tray_manager:
+    dependency: "direct main"
+    description:
+      name: tray_manager
+      sha256: "4ab709d70a4374af172f8c39e018db33a4271265549c6fc9d269a65e5f4b0225"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.1"
   tuple:
     dependency: transitive
     description:
@@ -677,6 +709,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.1.1"
+  window_manager:
+    dependency: "direct main"
+    description:
+      name: window_manager
+      sha256: b3c895bdf936c77b83c5254bec2e6b3f066710c1f89c38b20b8acc382b525494
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
   xdg_directories:
     dependency: transitive
     description:

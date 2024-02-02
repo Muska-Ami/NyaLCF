@@ -4,7 +4,7 @@ import 'package:nyalcf/controller/dsettingfrpc.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
-class FrpcManagerSX {
+class FrpcSetting {
   final DSettingFrpcController ds_c = Get.find();
 
   Widget widget() {
@@ -30,7 +30,7 @@ class FrpcManagerSX {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Row(
-                            children: [
+                            children: <Widget>[
                               Expanded(
                                 child: ListTile(
                                   leading: Icon(Icons.auto_awesome),

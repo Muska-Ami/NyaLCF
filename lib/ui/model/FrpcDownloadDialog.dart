@@ -64,7 +64,7 @@ class FrpcDownloadDialogX {
           margin:
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
-            children: [
+            children: <Widget>[
               Obx(() => Column(children: ds_c.frpc_download_show.value)),
               Obx(() => Text(
                   '进度：${(ds_c.frpc_download_progress.value * 100).toStringAsFixed(2)}%')),
@@ -85,7 +85,7 @@ class FrpcDownloadDialogX {
   Widget unarchiving() {
     return SimpleDialog(
       title: const Column(
-        children: [
+        children: <Widget>[
           Text('正在解压...'),
           Text(
             '这可能需要几分钟时间，稍安勿躁喵~',
@@ -98,7 +98,7 @@ class FrpcDownloadDialogX {
           margin:
               EdgeInsets.only(left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
-            children: [
+            children: <Widget>[
               SizedBox(
                 height: 22.0,
                 width: 22.0,

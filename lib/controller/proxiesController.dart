@@ -3,17 +3,17 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/user.dart';
+import 'package:nyalcf/controller/userController.dart';
 import 'package:nyalcf/dio/proxies/configuration.dart';
 import 'package:nyalcf/dio/proxies/get.dart';
 import 'package:nyalcf/io/frpcConfigurationStorage.dart';
-import 'package:nyalcf/model/ProxyInfo.dart';
+import 'package:nyalcf/model/ProxyInfoModel.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/frpc/ProcessManager.dart';
 
-import 'frpc.dart';
+import 'frpcController.dart';
 
 /**
  * 代理 GetX 状态控制器
@@ -49,7 +49,7 @@ class ProxiesController extends GetxController {
    */
   load(username, token) async {
     var proxies = await ProxiesGetDio().get(username, token);
-    if (proxies is List<ProxyInfo>) {
+    if (proxies is List<ProxyInfoModel>) {
       proxiesListWidgets.value = <DataRow>[];
       proxies.forEach(
         (element) async => proxiesListWidgets.add(

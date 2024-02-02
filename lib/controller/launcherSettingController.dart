@@ -36,7 +36,7 @@ class DSettingLauncherController extends GetxController {
     if (!(theme_auto.value)) {
       Logger.info('Auto theme is disabled, add button to switch theme');
       switch_theme_dark.value = Row(
-        children: [
+        children: <Widget>[
           Expanded(
             child: ListTile(
               leading: Icon(Icons.dark_mode),

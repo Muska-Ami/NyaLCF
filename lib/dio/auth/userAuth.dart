@@ -4,7 +4,7 @@ import 'package:nyalcf/util/Logger.dart';
 
 import '../basicConfig.dart';
 
-class UserUtilDio {
+class UserAuth {
   final dio = Dio();
 
   Future<bool> checkToken(token) async {

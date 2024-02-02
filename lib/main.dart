@@ -1,28 +1,38 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:nyalcf/ui/model/AppbarActions.dart';
+import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:tray_manager/tray_manager.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSetting.dart';
+import 'package:nyalcf/model/LauncherSettingModel.dart';
 import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
+import 'package:nyalcf/ui/auth/tokenmode.dart';
 import 'package:nyalcf/ui/home.dart';
 import 'package:nyalcf/ui/panel/console.dart';
 import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
+import 'package:nyalcf/ui/tokenmode/panel.dart';
 import 'package:nyalcf/util/Logger.dart';
 import 'package:nyalcf/util/ThemeControl.dart';
 import 'package:nyalcf/util/Updater.dart';
+import 'package:window_manager/window_manager.dart';
 
-LauncherSetting? _settings = null;
+LauncherSettingModel? _settings = null;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await windowManager.ensureInitialized();
   await Logger.clear();
+
   /// 初始化配置文件
   LauncherSettingStorage.init();
   FrpcManagerStorage.init();
@@ -41,21 +51,48 @@ void main() async {
     appWindow.alignment = Alignment.center;
     appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
     appWindow.show();
+    await trayManager.setToolTip('Nya~');
+    await trayManager.setIcon(
+      Platform.isWindows ? 'asset/icon/icon.ico' : 'asset/icon/icon.png',
+    );
+    Menu menu = Menu(
+      items: [
+        MenuItem(
+          key: 'show_window',
+          label: '打开界面',
+        ),
+        MenuItem(
+          key: 'hide_window',
+          label: '隐藏界面',
+        ),
+        MenuItem.separator(),
+        MenuItem(
+          key: 'exit_app',
+          label: '退出',
+        ),
+      ],
+    );
+    trayManager.setContextMenu(menu);
 
     await ProtocolActivation.registerProtocolActivation(callback);
   });
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> with TrayListener, WindowListener {
   final title = 'Nya LoCyanFrp!';
 
   /// This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     LauncherSettingPrefs.setInfo(_settings ??
-        LauncherSetting(
+        LauncherSettingModel(
           theme_auto: true,
           theme_dark: false,
           theme_light_seed_enable: false,
@@ -83,8 +120,10 @@ class App extends StatelessWidget {
       title: 'Nya LoCyanFrp!',
       routes: {
         '/': (context) => Home(title: title),
-        '/login': (context) => Login(title: title),
-        '/register': (context) => Register(title: title),
+        '/auth/login': (context) => Login(title: title),
+        '/auth/register': (context) => Register(title: title),
+        '/token_mode/login': (context) => TokenModeAuth(title: title),
+        '/token_mode/panel': (context) => TokenModePanel(title: title),
         '/panel/home': (context) => PanelHome(title: title),
         '/panel/proxies': (context) => PanelProxies(title: title),
         '/panel/console': (context) => PanelConsole(title: title),
@@ -92,6 +131,97 @@ class App extends StatelessWidget {
       },
       theme: _theme_data,
     );
+  }
+
+  /// 组件初始化时操作
+  @override
+  void initState() {
+    trayManager.addListener(this);
+    windowManager.addListener(this);
+    super.initState();
+    _init();
+  }
+
+  Future<void> _init() async {
+    await windowManager.setPreventClose(true);
+    setState(() {});
+  }
+
+  @override
+  void onWindowClose() async {
+    bool _isPreventClose = await windowManager.isPreventClose();
+    if (_isPreventClose) {
+      appWindow.restore();
+      await Get.dialog(AlertDialog(
+        title: Text('关闭NyaLCF'),
+        content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
+        actions: <Widget>[
+          TextButton(
+              child: Text(
+                '取消',
+              ),
+              onPressed: () async {
+                Get.close(0);
+              }),
+          TextButton(
+            child: Text(
+              '确定',
+              style: TextStyle(color: Colors.red),
+            ),
+            onPressed: () {
+              try {
+                FrpcProcessManager().killAll();
+              } catch (e) {
+                Logger.error('Failed to close all process: ${e}');
+              }
+              appWindow.close();
+              windowManager.destroy();
+            },
+          ),
+        ],
+      ));
+    }
+  }
+
+  /// 组件销毁时操作
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    trayManager.removeListener(this);
+    super.dispose();
+  }
+
+  /// 鼠标左件托盘图标
+  @override
+  void onTrayIconMouseDown() {
+    appWindow.restore();
+  }
+
+  /// 鼠标右键托盘图标
+  @override
+  void onTrayIconRightMouseDown() {
+    trayManager.popUpContextMenu();
+  }
+
+  // /// 保留备用
+  // @override
+  // void onTrayIconRightMouseUp() {}
+
+  /// 托盘菜单点击事件
+  @override
+  void onTrayMenuItemClick(MenuItem menuItem) {
+    switch (menuItem.key) {
+      case 'show_window':
+        appWindow.restore();
+        break;
+      case 'hide_window':
+        appWindow.hide();
+        break;
+      case 'exit_app':
+        appWindow.restore();
+        AppbarActionsX().closeAlertDialog();
+        break;
+    }
   }
 }
 
