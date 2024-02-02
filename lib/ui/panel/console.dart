@@ -13,21 +13,29 @@ import 'package:nyalcf/util/frpc/ProcessManager.dart';
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
 
+  // 用户控制器
   final UserController c = Get.find();
+  // Frpc控制器
   final FrpcController f_c = Get.find();
+  // 控制台控制器
   final ConsoleController c_c = Get.find();
   final String title;
 
   @override
   Widget build(BuildContext context) {
+    // 加载控制台数据
     c_c.load();
     return Scaffold(
         appBar: AppBar(
+          // 标题
           title:
               Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
 
-          //automaticallyImplyLeading: false,
+          // 是否自动应用Leading属性
+          // automaticallyImplyLeading: false,
+          // 操作栏
           actions: AppbarActionsX(append: <Widget>[
+            // 账户对话框按钮
             IconButton(
               onPressed: () {
                 Get.dialog(AccountDialogX(context: context).build());
@@ -47,6 +55,7 @@ class PanelConsole extends StatelessWidget {
         body: Center(
           child: ListView(
             children: [
+              // 进程卡片
               Obx(
                 () => Card(
                   margin: EdgeInsets.all(20.0),
@@ -63,10 +72,12 @@ class PanelConsole extends StatelessWidget {
                   ),
                 ),
               ),
+              // 进程按钮
               Container(
                 margin: EdgeInsets.only(left: 20.0, right: 20.0),
                 child: Row(
                   children: [
+                    // 进程列表对话框按钮
                     ElevatedButton(
                       onPressed: () {
                         Get.dialog(
@@ -74,6 +85,7 @@ class PanelConsole extends StatelessWidget {
                       },
                       child: Text('查看进程列表'),
                     ),
+                    // 关闭所有进程按钮
                     ElevatedButton(
                       onPressed: () {
                         FrpcProcessManager().killAll();
@@ -92,6 +104,7 @@ class PanelConsole extends StatelessWidget {
             ],
           ),
         ),
+        // 鼠标悬停按钮
         floatingActionButton: FloatingActionButtonX().button());
   }
 }
