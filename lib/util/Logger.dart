@@ -18,7 +18,7 @@ class Logger {
   static get _logger async {
     List<LoU.LogOutput> multiOutput = [await _fileOutPut, await _consoleOutput];
     return await LoU.Logger(
-      filter: LoU.ProductionFilter(),
+      filter: LogFilter(),
       printer: LoU.HybridPrinter(
         LoU.PrettyPrinter(
           printEmojis: false,
@@ -82,5 +82,12 @@ class Logger {
     } else {
       await info(text);
     }
+  }
+}
+
+class LogFilter extends LoU.LogFilter {
+  @override
+  bool shouldLog(LogEvent event) {
+    return true;
   }
 }
