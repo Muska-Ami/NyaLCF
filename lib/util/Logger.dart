@@ -87,7 +87,7 @@ class Logger {
 
 class LogFilter extends LoU.LogFilter {
   @override
-  bool shouldLog(LogEvent event) {
+  bool shouldLog(LoU.LogEvent event) {
     return true;
   }
 }
