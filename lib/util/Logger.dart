@@ -38,9 +38,7 @@ class Logger {
           errorMethodCount: null,
         ),
       ),
-      output: LoU.MultiOutput(
-        multiOutput,
-      ),
+      output: LoU.MultiOutput(multiOutput),
     );
   }
 
@@ -61,7 +59,9 @@ class Logger {
   }
 
   static Future<void> debug(s) async {
+    // if (debug) {
     (await _logger).d(s);
+    // }
   }
 
   static Future<void> frpc_info(s) async {
