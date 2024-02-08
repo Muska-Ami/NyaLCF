@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
@@ -20,6 +22,8 @@ class FrpcController extends GetxController {
 
   /// 版本号
   var version = ''.obs;
+
+  String? get custom_path => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   /// 加载方法
   load() async {

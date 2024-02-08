@@ -19,9 +19,9 @@ class FrpcSettingController extends GetxController {
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
 
   var platform = '';
+  String? get custom_path => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   var frpc_download_tip = Container().obs;
-  var frpc_download_end = false.obs;
   var frpc_download_arch_list = <DropdownMenuItem>[
     DropdownMenuItem(value: 0, child: Text('加载中')),
   ].obs;
@@ -104,7 +104,6 @@ class FrpcSettingController extends GetxController {
                 settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
                 lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
           );
-          frpc_download_end.value = true;
           /**if (!Platform.isWindows) {
               print('*nix platform, change file permission');
               await FrpcManagerStorage.setRunPermission();

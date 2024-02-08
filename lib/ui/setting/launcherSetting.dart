@@ -109,7 +109,7 @@ class LauncherSetting {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '启动器调试功能(目前没有任何卵用)',
+                            '启动器调试功能(目前没有任何用)',
                             style: TextStyle(
                               color: Colors.grey.shade600,
                             ),
@@ -119,7 +119,7 @@ class LauncherSetting {
                               Expanded(
                                 child: ListTile(
                                   leading: Icon(Icons.file_open),
-                                  title: Text('开启DEBUG模式'),
+                                  title: Text('开启 DEBUG 模式'),
                                 ),
                               ),
                               Switch(

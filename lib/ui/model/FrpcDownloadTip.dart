@@ -68,6 +68,7 @@ class FrpcDownloadTip {
                     Text((await FrpcSettingPrefs.getFrpcInfo())
                         .lists['frpc_downloaded_versions']
                         .toString()),
+                    Text('已指定的 Frpc 文件路径：${ds_c.custom_path ?? '无'}'),
                   ],
                 ),
               ),
@@ -76,7 +77,14 @@ class FrpcDownloadTip {
                 child: Row(
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: reDownloadPress(context),
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return new FrpcDownloadDialogX(context: context)
+                                  .build();
+                            });
+                      },
                       child: Text('重新下载'),
                     ),
                   ],
@@ -86,17 +94,4 @@ class FrpcDownloadTip {
           ),
         ),
       );
-
-  static dynamic reDownloadPress(context) {
-    if (ds_c.frpc_download_end.value)
-      return null;
-    else
-      return () async {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return new FrpcDownloadDialogX(context: context).build();
-            });
-      };
-  }
 }

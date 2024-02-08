@@ -17,6 +17,7 @@ class FrpcProcessManager {
   void nwprcs({
     required String frp_token,
     required int proxy_id,
+    String? frpc_path = null,
   }) async {
     if (!Platform.isWindows) {
       Logger.info('*nix platform, change file permission');
@@ -38,7 +39,7 @@ class FrpcProcessManager {
     }
 
     final process = await Process.start(
-      await FrpcManagerStorage.getFilePath('0.51.3'),
+      frpc_path ?? await FrpcManagerStorage.getFilePath('0.51.3'),
       arguments,
       workingDirectory: await FrpcManagerStorage.getRunPath('0.51.3'),
     );

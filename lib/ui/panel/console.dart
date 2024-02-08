@@ -68,21 +68,22 @@ class PanelConsole extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   ElevatedButton(
+                    child: Text('查看进程列表'),
                     onPressed: () {
                       Get.dialog(ProcessListDialogX(context: context).build());
                     },
-                    child: Text('查看进程列表'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      FrpcProcessManager().killAll();
-                    },
                     child: Text(
                       '关闭所有进程',
                       style: TextStyle(
                         color: Colors.white,
                       ),
                     ),
+                    onPressed: () {
+                      FrpcProcessManager().killAll();
+                      c_c.widgets.refresh();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
