@@ -102,10 +102,10 @@ class LauncherSetting {
                   ),
                   Container(
                     margin:
-                    EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
                     padding: EdgeInsets.only(left: 30.0, right: 50.0),
                     child: Obx(
-                          () => Column(
+                      () => Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(

@@ -27,6 +27,7 @@ import 'package:window_manager/window_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+
   /// 初始化配置文件
   await PathProvider.loadSyncPath();
   await StoragesInjector.init();

@@ -31,6 +31,7 @@ class PathProvider {
     appCachePath = await _cachePath;
     appSupportPath = await _supportPath;
   }
+
   /**
    * 移动文件夹
    */

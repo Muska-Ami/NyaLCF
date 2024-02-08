@@ -63,7 +63,7 @@ class Logger {
 
   static Future<void> debug(s) async {
     //if (lcs.getDebug()) {
-      (await _logger).d(s);
+    (await _logger).d(s);
     //}
   }
 

@@ -6,7 +6,6 @@ import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'FrpcDownloadDialog.dart';
 
 class FrpcDownloadTip {
-
   static final FrpcSettingController ds_c = Get.find();
 
   static Container tip({required context}) => Container(
@@ -33,7 +32,8 @@ class FrpcDownloadTip {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return new FrpcDownloadDialogX(context: context)
+                                    return new FrpcDownloadDialogX(
+                                            context: context)
                                         .build();
                                   });
                             },
@@ -88,14 +88,15 @@ class FrpcDownloadTip {
       );
 
   static dynamic reDownloadPress(context) {
-    if (ds_c.frpc_download_end.value) return null;
-    else return () async {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return new FrpcDownloadDialogX(context: context)
-                .build();
-          });
-    };
+    if (ds_c.frpc_download_end.value)
+      return null;
+    else
+      return () async {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return new FrpcDownloadDialogX(context: context).build();
+            });
+      };
   }
 }
