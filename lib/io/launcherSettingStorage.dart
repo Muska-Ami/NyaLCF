@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/model/LauncherSettingModel.dart';
-import 'package:nyalcf/util/FileIO.dart';
+import 'package:nyalcf/models/LauncherSettingModel.dart';
+import 'package:nyalcf/utils/PathProvider.dart';
 
+@deprecated
 class LauncherSettingStorage {
-  static final _path = FileIO.support_path;
+  static final _path = PathProvider.support_path;
 
   static void init() {
     _path.then((path) {

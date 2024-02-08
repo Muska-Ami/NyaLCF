@@ -1,5 +1,5 @@
 import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSettingModel.dart';
+import 'package:nyalcf/models/LauncherSettingModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LauncherSettingPrefs {

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/consoleController.dart';
-import 'package:nyalcf/controller/frpcController.dart';
+import 'package:nyalcf/controllers/consoleController.dart';
+import 'package:nyalcf/controllers/frpcController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/prefs/TokenModePrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 import 'package:nyalcf/ui/model/ProcessListDialog.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class TokenModePanel extends StatefulWidget {
   TokenModePanel({super.key, required this.title});

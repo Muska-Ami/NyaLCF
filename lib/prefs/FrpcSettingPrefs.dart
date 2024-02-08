@@ -1,5 +1,5 @@
 import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/model/FrpcConfigModel.dart';
+import 'package:nyalcf/models/FrpcConfigModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FrpcSettingPrefs {

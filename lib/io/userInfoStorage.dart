@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/model/UserInfoModel.dart';
-import 'package:nyalcf/util/FileIO.dart';
+import 'package:nyalcf/models/UserInfoModel.dart';
+import 'package:nyalcf/utils/PathProvider.dart';
 
+@deprecated
 class UserInfoStorage {
-  static final _path = FileIO.support_path;
+  static final _path = PathProvider.support_path;
 
   /// 保存数据
   static Future<void> save(UserInfoModel data) async {

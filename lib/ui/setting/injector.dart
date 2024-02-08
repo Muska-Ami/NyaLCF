@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsettingfrpc.dart';
-import 'package:nyalcf/controller/launcherSettingController.dart';
+import 'package:nyalcf/controllers/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/launcherSettingController.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 

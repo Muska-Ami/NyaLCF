@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/dsettingfrpc.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 import 'FrpcDownloadDialog.dart';

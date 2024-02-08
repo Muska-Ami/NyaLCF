@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/consoleController.dart';
-import 'package:nyalcf/controller/panelController.dart';
-import 'package:nyalcf/controller/userController.dart';
+import 'package:nyalcf/controllers/consoleController.dart';
+import 'package:nyalcf/controllers/panelController.dart';
+import 'package:nyalcf/controllers/userController.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
-import 'package:nyalcf/util/Logger.dart';
+import 'package:nyalcf/utils/Logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/AppbarActions.dart';
