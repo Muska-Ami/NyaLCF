@@ -51,7 +51,8 @@ class FrpcSettingController extends GetxController {
 
   void _load_tip() async {
     _frpc_downloaded_versions = await FrpcManagerStorage.downloadedVersions;
-    if (_frpc_downloaded_versions.isEmpty) {
+    if (_frpc_downloaded_versions.isEmpty ||
+        (custom_path != null && await File(custom_path!).exists())) {
       frpc_download_tip.value = FrpcDownloadTip.tip(context: context);
     } else {
       frpc_download_tip.value =
