@@ -1,22 +1,28 @@
+import 'dart:io';
+
 import 'package:nyalcf/utils/FileConfiguration.dart';
 import 'package:nyalcf/utils/PathProvider.dart';
+import 'package:nyalcf/utils/Logger.dart';
 
 abstract class Configuration {
-  var path = PathProvider.support_path;
+  var path = PathProvider.supportPathSync;
 
-  /// 配置文件和默认config
-  Future<FileConfiguration> get config;
+  /// 配置文件和默认ConfigMap
+  File? file;
   Future<Map<String, dynamic>> get def_config async => {};
 
+  /// 附加Init方法
   void init() => {};
   Future<void> asyncInit() async => {};
 
+  FileConfiguration get cfg => FileConfiguration(file: this.file);
+
+  /// 默认初始化函数
   void initCfg() async {
-    FileConfiguration config = await this.config;
-    config.fromMap(await def_config);
-    config.save();
+    cfg.fromMap(await def_config);
+    Logger.debug(file);
+    cfg.save();
     init();
     asyncInit();
   }
-
 }

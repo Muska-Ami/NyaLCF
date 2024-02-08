@@ -4,7 +4,7 @@ import 'package:nyalcf/utils/PathProvider.dart';
 
 @deprecated
 class FrpcConfigurationStorage {
-  static var _path = PathProvider.support_path;
+  static var _path = PathProvider.supportPath;
 
   /// 配置文件目录路径
   static get _configDir async {

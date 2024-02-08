@@ -7,10 +7,14 @@ class PathProvider {
   static final _support_path = getApplicationSupportDirectory();
   static final _cache_path = getApplicationCacheDirectory();
 
+  /// 假的同步，实际上就是刚启动缓存成变量了
+  static String? cachePathSync = null;
+  static String? supportPathSync = null;
+
   /**
    * 获取缓存目录
    */
-  static Future<String> get cache_path async {
+  static Future<String> get cachePath async {
     String path = (await _cache_path).path;
     return path;
   }
@@ -18,11 +22,15 @@ class PathProvider {
   /**
    * 获取数据存储目录
    */
-  static Future<String> get support_path async {
+  static Future<String> get supportPath async {
     String path = (await _support_path).path;
     return path;
   }
 
+  static Future<void> loadSyncPath() async {
+    cachePathSync = await cachePath;
+    supportPathSync = await supportPath;
+  }
   /**
    * 移动文件夹
    */

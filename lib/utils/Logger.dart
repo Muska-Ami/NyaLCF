@@ -4,7 +4,7 @@ import 'package:logger/logger.dart' as LoU;
 import 'package:nyalcf/utils/PathProvider.dart';
 
 class Logger {
-  static Future<String> _s_path = PathProvider.support_path;
+  static Future<String> _s_path = PathProvider.supportPath;
   static get _fileOutPut async =>
       LoU.FileOutput(file: File('${await _s_path}/run.log'));
   static LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();

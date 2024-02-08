@@ -6,7 +6,7 @@ import 'package:nyalcf/utils/PathProvider.dart';
 
 @deprecated
 class UserInfoStorage {
-  static final _path = PathProvider.support_path;
+  static final _path = PathProvider.supportPath;
 
   /// 保存数据
   static Future<void> save(UserInfoModel data) async {

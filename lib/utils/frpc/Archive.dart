@@ -4,8 +4,8 @@ import 'package:archive/archive_io.dart';
 import 'package:nyalcf/utils/PathProvider.dart';
 
 class FrpcArchive {
-  static final _c_path = PathProvider.cache_path;
-  static final _s_path = PathProvider.support_path;
+  static final _c_path = PathProvider.cachePath;
+  static final _s_path = PathProvider.supportPath;
 
   static Future<bool> unarchive({
     required platform,

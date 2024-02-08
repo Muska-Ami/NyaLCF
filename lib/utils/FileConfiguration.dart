@@ -5,12 +5,12 @@ import 'package:nyalcf/utils/Logger.dart';
 
 class FileConfiguration {
   FileConfiguration({
-    required this.file,
+    this.file = null,
   });
 
-  File? file = null;
+  File? file; // Dart Dart 草你吗，定义File?传Future不报错
 
-  Map<String, dynamic> tmp_data = Map();
+  static Map<String, dynamic> tmp_data = Map();
 
   /// 一堆B方法
   /// 气死我里
@@ -45,13 +45,24 @@ class FileConfiguration {
     List<String> nl = _parseNode(node);
     dynamic last;
     String n;
+    dynamic nx = tmp_data;
     for (n in nl) {
-      if (last != null)
+      if (last != null) {
         last = last[n];
-      else
+        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('写入迭代NODE: $n');
+        Logger.debug('写入迭代LAST: $last');
+        Logger.debug('目标tmp_data对象值: ${tmp_data[n] ?? tmp_data[nx]}}');
+      } else {
         last = tmp_data[n];
+        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('写入迭代NODE: $n');
+        Logger.debug('写入迭代LAST: $last');
+        Logger.debug('目标tmp_data对象值: ${tmp_data[n]}');
+      }
+      nx = n;
     }
-    last = value;
+    tmp_data[nx] = value;
   }
 
   /// 获取值
@@ -59,12 +70,24 @@ class FileConfiguration {
     List<String> nl = _parseNode(node);
     dynamic last;
     String n;
+    dynamic nx = tmp_data;
     for (n in nl) {
-      if (last != null)
+      if (last != null) {
         last = last[n];
-      else
+        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('读取迭代NODE: $n');
+        Logger.debug('读取迭代LAST: $last');
+        Logger.debug('目标tmp_data对象值: ${tmp_data[n] ?? tmp_data[nx]}');
+      } else {
         last = tmp_data[n];
+        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('读取迭代NODE: $n');
+        Logger.debug('读取迭代LAST: $last');
+        Logger.debug('目标tmp_data对象值: ${tmp_data[n]}');
+      }
+      nx = n;
     }
+    Logger.debug('最终值(${nx}): ${last}');
     return last;
   }
 
@@ -74,16 +97,17 @@ class FileConfiguration {
     bool replace = false,
   }) async {
     File? fi = file ?? this.file;
+    Logger.debug('目标文件对象: $fi');
     if (fi != null) {
-      bool exist = await fi.exists();
-      if (!exist) await fi.create();
       if (!replace) {
-        if (!exist) {
+        if (!(await fi.exists())) {
+          if (!(await fi.exists())) await fi.create();
           await fi.writeAsString(toString());
         } else {
           Logger.warn('File exist and replace is false, ignoring save action.');
         }
       } else {
+        if (!(await fi.exists())) await fi.create();
         await fi.writeAsString(toString());
       }
     } else

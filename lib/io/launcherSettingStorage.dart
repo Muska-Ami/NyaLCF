@@ -6,7 +6,7 @@ import 'package:nyalcf/utils/PathProvider.dart';
 
 @deprecated
 class LauncherSettingStorage {
-  static final _path = PathProvider.support_path;
+  static final _path = PathProvider.supportPath;
 
   static void init() {
     _path.then((path) {

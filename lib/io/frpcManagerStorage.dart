@@ -8,7 +8,7 @@ import 'package:nyalcf/utils/Logger.dart';
 
 @deprecated
 class FrpcManagerStorage {
-  static final _s_path = PathProvider.support_path;
+  static final _s_path = PathProvider.supportPath;
 
   static Future<String> get _path async {
     return '${await _s_path}/frpc';
