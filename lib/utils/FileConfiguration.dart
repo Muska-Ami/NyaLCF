@@ -43,51 +43,46 @@ class FileConfiguration {
   /// 设置值
   void set(String node, dynamic value) {
     List<String> nl = _parseNode(node);
-    dynamic last;
-    String n;
-    dynamic nx = tmp_data;
-    for (n in nl) {
-      if (last != null) {
-        last = last[n];
-        Logger.debug('写入tmp_data状态值: ${tmp_data}');
-        Logger.debug('写入迭代NODE: $n');
-        Logger.debug('写入迭代LAST: $last');
-        Logger.debug('写入对象值: ${tmp_data[n]}');
+    dynamic last = tmp_data; // 初始化last为tmp_data的引用
+    String? n;
+    for (int i = 0; i < nl.length; i++) {
+      n = nl[i];
+      if (i == nl.length - 1) {
+        // 更新最后一个节点的值
+        last[n] = value;
       } else {
-        last = tmp_data[n];
-        Logger.debug('写入tmp_data状态值: ${tmp_data}');
-        Logger.debug('写入迭代NODE: $n');
-        Logger.debug('写入迭代LAST: $last');
-        Logger.debug('写入对象值: ${tmp_data[n]}');
+        if (last[n] == null || !(last[n] is Map)) {
+          last[n] = {};
+        }
+        // 移动到下一个节点
+        last = last[n];
       }
-      nx = n;
+      Logger.debug('写入tmp_data状态值: ${tmp_data}');
+      Logger.debug('写入迭代NODE: $n');
+      Logger.debug('写入迭代LAST: $last');
     }
-    tmp_data[nx] = value;
+    Logger.debug('最终值(${n}): ${last}');
   }
 
   /// 获取值
   dynamic get(String node) {
     List<String> nl = _parseNode(node);
     dynamic last;
-    String n;
-    dynamic nx = tmp_data;
+    String? n;
     for (n in nl) {
       if (last != null) {
         last = last[n];
         Logger.debug('目标tmp_data状态值: ${tmp_data}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
-        Logger.debug('目标对象值: ${tmp_data[n]}');
       } else {
         last = tmp_data[n];
         Logger.debug('目标tmp_data状态值: ${tmp_data}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
-        Logger.debug('目标对象值: ${tmp_data[n]}');
       }
-      nx = n;
     }
-    Logger.debug('最终值(${nx}): ${last}');
+    Logger.debug('最终值(${n}): ${last}');
     return last;
   }
 

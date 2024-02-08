@@ -65,6 +65,7 @@ class DSettingLauncherController extends GetxController {
       Get.changeThemeMode(ThemeMode.dark);
     else
       Get.changeThemeMode(ThemeMode.light);
+    Get.forceAppUpdate();
     loadx();
     // ThemeControl.switchDarkTheme(value);
   }

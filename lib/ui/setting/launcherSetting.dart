@@ -31,7 +31,7 @@ class LauncherSetting {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '需要重启启动器生效',
+                            '自定义主题设置',
                             style: TextStyle(
                               color: Colors.grey.shade600,
                             ),
