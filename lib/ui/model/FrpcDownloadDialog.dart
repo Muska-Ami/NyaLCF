@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/FrpcSettingController.dart';
 import 'package:nyalcf/utils/network/dio/frpc/download.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/utils/Logger.dart';
@@ -8,7 +8,7 @@ import 'package:nyalcf/utils/Logger.dart';
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
 
-  final DSettingFrpcController ds_c = Get.find();
+  final FrpcSettingController ds_c = Get.find();
   final context;
 
   Widget build() {

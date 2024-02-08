@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/FrpcSettingController.dart';
 import 'package:nyalcf/controllers/launcherSettingController.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
@@ -15,8 +15,8 @@ class SettingInjector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DSettingFrpcController dsf_c =
-        Get.put(DSettingFrpcController(context: context));
+    final FrpcSettingController dsf_c =
+        Get.put(FrpcSettingController(context: context));
     final DSettingLauncherController dsc_c =
         Get.put(DSettingLauncherController());
     dsf_c.load();
@@ -52,7 +52,7 @@ class SettingInjector extends StatelessWidget {
             body: TabBarView(
               children: <Widget>[
                 LauncherSetting().widget(),
-                FrpcSetting().widget()
+                FrpcSetting(context: context).widget()
               ],
             ),
             floatingActionButton: FloatingActionButtonX().button()));

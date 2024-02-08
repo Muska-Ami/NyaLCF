@@ -12,10 +12,10 @@ import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
 import 'package:nyalcf/utils/CPUArch.dart';
 import 'package:nyalcf/utils/frpc/Archive.dart';
 
-class DSettingFrpcController extends GetxController {
-  DSettingFrpcController({required this.context});
+class FrpcSettingController extends GetxController {
+  FrpcSettingController({required this.context});
 
-  final context;
+  BuildContext context;
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
 
   var platform = '';

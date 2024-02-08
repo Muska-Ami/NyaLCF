@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/FrpcSettingController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 import 'FrpcDownloadDialog.dart';
 
 class FrpcDownloadTip {
 
-  static final DSettingFrpcController ds_c = Get.find();
+  static final FrpcSettingController ds_c = Get.find();
 
   static Container tip({required context}) => Container(
         child: Card(
