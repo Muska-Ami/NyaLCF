@@ -4,13 +4,13 @@ import 'package:nyalcf/utils/PathProvider.dart';
 
 @deprecated
 class FrpcConfigurationStorage {
-  static var _path = PathProvider.supportPath;
+  static var _path = PathProvider.appSupportPath;
 
   /// 配置文件目录路径
   static get _configDir async {
-    final dir = Directory('${await _path}/frpc/proxies');
+    final dir = Directory('${_path}/frpc/proxies');
     if (!await dir.exists()) await dir.create();
-    return '${await _path}/frpc/proxies';
+    return '${_path}/frpc/proxies';
   }
 
   /// 配置文件路径

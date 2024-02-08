@@ -10,8 +10,6 @@ import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/models/LauncherSettingModel.dart';
-import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
@@ -26,16 +24,14 @@ import 'package:nyalcf/utils/Logger.dart';
 import 'package:nyalcf/utils/Updater.dart';
 import 'package:window_manager/window_manager.dart';
 
-LauncherSettingModel? _settings = null;
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  await Logger.clear();
-  await PathProvider.loadSyncPath();
-
   /// 初始化配置文件
+  await PathProvider.loadSyncPath();
   await StoragesInjector.init();
+
+  //await Logger.clear();
 
   /// 启动更新
   Updater.startUp();
@@ -90,14 +86,6 @@ class _AppState extends State<App> with TrayListener, WindowListener {
   /// 根组件
   @override
   Widget build(BuildContext context) {
-    LauncherSettingPrefs.setInfo(_settings ??
-        LauncherSettingModel(
-          theme_auto: true,
-          theme_dark: false,
-          theme_light_seed_enable: false,
-          theme_light_seed: '66ccff',
-        ));
-
     ThemeData _theme_data = LauncherConfigurationStorage().getTheme();
 
     return GetMaterialApp(

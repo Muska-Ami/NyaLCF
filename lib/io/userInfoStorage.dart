@@ -6,12 +6,12 @@ import 'package:nyalcf/utils/PathProvider.dart';
 
 @deprecated
 class UserInfoStorage {
-  static final _path = PathProvider.supportPath;
+  static final _path = PathProvider.appSupportPath;
 
   /// 保存数据
   static Future<void> save(UserInfoModel data) async {
     final String write_data = jsonEncode(data);
-    await File('${await _path}/session.json')
+    await File('${_path}/session.json')
         .writeAsString(write_data, encoding: utf8);
   }
 
@@ -29,6 +29,6 @@ class UserInfoStorage {
   /// 退出登录
   /// 只是删除session.json
   static sigo() async {
-    await File('${await _path}/session.json').delete();
+    await File('${_path}/session.json').delete();
   }
 }

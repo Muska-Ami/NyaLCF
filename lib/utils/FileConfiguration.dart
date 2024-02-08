@@ -49,16 +49,16 @@ class FileConfiguration {
     for (n in nl) {
       if (last != null) {
         last = last[n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('写入tmp_data状态值: ${tmp_data}');
         Logger.debug('写入迭代NODE: $n');
         Logger.debug('写入迭代LAST: $last');
-        Logger.debug('目标tmp_data对象值: ${tmp_data[n] ?? tmp_data[nx]}}');
+        Logger.debug('写入对象值: ${tmp_data[n]}');
       } else {
         last = tmp_data[n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('写入tmp_data状态值: ${tmp_data}');
         Logger.debug('写入迭代NODE: $n');
         Logger.debug('写入迭代LAST: $last');
-        Logger.debug('目标tmp_data对象值: ${tmp_data[n]}');
+        Logger.debug('写入对象值: ${tmp_data[n]}');
       }
       nx = n;
     }
@@ -77,13 +77,13 @@ class FileConfiguration {
         Logger.debug('目标tmp_data状态值: ${tmp_data}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
-        Logger.debug('目标tmp_data对象值: ${tmp_data[n] ?? tmp_data[nx]}');
+        Logger.debug('目标对象值: ${tmp_data[n]}');
       } else {
         last = tmp_data[n];
         Logger.debug('目标tmp_data状态值: ${tmp_data}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
-        Logger.debug('目标tmp_data对象值: ${tmp_data[n]}');
+        Logger.debug('目标对象值: ${tmp_data[n]}');
       }
       nx = n;
     }

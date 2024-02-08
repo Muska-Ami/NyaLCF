@@ -5,7 +5,7 @@ import 'package:nyalcf/utils/PathProvider.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 abstract class Configuration {
-  var path = PathProvider.supportPathSync;
+  var path = PathProvider.appSupportPath;
 
   /// 配置文件和默认ConfigMap
   File? file;
@@ -16,6 +16,9 @@ abstract class Configuration {
   Future<void> asyncInit() async => {};
 
   FileConfiguration get cfg => FileConfiguration(file: this.file);
+
+  /// 保存
+  void save() => cfg.save(replace: true);
 
   /// 默认初始化函数
   void initCfg() async {

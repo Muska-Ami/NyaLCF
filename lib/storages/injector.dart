@@ -1,5 +1,4 @@
 import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/io/launcherSettingStorage.dart';
 import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
 
 class StoragesInjector {
@@ -14,7 +13,6 @@ class StoragesInjector {
 
   @deprecated
   static Future<void> loadOldCfg() async {
-    LauncherSettingStorage.init();
     FrpcManagerStorage.init();
   }
 }

@@ -4,14 +4,17 @@ import 'package:logger/logger.dart' as LoU;
 import 'package:nyalcf/utils/PathProvider.dart';
 
 class Logger {
-  static Future<String> _s_path = PathProvider.supportPath;
+  static final String? _s_path = PathProvider.appSupportPath;
+
+  //static final lcs = LauncherConfigurationStorage();
+
   static get _fileOutPut async =>
-      LoU.FileOutput(file: File('${await _s_path}/run.log'));
+      LoU.FileOutput(file: File('${_s_path}/run.log'));
   static LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();
 
   /// 重置日志文件
   static clear() async {
-    final file = await File(('${(await _s_path)}/run.log'));
+    final file = await File(('${_s_path}/run.log'));
     if (await file.exists()) await file.delete();
   }
 
@@ -59,9 +62,9 @@ class Logger {
   }
 
   static Future<void> debug(s) async {
-    // if (debug) {
-    (await _logger).d(s);
-    // }
+    //if (lcs.getDebug()) {
+      (await _logger).d(s);
+    //}
   }
 
   static Future<void> frpc_info(s) async {

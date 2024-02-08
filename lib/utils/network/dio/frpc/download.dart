@@ -5,6 +5,7 @@ import 'package:nyalcf/utils/Logger.dart';
 
 class FrpcDownloadDio {
   final dio = Dio();
+  final _c_path = PathProvider.appCachePath;
 
   /// 下载Frpc
   Future<dynamic> download({
@@ -26,7 +27,7 @@ class FrpcDownloadDio {
         Logger.debug('Windows, download zip');
         return await dio.download(
           '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.zip',
-          '${await PathProvider.cachePath}/frpc.zip',
+          '${_c_path}/frpc.zip',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
         );
@@ -34,7 +35,7 @@ class FrpcDownloadDio {
         Logger.debug('Download tar.gz');
         return await dio.download(
           '${download_basic_url}/LoCyan-Team/LoCyanFrpPureApp/releases/download/v${version}/frp_LoCyanFrp-${version}_${platform}_${arch}.tar.gz',
-          '${await PathProvider.cachePath}/frpc.tar.gz',
+          '${_c_path}/frpc.tar.gz',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
         );

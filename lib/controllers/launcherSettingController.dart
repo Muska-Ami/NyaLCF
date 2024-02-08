@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
+import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 class DSettingLauncherController extends GetxController {
+  final lcs = LauncherConfigurationStorage();
+
   var app_name = ''.obs;
   var app_version = ''.obs;
   var app_package_name = ''.obs;
@@ -17,23 +18,26 @@ class DSettingLauncherController extends GetxController {
 
   var switch_theme_dark = Row().obs;
 
+  var debug_mode = false.obs;
+
   load() async {
     final packageInfo = await PackageInfo.fromPlatform();
     app_name.value = packageInfo.appName;
     app_version.value = packageInfo.version;
     app_package_name.value = packageInfo.packageName;
 
-    final settings = await LauncherSettingPrefs.getInfo();
-    theme_auto.value = settings.theme_auto;
-    theme_dark.value = settings.theme_dark;
-    theme_light_seed.value = settings.theme_light_seed;
-    theme_light_seed_enable.value = settings.theme_light_seed_enable;
+    theme_light_seed.value = lcs.getThemeLightSeedValue();
+    theme_light_seed_enable.value = lcs.getThemeLightSeedEnable();
+    // 新配置
+    theme_auto.value = lcs.getThemeAuto();
+    theme_dark.value = lcs.getThemeDarkEnable();
+    debug_mode.value = lcs.getDebug();
     loadx();
   }
 
   void loadx() {
     if (!(theme_auto.value)) {
-      Logger.info('Auto theme is disabled, add button to switch theme');
+      Logger.debug('Auto theme is disabled, add button to switch theme');
       switch_theme_dark.value = Row(
         children: <Widget>[
           Expanded(
@@ -54,9 +58,13 @@ class DSettingLauncherController extends GetxController {
   }
 
   void switchDarkTheme(value) async {
-    LauncherSettingPrefs.setThemeDark(value);
+    lcs.setThemeDarkEnable(value);
+    lcs.save();
     theme_dark.value = value;
-    LauncherSettingStorage.save(await LauncherSettingPrefs.getInfo());
+    if (value)
+      Get.changeThemeMode(ThemeMode.dark);
+    else
+      Get.changeThemeMode(ThemeMode.light);
     loadx();
     // ThemeControl.switchDarkTheme(value);
   }
