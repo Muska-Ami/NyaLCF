@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/FrpcSettingController.dart';
 import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 class FrpcSetting {
-  final DSettingFrpcController ds_c = Get.find();
+  FrpcSetting({required this.context});
+  final context;
+  final FrpcSettingController ds_c = Get.find();
 
   Widget widget() {
+    ds_c.context = context;
     return Container(
       margin: EdgeInsets.all(15.0),
       child: ListView(

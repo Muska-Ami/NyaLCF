@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/launcherSettingController.dart';
-import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
+import 'package:nyalcf/controllers/launcherSettingController.dart';
+import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSetting {
   final DSettingLauncherController ds_c = Get.find();
+  final lcs = LauncherConfigurationStorage();
 
   Widget widget() {
     return Container(
@@ -31,7 +31,7 @@ class LauncherSetting {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            '需要重启启动器生效',
+                            '自定义主题设置',
                             style: TextStyle(
                               color: Colors.grey.shade600,
                             ),
@@ -47,10 +47,9 @@ class LauncherSetting {
                               Switch(
                                 value: ds_c.theme_auto.value,
                                 onChanged: (value) async {
-                                  LauncherSettingPrefs.setThemeAuto(value);
+                                  lcs.setThemeAuto(value);
+                                  lcs.save();
                                   ds_c.theme_auto.value = value;
-                                  LauncherSettingStorage.save(
-                                      await LauncherSettingPrefs.getInfo());
                                   ds_c.loadx();
                                   // ThemeControl.autoSet();
                                 },
@@ -81,6 +80,55 @@ class LauncherSetting {
                               Switch(
                                 value: ds_c.theme_light_seed_enable.value,
                                 onChanged: null,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(Icons.bug_report),
+                    title: Text('调试'),
+                  ),
+                  Container(
+                    margin:
+                        EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
+                    padding: EdgeInsets.only(left: 30.0, right: 50.0),
+                    child: Obx(
+                      () => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '启动器调试功能(目前没有任何用)',
+                            style: TextStyle(
+                              color: Colors.grey.shade600,
+                            ),
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.file_open),
+                                  title: Text('开启 DEBUG 模式'),
+                                ),
+                              ),
+                              Switch(
+                                value: ds_c.debug_mode.value,
+                                onChanged: (value) async {
+                                  lcs.setDebug(value);
+                                  lcs.save();
+                                  ds_c.debug_mode.value = value;
+                                },
                               ),
                             ],
                           ),

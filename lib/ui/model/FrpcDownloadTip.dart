@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/dsettingfrpc.dart';
+import 'package:nyalcf/controllers/FrpcSettingController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 
 import 'FrpcDownloadDialog.dart';
 
 class FrpcDownloadTip {
-
-  static final DSettingFrpcController ds_c = Get.find();
+  static final FrpcSettingController ds_c = Get.find();
 
   static Container tip({required context}) => Container(
         child: Card(
@@ -33,7 +32,8 @@ class FrpcDownloadTip {
                               showDialog(
                                   context: context,
                                   builder: (context) {
-                                    return new FrpcDownloadDialogX(context: context)
+                                    return new FrpcDownloadDialogX(
+                                            context: context)
                                         .build();
                                   });
                             },
@@ -68,6 +68,7 @@ class FrpcDownloadTip {
                     Text((await FrpcSettingPrefs.getFrpcInfo())
                         .lists['frpc_downloaded_versions']
                         .toString()),
+                    Text('已指定的 Frpc 文件路径：${ds_c.custom_path ?? '无'}'),
                   ],
                 ),
               ),
@@ -76,7 +77,14 @@ class FrpcDownloadTip {
                 child: Row(
                   children: <Widget>[
                     ElevatedButton(
-                      onPressed: reDownloadPress(context),
+                      onPressed: () async {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return new FrpcDownloadDialogX(context: context)
+                                  .build();
+                            });
+                      },
                       child: Text('重新下载'),
                     ),
                   ],
@@ -86,16 +94,4 @@ class FrpcDownloadTip {
           ),
         ),
       );
-
-  static dynamic reDownloadPress(context) {
-    if (ds_c.frpc_download_end.value) return null;
-    else return () async {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return new FrpcDownloadDialogX(context: context)
-                .build();
-          });
-    };
-  }
 }

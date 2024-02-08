@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/frpcController.dart';
-import 'package:nyalcf/controller/userController.dart';
-import 'package:nyalcf/dio/auth/userAuth.dart';
+import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/userController.dart';
+import 'package:nyalcf/utils/network/dio/auth/userAuth.dart';
 import 'package:nyalcf/io/userInfoStorage.dart';
-import 'package:nyalcf/model/UserInfoModel.dart';
+import 'package:nyalcf/models/UserInfoModel.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 
 import 'model/AppbarActions.dart';

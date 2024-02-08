@@ -1,16 +1,15 @@
+import 'dart:io';
+
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
+import 'package:nyalcf/storages/injector.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/utils/PathProvider.dart';
+import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 import 'package:tray_manager/tray_manager.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'dart:io';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSettingModel.dart';
-import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
 import 'package:nyalcf/protocol_activation.dart';
 import 'package:nyalcf/ui/auth/login.dart';
 import 'package:nyalcf/ui/auth/register.dart';
@@ -21,22 +20,19 @@ import 'package:nyalcf/ui/panel/home.dart';
 import 'package:nyalcf/ui/panel/proxies.dart';
 import 'package:nyalcf/ui/setting/injector.dart';
 import 'package:nyalcf/ui/tokenmode/panel.dart';
-import 'package:nyalcf/util/Logger.dart';
-import 'package:nyalcf/util/ThemeControl.dart';
-import 'package:nyalcf/util/Updater.dart';
+import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/Updater.dart';
 import 'package:window_manager/window_manager.dart';
-
-LauncherSettingModel? _settings = null;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  await Logger.clear();
 
   /// 初始化配置文件
-  LauncherSettingStorage.init();
-  FrpcManagerStorage.init();
-  _settings = await LauncherSettingStorage.read();
+  await PathProvider.loadSyncPath();
+  await StoragesInjector.init();
+
+  //await Logger.clear();
 
   /// 启动更新
   Updater.startUp();
@@ -88,32 +84,10 @@ class App extends StatefulWidget {
 class _AppState extends State<App> with TrayListener, WindowListener {
   final title = 'Nya LoCyanFrp!';
 
-  /// This widget is the root of your application.
+  /// 根组件
   @override
   Widget build(BuildContext context) {
-    LauncherSettingPrefs.setInfo(_settings ??
-        LauncherSettingModel(
-          theme_auto: true,
-          theme_dark: false,
-          theme_light_seed_enable: false,
-          theme_light_seed: '66ccff',
-        ));
-
-    ThemeData _theme_data;
-
-    final bool isDarkMode =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark;
-
-    Logger.info('System dark mode: ${isDarkMode}');
-
-    /// 判定是否需要切换暗色主题
-    if (((_settings?.theme_auto ?? true) && isDarkMode) ||
-        (_settings?.theme_dark ?? false)) {
-      _theme_data = ThemeControl.dark;
-    } else {
-      _theme_data = ThemeControl.light;
-    }
+    ThemeData _theme_data = LauncherConfigurationStorage().getTheme();
 
     return GetMaterialApp(
       logWriterCallback: Logger.getxLogWriter,

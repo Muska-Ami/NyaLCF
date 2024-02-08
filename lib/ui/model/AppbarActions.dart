@@ -1,9 +1,9 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/userController.dart';
-import 'package:nyalcf/util/Logger.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/controllers/userController.dart';
+import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 import 'package:window_manager/window_manager.dart';
 
 class AppbarActionsX {

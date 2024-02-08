@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/dio/auth/loginAuth.dart';
-import 'package:nyalcf/model/UserInfoModel.dart';
+import 'package:nyalcf/utils/network/dio/auth/loginAuth.dart';
+import 'package:nyalcf/models/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';

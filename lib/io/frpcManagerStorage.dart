@@ -1,22 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/model/FrpcConfigModel.dart';
+import 'package:nyalcf/models/FrpcConfigModel.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
-import 'package:nyalcf/util/FileIO.dart';
-import 'package:nyalcf/util/Logger.dart';
+import 'package:nyalcf/utils/PathProvider.dart';
+import 'package:nyalcf/utils/Logger.dart';
 
+@deprecated
 class FrpcManagerStorage {
-  static final _s_path = FileIO.support_path;
+  static final _s_path = PathProvider.appSupportPath;
 
   static Future<String> get _path async {
-    return '${await _s_path}/frpc';
+    return '${_s_path}/frpc';
   }
 
   static Future<FrpcConfigModel?> read() async {
     try {
       final String result =
-          await File('${await _path}/info.json').readAsString(encoding: utf8);
+          await File('${_path}/info.json').readAsString(encoding: utf8);
       return FrpcConfigModel.fromJson(jsonDecode(result));
     } catch (e) {
       return null;

@@ -1,13 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/consoleController.dart';
-import 'package:nyalcf/controller/frpcController.dart';
+import 'package:nyalcf/controllers/consoleController.dart';
+import 'package:nyalcf/controllers/frpcController.dart';
 import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/prefs/TokenModePrefs.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 import 'package:nyalcf/ui/model/ProcessListDialog.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class TokenModePanel extends StatefulWidget {
   TokenModePanel({super.key, required this.title});
@@ -80,34 +82,53 @@ class _TokenModePanelState extends State {
                   ElevatedButton(
                     onPressed: () async {
                       final String? frp_token = await TokenModePrefs.getToken();
+                      // 判断frp_token是否为空
                       if (frp_token != null) if (proxyController.text != '') {
                         final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-                        if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
-                          FrpcProcessManager().nwprcs(
+                        // 检测是否定义了环境变量
+                        if (f_c.custom_path == null) {
+                          // 无环境变量已安装Frpc
+                          if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
+                            FrpcProcessManager().nwprcs(
                               frp_token: frp_token,
-                              proxy_id: int.parse(proxyController.text));
+                              proxy_id: int.parse(proxyController.text),
+                            );
+                            Get.snackbar(
+                              '启动命令已发出',
+                              '请查看控制台确认是否启动成功',
+                              snackPosition: SnackPosition.BOTTOM,
+                              animationDuration: Duration(milliseconds: 300),
+                            );
+                            // 无环境变量未安装Frpc
+                          } else
+                            Get.snackbar(
+                              '笨..笨蛋！',
+                              '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+                              snackPosition: SnackPosition.BOTTOM,
+                              animationDuration: Duration(milliseconds: 300),
+                            );
+                          // 有环境变量未安装Frpc
+                        } else if (await File(f_c.custom_path!).exists()) {
+                          FrpcProcessManager().nwprcs(
+                            frpc_path: f_c.custom_path,
+                            frp_token: frp_token,
+                            proxy_id: int.parse(proxyController.text),
+                          );
                           Get.snackbar(
                             '启动命令已发出',
                             '请查看控制台确认是否启动成功',
                             snackPosition: SnackPosition.BOTTOM,
                             animationDuration: Duration(milliseconds: 300),
                           );
-                        } else {
+                          // 有环境变量未安装Frpc，但文件不存在
+                        } else
                           Get.snackbar(
                             '笨..笨蛋！',
-                            '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+                            '你的环境变量是无效哒！猫猫都要找晕啦！',
                             snackPosition: SnackPosition.BOTTOM,
                             animationDuration: Duration(milliseconds: 300),
                           );
-                        }
                       } else
-                        Get.snackbar(
-                          '笨..笨蛋！',
-                          '你还没有填写隧道ID，猫猫不知道要启动哪个隧道喵！',
-                          snackPosition: SnackPosition.BOTTOM,
-                          animationDuration: Duration(milliseconds: 300),
-                        );
-                      else
                         Get.snackbar(
                           '发生错误',
                           '内部错误，请重新登录',

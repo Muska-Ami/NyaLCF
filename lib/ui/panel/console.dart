@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controller/consoleController.dart';
-import 'package:nyalcf/controller/frpcController.dart';
-import 'package:nyalcf/controller/userController.dart';
+import 'package:nyalcf/controllers/consoleController.dart';
+import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/userController.dart';
 import 'package:nyalcf/ui/model/AccountDialog.dart';
 import 'package:nyalcf/ui/model/AppbarActions.dart';
 import 'package:nyalcf/ui/model/Drawer.dart';
 import 'package:nyalcf/ui/model/FloatingActionButton.dart';
 import 'package:nyalcf/ui/model/ProcessListDialog.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
@@ -68,21 +68,22 @@ class PanelConsole extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   ElevatedButton(
+                    child: Text('查看进程列表'),
                     onPressed: () {
                       Get.dialog(ProcessListDialogX(context: context).build());
                     },
-                    child: Text('查看进程列表'),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      FrpcProcessManager().killAll();
-                    },
                     child: Text(
                       '关闭所有进程',
                       style: TextStyle(
                         color: Colors.white,
                       ),
                     ),
+                    onPressed: () {
+                      FrpcProcessManager().killAll();
+                      c_c.widgets.refresh();
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
