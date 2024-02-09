@@ -51,6 +51,7 @@ class LauncherSetting {
                                   lcs.save();
                                   ds_c.theme_auto.value = value;
                                   ds_c.loadx();
+                                  Get.forceAppUpdate();
                                   // ThemeControl.autoSet();
                                 },
                               ),
