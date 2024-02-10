@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/FrpcSettingController.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
+import 'package:nyalcf/controllers/frpcSettingController.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 
 import 'FrpcDownloadDialog.dart';
 
 class FrpcDownloadTip {
+  static final fcs = FrpcConfigurationStorage();
   static final FrpcSettingController ds_c = Get.find();
 
   static Container tip({required context}) => Container(
@@ -65,9 +66,7 @@ class FrpcDownloadTip {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text('已安装版本列表：'),
-                    Text((await FrpcSettingPrefs.getFrpcInfo())
-                        .lists['frpc_downloaded_versions']
-                        .toString()),
+                    Text(fcs.getInstalledVersions().toString()),
                     Text('已指定的 Frpc 文件路径：${ds_c.custom_path ?? '无'}'),
                   ],
                 ),

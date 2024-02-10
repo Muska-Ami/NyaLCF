@@ -2,9 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/utils/Logger.dart';
-import 'package:nyalcf/utils/frpc/ProcessManager.dart';
-import 'package:window_manager/window_manager.dart';
+import 'package:nyalcf/main_window.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
@@ -49,7 +47,7 @@ class AppbarActionsX {
 
       /// 关闭
       IconButton(
-        onPressed: () => {closeAlertDialog()},
+        onPressed: () => MainWindow.onWindowClose(),
         icon: Icon(Icons.close),
         tooltip: '关闭',
         color: Colors.white,
@@ -75,36 +73,5 @@ class AppbarActionsX {
     }
     l.addAll(_list());
     return l;
-  }
-
-  closeAlertDialog() async {
-    await Get.dialog(AlertDialog(
-      title: Text('关闭NyaLCF'),
-      content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
-      actions: <Widget>[
-        TextButton(
-            child: Text(
-              '取消',
-            ),
-            onPressed: () async {
-              Get.close(0);
-            }),
-        TextButton(
-          child: Text(
-            '确定',
-            style: TextStyle(color: Colors.red),
-          ),
-          onPressed: () {
-            try {
-              FrpcProcessManager().killAll();
-            } catch (e) {
-              Logger.error('Failed to close all process: ${e}');
-            }
-            appWindow.close();
-            windowManager.destroy();
-          },
-        ),
-      ],
-    ));
   }
 }

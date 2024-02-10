@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:nyalcf/utils/network/dio/auth/loginAuth.dart';
 import 'package:nyalcf/models/UserInfoModel.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
-import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/ui/models/FloatingActionButton.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key, required this.title});

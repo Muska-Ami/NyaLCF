@@ -3,12 +3,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 import 'package:nyalcf/utils/Logger.dart';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/models/FrpcConfigModel.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
-import 'package:nyalcf/ui/model/FrpcDownloadDialog.dart';
-import 'package:nyalcf/ui/model/FrpcDownloadTip.dart';
+import 'package:nyalcf/ui/models/FrpcDownloadDialog.dart';
+import 'package:nyalcf/ui/models/FrpcDownloadTip.dart';
 import 'package:nyalcf/utils/CPUArch.dart';
 import 'package:nyalcf/utils/frpc/Archive.dart';
 
@@ -17,6 +15,7 @@ class FrpcSettingController extends GetxController {
 
   BuildContext context;
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
+  final fcs = FrpcConfigurationStorage();
 
   var platform = '';
   String? get custom_path => Platform.environment['NYA_LCF_FRPC_PATH'];
@@ -40,17 +39,17 @@ class FrpcSettingController extends GetxController {
 
   load() async {
     cpu_arch.value = await CPUArch.getCPUArchitecture();
-    await FrpcSettingPrefs.refresh();
-    final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-    frpc_download_use_mirror.value = frpcinfo.github_mirror;
+    // await FrpcSettingPrefs.refresh();
+    // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
+    frpc_download_use_mirror.value = fcs.getSettingsGitHubMirror();
 
-    frpc_version.value = await FrpcManagerStorage.usingVersion;
+    frpc_version.value = await fcs.getSettingsFrpcVersion();
     _load_tip();
     _load_frpc_dropdownitem();
   }
 
   void _load_tip() async {
-    _frpc_downloaded_versions = await FrpcManagerStorage.downloadedVersions;
+    _frpc_downloaded_versions = fcs.getInstalledVersions();
     if (_frpc_downloaded_versions.isEmpty ||
         (custom_path != null && await File(custom_path!).exists())) {
       frpc_download_tip.value = FrpcDownloadTip.tip(context: context);
@@ -96,15 +95,12 @@ class FrpcSettingController extends GetxController {
         final unarchive = await FrpcArchive.unarchive(
           platform: platform,
           arch: arch[frpc_download_arch.value]['arch'],
-          version: '0.51.3',
+          version: fcs.getSettingsFrpcVersion(),
         );
         if (unarchive) {
-          FrpcSettingPrefs.setFrpcDownloadedVersionsInfo('0.51.3');
-          FrpcManagerStorage.save(
-            FrpcConfigModel(
-                settings: (await FrpcSettingPrefs.getFrpcInfo()).settings,
-                lists: (await FrpcSettingPrefs.getFrpcInfo()).lists),
-          );
+          fcs.setSettingsFrpcVersion('0.51.3');
+          fcs.addInstalledVersion('0.51.3');
+          fcs.save();
           /**if (!Platform.isWindows) {
               print('*nix platform, change file permission');
               await FrpcManagerStorage.setRunPermission();

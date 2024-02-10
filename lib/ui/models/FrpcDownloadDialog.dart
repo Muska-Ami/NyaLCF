@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/FrpcSettingController.dart';
+import 'package:nyalcf/controllers/frpcSettingController.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 import 'package:nyalcf/utils/network/dio/frpc/download.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
 
-  final FrpcSettingController ds_c = Get.find();
   final context;
+  final fcs = FrpcConfigurationStorage();
+  final FrpcSettingController ds_c = Get.find();
 
   Widget build() {
     return SimpleDialog(
@@ -42,8 +43,8 @@ class FrpcDownloadDialogX {
                       version: '0.51.3',
                       progressCallback: ds_c.downloadFrpcCallback,
                       cancelToken: ds_c.downloadCancelToken,
-                      useMirror:
-                          (await FrpcSettingPrefs.getFrpcInfo()).github_mirror);
+                      useMirror: fcs.getSettingsGitHubMirror(),
+                  );
                   ds_c.frpc_download_cancel = res;
                   ds_c.refreshDownloadShow();
                 },

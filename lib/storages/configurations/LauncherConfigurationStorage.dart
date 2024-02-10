@@ -1,13 +1,17 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:crypto/crypto.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:nyalcf/storages/Configuration.dart';
+import 'package:nyalcf/storages/JsonConfiguration.dart';
 import 'package:nyalcf/utils/ThemeControl.dart';
 
-class LauncherConfigurationStorage extends Configuration {
+class LauncherConfigurationStorage extends JsonConfiguration {
   @override
   File get file => File('$path/launcher.json');
+  @override
+  String get handle => sha1.convert(utf8.encode('LAUNCHERCONF')).toString();
 
   @override
   Future<Map<String, dynamic>> get def_config async => {

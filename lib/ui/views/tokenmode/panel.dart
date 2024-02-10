@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/consoleController.dart';
 import 'package:nyalcf/controllers/frpcController.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
 import 'package:nyalcf/prefs/TokenModePrefs.dart';
-import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/ui/model/FloatingActionButton.dart';
-import 'package:nyalcf/ui/model/ProcessListDialog.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
+import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/ui/models/FloatingActionButton.dart';
+import 'package:nyalcf/ui/models/ProcessListDialog.dart';
 import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class TokenModePanel extends StatefulWidget {
@@ -26,6 +26,8 @@ class _TokenModePanelState extends State {
   final String title;
 
   final proxyController = TextEditingController();
+
+  final fcs = FrpcConfigurationStorage();
 
   final FrpcController f_c = Get.find();
   final ConsoleController c_c = Get.put(ConsoleController());
@@ -84,11 +86,10 @@ class _TokenModePanelState extends State {
                       final String? frp_token = await TokenModePrefs.getToken();
                       // 判断frp_token是否为空
                       if (frp_token != null) if (proxyController.text != '') {
-                        final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
                         // 检测是否定义了环境变量
                         if (f_c.custom_path == null) {
                           // 无环境变量已安装Frpc
-                          if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
+                          if (fcs.getInstalledVersions().isNotEmpty) {
                             FrpcProcessManager().nwprcs(
                               frp_token: frp_token,
                               proxy_id: int.parse(proxyController.text),

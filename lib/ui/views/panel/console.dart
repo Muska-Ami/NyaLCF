@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/consoleController.dart';
 import 'package:nyalcf/controllers/frpcController.dart';
 import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/ui/model/AccountDialog.dart';
-import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/ui/model/Drawer.dart';
-import 'package:nyalcf/ui/model/FloatingActionButton.dart';
-import 'package:nyalcf/ui/model/ProcessListDialog.dart';
+import 'package:nyalcf/ui/models/AccountDialog.dart';
+import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/ui/models/Drawer.dart';
+import 'package:nyalcf/ui/models/FloatingActionButton.dart';
+import 'package:nyalcf/ui/models/ProcessListDialog.dart';
 import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class PanelConsole extends StatelessWidget {

@@ -1,7 +1,7 @@
-import 'package:nyalcf/io/frpcManagerStorage.dart';
 import 'package:nyalcf/models/FrpcConfigModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+@deprecated
 class FrpcSettingPrefs {
   static Future<void> setFrpcInfo(FrpcConfigModel frpcinfo) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,7 +47,7 @@ class FrpcSettingPrefs {
   }
 
   static Future<void> refresh() async {
-    final res = await FrpcManagerStorage.read();
-    if (res != null) setFrpcInfo(res);
+    //final res = await FrpcManagerStorage.read();
+    //if (res != null) setFrpcInfo(res);
   }
 }

@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:nyalcf/utils/PathProvider.dart';
 
-@deprecated
-class FrpcConfigurationStorage {
+class ProxiesConfigurationStorage {
   static var _path = PathProvider.appSupportPath;
 
   /// 配置文件目录路径

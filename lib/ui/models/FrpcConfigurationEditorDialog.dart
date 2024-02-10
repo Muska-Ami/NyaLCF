@@ -5,7 +5,7 @@ import 'package:highlight/languages/ini.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
 import 'package:nyalcf/controllers/proxiesController.dart';
 import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/io/frpcConfigurationStorage.dart';
+import 'package:nyalcf/storages/configurations/ProxiesConfigurationStorage.dart';
 
 class FrpcConfigEditorDialogX {
   FrpcConfigEditorDialogX({
@@ -58,7 +58,7 @@ class FrpcConfigEditorDialogX {
           child: Text('保存'),
           onPressed: () async {
             //关闭 返回true
-            await FrpcConfigurationStorage.setConfig(proxy_id, c.fullText);
+            await ProxiesConfigurationStorage.setConfig(proxy_id, c.fullText);
             p_c.reload(u_c.user, u_c.token);
             Get.close(0);
           },

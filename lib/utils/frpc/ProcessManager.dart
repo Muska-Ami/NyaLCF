@@ -4,15 +4,15 @@ import 'dart:io';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/consoleController.dart';
 import 'package:nyalcf/controllers/frpcController.dart';
-import 'package:nyalcf/io/frpcConfigurationStorage.dart';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/storages/configurations/ProxiesConfigurationStorage.dart';
+import 'package:nyalcf/storages/stories/FrpcStoryStorage.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 class FrpcProcessManager {
   final FrpcController f_c = Get.find();
   final ConsoleController c_c = Get.find();
 
-  final frpc_work_path = FrpcManagerStorage.getRunPath('0.51.3');
+  final frpc_work_path = FrpcStoryStorage.getRunPath();
 
   void nwprcs({
     required String frp_token,
@@ -21,12 +21,12 @@ class FrpcProcessManager {
   }) async {
     if (!Platform.isWindows) {
       Logger.info('*nix platform, change file permission');
-      await FrpcManagerStorage.setRunPermission();
+      await FrpcStoryStorage.setRunPermission();
     }
     final Map<String, dynamic> p_map = Map();
     List<String> arguments = [];
 
-    final conf_path = await FrpcConfigurationStorage.getConfigPath(proxy_id);
+    final conf_path = await ProxiesConfigurationStorage.getConfigPath(proxy_id);
     if (conf_path != null) {
       arguments = ['-c', conf_path];
     } else {
@@ -39,9 +39,9 @@ class FrpcProcessManager {
     }
 
     final process = await Process.start(
-      frpc_path ?? await FrpcManagerStorage.getFilePath('0.51.3'),
+      frpc_path ?? await FrpcStoryStorage.getFilePath(),
       arguments,
-      workingDirectory: await FrpcManagerStorage.getRunPath('0.51.3'),
+      workingDirectory: await FrpcStoryStorage.getRunPath(),
     );
     p_map['process'] = process;
     p_map['proxy_id'] = proxy_id;

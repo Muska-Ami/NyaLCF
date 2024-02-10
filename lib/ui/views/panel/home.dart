@@ -5,13 +5,12 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/consoleController.dart';
 import 'package:nyalcf/controllers/panelController.dart';
 import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/ui/model/AccountDialog.dart';
-import 'package:nyalcf/ui/model/Drawer.dart';
-import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/ui/models/AccountDialog.dart';
+import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/ui/models/Drawer.dart';
+import 'package:nyalcf/ui/models/FloatingActionButton.dart';
 import 'package:nyalcf/utils/Logger.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../model/AppbarActions.dart';
 
 class PanelHome extends StatelessWidget {
   PanelHome({super.key, required this.title});

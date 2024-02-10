@@ -2,9 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
+import 'package:nyalcf/storages/stories/FrpcStoryStorage.dart';
 
 class FrpcController extends GetxController {
+  final fcs = FrpcConfigurationStorage();
+
   /// 是否存在的标志
   var exist = false.obs;
 
@@ -31,11 +34,11 @@ class FrpcController extends GetxController {
   }
 
   /// 获取Frpc文件对象
-  get file => FrpcManagerStorage.getFile(version.value);
+  get file => FrpcStoryStorage.getFile();
 
   /// 获取版本号
   Future<String> getVersion() async {
-    return await FrpcManagerStorage.usingVersion;
+    return fcs.getSettingsFrpcVersion();
   }
 
   /// 追加信息日志

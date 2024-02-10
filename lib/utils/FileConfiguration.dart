@@ -6,12 +6,17 @@ import 'package:nyalcf/utils/Logger.dart';
 class FileConfiguration {
   FileConfiguration({
     this.file = null,
+    required this.handle,
   });
 
   File? file; // Dart Dart 草你吗，定义File?传Future不报错
+  final String handle;
 
-  static Map<String, dynamic> tmp_data = Map();
+  static Map<String, dynamic> tmp_data = {};
 
+  void initMap() {
+    tmp_data[handle] = Map();
+  }
   /// 一堆B方法
   /// 气死我里
   /// String
@@ -43,7 +48,7 @@ class FileConfiguration {
   /// 设置值
   void set(String node, dynamic value) {
     List<String> nl = _parseNode(node);
-    dynamic last = tmp_data; // 初始化last为tmp_data的引用
+    dynamic last = tmp_data[handle]; // 初始化last为tmp_data的引用
     String? n;
     for (int i = 0; i < nl.length; i++) {
       n = nl[i];
@@ -57,7 +62,7 @@ class FileConfiguration {
         // 移动到下一个节点
         last = last[n];
       }
-      Logger.debug('写入tmp_data状态值: ${tmp_data}');
+      Logger.debug('写入tmp_data状态值: ${tmp_data[handle]}');
       Logger.debug('写入迭代NODE: $n');
       Logger.debug('写入迭代LAST: $last');
     }
@@ -72,12 +77,12 @@ class FileConfiguration {
     for (n in nl) {
       if (last != null) {
         last = last[n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
       } else {
-        last = tmp_data[n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data}');
+        last = tmp_data[handle][n];
+        Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
         Logger.debug('读取迭代NODE: $n');
         Logger.debug('读取迭代LAST: $last');
       }
@@ -124,14 +129,14 @@ class FileConfiguration {
 
   /// 转为 String
   @override
-  String toString() => json.encode(tmp_data);
+  String toString() => json.encode(tmp_data[handle]);
 
   /// 转为 Map String
-  String toMapString() => tmp_data.toString();
+  String toMapString() => tmp_data[handle].toString();
 
   /// 从 String 导入
-  fromString(String j) => tmp_data = json.decode(j);
+  fromString(String j) => tmp_data[handle] = json.decode(j);
 
   /// 从 Map 导入
-  fromMap(Map<String, dynamic> map) => tmp_data = map;
+  fromMap(Map<String, dynamic> map) => tmp_data[handle] = map;
 }

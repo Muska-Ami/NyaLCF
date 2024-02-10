@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/userController.dart';
+import 'package:nyalcf/storages/configurations/ProxiesConfigurationStorage.dart';
 import 'package:nyalcf/utils/network/dio/proxies/configuration.dart';
 import 'package:nyalcf/utils/network/dio/proxies/get.dart';
-import 'package:nyalcf/io/frpcConfigurationStorage.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 import 'package:nyalcf/models/ProxyInfoModel.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
-import 'package:nyalcf/ui/model/FrpcConfigurationEditorDialog.dart';
+import 'package:nyalcf/ui/models/FrpcConfigurationEditorDialog.dart';
 import 'package:nyalcf/utils/Logger.dart';
 import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
@@ -22,6 +22,7 @@ class ProxiesController extends GetxController {
   ProxiesController({required this.context});
 
   final context;
+  final fcs = FrpcConfigurationStorage();
 
   final FrpcController f_c = Get.find();
   final UserController c = Get.find();
@@ -105,8 +106,7 @@ class ProxiesController extends GetxController {
         icon: Icon(Icons.play_circle),
         tooltip: '启动',
         onPressed: () async {
-          final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-          if (frpcinfo.frpc_downloaded_versions.isNotEmpty) {
+          if (fcs.getInstalledVersions().isNotEmpty) {
             FrpcProcessManager()
                 .nwprcs(frp_token: c.frp_token.value, proxy_id: element.id);
             Get.snackbar(
@@ -140,7 +140,7 @@ class ProxiesController extends GetxController {
             );
           }
 
-          final fp = await FrpcConfigurationStorage.getConfigPath(element.id);
+          final fp = await ProxiesConfigurationStorage.getConfigPath(element.id);
           String text = '';
 
           /// 判空
@@ -158,7 +158,7 @@ class ProxiesController extends GetxController {
             if (res is String) {
               Logger.info('Successfully get config ini');
               text = res;
-              FrpcConfigurationStorage.setConfig(element.id, res);
+              ProxiesConfigurationStorage.setConfig(element.id, res);
               Get.close(0);
               showDialogX(text);
             } else if (res == null) {
@@ -202,7 +202,7 @@ class ProxiesController extends GetxController {
       ));
     }
 
-    final fcsp = await FrpcConfigurationStorage.getConfigPath(element.id);
+    final fcsp = await ProxiesConfigurationStorage.getConfigPath(element.id);
 
     if (fcsp != null)
       list.add(

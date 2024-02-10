@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/prefs/TokenModePrefs.dart';
-import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/ui/model/FloatingActionButton.dart';
+import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/ui/models/FloatingActionButton.dart';
 
 class TokenModeAuth extends StatefulWidget {
   TokenModeAuth({super.key, required this.title});

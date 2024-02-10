@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/FrpcSettingController.dart';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/prefs/FrpcSettingPrefs.dart';
+import 'package:nyalcf/controllers/frpcSettingController.dart';
+import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 
 class FrpcSetting {
   FrpcSetting({required this.context});
   final context;
+  final fcs = FrpcConfigurationStorage();
   final FrpcSettingController ds_c = Get.find();
 
   Widget widget() {
@@ -43,10 +43,8 @@ class FrpcSetting {
                               Switch(
                                 value: ds_c.frpc_download_use_mirror.value,
                                 onChanged: (value) async {
-                                  FrpcSettingPrefs.setDownloadUseMirror(value);
+                                  fcs.setSettingsGitHubMirror(value);
                                   ds_c.frpc_download_use_mirror.value = value;
-                                  FrpcManagerStorage.save(
-                                      await FrpcSettingPrefs.getFrpcInfo());
                                 },
                               ),
                             ],
