@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto/crypto.dart';
 import 'package:nyalcf/utils/FileConfiguration.dart';
 import 'package:nyalcf/utils/PathProvider.dart';
 import 'package:nyalcf/utils/Logger.dart';
@@ -18,7 +20,7 @@ abstract class JsonConfiguration {
 
   FileConfiguration get cfg => FileConfiguration(
       file: this.file,
-      handle: handle,
+      handle: sha1.convert(utf8.encode(handle)).toString(),
   );
 
   /// 保存

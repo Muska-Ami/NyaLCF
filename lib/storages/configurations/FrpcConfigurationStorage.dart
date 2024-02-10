@@ -8,7 +8,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   @override
   File get file => File('$path/frpc.json');
   @override
-  String get handle => sha1.convert(utf8.encode('FRPCCONF')).toString();
+  String get handle => 'FRPC';
 
   @override
   Future<Map<String, dynamic>> get def_config async => {
