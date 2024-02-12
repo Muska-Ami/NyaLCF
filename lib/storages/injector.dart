@@ -3,8 +3,8 @@ import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart
 
 class StoragesInjector {
   static init() async {
-    final lcs = await LauncherConfigurationStorage();
-    final fcs = await FrpcConfigurationStorage();
+    final lcs = LauncherConfigurationStorage();
+    final fcs = FrpcConfigurationStorage();
 
     lcs.initCfg();
     fcs.initCfg();

@@ -2,10 +2,10 @@ class UpdateInfoModel {
   UpdateInfoModel({
     required this.version,
     required this.tag,
-    required this.download_url,
+    required this.downloadUrl,
   });
 
   final String version;
   final String tag;
-  final List<dynamic> download_url;
+  final List<dynamic> downloadUrl;
 }

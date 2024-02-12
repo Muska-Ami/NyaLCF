@@ -1,31 +1,31 @@
 class ProxyInfoModel {
   ProxyInfoModel({
-    required this.proxy_name,
-    required this.use_compression,
-    required this.local_ip,
+    required this.proxyName,
+    required this.useCompression,
+    required this.localIP,
     required this.node,
-    required this.local_port,
-    required this.remote_port,
+    required this.localPort,
+    required this.remotePort,
     required this.domain,
     required this.icp,
     required this.sk,
     required this.id,
-    required this.proxy_type,
-    required this.use_encryption,
+    required this.proxyType,
+    required this.useEncryption,
     required this.status,
   });
 
-  final String proxy_name;
-  final bool use_compression;
-  final String local_ip;
+  final String proxyName;
+  final bool useCompression;
+  final String localIP;
   final int node;
-  final int local_port;
-  final int remote_port;
+  final int localPort;
+  final int remotePort;
   final String? domain;
   final String? icp;
   final String sk;
   final int id;
-  final String proxy_type;
-  final bool use_encryption;
+  final String proxyType;
+  final bool useEncryption;
   final status;
 }

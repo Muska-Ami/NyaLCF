@@ -5,7 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 class ToolDialogX {
   const ToolDialogX({required this.context});
 
-  final context;
+  final BuildContext context;
 
   Widget build() {
     return SimpleDialog(
@@ -20,7 +20,7 @@ class ToolDialogX {
                   '发生错误',
                   '无法打开网页，请检查设备是否存在WebView',
                   snackPosition: SnackPosition.BOTTOM,
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                 );
               }
             }),
@@ -33,7 +33,7 @@ class ToolDialogX {
                   '发生错误',
                   '无法打开网页，请检查设备是否存在WebView',
                   snackPosition: SnackPosition.BOTTOM,
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                 );
               }
             }),
@@ -46,7 +46,7 @@ class ToolDialogX {
                   '发生错误',
                   '无法打开网页，请检查设备是否存在WebView',
                   snackPosition: SnackPosition.BOTTOM,
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                 );
               }
             }),
@@ -59,7 +59,7 @@ class ToolDialogX {
                   '发生错误',
                   '无法打开网页，请检查设备是否存在WebView',
                   snackPosition: SnackPosition.BOTTOM,
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                 );
               }
             }),

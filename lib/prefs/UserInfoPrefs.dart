@@ -12,7 +12,7 @@ class UserInfoPrefs {
     prefs.setString('user_avatar', userinfo.avatar);
     prefs.setInt('user_inbound', userinfo.inbound);
     prefs.setInt('user_outbound', userinfo.outbound);
-    prefs.setString('user_frp_token', userinfo.frp_token);
+    prefs.setString('user_frp_token', userinfo.frpToken);
     prefs.setInt('user_traffic', userinfo.traffic);
   }
 
@@ -44,7 +44,7 @@ class UserInfoPrefs {
         prefs.getString('user_avatar') ?? 'https://cravatar.cn/avatar/';
     int inbound = prefs.getInt('user_inbound') ?? 0;
     int outbound = prefs.getInt('user_outbound') ?? 0;
-    String frp_token = prefs.getString('user_frp_token') ?? '';
+    String frpToken = prefs.getString('user_frp_token') ?? '';
     int traffic = prefs.getInt('user_traffic') ?? 0;
     return UserInfoModel(
       user: user,
@@ -53,7 +53,7 @@ class UserInfoPrefs {
       avatar: avatar,
       inbound: inbound,
       outbound: outbound,
-      frp_token: frp_token,
+      frpToken: frpToken,
       traffic: traffic,
     );
   }

@@ -13,14 +13,14 @@ import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});
 
-  final UserController c = Get.find();
-  final FrpcController f_c = Get.find();
-  final ConsoleController c_c = Get.find();
+  final UserController uctr = Get.find();
+  final FrpcController fctr = Get.find();
+  final ConsoleController cctr = Get.find();
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    c_c.load();
+    cctr.load();
     return Scaffold(
       appBar: AppBar(
         title:
@@ -35,7 +35,7 @@ class PanelConsole extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${c.avatar}',
+                    '${uctr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -49,43 +49,43 @@ class PanelConsole extends StatelessWidget {
           children: <Widget>[
             Obx(
               () => Card(
-                margin: EdgeInsets.all(20.0),
+                margin: const EdgeInsets.all(20.0),
                 color: Colors.grey.shade900,
                 child: SizedBox(
                   width: Checkbox.width,
                   height: 340.0,
                   child: Container(
-                    margin: EdgeInsets.all(10.0),
+                    margin: const EdgeInsets.all(10.0),
                     child: ListView(
-                      children: f_c.process_out,
+                      children: fctr.processOut,
                     ),
                   ),
                 ),
               ),
             ),
             Container(
-              margin: EdgeInsets.only(left: 20.0, right: 20.0),
+              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Row(
                 children: <Widget>[
                   ElevatedButton(
-                    child: Text('查看进程列表'),
+                    child: const Text('查看进程列表'),
                     onPressed: () {
                       Get.dialog(ProcessListDialogX(context: context).build());
                     },
                   ),
                   ElevatedButton(
-                    child: Text(
+                    onPressed: () {
+                      FrpcProcessManager().killAll();
+                      cctr.widgets.refresh();
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                    ),
+                    child: const Text(
                       '关闭所有进程',
                       style: TextStyle(
                         color: Colors.white,
                       ),
-                    ),
-                    onPressed: () {
-                      FrpcProcessManager().killAll();
-                      c_c.widgets.refresh();
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
                   ),
                 ],

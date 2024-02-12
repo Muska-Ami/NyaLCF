@@ -4,8 +4,8 @@ import 'dart:io';
 /// https://gist.github.com/corbindavenport/d04085e2ac42da303efbaccaa717f223
 class CPUArch {
   // 获取当前CPU架构的函数
-  static Future<String> getCPUArchitecture() async {
-    var cpu;
+  static Future<String?> getCPUArchitecture() async {
+    String? cpu;
     if (Platform.isWindows) {
       cpu = Platform.environment['PROCESSOR_ARCHITECTURE'];
       // var cpu = envVars['PROCESSOR_ARCHITECTURE'];

@@ -15,15 +15,15 @@ import 'package:url_launcher/url_launcher.dart';
 class PanelHome extends StatelessWidget {
   PanelHome({super.key, required this.title});
 
-  final UserController c = Get.find();
-  final DPanelController dp_c = Get.put(DPanelController());
-  final ConsoleController c_c = Get.put(ConsoleController());
+  final UserController uctr = Get.find();
+  final DPanelController dpctr = Get.put(DPanelController());
+  final ConsoleController cctr = Get.put(ConsoleController());
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    c.load();
-    dp_c.load();
+    uctr.load();
+    dpctr.load();
 
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +39,7 @@ class PanelHome extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${c.avatar}',
+                    '${uctr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -51,162 +51,160 @@ class PanelHome extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(20.0),
         children: <Widget>[
-          Container(
-            child: Column(
-              children: <Widget>[
-                Obx(() => Text(
-                      '指挥官 ${c.user}，${c.welcomeText}喵！',
-                      style: TextStyle(fontSize: 15),
-                    )),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                        child: Column(children: <Widget>[
-                      Card(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ListTile(
-                              leading: Icon(Icons.info),
-                              title: Text('指挥官信息'),
+          Column(
+            children: <Widget>[
+              Obx(() => Text(
+                    '指挥官 ${uctr.user}，${uctr.welcomeText}喵！',
+                    style: const TextStyle(fontSize: 15),
+                  )),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Expanded(
+                      child: Column(children: <Widget>[
+                    Card(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const ListTile(
+                            leading: Icon(Icons.info),
+                            title: Text('指挥官信息'),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 15.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Obx(() => Text('用户名：${uctr.user}')),
+                                Obx(() => Text('邮箱：${uctr.email}')),
+                                Obx(() => Text(
+                                    '限制速率：${uctr.inbound / 1024 * 8}Mbps/${uctr.outbound / 1024 * 8}Mbps')),
+                                Obx(() =>
+                                    Text('剩余流量：${uctr.traffic / 1024}GiB'))
+                              ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15.0, right: 15.0, bottom: 15.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Obx(() => Text('用户名：${c.user}')),
-                                  Obx(() => Text('邮箱：${c.email}')),
-                                  Obx(() => Text(
-                                      '限制速率：${c.inbound / 1024 * 8}Mbps/${c.outbound / 1024 * 8}Mbps')),
-                                  Obx(() => Text('剩余流量：${c.traffic / 1024}GiB'))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                      Card(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            ListTile(
-                              leading: Icon(Icons.looks),
-                              title: Text('会话详情'),
+                    ),
+                    Card(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const ListTile(
+                            leading: Icon(Icons.looks),
+                            title: Text('会话详情'),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 15.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Card(
+                                    child: Column(children: <Widget>[
+                                  const Text('Frp Token'),
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        Clipboard.setData(
+                                          ClipboardData(
+                                            text: uctr.frpToken.value,
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text('已复制'),
+                                        ));
+                                      },
+                                      child: const Text('点击复制'))
+                                ])),
+                                Card(
+                                    child: Column(children: <Widget>[
+                                  const Text('Token'),
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        Clipboard.setData(
+                                          ClipboardData(
+                                            text: uctr.token.value,
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                          content: Text('已复制'),
+                                        ));
+                                      },
+                                      child: const Text('点击复制'))
+                                ]))
+                              ],
                             ),
-                            Container(
-                              margin: EdgeInsets.only(
-                                  left: 15.0, right: 15.0, bottom: 15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.max,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Card(
-                                      child: Column(children: <Widget>[
-                                    Text('Frp Token'),
-                                    ElevatedButton(
-                                        onPressed: () async {
-                                          Clipboard.setData(
-                                            ClipboardData(
-                                              text: c.frp_token.value,
-                                            ),
-                                          );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text('已复制'),
-                                          ));
-                                        },
-                                        child: Text('点击复制'))
-                                  ])),
-                                  Card(
-                                      child: Column(children: <Widget>[
-                                    Text('Token'),
-                                    ElevatedButton(
-                                        onPressed: () async {
-                                          Clipboard.setData(
-                                            ClipboardData(
-                                              text: c.token.value,
-                                            ),
-                                          );
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(SnackBar(
-                                            content: Text('已复制'),
-                                          ));
-                                        },
-                                        child: Text('点击复制'))
-                                  ]))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
-                      Container(
-                          child: Card(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            ListTile(
-                              leading: Icon(Icons.access_time),
-                              title: Text('通知'),
-                            ),
-                            Flexible(
-                                fit: FlexFit.loose,
-                                child: Container(
-                                    margin: EdgeInsets.only(
-                                        left: 15.0, right: 15.0, bottom: 15.0),
-                                    child: Obx(() => MarkdownBody(
-                                        selectable: true,
-                                        onTapLink: (text, url, title) {
-                                          if (url != null) {
-                                            Logger.debug(
-                                                'Launch url from Announcement: ${url}');
-                                            launchUrl(Uri.parse(url));
-                                          }
-                                        },
-                                        data: '${dp_c.announcement_common}'))))
-                          ],
-                        ),
-                      )),
-                    ])),
-                    Expanded(
-                        child: Card(
+                    ),
+                    Card(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: <Widget>[
-                          ListTile(
-                            leading: Icon(Icons.announcement),
-                            title: Text('公告'),
+                          const ListTile(
+                            leading: Icon(Icons.access_time),
+                            title: Text('通知'),
                           ),
                           Flexible(
                               fit: FlexFit.loose,
                               child: Container(
-                                  margin: EdgeInsets.only(
+                                  margin: const EdgeInsets.only(
                                       left: 15.0, right: 15.0, bottom: 15.0),
                                   child: Obx(() => MarkdownBody(
                                       selectable: true,
                                       onTapLink: (text, url, title) {
                                         if (url != null) {
                                           Logger.debug(
-                                              'Launch url from Announcement: ${url}');
+                                              'Launch url from Announcement: $url');
                                           launchUrl(Uri.parse(url));
                                         }
                                       },
-                                      data: '${dp_c.announcement}'))))
+                                      data: '${dpctr.announcement_common}'))))
                         ],
                       ),
-                    )),
-                  ],
-                ),
-              ],
-            ),
+                    ),
+                  ])),
+                  Expanded(
+                      child: Card(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        const ListTile(
+                          leading: Icon(Icons.announcement),
+                          title: Text('公告'),
+                        ),
+                        Flexible(
+                            fit: FlexFit.loose,
+                            child: Container(
+                                margin: const EdgeInsets.only(
+                                    left: 15.0, right: 15.0, bottom: 15.0),
+                                child: Obx(() => MarkdownBody(
+                                    selectable: true,
+                                    onTapLink: (text, url, title) {
+                                      if (url != null) {
+                                        Logger.debug(
+                                            'Launch url from Announcement: $url');
+                                        launchUrl(Uri.parse(url));
+                                      }
+                                    },
+                                    data: '${dpctr.announcement}'))))
+                      ],
+                    ),
+                  )),
+                ],
+              ),
+            ],
           ),
         ],
       ),

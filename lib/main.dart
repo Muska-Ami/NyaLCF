@@ -51,7 +51,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
   /// 根组件
   @override
   Widget build(BuildContext context) {
-    ThemeData _theme_data = LauncherConfigurationStorage().getTheme();
+    ThemeData themeData = LauncherConfigurationStorage().getTheme();
 
     return GetMaterialApp(
       logWriterCallback: Logger.getxLogWriter,
@@ -67,7 +67,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/panel/console': (context) => PanelConsole(title: title),
         '/setting': (context) => SettingInjector(title: title),
       },
-      theme: _theme_data,
+      theme: themeData,
     );
   }
 

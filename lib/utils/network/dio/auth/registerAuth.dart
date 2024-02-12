@@ -18,9 +18,9 @@ class RegisterAuth {
     });
     try {
       Logger.debug(
-          'Post register: ${user} - ${email} / ${password} - ${confirmPassword} / ${verify}');
+          'Post register: $user - $email / $password - $confirmPassword / $verify');
       final response = await dio
-          .post('${basicConfig.api_v2_url}/users/register', data: data);
+          .post('${BasicDioConfig.api_v2_url}/users/register', data: data);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
@@ -37,18 +37,19 @@ class RegisterAuth {
 
   Future<dynamic> requestCode(email) async {
     try {
-      Logger.debug('Requesting email code, email: ${email}');
-      Map<String, dynamic> params_map = Map();
-      params_map['email'] = email;
+      Logger.debug('Requesting email code, email: $email');
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['email'] = email;
       final response = await dio.get(
-        '${basicConfig.api_v2_url}/users/send',
-        queryParameters: params_map,
+        '${BasicDioConfig.api_v2_url}/users/send',
+        queryParameters: paramsMap,
       );
       final resData = response.data;
-      if (resData['msg'] == 'success')
+      if (resData['msg'] == 'success') {
         return true;
-      else
+      } else {
         return resData['msg'];
+      }
     } catch (ex) {
       Logger.error(ex);
       return ex;

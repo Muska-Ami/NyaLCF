@@ -23,7 +23,7 @@ class UserController extends GetxController {
   var outbound = 0.obs;
 
   /// FRP令牌
-  var frp_token = ''.obs;
+  var frpToken = ''.obs;
 
   /// 总流量
   var traffic = 0.obs;
@@ -41,7 +41,7 @@ class UserController extends GetxController {
     avatar.value = userinfo.avatar;
     inbound.value = userinfo.inbound;
     outbound.value = userinfo.outbound;
-    frp_token.value = userinfo.frp_token;
+    frpToken.value = userinfo.frpToken;
     traffic.value = userinfo.traffic;
 
     int hour = DateTime.now().hour;

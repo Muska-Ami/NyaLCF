@@ -6,7 +6,7 @@ class UserInfoModel {
     required this.avatar,
     required this.inbound,
     required this.outbound,
-    required this.frp_token,
+    required this.frpToken,
     required this.traffic,
   });
 
@@ -16,7 +16,7 @@ class UserInfoModel {
   final String avatar;
   final int inbound;
   final int outbound;
-  final String frp_token;
+  final String frpToken;
   final int traffic;
 
   UserInfoModel.fromJson(Map<String, dynamic> json)
@@ -26,7 +26,7 @@ class UserInfoModel {
         avatar = json['avatar'],
         inbound = json['inbound'],
         outbound = json['outbound'],
-        frp_token = json['frp_token'],
+        frpToken = json['frp_token'],
         traffic = json['traffic'];
 
   Map<String, dynamic> toJson() => {
@@ -36,7 +36,7 @@ class UserInfoModel {
         'avatar': avatar,
         'inbound': inbound,
         'outbound': outbound,
-        'frp_token': frp_token,
+        'frp_token': frpToken,
         'traffic': traffic
       };
 }

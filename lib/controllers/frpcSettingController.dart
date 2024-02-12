@@ -15,73 +15,73 @@ class FrpcSettingController extends GetxController {
 
   BuildContext context;
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
-  final fcs = FrpcConfigurationStorage();
+  final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
-  var platform = '';
-  String? get custom_path => Platform.environment['NYA_LCF_FRPC_PATH'];
+  String platform = '';
+  String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
-  var frpc_download_tip = Container().obs;
-  var frpc_download_arch_list = <DropdownMenuItem>[
-    DropdownMenuItem(value: 0, child: Text('加载中')),
+  Rx<Widget> frpcDownloadTip = const Card().obs;
+  var frpcDownloadArchList = <DropdownMenuItem<dynamic>>[
+    const DropdownMenuItem<dynamic>(value: 0, child: Text('加载中')),
   ].obs;
-  var frpc_download_arch = 0.obs;
-  var frpc_download_progress = 0.0.obs;
-  var frpc_download_show = <Widget>[].obs;
-  var _frpc_downloaded_versions = [];
-  dynamic frpc_download_cancel = false;
-  var frpc_download_use_mirror = false.obs;
+  var frpcDownloadArch = 0.obs;
+  var frpcDownloadProgress = 0.0.obs;
+  var frpcDownloadShow = <Widget>[].obs;
+  List<String> _frpcDownloadedVersions = <String>[];
+  dynamic frpcDownloadCancel = false;
+  var frpcDownloadUseMirror = false.obs;
 
-  var frpc_version = ''.obs;
+  var frpcVersion = ''.obs;
 
-  var github_proxy = ''.obs;
+  var githubProxy = ''.obs;
 
-  var cpu_arch = ''.obs;
+  var cpuArch = ''.obs;
 
   load() async {
-    cpu_arch.value = await CPUArch.getCPUArchitecture();
+    cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
     // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-    frpc_download_use_mirror.value = fcs.getSettingsGitHubMirror();
+    frpcDownloadUseMirror.value = fcs.getSettingsGitHubMirror();
 
-    frpc_version.value = await fcs.getSettingsFrpcVersion();
-    _load_tip();
-    _load_frpc_dropdownitem();
+    frpcVersion.value = fcs.getSettingsFrpcVersion();
+    _loadTip();
+    _loadFrpcDropdownitem();
   }
 
-  void _load_tip() async {
-    _frpc_downloaded_versions = fcs.getInstalledVersions();
-    if (_frpc_downloaded_versions.isEmpty ||
-        (custom_path != null && await File(custom_path!).exists())) {
-      frpc_download_tip.value = FrpcDownloadTip.tip(context: context);
+  void _loadTip() async {
+    _frpcDownloadedVersions = fcs.getInstalledVersions();
+    if (_frpcDownloadedVersions.isEmpty ||
+        (customPath != null && await File(customPath!).exists())) {
+      frpcDownloadTip.value = FrpcDownloadTip.tip(context: context);
     } else {
-      frpc_download_tip.value =
+      frpcDownloadTip.value =
           await FrpcDownloadTip.downloaded(context: context);
     }
   }
 
   /// 加载Frpc下载列表
-  void _load_frpc_dropdownitem() {
-    frpc_download_arch_list.value = _buildArchDMIWidgetList();
-    Logger.debug(frpc_download_arch_list);
+  void _loadFrpcDropdownitem() {
+    frpcDownloadArchList.value = _buildArchDMIWidgetList();
+    Logger.debug(frpcDownloadArchList);
   }
 
   void refreshDownloadShow() async {
-    if (frpc_download_cancel is bool) {
-      if (frpc_download_cancel) {
-        frpc_download_show.clear();
-        frpc_download_show.add(Text(
+    if (frpcDownloadCancel is bool) {
+      if (frpcDownloadCancel) {
+        frpcDownloadShow.clear();
+        frpcDownloadShow.add(const Text(
           '下载取消',
           style: TextStyle(color: Colors.orange),
         ));
-        frpc_download_cancel = false;
-        downloadCancelToken = new CancelToken();
+        frpcDownloadCancel = false;
+        downloadCancelToken = CancelToken();
       } else {
-        frpc_download_show.clear();
-        frpc_download_show.add(LinearProgressIndicator(
-          value: frpc_download_progress.value,
+        frpcDownloadShow.clear();
+        frpcDownloadShow.add(LinearProgressIndicator(
+          value: frpcDownloadProgress.value,
         ));
       }
-    } else if (frpc_download_cancel is Response) {
+    } else if (frpcDownloadCancel is Response) {
       Get.close(0);
       /*await showDialog(
           context: context,
@@ -92,9 +92,9 @@ class FrpcSettingController extends GetxController {
           barrierDismissible: false);
       Future.delayed(const Duration(seconds: 2), () async {
         //延时执行
-        final unarchive = await FrpcArchive.unarchive(
+        final bool unarchive = await FrpcArchive.unarchive(
           platform: platform,
-          arch: arch[frpc_download_arch.value]['arch'],
+          arch: arch[frpcDownloadArch.value]['arch'],
           version: fcs.getSettingsFrpcVersion(),
         );
         if (unarchive) {
@@ -105,45 +105,45 @@ class FrpcSettingController extends GetxController {
               print('*nix platform, change file permission');
               await FrpcManagerStorage.setRunPermission();
               }*/
-          _load_tip();
+          _loadTip();
         } else {
           Get.snackbar(
             '解压 Frpc 时发生错误..呜呜..',
             '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
             snackPosition: SnackPosition.BOTTOM,
-            animationDuration: Duration(milliseconds: 300),
+            animationDuration: const Duration(milliseconds: 300),
           );
         }
 
         /// 关闭对话框
         Get.close(0);
         Get.close(0);
-      });
+      },);
     } else {
-      frpc_download_show.clear();
-      frpc_download_show.add(Text(
+      frpcDownloadShow.clear();
+      frpcDownloadShow.add(const Text(
         '发生错误',
         style: TextStyle(color: Colors.red),
       ));
       Get.snackbar(
         '下载 Frpc 时发生错误..呜呜..',
-        frpc_download_cancel.toString(),
+        frpcDownloadCancel.toString(),
         snackPosition: SnackPosition.BOTTOM,
-        animationDuration: Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 300),
       );
     }
   }
 
   /// 构建Arch列表
-  List<DropdownMenuItem> _buildArchDMIWidgetList() {
-    final Set<Map<String, dynamic>> _arch = Set();
-    final List<DropdownMenuItem> dmil = <DropdownMenuItem>[];
+  List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
+    dynamic arch = <Map<String, dynamic>>{};
+    final List<DropdownMenuItem<dynamic>> dmil = <DropdownMenuItem<dynamic>>[];
 
     /// Platform = Windows
     if (Platform.isWindows) {
       platform = 'windows';
       Logger.info('Build windows platform arch list');
-      _arch.addAll([
+      arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': '386', 'name': 'x86/i386/amd32'},
         {'arch': 'arm64', 'name': 'arm64/armv8'},
@@ -154,7 +154,7 @@ class FrpcSettingController extends GetxController {
     if (Platform.isLinux) {
       platform = 'linux';
       Logger.info('Build linux platform arch list');
-      _arch.addAll([
+      arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': '386', 'name': 'x86/i386/amd32'},
         {'arch': 'arm64', 'name': 'arm64/armv8'},
@@ -171,12 +171,12 @@ class FrpcSettingController extends GetxController {
     if (Platform.isMacOS) {
       platform = 'darwin';
       Logger.info('Build macos platform arch list');
-      _arch.addAll([
+      arch.addAll([
         {'arch': 'amd64', 'name': 'x86_64/amd64'},
         {'arch': 'arm64', 'name': 'arm64/armv8'},
       ]);
     }
-    arch = _arch.toList();
+    arch = arch.toList();
 
     /// 遍历构建
     for (var i = 0; i <= arch.length - 1; i++) {
@@ -202,20 +202,20 @@ class FrpcSettingController extends GetxController {
     required int value,
   }) {
     return DropdownMenuItem(
-      child: Text(version),
       value: value,
+      child: Text(version),
     );
   }
 
   CancelToken downloadCancelToken = CancelToken();
 
   void downloadFrpcCallback(received, total) {
-    Logger.debug('Download callback: ${received}');
+    Logger.debug('Download callback: $received');
     if (total != -1) {
       if (!downloadCancelToken.isCancelled) {
-        frpc_download_progress.value = received / total;
+        frpcDownloadProgress.value = received / total;
       } else {
-        frpc_download_progress.value = -1;
+        frpcDownloadProgress.value = -1;
       }
     } else {
       Logger.info('Download failed: file total is -1');

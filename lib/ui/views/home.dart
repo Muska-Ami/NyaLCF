@@ -15,7 +15,7 @@ class Home extends StatelessWidget {
   final String title;
 
   // FrpcController实例
-  final FrpcController f_c = Get.put(FrpcController());
+  final FrpcController fctr = Get.put(FrpcController());
 
   // _HC控制器实例
   final hc = Get.put(_HC());
@@ -68,7 +68,7 @@ class _HC extends GetxController {
       style: TextStyle(fontSize: 30),
     ),
     const Text('にゃ~にゃ~，检测到保存数据，正在校验以自动登录'),
-    Row(
+    const Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SizedBox(
@@ -98,7 +98,7 @@ class _HC extends GetxController {
           '欢迎回来',
           '已经自动登录啦~',
           snackPosition: SnackPosition.BOTTOM,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration: const Duration(milliseconds: 300),
         );
         // 跳转到面板首页
         Get.toNamed('/panel/home');
@@ -108,7 +108,7 @@ class _HC extends GetxController {
           '令牌校验失败',
           '可能登录已过期或网络不畅，请重新登录喵呜...',
           snackPosition: SnackPosition.BOTTOM,
-          animationDuration: Duration(milliseconds: 300),
+          animationDuration: const Duration(milliseconds: 300),
         );
         // 重新初始化启动内容
         _initStartup();
@@ -160,7 +160,7 @@ class _HC extends GetxController {
                     const Icon(Icons.arrow_right),
                     Container(
                       /// 对齐，防止强迫症当场死亡
-                      margin: EdgeInsets.only(right: 7.0),
+                      margin: const EdgeInsets.only(right: 7.0),
                       child: const Text('仅使用使用Frp Token登录'),
                     ),
                   ],

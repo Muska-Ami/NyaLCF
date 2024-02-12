@@ -9,9 +9,9 @@ class LoginAuth {
   Future<dynamic> requestLogin(user, password) async {
     FormData data = FormData.fromMap({'username': user, 'password': password});
     try {
-      Logger.debug('Post login: ${user} / ${password}');
+      Logger.debug('Post login: $user / $password');
       final response =
-          await dio.post('${basicConfig.api_v2_url}/users/login', data: data);
+          await dio.post('${BasicDioConfig.api_v2_url}/users/login', data: data);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
@@ -23,7 +23,7 @@ class LoginAuth {
             avatar: resData['avatar'],
             inbound: resData['inbound'],
             outbound: resData['outbound'],
-            frp_token: resData['frp_token'],
+            frpToken: resData['frp_token'],
             traffic: resData['traffic']);
         return userInfo;
       } else {

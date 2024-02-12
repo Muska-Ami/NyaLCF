@@ -7,64 +7,65 @@ import 'package:nyalcf/utils/Logger.dart';
 class DSettingLauncherController extends GetxController {
   final lcs = LauncherConfigurationStorage();
 
-  var app_name = ''.obs;
-  var app_version = ''.obs;
-  var app_package_name = ''.obs;
+  var appName = ''.obs;
+  var appVersion = ''.obs;
+  var appPackageName = ''.obs;
 
-  var theme_auto = false.obs;
-  var theme_dark = false.obs;
-  var theme_light_seed = ''.obs;
-  var theme_light_seed_enable = false.obs;
+  var themeAuto = false.obs;
+  var themeDark = false.obs;
+  var themeLightSeed = ''.obs;
+  var themeLightSeedEnable = false.obs;
 
-  var switch_theme_dark = Row().obs;
+  var switchThemeDark = const Row().obs;
 
-  var debug_mode = false.obs;
+  var debugMode = false.obs;
 
   load() async {
     final packageInfo = await PackageInfo.fromPlatform();
-    app_name.value = packageInfo.appName;
-    app_version.value = packageInfo.version;
-    app_package_name.value = packageInfo.packageName;
+    appName.value = packageInfo.appName;
+    appVersion.value = packageInfo.version;
+    appPackageName.value = packageInfo.packageName;
 
-    theme_light_seed.value = lcs.getThemeLightSeedValue();
-    theme_light_seed_enable.value = lcs.getThemeLightSeedEnable();
+    themeLightSeed.value = lcs.getThemeLightSeedValue();
+    themeLightSeedEnable.value = lcs.getThemeLightSeedEnable();
     // 新配置
-    theme_auto.value = lcs.getThemeAuto();
-    theme_dark.value = lcs.getThemeDarkEnable();
-    debug_mode.value = lcs.getDebug();
+    themeAuto.value = lcs.getThemeAuto();
+    themeDark.value = lcs.getThemeDarkEnable();
+    debugMode.value = lcs.getDebug();
     loadx();
   }
 
   void loadx() {
-    if (!(theme_auto.value)) {
+    if (!(themeAuto.value)) {
       Logger.debug('Auto theme is disabled, add button to switch theme');
-      switch_theme_dark.value = Row(
+      switchThemeDark.value = Row(
         children: <Widget>[
-          Expanded(
+          const Expanded(
             child: ListTile(
               leading: Icon(Icons.dark_mode),
               title: Text('深色主题'),
             ),
           ),
           Switch(
-            value: theme_dark.value,
+            value: themeDark.value,
             onChanged: switchDarkTheme,
           ),
         ],
       );
     } else {
-      switch_theme_dark.value = Row();
+      switchThemeDark.value = const Row();
     }
   }
 
   void switchDarkTheme(value) async {
     lcs.setThemeDarkEnable(value);
     lcs.save();
-    theme_dark.value = value;
-    if (value)
+    themeDark.value = value;
+    if (value) {
       Get.changeThemeMode(ThemeMode.dark);
-    else
+    } else {
       Get.changeThemeMode(ThemeMode.light);
+    }
     Get.forceAppUpdate();
     loadx();
     // ThemeControl.switchDarkTheme(value);

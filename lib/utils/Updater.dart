@@ -11,38 +11,38 @@ class Updater {
     final packageInfo = PackageInfo.fromPlatform();
 
     /// 获取内部包版本
-    packageInfo.then((pak_inf) {
+    packageInfo.then((pakInf) {
       final result = LauncherUpdateDio().getUpdate();
 
       /// 获取远程源版本
-      result.then((u_if) {
-        Logger.debug('${u_if?.version} | v${pak_inf.version}');
+      result.then((uIf) {
+        Logger.debug('${uIf?.version} | v${pakInf.version}');
 
         /// 比对是否一致
-        if (u_if?.version != null && 'v${pak_inf.version}' != u_if?.version) {
+        if (uIf?.version != null && 'v${pakInf.version}' != uIf?.version) {
           /// 否
-          Logger.info('New version: ${u_if?.version}');
+          Logger.info('New version: ${uIf?.version}');
           Get.dialog(AlertDialog(
-            icon: Icon(Icons.update),
-            title: Text('好耶！是新版本！'),
+            icon: const Icon(Icons.update),
+            title: const Text('好耶！是新版本！'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('当前版本：v${pak_inf.version}'),
-                Text('新版本：${u_if?.version}'),
-                Text('是否打开下载界面喵？'),
+                Text('当前版本：v${pakInf.version}'),
+                Text('新版本：${uIf?.version}'),
+                const Text('是否打开下载界面喵？'),
               ],
             ),
             actions: <Widget>[
               TextButton(
-                  child: Text(
+                  child: const Text(
                     '取消',
                   ),
                   onPressed: () async {
                     Get.close(0);
                   }),
               TextButton(
-                child: Text(
+                child: const Text(
                   '确定',
                 ),
                 onPressed: () async {
@@ -52,7 +52,7 @@ class Updater {
                       '发生错误',
                       '无法打开网页，请检查设备是否存在WebView',
                       snackPosition: SnackPosition.BOTTOM,
-                      animationDuration: Duration(milliseconds: 300),
+                      animationDuration: const Duration(milliseconds: 300),
                     );
                   } else {
                     Get.close(0);
@@ -64,7 +64,7 @@ class Updater {
         } else {
           /// 是
           Logger.info('You are running latest version.');
-          Future.delayed(Duration(hours: 1), () {
+          Future.delayed(const Duration(hours: 1), () {
             startUp();
           });
         }

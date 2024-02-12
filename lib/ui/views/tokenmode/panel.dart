@@ -12,7 +12,7 @@ import 'package:nyalcf/ui/models/ProcessListDialog.dart';
 import 'package:nyalcf/utils/frpc/ProcessManager.dart';
 
 class TokenModePanel extends StatefulWidget {
-  TokenModePanel({super.key, required this.title});
+  const TokenModePanel({super.key, required this.title});
 
   final String title;
 
@@ -29,8 +29,8 @@ class _TokenModePanelState extends State {
 
   final fcs = FrpcConfigurationStorage();
 
-  final FrpcController f_c = Get.find();
-  final ConsoleController c_c = Get.put(ConsoleController());
+  final FrpcController fctr = Get.find();
+  final ConsoleController cctr = Get.put(ConsoleController());
 
   @override
   void dispose() {
@@ -48,13 +48,13 @@ class _TokenModePanelState extends State {
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         children: <Widget>[
           Card(
             color: Colors.blue.shade100,
             child: Container(
-              margin: EdgeInsets.all(10.0),
-              child: Text(
+              margin: const EdgeInsets.all(10.0),
+              child: const Text(
                 '提示：您正在使用Frp Token模式，如需使用完整版本，请登录LoCyanFrp账户喵~',
                 style: TextStyle(
                   color: Colors.blue,
@@ -65,13 +65,13 @@ class _TokenModePanelState extends State {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('隧道ID'),
+              const Text('隧道ID'),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
                     width: 300,
-                    margin: EdgeInsets.all(10.0),
+                    margin: const EdgeInsets.all(10.0),
                     child: TextField(
                       decoration: const InputDecoration(
                         labelText: '隧道ID',
@@ -83,64 +83,71 @@ class _TokenModePanelState extends State {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      final String? frp_token = await TokenModePrefs.getToken();
+                      final String? frpToken = await TokenModePrefs.getToken();
                       // 判断frp_token是否为空
-                      if (frp_token != null) if (proxyController.text != '') {
-                        // 检测是否定义了环境变量
-                        if (f_c.custom_path == null) {
-                          // 无环境变量已安装Frpc
-                          if (fcs.getInstalledVersions().isNotEmpty) {
+                      if (frpToken != null) {
+                        if (proxyController.text != '') {
+                          // 检测是否定义了环境变量
+                          if (fctr.customPath == null) {
+                            // 无环境变量已安装Frpc
+                            if (fcs
+                                .getInstalledVersions()
+                                .isNotEmpty) {
+                              FrpcProcessManager().nwprcs(
+                                frpToken: frpToken,
+                                proxyId: int.parse(proxyController.text),
+                              );
+                              Get.snackbar(
+                                '启动命令已发出',
+                                '请查看控制台确认是否启动成功',
+                                snackPosition: SnackPosition.BOTTOM,
+                                animationDuration: const Duration(milliseconds: 300),
+                              );
+                              // 无环境变量未安装Frpc
+                            } else {
+                              Get.snackbar(
+                                '笨..笨蛋！',
+                                '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+                                snackPosition: SnackPosition.BOTTOM,
+                                animationDuration: const Duration(milliseconds: 300),
+                              );
+                            }
+                            // 有环境变量未安装Frpc
+                          } else if (await File(fctr.customPath!).exists()) {
                             FrpcProcessManager().nwprcs(
-                              frp_token: frp_token,
-                              proxy_id: int.parse(proxyController.text),
+                              frpcPath: fctr.customPath,
+                              frpToken: frpToken,
+                              proxyId: int.parse(proxyController.text),
                             );
                             Get.snackbar(
                               '启动命令已发出',
                               '请查看控制台确认是否启动成功',
                               snackPosition: SnackPosition.BOTTOM,
-                              animationDuration: Duration(milliseconds: 300),
+                              animationDuration: const Duration(milliseconds: 300),
                             );
-                            // 无环境变量未安装Frpc
-                          } else
+                            // 有环境变量未安装Frpc，但文件不存在
+                          } else {
                             Get.snackbar(
                               '笨..笨蛋！',
-                              '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+                              '你的环境变量是无效哒！猫猫都要找晕啦！',
                               snackPosition: SnackPosition.BOTTOM,
-                              animationDuration: Duration(milliseconds: 300),
+                              animationDuration: const Duration(milliseconds: 300),
                             );
-                          // 有环境变量未安装Frpc
-                        } else if (await File(f_c.custom_path!).exists()) {
-                          FrpcProcessManager().nwprcs(
-                            frpc_path: f_c.custom_path,
-                            frp_token: frp_token,
-                            proxy_id: int.parse(proxyController.text),
-                          );
+                          }
+                        } else {
                           Get.snackbar(
-                            '启动命令已发出',
-                            '请查看控制台确认是否启动成功',
+                            '发生错误',
+                            '内部错误，请重新登录',
                             snackPosition: SnackPosition.BOTTOM,
-                            animationDuration: Duration(milliseconds: 300),
+                            animationDuration: const Duration(milliseconds: 300),
                           );
-                          // 有环境变量未安装Frpc，但文件不存在
-                        } else
-                          Get.snackbar(
-                            '笨..笨蛋！',
-                            '你的环境变量是无效哒！猫猫都要找晕啦！',
-                            snackPosition: SnackPosition.BOTTOM,
-                            animationDuration: Duration(milliseconds: 300),
-                          );
-                      } else
-                        Get.snackbar(
-                          '发生错误',
-                          '内部错误，请重新登录',
-                          snackPosition: SnackPosition.BOTTOM,
-                          animationDuration: Duration(milliseconds: 300),
-                        );
+                        }
+                      }
                     },
-                    child: Text('启动'),
+                    child: const Text('启动'),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 70.0),
+                    margin: const EdgeInsets.only(left: 70.0),
                     child: Row(
                       children: <Widget>[
                         ElevatedButton(
@@ -148,22 +155,22 @@ class _TokenModePanelState extends State {
                             Get.dialog(
                                 ProcessListDialogX(context: context).build());
                           },
-                          child: Text('查看进程列表'),
+                          child: const Text('查看进程列表'),
                         ),
-                        Container(margin: EdgeInsets.only(left: 10.0)),
+                        Container(margin: const EdgeInsets.only(left: 10.0)),
                         ElevatedButton(
                           onPressed: () {
                             FrpcProcessManager().killAll();
                           },
-                          child: Text(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.red),
+                          ),
+                          child: const Text(
                             '关闭所有进程',
                             style: TextStyle(
                               color: Colors.white,
                             ),
-                          ),
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
                           ),
                         ),
                       ],
@@ -175,15 +182,15 @@ class _TokenModePanelState extends State {
           ),
           Obx(
             () => Card(
-              margin: EdgeInsets.all(20.0),
+              margin: const EdgeInsets.all(20.0),
               color: Colors.grey.shade900,
               child: SizedBox(
                 width: Checkbox.width,
                 height: 200.0,
                 child: Container(
-                  margin: EdgeInsets.all(10.0),
+                  margin: const EdgeInsets.all(10.0),
                   child: ListView(
-                    children: f_c.process_out,
+                    children: fctr.processOut,
                   ),
                 ),
               ),

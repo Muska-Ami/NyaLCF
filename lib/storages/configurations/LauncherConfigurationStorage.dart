@@ -12,7 +12,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
   String get handle => 'LAUNCHER';
 
   @override
-  Future<Map<String, dynamic>> get def_config async => {
+  Future<Map<String, dynamic>> get defConfig async => {
         'debug': true,
         'theme': {
           'auto': true,
@@ -49,7 +49,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
         SchedulerBinding.instance.platformDispatcher.platformBrightness ==
             Brightness.dark;
     final auto = cfg.getBool('theme.auto');
-    final dark_enable = cfg.getBool('theme.dark.enable');
+    final darkEnable = cfg.getBool('theme.dark.enable');
     if (auto) {
       switch (systemThemeMode) {
         case true:
@@ -57,7 +57,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
         case false:
           return ThemeControl.light;
       }
-    } else if (dark_enable) return ThemeControl.dark;
+    } else if (darkEnable) {return ThemeControl.dark;}
     return ThemeControl.light;
   }
 }

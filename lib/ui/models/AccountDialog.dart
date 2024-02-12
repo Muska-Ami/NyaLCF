@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 class AccountDialogX {
   const AccountDialogX({required this.context});
 
-  final context;
+  final BuildContext context;
 
   Widget build() {
     return SimpleDialog(
@@ -29,21 +29,21 @@ class AccountDialogX {
                   '发生错误',
                   e.toString(),
                   snackPosition: SnackPosition.BOTTOM,
-                  animationDuration: Duration(milliseconds: 300),
+                  animationDuration: const Duration(milliseconds: 300),
                 );
               }
               Logger.info('Dispose controllers');
               try {
-                final DPanelController dp_c = Get.find();
-                dp_c.dispose();
+                final DPanelController dpctr = Get.find();
+                dpctr.dispose();
               } catch (ignore) {}
               try {
-                final ProxiesController p_c = Get.find();
-                p_c.dispose();
+                final ProxiesController pctr = Get.find();
+                pctr.dispose();
               } catch (ignore) {}
               try {
-                final ConsoleController c_c = Get.find();
-                c_c.dispose();
+                final ConsoleController cctr = Get.find();
+                cctr.dispose();
               } catch (ignore) {}
               Get.toNamed('/');
             }),

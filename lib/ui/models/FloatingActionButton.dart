@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'ToolDialog.dart';
+import 'package:nyalcf/ui/models/ToolDialog.dart';
 
 class FloatingActionButtonX {
   Builder button() {

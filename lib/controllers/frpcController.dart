@@ -6,14 +6,14 @@ import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
 import 'package:nyalcf/storages/stories/FrpcStoryStorage.dart';
 
 class FrpcController extends GetxController {
-  final fcs = FrpcConfigurationStorage();
+  final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
   /// 是否存在的标志
-  var exist = false.obs;
+  RxBool exist = false.obs;
 
   /// 过滤后的输出文本
-  var process_out = <SelectableText>[
-    SelectableText(
+  RxList<SelectableText> processOut = <SelectableText>[
+    const SelectableText(
       '[SYSTEM] Welcome to frpc console.',
       style: TextStyle(
         color: Colors.green,
@@ -24,9 +24,9 @@ class FrpcController extends GetxController {
   ].obs;
 
   /// 版本号
-  var version = ''.obs;
+  RxString version = ''.obs;
 
-  String? get custom_path => Platform.environment['NYA_LCF_FRPC_PATH'];
+  String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   /// 加载方法
   load() async {
@@ -42,15 +42,15 @@ class FrpcController extends GetxController {
   }
 
   /// 追加信息日志
-  void appendInfoLog(element) {
+  void appendInfoLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
-    if (process_out.length >= 500) process_out.remove(process_out.first);
+    if (processOut.length >= 500) processOut.remove(processOut.first);
 
     /// 添加信息日志文本
-    process_out.add(
+    processOut.add(
       SelectableText(
         '[FRPC][INFO] $element',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.teal,
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
@@ -59,19 +59,19 @@ class FrpcController extends GetxController {
     );
 
     /// 刷新输出文本
-    process_out.refresh();
+    processOut.refresh();
   }
 
   /// 追加警告日志
-  void appendWarnLog(element) {
+  void appendWarnLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
-    if (process_out.length >= 500) process_out.remove(process_out.first);
+    if (processOut.length >= 500) processOut.remove(processOut.first);
 
     /// 添加警告日志文本
-    process_out.add(
+    processOut.add(
       SelectableText(
         '[FRPC][WARN] $element',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.orange,
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
@@ -80,19 +80,19 @@ class FrpcController extends GetxController {
     );
 
     /// 刷新输出文本
-    process_out.refresh();
+    processOut.refresh();
   }
 
   /// 追加错误日志
-  void appendErrorLog(element) {
+  void appendErrorLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
-    if (process_out.length >= 500) process_out.remove(process_out.first);
+    if (processOut.length >= 500) processOut.remove(processOut.first);
 
     /// 添加错误日志文本
-    process_out.add(
+    processOut.add(
       SelectableText(
         '[FRPC][ERROR] $element',
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
@@ -101,6 +101,6 @@ class FrpcController extends GetxController {
     );
 
     /// 刷新输出文本
-    process_out.refresh();
+    processOut.refresh();
   }
 }

@@ -5,7 +5,7 @@ import 'package:nyalcf/ui/models/AppbarActions.dart';
 import 'package:nyalcf/ui/models/FloatingActionButton.dart';
 
 class TokenModeAuth extends StatefulWidget {
-  TokenModeAuth({super.key, required this.title});
+  const TokenModeAuth({super.key, required this.title});
 
   final String title;
 
@@ -51,7 +51,7 @@ class _TokenModeAuthState extends State {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             obscureText: true,
                             decoration: const InputDecoration(
@@ -75,11 +75,11 @@ class _TokenModeAuthState extends State {
                                   '请输入Frp Token',
                                   snackPosition: SnackPosition.BOTTOM,
                                   animationDuration:
-                                      Duration(milliseconds: 300),
+                                      const Duration(milliseconds: 300),
                                 );
                               }
                             },
-                            child: Text('下一步'),
+                            child: const Text('下一步'),
                           ),
                         ),
                         const Text(

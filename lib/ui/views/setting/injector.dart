@@ -4,23 +4,22 @@ import 'package:nyalcf/controllers/frpcSettingController.dart';
 import 'package:nyalcf/controllers/launcherSettingController.dart';
 import 'package:nyalcf/ui/models/AppbarActions.dart';
 import 'package:nyalcf/ui/models/FloatingActionButton.dart';
-
-import 'frpcSetting.dart';
-import 'launcherSetting.dart';
+import 'package:nyalcf/ui/views/setting/frpcSetting.dart';
+import 'package:nyalcf/ui/views/setting/launcherSetting.dart';
 
 class SettingInjector extends StatelessWidget {
-  SettingInjector({super.key, required this.title});
+  const SettingInjector({super.key, required this.title});
 
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    final FrpcSettingController dsf_c =
+    final FrpcSettingController fsctr =
         Get.put(FrpcSettingController(context: context));
-    final DSettingLauncherController dsc_c =
+    final DSettingLauncherController dslctr =
         Get.put(DSettingLauncherController());
-    dsf_c.load();
-    dsc_c.load();
+    fsctr.load();
+    dslctr.load();
 
     return DefaultTabController(
         length: 2,
@@ -30,7 +29,7 @@ class SettingInjector extends StatelessWidget {
                   style: const TextStyle(color: Colors.white)),
               actions:
                   AppbarActionsX(context: context, setting: false).actions(),
-              bottom: TabBar(
+              bottom: const TabBar(
                 tabs: <Widget>[
                   Tab(
                     icon: Icon(Icons.launch, color: Colors.white),

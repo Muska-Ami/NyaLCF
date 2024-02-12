@@ -1,8 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/prefs/UserInfoPrefs.dart';
 import 'package:nyalcf/utils/Logger.dart';
-
-import '../basicConfig.dart';
+import 'package:nyalcf/utils/network/dio/basicConfig.dart';
 
 class UserAuth {
   final dio = Dio();
@@ -10,12 +9,12 @@ class UserAuth {
   Future<bool> checkToken(token) async {
     try {
       Logger.info('Check token if is valid');
-      Map<String, dynamic> params_map = Map();
-      params_map['token'] = token;
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['token'] = token;
 
       final res = await dio.get(
-        '${basicConfig.api_v2_url}/check/token',
-        queryParameters: params_map,
+        '${BasicDioConfig.api_v2_url}/check/token',
+        queryParameters: paramsMap,
       );
       Logger.debug(res.data);
 
@@ -29,19 +28,19 @@ class UserAuth {
   Future<bool> refresh(token, username) async {
     try {
       Logger.info('Refresh user info');
-      Map<String, dynamic> params_map = Map();
-      params_map['username'] = username;
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['username'] = username;
 
       Options options = Options();
-      Map<String, dynamic> options_map = Map();
-      options_map['Content-Type'] =
+      Map<String, dynamic> optionsMap = {};
+      optionsMap['Content-Type'] =
           'application/x-www-form-urlencoded;charset=UTF-8';
-      options_map['Authorization'] = 'Bearer $token';
-      options = options.copyWith(headers: options_map);
+      optionsMap['Authorization'] = 'Bearer $token';
+      options = options.copyWith(headers: optionsMap);
 
       final res = await dio.get(
-        '${basicConfig.api_v2_url}/users/info',
-        queryParameters: params_map,
+        '${BasicDioConfig.api_v2_url}/users/info',
+        queryParameters: paramsMap,
         options: options,
       );
       final resData = res.data['data'];

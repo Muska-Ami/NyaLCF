@@ -5,8 +5,8 @@ import 'package:nyalcf/controllers/consoleController.dart';
 class ProcessListDialogX {
   ProcessListDialogX({required this.context});
 
-  final context;
-  final ConsoleController c_c = Get.find();
+  final BuildContext context;
+  final ConsoleController cctr = Get.find();
 
   Widget build() {
     return SimpleDialog(
@@ -14,12 +14,12 @@ class ProcessListDialogX {
       children: <Widget>[
         Obx(
           () => DataTable(
-            columns: <DataColumn>[
+            columns: const <DataColumn>[
               DataColumn(label: Text('进程PID')),
               DataColumn(label: Text('隧道ID')),
               DataColumn(label: Text('操作')),
             ],
-            rows: c_c.widgets.value,
+            rows: cctr.widgets.value,
           ),
         ),
       ],

@@ -1,26 +1,26 @@
 import 'dart:io';
 
 import 'package:logger/logger.dart' as LoU;
+import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
 import 'package:nyalcf/utils/PathProvider.dart';
 
 class Logger {
-  static final String? _s_path = PathProvider.appSupportPath;
-
-  //static final lcs = LauncherConfigurationStorage();
+  static final String? _supportPath = PathProvider.appSupportPath;
+  static final lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>
-      LoU.FileOutput(file: File('${_s_path}/run.log'));
-  static LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();
+      LoU.FileOutput(file: File('$_supportPath/run.log'));
+  static final LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();
 
   /// 重置日志文件
   static clear() async {
-    final file = await File(('${_s_path}/run.log'));
+    final file = File(('$_supportPath/run.log'));
     if (await file.exists()) await file.delete();
   }
 
   static get _logger async {
-    List<LoU.LogOutput> multiOutput = [await _fileOutPut, await _consoleOutput];
-    return await LoU.Logger(
+    List<LoU.LogOutput> multiOutput = [await _fileOutPut, _consoleOutput];
+    return LoU.Logger(
       filter: LogFilter(),
       printer: LoU.HybridPrinter(
         LoU.PrettyPrinter(
@@ -35,7 +35,7 @@ class Logger {
           printTime: true,
           lineLength: 60,
           levelColors: {
-            LoU.Level.debug: LoU.AnsiColor.fg(126),
+            LoU.Level.debug: const LoU.AnsiColor.fg(126),
           },
           methodCount: 0,
           errorMethodCount: null,
@@ -62,20 +62,20 @@ class Logger {
   }
 
   static Future<void> debug(s) async {
-    //if (lcs.getDebug()) {
-    (await _logger).d(s);
-    //}
+    if (lcs.getDebug()) {
+      (await _logger).d(s);
+    }
   }
 
-  static Future<void> frpc_info(s) async {
+  static Future<void> frpcInfo(s) async {
     await info('[FRPC][INFO]$s');
   }
 
-  static Future<void> frpc_warn(s) async {
+  static Future<void> frpcWarn(s) async {
     await warn('[FRPC][WARN]$s');
   }
 
-  static Future<void> frpc_error(s) async {
+  static Future<void> frpcError(s) async {
     await error('[FRPC][ERROR]$s');
   }
 

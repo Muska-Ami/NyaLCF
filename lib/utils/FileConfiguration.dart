@@ -1,21 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:nyalcf/utils/Logger.dart';
+//import 'package:nyalcf/utils/Logger.dart';
 
 class FileConfiguration {
   FileConfiguration({
-    this.file = null,
+    this.file,
     required this.handle,
   });
 
   File? file; // Dart Dart 草你吗，定义File?传Future不报错
   final String handle;
 
-  static Map<String, dynamic> tmp_data = {};
+  static Map<String, dynamic> tmpData = {};
 
   void initMap() {
-    tmp_data[handle] = Map();
+    tmpData[handle] = {};
   }
   /// 一堆B方法
   /// 气死我里
@@ -48,7 +48,7 @@ class FileConfiguration {
   /// 设置值
   void set(String node, dynamic value) {
     List<String> nl = _parseNode(node);
-    dynamic last = tmp_data[handle]; // 初始化last为tmp_data的引用
+    dynamic last = tmpData[handle]; // 初始化last为tmp_data的引用
     String? n;
     for (int i = 0; i < nl.length; i++) {
       n = nl[i];
@@ -56,17 +56,17 @@ class FileConfiguration {
         // 更新最后一个节点的值
         last[n] = value;
       } else {
-        if (last[n] == null || !(last[n] is Map)) {
+        if (last[n] == null || last[n] is! Map) {
           last[n] = {};
         }
         // 移动到下一个节点
         last = last[n];
       }
-      Logger.debug('写入tmp_data状态值: ${tmp_data[handle]}');
-      Logger.debug('写入迭代NODE: $n');
-      Logger.debug('写入迭代LAST: $last');
+      //Logger.debug('写入tmp_data状态值: ${tmp_data[handle]}');
+      //Logger.debug('写入迭代NODE: $n');
+      //Logger.debug('写入迭代LAST: $last');
     }
-    Logger.debug('最终值(${n}): ${last}');
+    //Logger.debug('最终值(${n}): ${last}');
   }
 
   /// 获取值
@@ -77,66 +77,67 @@ class FileConfiguration {
     for (n in nl) {
       if (last != null) {
         last = last[n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
-        Logger.debug('读取迭代NODE: $n');
-        Logger.debug('读取迭代LAST: $last');
+        //Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
+        //Logger.debug('读取迭代NODE: $n');
+        //Logger.debug('读取迭代LAST: $last');
       } else {
-        last = tmp_data[handle][n];
-        Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
-        Logger.debug('读取迭代NODE: $n');
-        Logger.debug('读取迭代LAST: $last');
+        last = tmpData[handle][n];
+        //Logger.debug('目标tmp_data状态值: ${tmp_data[handle]}');
+        //Logger.debug('读取迭代NODE: $n');
+        //Logger.debug('读取迭代LAST: $last');
       }
     }
-    Logger.debug('最终值(${n}): ${last}');
+    //Logger.debug('最终值(${n}): ${last}');
     return last;
   }
 
   /// 保存
   Future<void> save({
-    File? file = null,
+    File? file,
     bool replace = false,
   }) async {
     File? fi = file ?? this.file;
-    Logger.debug('目标文件对象: $fi');
+    //Logger.debug('目标文件对象: $fi');
     if (fi != null) {
       if (!replace) {
         if (!(await fi.exists())) {
           if (!(await fi.exists())) await fi.create();
           await fi.writeAsString(toString());
         } else {
-          Logger.warn('File exist and replace is false, ignoring save action.');
+          //Logger.warn('File exist and replace is false, ignoring save action.');
         }
       } else {
         if (!(await fi.exists())) await fi.create();
         await fi.writeAsString(toString());
       }
-    } else
+    } else {
       throw UnimplementedError(
           'No specified file selected.Please set a file to use save(); method!');
+    }
   }
 
   /// 设置映射实体文件
-  void setFile(File _file) {
-    file = _file;
+  void setFile(File file) {
+    this.file = file;
   }
 
   /// 设置映射实体文件（通过路径）
-  void setFilePath(String _path) {
-    file = File(_path);
+  void setFilePath(String path) {
+    file = File(path);
   }
 
   List<String> _parseNode(String value) => value.split('.');
 
   /// 转为 String
   @override
-  String toString() => json.encode(tmp_data[handle]);
+  String toString() => json.encode(tmpData[handle]);
 
   /// 转为 Map String
-  String toMapString() => tmp_data[handle].toString();
+  String toMapString() => tmpData[handle].toString();
 
   /// 从 String 导入
-  fromString(String j) => tmp_data[handle] = json.decode(j);
+  fromString(String j) => tmpData[handle] = json.decode(j);
 
   /// 从 Map 导入
-  fromMap(Map<String, dynamic> map) => tmp_data[handle] = map;
+  fromMap(Map<String, dynamic> map) => tmpData[handle] = map;
 }

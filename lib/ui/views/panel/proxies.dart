@@ -8,16 +8,16 @@ import 'package:nyalcf/ui/models/Drawer.dart';
 import 'package:nyalcf/ui/models/FloatingActionButton.dart';
 
 class PanelProxies extends StatelessWidget {
-  PanelProxies({required this.title});
+  PanelProxies({super.key, required this.title});
 
-  final UserController c = Get.find();
+  final UserController uctr = Get.find();
   final String title;
 
   @override
   Widget build(BuildContext context) {
-    final p_c = Get.put(ProxiesController(context: context));
+    final pctr = Get.put(ProxiesController(context: context));
 
-    p_c.load(c.user, c.token);
+    pctr.load(uctr.user, uctr.token);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +33,7 @@ class PanelProxies extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${c.avatar}',
+                    '${uctr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -43,12 +43,12 @@ class PanelProxies extends StatelessWidget {
       ),
       drawer: DrawerX(context: context).drawer(),
       body: Container(
-        margin: EdgeInsets.all(40.0),
+        margin: const EdgeInsets.all(40.0),
         child: ListView(
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => {p_c.reload(c.user, c.token)},
-              child: Row(
+              onPressed: () => {pctr.reload(uctr.user, uctr.token)},
+              child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
               ),
@@ -58,7 +58,7 @@ class PanelProxies extends StatelessWidget {
                 children: <Widget>[
                   DataTable(
                     columnSpacing: 10.0,
-                    columns: <DataColumn>[
+                    columns: const <DataColumn>[
                       DataColumn(label: Flexible(child: Text('名称'))),
                       DataColumn(label: Flexible(child: Text('ID'))),
                       DataColumn(label: Flexible(child: Text('节点'))),
@@ -67,7 +67,7 @@ class PanelProxies extends StatelessWidget {
                       DataColumn(label: Flexible(child: Text('端口'))),
                       DataColumn(label: Flexible(child: Text('操作')))
                     ],
-                    rows: p_c.proxiesListWidgets.value,
+                    rows: pctr.proxiesListWidgets.value,
                   ),
                 ],
               ),

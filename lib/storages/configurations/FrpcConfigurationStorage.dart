@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:crypto/crypto.dart';
 
 import 'package:nyalcf/storages/JsonConfiguration.dart';
 
@@ -11,7 +9,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   String get handle => 'FRPC';
 
   @override
-  Future<Map<String, dynamic>> get def_config async => {
+  Future<Map<String, dynamic>> get defConfig async => {
         'settings': {
           'frpc_version': '',
           'github_mirror': true,

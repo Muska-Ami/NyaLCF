@@ -8,7 +8,7 @@ class TokenModePrefs {
 
   static Future<String?> getToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final frp_token = prefs.getString('token_mode@frp_token');
-    return frp_token;
+    final frpToken = prefs.getString('token_mode@frp_token');
+    return frpToken;
   }
 }

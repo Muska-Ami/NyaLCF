@@ -6,11 +6,11 @@ import 'package:nyalcf/main_window.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
-      {this.context = null,
-      List<Widget> this.append = const <Widget>[],
+      {this.context,
+      this.append = const <Widget>[],
       this.setting = true});
 
-  final UserController c = Get.find();
+  final UserController uctr = Get.find();
 
   final BuildContext? context;
   bool setting;
@@ -22,10 +22,10 @@ class AppbarActionsX {
       WindowTitleBarBox(
         child: MoveWindow(
           child: Transform.translate(
-            offset: Offset(0, -5.0),
+            offset: const Offset(0, -5.0),
             child: IconButton(
               onPressed: () => {},
-              icon: Icon(Icons.select_all),
+              icon: const Icon(Icons.select_all),
               tooltip: '按住移动',
               splashColor: Colors.transparent,
               highlightColor: Colors.transparent,
@@ -40,7 +40,7 @@ class AppbarActionsX {
       /// 最小化
       IconButton(
         onPressed: () => {appWindow.minimize()},
-        icon: Icon(Icons.horizontal_rule),
+        icon: const Icon(Icons.horizontal_rule),
         tooltip: '最小化',
         color: Colors.white,
       ),
@@ -48,7 +48,7 @@ class AppbarActionsX {
       /// 关闭
       IconButton(
         onPressed: () => MainWindow.onWindowClose(),
-        icon: Icon(Icons.close),
+        icon: const Icon(Icons.close),
         tooltip: '关闭',
         color: Colors.white,
       ),
@@ -62,7 +62,7 @@ class AppbarActionsX {
       l.add(
         IconButton(
           onPressed: () => {Get.toNamed('/setting')},
-          icon: Icon(
+          icon: const Icon(
             Icons.settings,
             color: Colors.white,
           ),

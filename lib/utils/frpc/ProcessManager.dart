@@ -9,69 +9,69 @@ import 'package:nyalcf/storages/stories/FrpcStoryStorage.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 class FrpcProcessManager {
-  final FrpcController f_c = Get.find();
-  final ConsoleController c_c = Get.find();
+  final FrpcController fctr = Get.find();
+  final ConsoleController cctr = Get.find();
 
-  final frpc_work_path = FrpcStoryStorage.getRunPath();
+  final Future<String> frpcWorkPath = FrpcStoryStorage.getRunPath();
 
   void nwprcs({
-    required String frp_token,
-    required int proxy_id,
-    String? frpc_path = null,
+    required String frpToken,
+    required int proxyId,
+    String? frpcPath,
   }) async {
-    if (!Platform.isWindows) {
-      Logger.info('*nix platform, change file permission');
+    if (Platform.isLinux) {
+      Logger.info('Linux platform, change file permission');
       await FrpcStoryStorage.setRunPermission();
     }
-    final Map<String, dynamic> p_map = Map();
-    List<String> arguments = [];
+    final Map<String, dynamic> pMap = <String, dynamic>{};
+    List<String> arguments = <String>[];
 
-    final conf_path = await ProxiesConfigurationStorage.getConfigPath(proxy_id);
-    if (conf_path != null) {
-      arguments = ['-c', conf_path];
+    final String? confPath = await ProxiesConfigurationStorage.getConfigPath(proxyId);
+    if (confPath != null) {
+      arguments = <String>['-c', confPath];
     } else {
-      arguments = [
+      arguments = <String>[
         '-u',
-        frp_token,
+        frpToken,
         '-p',
-        proxy_id.toString(),
+        proxyId.toString(),
       ];
     }
 
-    final process = await Process.start(
-      frpc_path ?? await FrpcStoryStorage.getFilePath(),
+    final Process process = await Process.start(
+      frpcPath ?? await FrpcStoryStorage.getFilePath(),
       arguments,
       workingDirectory: await FrpcStoryStorage.getRunPath(),
     );
-    p_map['process'] = process;
-    p_map['proxy_id'] = proxy_id;
-    c_c.addProcess(p_map);
+    pMap['process'] = process;
+    pMap['proxy_id'] = proxyId;
+    cctr.addProcess(pMap);
 
     /// Process [stdout, stderr]
-    process.stdout.forEach((element) {
-      final regex = RegExp(r'\x1B\[[0-9;]*[mK]');
-      final fmt_str = utf8.decode(element).trim().replaceAll(regex, '');
-      if (fmt_str.contains('stopped') || fmt_str.contains('启动失败')) {
-        Logger.frpc_warn('[${proxy_id}] ${fmt_str}');
-        f_c.appendWarnLog(fmt_str);
+    process.stdout.forEach((List<int> element) {
+      final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
+      final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
+      if (fmtStr.contains('stopped') || fmtStr.contains('启动失败')) {
+        Logger.frpcWarn('[$proxyId] $fmtStr');
+        fctr.appendWarnLog(fmtStr);
         process.kill();
-        c_c.removeProcess(p_map);
-      } else if (fmt_str.contains('failed') || fmt_str.contains('err')) {
-        Logger.frpc_error('[${proxy_id}] ${fmt_str}');
-        f_c.appendErrorLog(fmt_str);
+        cctr.removeProcess(pMap);
+      } else if (fmtStr.contains('failed') || fmtStr.contains('err')) {
+        Logger.frpcError('[$proxyId] $fmtStr');
+        fctr.appendErrorLog(fmtStr);
         process.kill();
-        c_c.removeProcess(p_map);
+        cctr.removeProcess(pMap);
       } else {
-        Logger.frpc_info('[${proxy_id}] ${fmt_str}');
-        f_c.appendInfoLog(fmt_str);
+        Logger.frpcInfo('[$proxyId] $fmtStr');
+        fctr.appendInfoLog(fmtStr);
       }
     });
-    process.stderr.forEach((element) {
-      final fmt_str = utf8.decode(element).trim();
-      Logger.frpc_error('[${proxy_id}] ${fmt_str}');
-      f_c.appendErrorLog(fmt_str);
+    process.stderr.forEach((List<int> element) {
+      final String fmtStr = utf8.decode(element).trim();
+      Logger.frpcError('[$proxyId] $fmtStr');
+      fctr.appendErrorLog(fmtStr);
       process.kill();
-      c_c.removeProcess(p_map);
+      cctr.removeProcess(pMap);
     });
 
     //print('Process length: ${process_list.length}');
@@ -79,23 +79,23 @@ class FrpcProcessManager {
 
   void killAll() {
     Logger.info('Killing all process');
-    Logger.debug('Process length: ${c_c.process_list.length}');
-    f_c.appendInfoLog('[SYSTEM][INFO] Killing all process...');
-    c_c.process_list.forEach((element) {
+    Logger.debug('Process length: ${cctr.processList.length}');
+    fctr.appendInfoLog('[SYSTEM][INFO] Killing all process...');
+    for (Map<String, dynamic> element in cctr.processList) {
       kill(element);
-    });
-    c_c.clearProcess();
+    }
+    cctr.clearProcess();
     Logger.info('All process killed');
-    f_c.appendInfoLog('[SYSTEM][INFO] All process killed');
+    fctr.appendInfoLog('[SYSTEM][INFO] All process killed');
   }
 
-  void kill(prs) {
+  void kill(Map<String, dynamic> prs) {
     Logger.info('Killing frpc process, pid: ${prs['process'].pid}');
-    f_c.appendInfoLog(
+    fctr.appendInfoLog(
         '[SYSTEM][INFO] Killing process, pid: ${prs['process'].pid}');
     prs['process'].kill();
-    c_c.removeProcess(prs);
+    cctr.removeProcess(prs);
 
-    Logger.debug('Process length: ${c_c.process_list.length}');
+    Logger.debug('Process length: ${cctr.processList.length}');
   }
 }

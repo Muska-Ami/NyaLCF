@@ -63,7 +63,7 @@ class _RegisterState extends State<Register> {
                     child: Column(
                       children: <Widget>[
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             controller: userController,
                             decoration: const InputDecoration(
@@ -74,7 +74,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             obscureText: true,
                             controller: passwordController,
@@ -86,7 +86,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             obscureText: true,
                             controller: confirmPasswordController,
@@ -98,7 +98,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             controller: emailController,
                             decoration: const InputDecoration(
@@ -109,7 +109,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: Row(
                             children: <Widget>[
                               SizedBox(
@@ -126,7 +126,7 @@ class _RegisterState extends State<Register> {
                               SizedBox(
                                 width: 100.0,
                                 child: Transform.translate(
-                                  offset: Offset(10.0, 0.0),
+                                  offset: const Offset(10.0, 0.0),
                                   child: Container(
                                     margin: const EdgeInsets.all(8.0),
                                     child: ElevatedButton(
@@ -137,7 +137,7 @@ class _RegisterState extends State<Register> {
                                             '正在请求发送验证码',
                                             snackPosition: SnackPosition.BOTTOM,
                                             animationDuration:
-                                                Duration(milliseconds: 300),
+                                                const Duration(milliseconds: 300),
                                           );
                                           final res = await RegisterAuth()
                                               .requestCode(
@@ -150,7 +150,7 @@ class _RegisterState extends State<Register> {
                                                 snackPosition:
                                                     SnackPosition.BOTTOM,
                                                 animationDuration:
-                                                    Duration(milliseconds: 300),
+                                                    const Duration(milliseconds: 300),
                                               );
                                             } else {
                                               Get.snackbar(
@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
                                                 snackPosition:
                                                     SnackPosition.BOTTOM,
                                                 animationDuration:
-                                                    Duration(milliseconds: 300),
+                                                    const Duration(milliseconds: 300),
                                               );
                                             }
                                           } else {
@@ -169,7 +169,7 @@ class _RegisterState extends State<Register> {
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
                                               animationDuration:
-                                                  Duration(milliseconds: 300),
+                                                  const Duration(milliseconds: 300),
                                             );
                                           }
                                         } else {
@@ -178,11 +178,11 @@ class _RegisterState extends State<Register> {
                                             '请输入邮箱',
                                             snackPosition: SnackPosition.BOTTOM,
                                             animationDuration:
-                                                Duration(milliseconds: 300),
+                                                const Duration(milliseconds: 300),
                                           );
                                         }
                                       },
-                                      child: Text('获取'),
+                                      child: const Text('获取'),
                                     ),
                                   ),
                                 ),
@@ -191,7 +191,7 @@ class _RegisterState extends State<Register> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.all(6.0),
+                          margin: const EdgeInsets.all(6.0),
                           child: TextFormField(
                             controller: qqController,
                             decoration: const InputDecoration(
@@ -220,35 +220,35 @@ class _RegisterState extends State<Register> {
                                     '正在自动登录',
                                     snackPosition: SnackPosition.BOTTOM,
                                     animationDuration:
-                                        Duration(milliseconds: 300),
+                                        const Duration(milliseconds: 300),
                                   );
-                                  final res_login =
+                                  final resLogin =
                                       await LoginAuth().requestLogin(
                                     userController.text,
                                     passwordController.text,
                                   );
 
                                   /// 从登录页面抄过来的
-                                  if (res_login is UserInfoModel) {
+                                  if (resLogin is UserInfoModel) {
                                     //UserInfoCache.info = res;
                                     //print(UserInfoCache.info);
-                                    await UserInfoPrefs.setInfo(res_login);
+                                    await UserInfoPrefs.setInfo(resLogin);
                                     UserInfoPrefs.saveToFile();
                                     Get.snackbar(
                                       '登录成功',
-                                      '欢迎您，指挥官 ${res_login.user}',
+                                      '欢迎您，指挥官 ${resLogin.user}',
                                       snackPosition: SnackPosition.BOTTOM,
                                       animationDuration:
-                                          Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 300),
                                     );
                                     Get.toNamed('/panel/home');
                                   } else {
                                     Get.snackbar(
                                       '登录失败',
-                                      '无法自动完成登录，请尝试手动登录，原因： ${res_login.toString()}',
+                                      '无法自动完成登录，请尝试手动登录，原因： ${resLogin.toString()}',
                                       snackPosition: SnackPosition.BOTTOM,
                                       animationDuration:
-                                          Duration(milliseconds: 300),
+                                          const Duration(milliseconds: 300),
                                     );
                                     Get.toNamed('/login');
                                   }
@@ -258,7 +258,7 @@ class _RegisterState extends State<Register> {
                                     '注册失败，内部错误',
                                     snackPosition: SnackPosition.BOTTOM,
                                     animationDuration:
-                                        Duration(milliseconds: 300),
+                                        const Duration(milliseconds: 300),
                                   );
                                 }
                               } else {
@@ -267,11 +267,11 @@ class _RegisterState extends State<Register> {
                                   '注册失败，原因：${res.toString()}',
                                   snackPosition: SnackPosition.BOTTOM,
                                   animationDuration:
-                                      Duration(milliseconds: 300),
+                                      const Duration(milliseconds: 300),
                                 );
                               }
                             },
-                            child: Text('注册'),
+                            child: const Text('注册'),
                           ),
                         ),
                       ],

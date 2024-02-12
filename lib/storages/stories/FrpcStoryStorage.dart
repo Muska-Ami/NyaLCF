@@ -5,11 +5,11 @@ import 'package:nyalcf/utils/PathProvider.dart';
 import 'package:nyalcf/utils/Logger.dart';
 
 class FrpcStoryStorage {
-  static final _s_path = PathProvider.appSupportPath;
+  static final _supportPath = PathProvider.appSupportPath;
   static final fcs = FrpcConfigurationStorage();
 
   static Future<String> get _path async {
-    return '${_s_path}/frpc';
+    return '$_supportPath/frpc';
   }
 
   /// 获取Frpc文件
@@ -19,11 +19,12 @@ class FrpcStoryStorage {
 
   /// 获取Frpc文件
   static Future<String> getFilePath() async {
-    final name;
-    if (Platform.isWindows)
+    final String name;
+    if (Platform.isWindows) {
       name = 'frpc.exe';
-    else
+    } else {
       name = 'frpc';
+    }
     return await getRunPath() + name;
   }
 

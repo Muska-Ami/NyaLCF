@@ -12,7 +12,7 @@ class DrawerX {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                     image: NetworkImage('https://api.imlazy.ink/img'),
                     fit: BoxFit.cover),
@@ -22,18 +22,18 @@ class DrawerX {
                 DecoratedBox(
                     decoration: BoxDecoration(
                         color:
-                            Color.fromRGBO(255, 101, 160, 0.4196078431372549),
+                            const Color.fromRGBO(255, 101, 160, 0.4196078431372549),
                         borderRadius: BorderRadius.circular(50.0)),
                     child: Center(
                         child: Container(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text(
+                            padding: const EdgeInsets.all(5.0),
+                            child: const Text(
                               '菜单',
                               style: TextStyle(color: Colors.white),
                             ))))
               ])),
           ListTile(
-            leading: Icon(Icons.dashboard),
+            leading: const Icon(Icons.dashboard),
             title: const Text('仪表板'),
             onTap: () {
               Get.close(0);
@@ -41,7 +41,7 @@ class DrawerX {
             },
           ),
           ListTile(
-            leading: Icon(Icons.list),
+            leading: const Icon(Icons.list),
             title: const Text('隧道列表'),
             onTap: () {
               Get.close(0);
@@ -49,7 +49,7 @@ class DrawerX {
             },
           ),
           ListTile(
-            leading: Icon(Icons.last_page),
+            leading: const Icon(Icons.last_page),
             title: const Text('控制台'),
             onTap: () {
               Get.close(0);
