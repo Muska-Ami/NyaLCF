@@ -26,7 +26,8 @@ class FrpcProcessManager {
     final Map<String, dynamic> pMap = <String, dynamic>{};
     List<String> arguments = <String>[];
 
-    final String? confPath = await ProxiesConfigurationStorage.getConfigPath(proxyId);
+    final String? confPath =
+        await ProxiesConfigurationStorage.getConfigPath(proxyId);
     if (confPath != null) {
       arguments = <String>['-c', confPath];
     } else {
@@ -58,8 +59,11 @@ class FrpcProcessManager {
         cctr.removeProcess(pMap);
       } else if (fmtStr.contains('failed') || fmtStr.contains('err')) {
         Logger.frpcError('[$proxyId] $fmtStr');
+        if (!fmtStr.contains(
+            'No connection could be made because the target machine actively refused it')) {
+          process.kill();
+        }
         fctr.appendErrorLog(fmtStr);
-        process.kill();
         cctr.removeProcess(pMap);
       } else {
         Logger.frpcInfo('[$proxyId] $fmtStr');
