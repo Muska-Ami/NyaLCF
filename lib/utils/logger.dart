@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:logger/logger.dart' as LoU;
+import 'package:logger/logger.dart' as log_u;
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
@@ -9,8 +9,8 @@ class Logger {
   static final lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>
-      LoU.FileOutput(file: File('$_supportPath/run.log'));
-  static final LoU.ConsoleOutput _consoleOutput = LoU.ConsoleOutput();
+      log_u.FileOutput(file: File('$_supportPath/run.log'));
+  static final log_u.ConsoleOutput _consoleOutput = log_u.ConsoleOutput();
 
   /// 重置日志文件
   static clear() async {
@@ -19,29 +19,29 @@ class Logger {
   }
 
   static get _logger async {
-    List<LoU.LogOutput> multiOutput = [await _fileOutPut, _consoleOutput];
-    return LoU.Logger(
+    List<log_u.LogOutput> multiOutput = [await _fileOutPut, _consoleOutput];
+    return log_u.Logger(
       filter: LogFilter(),
-      printer: LoU.HybridPrinter(
-        LoU.PrettyPrinter(
+      printer: log_u.HybridPrinter(
+        log_u.PrettyPrinter(
           printEmojis: false,
           printTime: true,
           methodCount: 0,
           lineLength: 60,
           errorMethodCount: null,
         ),
-        debug: LoU.PrettyPrinter(
+        debug: log_u.PrettyPrinter(
           printEmojis: false,
           printTime: true,
           lineLength: 60,
           levelColors: {
-            LoU.Level.debug: const LoU.AnsiColor.fg(126),
+            log_u.Level.debug: const log_u.AnsiColor.fg(126),
           },
           methodCount: 0,
           errorMethodCount: null,
         ),
       ),
-      output: LoU.MultiOutput(multiOutput),
+      output: log_u.MultiOutput(multiOutput),
     );
   }
 
@@ -88,9 +88,9 @@ class Logger {
   }
 }
 
-class LogFilter extends LoU.LogFilter {
+class LogFilter extends log_u.LogFilter {
   @override
-  bool shouldLog(LoU.LogEvent event) {
+  bool shouldLog(log_u.LogEvent event) {
     return true;
   }
 }

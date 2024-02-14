@@ -13,7 +13,7 @@ import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
-import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 
 /// 代理 GetX 状态控制器
 class ProxiesController extends GetxController {

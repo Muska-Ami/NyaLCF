@@ -7,7 +7,7 @@ import 'package:nyalcf/controllers/panel_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
-import 'package:nyalcf/ui/models/Drawer.dart';
+import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -170,7 +170,7 @@ class PanelHome extends StatelessWidget {
                                           launchUrl(Uri.parse(url));
                                         }
                                       },
-                                      data: '${dpctr.announcement_common}'))))
+                                      data: '${dpctr.announcementCommon}'))))
                         ],
                       ),
                     ),

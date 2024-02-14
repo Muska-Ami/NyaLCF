@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
-import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
 import 'package:nyalcf/utils/logger.dart';

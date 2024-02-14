@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
-import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
-import 'package:nyalcf/ui/models/Drawer.dart';
+import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/ui/models/process_list_dialog.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';

@@ -4,7 +4,7 @@ import 'package:nyalcf/controllers/proxies_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
-import 'package:nyalcf/ui/models/Drawer.dart';
+import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 
 class PanelProxies extends StatelessWidget {

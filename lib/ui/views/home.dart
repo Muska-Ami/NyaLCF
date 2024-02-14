@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/frpcController.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/utils/network/dio/auth/user_auth.dart';
