@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
-import 'package:nyalcf/models/ProxyInfoModel.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/models/proxy_info_model.dart';
+import 'package:nyalcf/utils/logger.dart';
 
 class ProxiesGetDio {
   final dio = Dio();

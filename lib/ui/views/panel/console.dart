@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/consoleController.dart';
+import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/frpcController.dart';
-import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/ui/models/AccountDialog.dart';
-import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/ui/models/account_dialog.dart';
+import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/Drawer.dart';
-import 'package:nyalcf/ui/models/FloatingActionButton.dart';
-import 'package:nyalcf/ui/models/ProcessListDialog.dart';
-import 'package:nyalcf/utils/frpc/ProcessManager.dart';
+import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf/ui/models/process_list_dialog.dart';
+import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key, required this.title});

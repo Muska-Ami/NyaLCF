@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/Logger.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
+import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
 
 class AnnouncementDio {
   final dio = Dio();

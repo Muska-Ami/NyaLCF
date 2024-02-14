@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
+import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf/storages/injector.dart';
-import 'package:nyalcf/utils/PathProvider.dart';
+import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/main_tray.dart';
 import 'package:nyalcf/main_window.dart';
 import 'package:tray_manager/tray_manager.dart';
@@ -16,8 +16,8 @@ import 'package:nyalcf/ui/views/panel/home.dart';
 import 'package:nyalcf/ui/views/panel/proxies.dart';
 import 'package:nyalcf/ui/views/setting/injector.dart';
 import 'package:nyalcf/ui/views/tokenmode/panel.dart';
-import 'package:nyalcf/utils/Logger.dart';
-import 'package:nyalcf/utils/Updater.dart';
+import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/updater.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {

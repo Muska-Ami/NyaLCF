@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
-import 'package:nyalcf/models/UpdateInfoModel.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/models/update_info_model.dart';
+import 'package:nyalcf/utils/logger.dart';
 
 class LauncherUpdateDio {
   final dio = Dio();

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/utils/network/dio/auth/loginAuth.dart';
-import 'package:nyalcf/utils/network/dio/auth/registerAuth.dart';
-import 'package:nyalcf/models/UserInfoModel.dart';
-import 'package:nyalcf/prefs/UserInfoPrefs.dart';
-import 'package:nyalcf/ui/models/AppbarActions.dart';
-import 'package:nyalcf/ui/models/FloatingActionButton.dart';
+import 'package:nyalcf/utils/network/dio/auth/login_auth.dart';
+import 'package:nyalcf/utils/network/dio/auth/register_auth.dart';
+import 'package:nyalcf/models/user_info_model.dart';
+import 'package:nyalcf/prefs/user_info_prefs.dart';
+import 'package:nyalcf/ui/models/appbar_actions.dart';
+import 'package:nyalcf/ui/models/floating_action_button.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key, required this.title});
@@ -136,8 +136,8 @@ class _RegisterState extends State<Register> {
                                             '正在请求',
                                             '正在请求发送验证码',
                                             snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration:
-                                                const Duration(milliseconds: 300),
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
                                           );
                                           final res = await RegisterAuth()
                                               .requestCode(
@@ -150,7 +150,8 @@ class _RegisterState extends State<Register> {
                                                 snackPosition:
                                                     SnackPosition.BOTTOM,
                                                 animationDuration:
-                                                    const Duration(milliseconds: 300),
+                                                    const Duration(
+                                                        milliseconds: 300),
                                               );
                                             } else {
                                               Get.snackbar(
@@ -159,7 +160,8 @@ class _RegisterState extends State<Register> {
                                                 snackPosition:
                                                     SnackPosition.BOTTOM,
                                                 animationDuration:
-                                                    const Duration(milliseconds: 300),
+                                                    const Duration(
+                                                        milliseconds: 300),
                                               );
                                             }
                                           } else {
@@ -168,8 +170,8 @@ class _RegisterState extends State<Register> {
                                               '发送失败，原因：${res.toString()}',
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
-                                              animationDuration:
-                                                  const Duration(milliseconds: 300),
+                                              animationDuration: const Duration(
+                                                  milliseconds: 300),
                                             );
                                           }
                                         } else {
@@ -177,8 +179,8 @@ class _RegisterState extends State<Register> {
                                             '操作失败',
                                             '请输入邮箱',
                                             snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration:
-                                                const Duration(milliseconds: 300),
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
                                           );
                                         }
                                       },

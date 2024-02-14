@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/main_tray.dart';
 import 'package:nyalcf/protocol_activation.dart';
-import 'package:nyalcf/utils/Logger.dart';
-import 'package:nyalcf/utils/frpc/ProcessManager.dart';
+import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/frpc/process_manager.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -35,6 +35,7 @@ class MainWindow {
     void callback(deepLink) {
       Logger.debug(deepLink);
     }
+
     await ProtocolActivation.registerProtocolActivation(callback);
 
     // 显示主窗体
@@ -48,7 +49,8 @@ class MainWindow {
       appWindow.restore();
       await Get.dialog(AlertDialog(
         title: const Text('关闭 Nya LoCyanFrp!'),
-        content: const Text('确定要关闭 Nya LoCyanFrp! 吗，要是 Frpc 没关掉猫猫会生气把 Frpc 一脚踹翻的哦！'),
+        content:
+            const Text('确定要关闭 Nya LoCyanFrp! 吗，要是 Frpc 没关掉猫猫会生气把 Frpc 一脚踹翻的哦！'),
         actions: <Widget>[
           TextButton(
               child: const Text(

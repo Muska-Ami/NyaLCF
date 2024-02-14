@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/frpcSettingController.dart';
-import 'package:nyalcf/controllers/launcherSettingController.dart';
-import 'package:nyalcf/ui/models/AppbarActions.dart';
-import 'package:nyalcf/ui/models/FloatingActionButton.dart';
-import 'package:nyalcf/ui/views/setting/frpcSetting.dart';
-import 'package:nyalcf/ui/views/setting/launcherSetting.dart';
+import 'package:nyalcf/controllers/frpc_setting_controller.dart';
+import 'package:nyalcf/controllers/launcher_setting_controller.dart';
+import 'package:nyalcf/ui/models/appbar_actions.dart';
+import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf/ui/views/setting/frpc_setting.dart';
+import 'package:nyalcf/ui/views/setting/launcher_setting.dart';
 
 class SettingInjector extends StatelessWidget {
   const SettingInjector({super.key, required this.title});

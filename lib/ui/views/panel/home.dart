@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/consoleController.dart';
-import 'package:nyalcf/controllers/panelController.dart';
-import 'package:nyalcf/controllers/userController.dart';
-import 'package:nyalcf/ui/models/AccountDialog.dart';
-import 'package:nyalcf/ui/models/AppbarActions.dart';
+import 'package:nyalcf/controllers/console_controller.dart';
+import 'package:nyalcf/controllers/panel_controller.dart';
+import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/ui/models/account_dialog.dart';
+import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/Drawer.dart';
-import 'package:nyalcf/ui/models/FloatingActionButton.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PanelHome extends StatelessWidget {

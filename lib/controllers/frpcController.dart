@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/storages/configurations/FrpcConfigurationStorage.dart';
-import 'package:nyalcf/storages/stories/FrpcStoryStorage.dart';
+import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
+import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
 
 class FrpcController extends GetxController {
   final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
@@ -26,7 +26,7 @@ class FrpcController extends GetxController {
   /// 版本号
   RxString version = ''.obs;
 
-  String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
+  // String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   /// 加载方法
   load() async {

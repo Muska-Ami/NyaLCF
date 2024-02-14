@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/logger.dart';
 
 class ProxiesConfigurationDio {
   final dio = Dio();
