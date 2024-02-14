@@ -28,7 +28,7 @@ class FrpcSettingController extends GetxController {
   var frpcDownloadArch = 0.obs;
   var frpcDownloadProgress = 0.0.obs;
   var frpcDownloadShow = <Widget>[].obs;
-  dynamic frpcDownloadCancel = false;
+  bool frpcDownloadCancel = false;
   var frpcDownloadUseMirror = false.obs;
 
   var frpcVersion = ''.obs;
@@ -64,76 +64,22 @@ class FrpcSettingController extends GetxController {
   }
 
   void refreshDownloadShow() async {
-    if (frpcDownloadCancel is bool) {
-      if (frpcDownloadCancel) {
-        frpcDownloadShow.clear();
-        frpcDownloadShow.add(const Text(
-          '下载取消',
-          style: TextStyle(color: Colors.orange),
-        ));
-        frpcDownloadCancel = false;
-        downloadCancelToken = CancelToken();
-      } else {
-        frpcDownloadShow.clear();
-        frpcDownloadShow.add(LinearProgressIndicator(
-          value: frpcDownloadProgress.value,
-        ));
-      }
-    } else if (frpcDownloadCancel is Response) {
-      Get.close(0);
-      /*await showDialog(
-          context: context,
-          builder: (context) {
-            return FrpcDownloadDialogX(context: context).unarchiving();
-          });*/
-      Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(),
-          barrierDismissible: false);
-      Future.delayed(
-        const Duration(seconds: 2),
-        () async {
-          //延时执行
-          final bool unarchive = await FrpcArchive.unarchive(
-            platform: platform,
-            arch: arch[frpcDownloadArch.value]['arch'],
-            version: fcs.getSettingsFrpcVersion(),
-          );
-          if (unarchive) {
-            fcs.setSettingsFrpcVersion('0.51.3');
-            fcs.addInstalledVersion('0.51.3');
-            fcs.save();
-            /**if (!Platform.isWindows) {
-              print('*nix platform, change file permission');
-              await FrpcManagerStorage.setRunPermission();
-              }*/
-            _loadTip();
-          } else {
-            Get.snackbar(
-              '解压 Frpc 时发生错误..呜呜..',
-              '请检查磁盘是否被塞满了..或者是已经安装了！受不了了呜呜呜...',
-              snackPosition: SnackPosition.BOTTOM,
-              animationDuration: const Duration(milliseconds: 300),
-            );
-          }
-
-          /// 关闭对话框
-          Get.close(0);
-          Get.close(0);
-        },
-      );
-    } else {
+    if (frpcDownloadCancel) {
+      Logger.debug('Download cancelled.');
       frpcDownloadShow.clear();
       frpcDownloadShow.add(const Text(
-        '发生错误',
-        style: TextStyle(color: Colors.red),
+        '下载取消',
+        style: TextStyle(color: Colors.orange),
       ));
-      Get.snackbar(
-        '下载 Frpc 时发生错误..呜呜..',
-        frpcDownloadCancel.toString(),
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: const Duration(milliseconds: 300),
-      );
+      frpcDownloadCancel = false;
+      downloadCancelToken = CancelToken();
+    } else {
+      frpcDownloadShow.clear();
+      frpcDownloadShow.add(LinearProgressIndicator(
+        value: frpcDownloadProgress.value,
+      ));
     }
-  }
+    }
 
   /// 构建Arch列表
   List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
