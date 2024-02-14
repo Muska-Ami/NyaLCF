@@ -1,81 +1,41 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:nyalcf/ui/model/AppbarActions.dart';
-import 'package:nyalcf/util/frpc/ProcessManager.dart';
+import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/storages/injector.dart';
+import 'package:nyalcf/utils/path_provider.dart';
+import 'package:nyalcf/main_tray.dart';
+import 'package:nyalcf/main_window.dart';
 import 'package:tray_manager/tray_manager.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'dart:io';
-import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/io/launcherSettingStorage.dart';
-import 'package:nyalcf/model/LauncherSettingModel.dart';
-import 'package:nyalcf/prefs/LauncherSettingPrefs.dart';
-import 'package:nyalcf/protocol_activation.dart';
-import 'package:nyalcf/ui/auth/login.dart';
-import 'package:nyalcf/ui/auth/register.dart';
-import 'package:nyalcf/ui/auth/tokenmode.dart';
-import 'package:nyalcf/ui/home.dart';
-import 'package:nyalcf/ui/panel/console.dart';
-import 'package:nyalcf/ui/panel/home.dart';
-import 'package:nyalcf/ui/panel/proxies.dart';
-import 'package:nyalcf/ui/setting/injector.dart';
-import 'package:nyalcf/ui/tokenmode/panel.dart';
-import 'package:nyalcf/util/Logger.dart';
-import 'package:nyalcf/util/ThemeControl.dart';
-import 'package:nyalcf/util/Updater.dart';
+import 'package:nyalcf/ui/views/auth/login.dart';
+import 'package:nyalcf/ui/views/auth/register.dart';
+import 'package:nyalcf/ui/views/auth/tokenmode.dart';
+import 'package:nyalcf/ui/views/home.dart';
+import 'package:nyalcf/ui/views/panel/console.dart';
+import 'package:nyalcf/ui/views/panel/home.dart';
+import 'package:nyalcf/ui/views/panel/proxies.dart';
+import 'package:nyalcf/ui/views/setting/injector.dart';
+import 'package:nyalcf/ui/views/tokenmode/panel.dart';
+import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/updater.dart';
 import 'package:window_manager/window_manager.dart';
-
-LauncherSettingModel? _settings = null;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
-  await Logger.clear();
 
   /// 初始化配置文件
-  LauncherSettingStorage.init();
-  FrpcManagerStorage.init();
-  _settings = await LauncherSettingStorage.read();
+  await PathProvider.loadSyncPath();
+  await StoragesInjector.init();
+
+  //await Logger.clear();
 
   /// 启动更新
   Updater.startUp();
 
   runApp(const App());
 
-  doWhenWindowReady(() async {
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
-    const initialSize = Size(800, 500);
-    appWindow.minSize = initialSize;
-    appWindow.size = initialSize;
-    appWindow.alignment = Alignment.center;
-    appWindow.title = 'Nya LoCyanFrp! - LCF启动器';
-    appWindow.show();
-    await trayManager.setToolTip('Nya~');
-    await trayManager.setIcon(
-      Platform.isWindows ? 'asset/icon/icon.ico' : 'asset/icon/icon.png',
-    );
-    Menu menu = Menu(
-      items: [
-        MenuItem(
-          key: 'show_window',
-          label: '打开界面',
-        ),
-        MenuItem(
-          key: 'hide_window',
-          label: '隐藏界面',
-        ),
-        MenuItem.separator(),
-        MenuItem(
-          key: 'exit_app',
-          label: '退出',
-        ),
-      ],
-    );
-    trayManager.setContextMenu(menu);
-
-    await ProtocolActivation.registerProtocolActivation(callback);
-  });
+  doWhenWindowReady(MainWindow.doWhenWindowReady);
 }
 
 class App extends StatefulWidget {
@@ -85,35 +45,13 @@ class App extends StatefulWidget {
   _AppState createState() => _AppState();
 }
 
-class _AppState extends State<App> with TrayListener, WindowListener {
+class _AppState extends State<App> with WindowListener, TrayListener {
   final title = 'Nya LoCyanFrp!';
 
-  /// This widget is the root of your application.
+  /// 根组件
   @override
   Widget build(BuildContext context) {
-    LauncherSettingPrefs.setInfo(_settings ??
-        LauncherSettingModel(
-          theme_auto: true,
-          theme_dark: false,
-          theme_light_seed_enable: false,
-          theme_light_seed: '66ccff',
-        ));
-
-    ThemeData _theme_data;
-
-    final bool isDarkMode =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark;
-
-    Logger.info('System dark mode: ${isDarkMode}');
-
-    /// 判定是否需要切换暗色主题
-    if (((_settings?.theme_auto ?? true) && isDarkMode) ||
-        (_settings?.theme_dark ?? false)) {
-      _theme_data = ThemeControl.dark;
-    } else {
-      _theme_data = ThemeControl.light;
-    }
+    ThemeData themeData = LauncherConfigurationStorage().getTheme();
 
     return GetMaterialApp(
       logWriterCallback: Logger.getxLogWriter,
@@ -129,7 +67,7 @@ class _AppState extends State<App> with TrayListener, WindowListener {
         '/panel/console': (context) => PanelConsole(title: title),
         '/setting': (context) => SettingInjector(title: title),
       },
-      theme: _theme_data,
+      theme: themeData,
     );
   }
 
@@ -147,42 +85,6 @@ class _AppState extends State<App> with TrayListener, WindowListener {
     setState(() {});
   }
 
-  @override
-  void onWindowClose() async {
-    bool _isPreventClose = await windowManager.isPreventClose();
-    if (_isPreventClose) {
-      appWindow.restore();
-      await Get.dialog(AlertDialog(
-        title: Text('关闭NyaLCF'),
-        content: Text('确定要关闭NyaLCF吗，要是Frpc没关掉猫猫会生气把Frpc一脚踹翻的哦！'),
-        actions: <Widget>[
-          TextButton(
-              child: Text(
-                '取消',
-              ),
-              onPressed: () async {
-                Get.close(0);
-              }),
-          TextButton(
-            child: Text(
-              '确定',
-              style: TextStyle(color: Colors.red),
-            ),
-            onPressed: () {
-              try {
-                FrpcProcessManager().killAll();
-              } catch (e) {
-                Logger.error('Failed to close all process: ${e}');
-              }
-              appWindow.close();
-              windowManager.destroy();
-            },
-          ),
-        ],
-      ));
-    }
-  }
-
   /// 组件销毁时操作
   @override
   void dispose() {
@@ -191,40 +93,13 @@ class _AppState extends State<App> with TrayListener, WindowListener {
     super.dispose();
   }
 
-  /// 鼠标左件托盘图标
   @override
-  void onTrayIconMouseDown() {
-    appWindow.restore();
-  }
-
-  /// 鼠标右键托盘图标
+  onWindowClose() => MainWindow.onWindowClose();
   @override
-  void onTrayIconRightMouseDown() {
-    trayManager.popUpContextMenu();
-  }
-
-  // /// 保留备用
-  // @override
-  // void onTrayIconRightMouseUp() {}
-
-  /// 托盘菜单点击事件
+  onTrayIconMouseDown() => MainTray.onTrayIconMouseDown();
   @override
-  void onTrayMenuItemClick(MenuItem menuItem) {
-    switch (menuItem.key) {
-      case 'show_window':
-        appWindow.restore();
-        break;
-      case 'hide_window':
-        appWindow.hide();
-        break;
-      case 'exit_app':
-        appWindow.restore();
-        AppbarActionsX().closeAlertDialog();
-        break;
-    }
-  }
-}
-
-void callback(deepLink) {
-  Logger.debug(deepLink);
+  onTrayIconRightMouseDown() => MainTray.onTrayIconRightMouseDown();
+  @override
+  onTrayMenuItemClick(MenuItem menuItem) =>
+      MainTray.onTrayMenuItemClick(menuItem);
 }
