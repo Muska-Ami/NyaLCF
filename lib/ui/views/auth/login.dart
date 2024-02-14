@@ -19,7 +19,6 @@ class _LoginState extends State<Login> {
   _LoginState({required this.title});
 
   final String title;
-
   final userController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -76,7 +75,7 @@ class _LoginState extends State<Login> {
                   Container(
                     margin: const EdgeInsets.all(8.0),
                     child: ElevatedButton(
-                      onPressed: () => {_login()},
+                      onPressed: () => _login(),
                       child: const Text('登录'),
                     ),
                   ),
@@ -90,50 +89,41 @@ class _LoginState extends State<Login> {
     );
   }
 
-  _login() async {
-    if (userController.text == '') {
+  void _showSnackbar(String message) {
+    Get.snackbar(
+      '无效数据',
+      message,
+      snackPosition: SnackPosition.BOTTOM,
+      animationDuration: const Duration(milliseconds: 300),
+    );
+  }
+
+  void _login() async {
+    if (userController.text.isEmpty || passwordController.text.isEmpty) {
+      _showSnackbar('请输入用户名或密码');
+      return;
+    }
+
+    Get.snackbar(
+      '登录中',
+      '正在请求...',
+      snackPosition: SnackPosition.BOTTOM,
+      animationDuration: const Duration(milliseconds: 300),
+    );
+    final res = await LoginAuth()
+        .requestLogin(userController.text, passwordController.text);
+    if (res is UserInfoModel) {
+      await UserInfoPrefs.setInfo(res);
+      UserInfoPrefs.saveToFile();
       Get.snackbar(
-        '无效数据',
-        '请输入用户名',
+        '登录成功',
+        '欢迎您，指挥官 ${res.user}',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );
-    } else if (passwordController.text == '') {
-      Get.snackbar(
-        '无效数据',
-        '请输入密码',
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: const Duration(milliseconds: 300),
-      );
+      Get.toNamed('/panel/home');
     } else {
-      Get.snackbar(
-        '登录中',
-        '正在请求...',
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: const Duration(milliseconds: 300),
-      );
-      final res = await LoginAuth()
-          .requestLogin(userController.text, passwordController.text);
-      if (res is UserInfoModel) {
-        //UserInfoCache.info = res;
-        //print(UserInfoCache.info);
-        await UserInfoPrefs.setInfo(res);
-        UserInfoPrefs.saveToFile();
-        Get.snackbar(
-          '登录成功',
-          '欢迎您，指挥官 ${res.user}',
-          snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 300),
-        );
-        Get.toNamed('/panel/home');
-      } else {
-        Get.snackbar(
-          '登录失败',
-          res.toString(),
-          snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 300),
-        );
-      }
+      _showSnackbar(res.toString());
     }
   }
 }
