@@ -91,7 +91,7 @@ class FrpcSettingController extends GetxController {
           barrierDismissible: false);
       Future.delayed(
         const Duration(seconds: 2),
-            () async {
+        () async {
           //延时执行
           final bool unarchive = await FrpcArchive.unarchive(
             platform: platform,

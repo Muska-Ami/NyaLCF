@@ -29,8 +29,13 @@ class FrpcStoryStorage {
       name = 'frpc';
     }
     final String path = await getRunPath() + name;
-    if (await File(path).exists()) return path;
-    return null;
+    Logger.debug('Unchecked frpc file path: $path');
+    if (await File(path).exists()) {
+      Logger.debug('Path check passed.');
+      return path;
+    } else {
+      return null;
+    }
   }
 
   /// 获取Frpc运行路径

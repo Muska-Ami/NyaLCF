@@ -50,7 +50,9 @@ class FrpcProcessManager {
     process.stdout.forEach((List<int> element) {
       final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
       final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
-      if (fmtStr.contains('stopped') || fmtStr.contains('启动失败') || fmtStr.contains('无法连接')) {
+      if (fmtStr.contains('stopped') ||
+          fmtStr.contains('启动失败') ||
+          fmtStr.contains('无法连接')) {
         Logger.frpcWarn('[$proxyId] $fmtStr');
         fctr.appendWarnLog(fmtStr);
         process.kill();

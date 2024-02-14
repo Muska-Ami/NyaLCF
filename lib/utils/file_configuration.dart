@@ -24,7 +24,8 @@ class FileConfiguration {
   void setString(String node, String value) => set(node, value);
   String getString(String node) => get(node);
   void setStringList(String node, List<String> value) => setList(node, value);
-  List<String> getStringList(String node) => getList(node) as List<String>;
+  List<String> getStringList(String node) =>
+      getList(node).map((item) => item as String).toList();
 
   /// int
   void setInt(String node, int value) => set(node, value);
@@ -54,20 +55,14 @@ class FileConfiguration {
     for (int i = 0; i < nl.length; i++) {
       n = nl[i];
       if (i == nl.length - 1) {
-        // 更新最后一个节点的值
         last[n] = value;
       } else {
         if (last[n] == null || last[n] is! Map) {
           last[n] = {};
         }
-        // 移动到下一个节点
         last = last[n];
       }
-      //Logger.debug('写入tmp_data状态值: ${tmp_data[handle]}');
-      //Logger.debug('写入迭代NODE: $n');
-      //Logger.debug('写入迭代LAST: $last');
     }
-    //Logger.debug('最终值(${n}): ${last}');
   }
 
   /// 获取值
@@ -98,22 +93,19 @@ class FileConfiguration {
     bool replace = false,
   }) async {
     File? fi = file ?? this.file;
-    //Logger.debug('目标文件对象: $fi');
     if (fi != null) {
       if (!replace) {
         if (!(await fi.exists())) {
-          if (!(await fi.exists())) await fi.create();
+          await fi.create(recursive: true);
           await fi.writeAsString(toString());
-        } else {
-          //Logger.warn('File exist and replace is false, ignoring save action.');
         }
       } else {
-        if (!(await fi.exists())) await fi.create();
+        if (!(await fi.exists())) await fi.create(recursive: true);
         await fi.writeAsString(toString());
       }
     } else {
       throw UnimplementedError(
-          'No specified file selected.Please set a file to use save(); method!');
+          'No specified file selected. Please set a file to use save() method!');
     }
   }
 
@@ -141,4 +133,13 @@ class FileConfiguration {
 
   /// 从 Map 导入
   fromMap(Map<String, dynamic> map) => tmpData[handle] = map;
+
+  Future<void> reload() async {
+    if (file != null) {
+      fromString(await file!.readAsString());
+    } else {
+      throw UnimplementedError(
+          'Could not load configuration from undefined file!');
+    }
+  }
 }
