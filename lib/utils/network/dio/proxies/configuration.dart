@@ -1,21 +1,21 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/logger.dart';
 
 class ProxiesConfigurationDio {
   final dio = Dio();
 
-  Future<dynamic> get(String frp_token, int proxy_id) async {
+  Future<dynamic> get(String frpToken, int proxyId) async {
     try {
-      Map<String, dynamic> params_map = Map();
-      params_map['action'] = 'getcfg';
-      params_map['token'] = frp_token;
-      params_map['id'] = proxy_id;
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['action'] = 'getcfg';
+      paramsMap['token'] = frpToken;
+      paramsMap['id'] = proxyId;
 
-      final res = await dio.get('${basicConfig.frpc_config_url}',
-          queryParameters: params_map);
+      final res = await dio.get(BasicDioConfig.frpc_config_url,
+          queryParameters: paramsMap);
       try {
         final Map<String, dynamic> resData = jsonDecode(res.data);
         Logger.debug(res);

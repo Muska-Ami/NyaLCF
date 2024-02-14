@@ -1,18 +1,15 @@
-import 'package:nyalcf/io/frpcManagerStorage.dart';
-import 'package:nyalcf/storages/configurations/LauncherConfigurationStorage.dart';
+import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
+import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 
 class StoragesInjector {
   static init() async {
-    final lcs = await LauncherConfigurationStorage();
+    final lcs = LauncherConfigurationStorage();
+    final fcs = FrpcConfigurationStorage();
 
     lcs.initCfg();
+    fcs.initCfg();
 
     /// Deprecated config load will remove in future.
-    await loadOldCfg();
-  }
-
-  @deprecated
-  static Future<void> loadOldCfg() async {
-    FrpcManagerStorage.init();
+    // await loadOldCfg();
   }
 }

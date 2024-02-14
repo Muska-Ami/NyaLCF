@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/Logger.dart';
-
-import '../basicConfig.dart';
+import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
 
 class AnnouncementDio {
   final dio = Dio();
@@ -10,7 +9,7 @@ class AnnouncementDio {
     try {
       Logger.info('Get broadcast announcement');
       final response =
-          await dio.get('${basicConfig.api_v1_url}/App/GetBroadCast');
+          await dio.get('${BasicDioConfig.api_v1_url}/App/GetBroadCast');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
       return resData['broadcast'];
@@ -23,7 +22,7 @@ class AnnouncementDio {
   Future<String> getCommon() async {
     try {
       Logger.info('Get common announcement');
-      final response = await dio.get('${basicConfig.api_v1_url}/App');
+      final response = await dio.get('${BasicDioConfig.api_v1_url}/App');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
       return resData['ads'];

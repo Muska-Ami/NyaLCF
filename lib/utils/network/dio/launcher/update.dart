@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basicConfig.dart';
-import 'package:nyalcf/models/UpdateInfoModel.dart';
-import 'package:nyalcf/utils/Logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/models/update_info_model.dart';
+import 'package:nyalcf/utils/logger.dart';
 
 class LauncherUpdateDio {
   final dio = Dio();
@@ -9,13 +9,13 @@ class LauncherUpdateDio {
   Future<UpdateInfoModel?> getUpdate() async {
     try {
       final res = await dio.get(
-          '${basicConfig.github_api_url}/repos/Muska-Ami/NyaLCF/releases/latest');
+          '${BasicDioConfig.github_api_url}/repos/Muska-Ami/NyaLCF/releases/latest');
       final Map<String, dynamic> resData = res.data;
       // print(resData);
       return UpdateInfoModel(
         version: resData['name'],
         tag: resData['tag_name'],
-        download_url: resData['assets'],
+        downloadUrl: resData['assets'],
       );
     } catch (e) {
       Logger.error(e);
