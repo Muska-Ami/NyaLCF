@@ -17,7 +17,7 @@ class UserInfoStorage {
   /// 读取数据
   static Future<UserInfoModel?> read() async {
     try {
-      final String result = await File('${await _path}/session.json')
+      final String result = await File('$_path/session.json')
           .readAsString(encoding: utf8);
       return UserInfoModel.fromJson(jsonDecode(result));
     } catch (e) {

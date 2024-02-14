@@ -6,10 +6,8 @@ import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
 import 'package:nyalcf/utils/logger.dart';
-import 'package:nyalcf/ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf/ui/models/frpc_download_tip.dart';
 import 'package:nyalcf/utils/cpu_arch.dart';
-import 'package:nyalcf/utils/frpc/Archive.dart';
 
 class FrpcSettingController extends GetxController {
   FrpcSettingController({required this.context});
