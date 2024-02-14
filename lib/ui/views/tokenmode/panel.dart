@@ -86,7 +86,7 @@ class _TokenModePanelState extends State {
                       // 判断frp_token是否为空
                       if (frpToken != null) {
                         if (proxyController.text != '') {
-                          final execPath = await FrpcPathProvider.frpcPath;
+                          final execPath = await FrpcPathProvider().frpcPath;
                           if (execPath != null) {
                             FrpcProcessManager().nwprcs(
                               frpToken: frpToken,

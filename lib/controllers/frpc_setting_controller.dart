@@ -49,7 +49,7 @@ class FrpcSettingController extends GetxController {
   }
 
   void _loadTip() async {
-    if (await FrpcPathProvider.frpcPath == null) {
+    if (await FrpcPathProvider().frpcPath == null) {
       frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
     } else {
       frpcDownloadTip.value =

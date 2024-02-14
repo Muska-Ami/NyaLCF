@@ -9,6 +9,7 @@ import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
 
 class FrpcProcessManager {
+  final fss = FrpcStoryStorage();
   final FrpcController fctr = Get.find();
   final ConsoleController cctr = Get.find();
 
@@ -19,7 +20,7 @@ class FrpcProcessManager {
   }) async {
     if (Platform.isLinux) {
       Logger.info('Linux platform, change file permission');
-      await FrpcStoryStorage.setRunPermission();
+      await fss.setRunPermission();
     }
     final Map<String, dynamic> pMap = <String, dynamic>{};
     List<String> arguments = <String>[];
@@ -40,7 +41,7 @@ class FrpcProcessManager {
     final Process process = await Process.start(
       frpcPath,
       arguments,
-      workingDirectory: await FrpcStoryStorage.getRunPath(),
+      workingDirectory: await fss.getRunPath(),
     );
     pMap['process'] = process;
     pMap['proxy_id'] = proxyId;
