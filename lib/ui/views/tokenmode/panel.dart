@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
-import 'package:nyalcf/prefs/token_mode_prefs.dart';
+import 'package:nyalcf/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';

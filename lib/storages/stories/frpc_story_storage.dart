@@ -14,14 +14,14 @@ class FrpcStoryStorage {
   }
 
   /// 获取Frpc文件
-  static Future<File?> getFile() async {
+  Future<File?> getFile() async {
     final String? path = await getFilePath();
     if (path != null) return File(path);
     return null;
   }
 
   /// 获取Frpc文件
-  static Future<String?> getFilePath() async {
+  Future<String?> getFilePath() async {
     final String name;
     if (Platform.isWindows) {
       name = 'frpc.exe';
@@ -30,16 +30,17 @@ class FrpcStoryStorage {
     }
     final String path = await getRunPath() + name;
     Logger.debug('Unchecked frpc file path: $path');
-    if (await File(path).exists()) {
+    // TODO: 修复配置文件String和StringList动态读取
+    if (await File(path).exists() || await File('$_supportPath/frpc/0.51.3-2/$name').exists()) {
       Logger.debug('Path check passed.');
       return path;
     } else {
-      return null;
+        return null;
     }
   }
 
   /// 获取Frpc运行路径
-  static Future<String> getRunPath() async {
+  Future<String> getRunPath() async {
     var path = '${await _path}/${fcs.getSettingsFrpcVersion()}/';
     if (Platform.isWindows) path = path.replaceAll('/', '\\');
     return path;
@@ -77,9 +78,9 @@ class FrpcStoryStorage {
   //       .writeAsString(write_data, encoding: utf8);
   // }
 
-  static Future<void> setRunPermission() async {
+  Future<void> setRunPermission() async {
     Logger.info('Set run permission: ${await getFilePath()}');
-    final execPath = await FrpcPathProvider.frpcPath;
+    final execPath = await FrpcPathProvider().frpcPath;
     if (execPath != null) {
       final process = await Process.run(
         'chmod',
