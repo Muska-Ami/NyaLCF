@@ -64,6 +64,7 @@ jobs:
 
       - name: Install Dependencies
         run: |-
+          sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm libayatana-appindicator3-dev patchelf locate libfuse2
           dart pub global activate -s path tool/flutter_distributor/packages/flutter_distributor
           flutter pub get

@@ -25,8 +25,13 @@ abstract class JsonConfiguration {
   /// 保存
   void save() => cfg.save(replace: true);
 
+  /// 从磁盘重载
+  Future<void> reloadFromDisk() async {
+    await cfg.reload();
+  }
+
   /// 默认初始化函数
-  void initCfg() async {
+  Future<void> initCfg() async {
     cfg.initMap();
     cfg.fromMap(await defConfig);
     //Logger.debug(file);

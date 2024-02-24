@@ -6,8 +6,8 @@ class StoragesInjector {
     final lcs = LauncherConfigurationStorage();
     final fcs = FrpcConfigurationStorage();
 
-    lcs.initCfg();
-    fcs.initCfg();
+    await lcs.initCfg();
+    await fcs.initCfg();
 
     /// Deprecated config load will remove in future.
     // await loadOldCfg();

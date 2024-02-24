@@ -29,6 +29,7 @@ class MainTray {
   /// 鼠标左键托盘图标
   static void onTrayIconMouseDown() {
     appWindow.restore();
+    appWindow.show();
   }
 
   /// 鼠标右键托盘图标
@@ -45,12 +46,14 @@ class MainTray {
     switch (menuItem.key) {
       case 'show_window':
         appWindow.restore();
+        appWindow.show();
         break;
       case 'hide_window':
         appWindow.hide();
         break;
       case 'app_force_update':
         Get.forceAppUpdate();
+        appWindow.show();
         break;
       case 'exit_app':
         appWindow.restore();

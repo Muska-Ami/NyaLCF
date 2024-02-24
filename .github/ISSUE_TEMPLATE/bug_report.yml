@@ -22,6 +22,8 @@ body:
           required: true
         - label: 我确保这个 BUG 在最新版本可复现
           required: true
+        - label: 我确保我已经熟记[提问的智慧](https://lug.ustc.edu.cn/wiki/doc/smart-questions/)
+          required: true
   - type: textarea
     id: what-happened
     attributes:

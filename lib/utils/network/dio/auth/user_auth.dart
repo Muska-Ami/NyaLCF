@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/prefs/user_info_prefs.dart';
+import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
 

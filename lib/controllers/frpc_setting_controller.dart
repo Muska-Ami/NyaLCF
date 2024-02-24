@@ -49,7 +49,7 @@ class FrpcSettingController extends GetxController {
   }
 
   void _loadTip() async {
-    if (await FrpcPathProvider.frpcPath == null) {
+    if (await FrpcPathProvider().frpcPath == null) {
       frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
     } else {
       frpcDownloadTip.value =
@@ -91,7 +91,7 @@ class FrpcSettingController extends GetxController {
           barrierDismissible: false);
       Future.delayed(
         const Duration(seconds: 2),
-            () async {
+        () async {
           //延时执行
           final bool unarchive = await FrpcArchive.unarchive(
             platform: platform,
@@ -99,8 +99,8 @@ class FrpcSettingController extends GetxController {
             version: fcs.getSettingsFrpcVersion(),
           );
           if (unarchive) {
-            fcs.setSettingsFrpcVersion('0.51.3');
-            fcs.addInstalledVersion('0.51.3');
+            fcs.setSettingsFrpcVersion('0.51.3-2');
+            fcs.addInstalledVersion('0.51.3-2');
             fcs.save();
             /**if (!Platform.isWindows) {
                 print('*nix platform, change file permission');

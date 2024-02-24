@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
 
 class FrpcController extends GetxController {
+  final fss = FrpcStoryStorage();
   final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
   /// 是否存在的标志
@@ -33,7 +33,7 @@ class FrpcController extends GetxController {
   }
 
   /// 获取Frpc文件对象
-  get file => FrpcStoryStorage.getFile();
+  get file => fss.getFile();
 
   /// 获取版本号
   Future<String> getVersion() async {

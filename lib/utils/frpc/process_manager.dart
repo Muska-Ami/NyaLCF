@@ -9,6 +9,7 @@ import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
 
 class FrpcProcessManager {
+  final fss = FrpcStoryStorage();
   final FrpcController fctr = Get.find();
   final ConsoleController cctr = Get.find();
 
@@ -19,7 +20,7 @@ class FrpcProcessManager {
   }) async {
     if (Platform.isLinux) {
       Logger.info('Linux platform, change file permission');
-      await FrpcStoryStorage.setRunPermission();
+      await fss.setRunPermission();
     }
     final Map<String, dynamic> pMap = <String, dynamic>{};
     List<String> arguments = <String>[];
@@ -40,7 +41,7 @@ class FrpcProcessManager {
     final Process process = await Process.start(
       frpcPath,
       arguments,
-      workingDirectory: await FrpcStoryStorage.getRunPath(),
+      workingDirectory: await fss.getRunPath(),
     );
     pMap['process'] = process;
     pMap['proxy_id'] = proxyId;
@@ -50,7 +51,9 @@ class FrpcProcessManager {
     process.stdout.forEach((List<int> element) {
       final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
       final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
-      if (fmtStr.contains('stopped') || fmtStr.contains('启动失败') || fmtStr.contains('无法连接')) {
+      if (fmtStr.contains('stopped') ||
+          fmtStr.contains('启动失败') ||
+          fmtStr.contains('无法连接')) {
         Logger.frpcWarn('[$proxyId] $fmtStr');
         fctr.appendWarnLog(fmtStr);
         process.kill();
