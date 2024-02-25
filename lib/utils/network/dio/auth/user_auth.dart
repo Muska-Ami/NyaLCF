@@ -46,7 +46,8 @@ class UserAuth {
       final resData = res.data['data'];
       Logger.debug(res.data);
 
-      UserInfoPrefs.setTraffic(resData['traffic']);
+      UserInfoPrefs.setTraffic(int.parse(resData['traffic']));
+      UserInfoPrefs.setFrpToken(resData['frp_token']);
       //UserInfoPrefs.setInbound(resData['inbound']);
       //UserInfoPrefs.setOutbound(resData['outbound']);
 

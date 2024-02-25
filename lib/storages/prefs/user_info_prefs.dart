@@ -31,6 +31,11 @@ class UserInfoPrefs {
     prefs.setInt('user_traffic', traffic);
   }
 
+  static Future<void> setFrpToken(int frpToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('user_frp_token', frpToken);
+  }
+
   static Future<void> saveToFile() async {
     await UserInfoStorage.save(await getInfo());
   }

@@ -31,7 +31,7 @@ class FrpcStoryStorage {
     final String path = await getRunPath() + name;
     Logger.debug('Unchecked frpc file path: $path');
     // TODO: 修复配置文件String和StringList动态读取
-    if (await File(path).exists() || await File('$_supportPath/frpc/0.51.3-2/$name').exists()) {
+    if (await File(path).exists()) {
       Logger.debug('Path check passed.');
       return path;
     } else {

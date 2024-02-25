@@ -6,10 +6,10 @@ import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 /// 控制台 GetX 状态控制器
 class ConsoleController extends GetxController {
-  RxList<DataRow> widgets = <DataRow>[].obs;
+  var widgets = <DataRow>[].obs;
 
   /// UI组件列表
-  RxList<Map<String, dynamic>> processList = <Map<String, dynamic>>[].obs;
+  var processList = <Map<String, dynamic>>[].obs;
 
   /// 进程管理列表
 
