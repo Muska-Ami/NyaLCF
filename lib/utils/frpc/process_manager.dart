@@ -86,15 +86,22 @@ class FrpcProcessManager {
     Logger.info('Killing all process');
     Logger.debug('Process length: ${cctr.processList.length}');
     fctr.appendInfoLog('[SYSTEM][INFO] Killing all process...');
-    for (Map<String, dynamic> element in cctr.processList) {
-      kill(element);
+    try {
+      var allList = [];
+      allList.addAll(cctr.processList);
+      for (var element in allList) {
+        kill(element);
+      }
+    } catch (e) {
+      fctr.appendErrorLog('[SYSTEM][ERROR] Killing all process error: $e');
+      Logger.error(e);
     }
     cctr.clearProcess();
     Logger.info('All process killed');
     fctr.appendInfoLog('[SYSTEM][INFO] All process killed');
   }
 
-  void kill(Map<String, dynamic> prs) {
+  void kill(prs) {
     Logger.info('Killing frpc process, pid: ${prs['process'].pid}');
     fctr.appendInfoLog(
         '[SYSTEM][INFO] Killing process, pid: ${prs['process'].pid}');

@@ -42,7 +42,7 @@ class FrpcDownloadDialogX {
                   final res = await FrpcDownloadDio().download(
                     arch: dsctr.arch[dsctr.frpcDownloadArch.value]['arch'],
                     platform: dsctr.platform,
-                    version: '0.51.3-2',
+                    version: '0.51.3',
                     progressCallback: dsctr.downloadFrpcCallback,
                     cancelToken: dsctr.downloadCancelToken,
                     useMirror: fcs.getSettingsGitHubMirror(),

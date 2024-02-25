@@ -24,6 +24,7 @@ class FrpcDownloadDio {
       } else {
         downloadBasicUrl = BasicDioConfig.github_main_url;
       }
+
       if (platform == 'windows') {
         Logger.debug('Windows, download zip');
         return await dio.download(
