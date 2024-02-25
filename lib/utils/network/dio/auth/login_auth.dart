@@ -24,7 +24,8 @@ class LoginAuth {
             inbound: resData['inbound'],
             outbound: resData['outbound'],
             frpToken: resData['frp_token'],
-            traffic: resData['traffic']);
+            traffic: int.parse(resData['traffic']),
+        );
         return userInfo;
       } else {
         return resData['msg'] ?? responseJson['status'];
