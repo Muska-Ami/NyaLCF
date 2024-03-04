@@ -28,7 +28,7 @@ class Updater {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('当前版本：v${pakInf.version}(+${pakInf.buildNumber})'),
+                Text('当前版本：v${pakInf.version}+${pakInf.buildNumber}'),
                 Text('新版本：${uIf?.version}'),
                 const Text('是否打开下载界面喵？'),
               ],
