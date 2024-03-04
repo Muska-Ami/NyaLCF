@@ -16,10 +16,10 @@ class Updater {
 
       /// 获取远程源版本
       result.then((uIf) {
-        Logger.debug('${uIf?.version} | v${pakInf.version}');
+        Logger.debug('${uIf?.version} | v${pakInf.version}+${pakInf.buildNumber}');
 
         /// 比对是否一致
-        if (uIf?.version != null && 'v${pakInf.version}' != uIf?.version) {
+        if (uIf?.version != null && 'v${pakInf.version}+${pakInf.buildNumber}' != uIf?.version) {
           /// 否
           Logger.info('New version: ${uIf?.version}');
           Get.dialog(AlertDialog(
@@ -28,7 +28,7 @@ class Updater {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text('当前版本：v${pakInf.version}'),
+                Text('当前版本：v${pakInf.version}(+${pakInf.buildNumber})'),
                 Text('新版本：${uIf?.version}'),
                 const Text('是否打开下载界面喵？'),
               ],

@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:nyalcf/utils/path_provider.dart';
 
 class LauncherSetting {
   final DSettingLauncherController dsctr = Get.find();
   final lcs = LauncherConfigurationStorage();
+
+  static final String? _supportPath = PathProvider.appSupportPath;
 
   Widget widget() {
     return Container(
@@ -130,6 +136,36 @@ class LauncherSetting {
                             ),
                           ],
                         ),
+                        Text(
+                          '日志',
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              ElevatedButton(
+                                onPressed: () async {
+                                  OpenFilex.open(
+                                    '$_supportPath/run.log',
+                                  );
+                                },
+                                child: const Text('打开日志文件'),
+                              ),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  File('$_supportPath/run.log').delete().then(
+                                        (value) =>
+                                            Get.snackbar('好耶！', '已清除日志文件喵'),
+                                      );
+                                },
+                                child: const Text('清除日志'),
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -147,7 +183,7 @@ class LauncherSetting {
                 ),
                 Container(
                   margin: const EdgeInsets.only(
-                      left: 20.0, right: 20.0, bottom: 20.0),
+                      left: 20.0, right: 20.0, bottom: 10.0),
                   child: Obx(
                     () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,7 +191,8 @@ class LauncherSetting {
                         const SelectableText('通用软件名称：Nya LoCyanFrp! 乐青映射启动器'),
                         SelectableText('内部软件名称：${dsctr.appName}'),
                         SelectableText('内部软件包名：${dsctr.appPackageName}'),
-                        SelectableText('软件版本：${dsctr.appVersion}'),
+                        SelectableText(
+                            '软件版本：${dsctr.appVersion} (+${dsctr.appBuildNumber})'),
                         const SelectableText('著作权信息：登记中'),
                       ],
                     ),
@@ -168,7 +205,7 @@ class LauncherSetting {
                   ),
                   padding: const EdgeInsets.all(10.0),
                   margin: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, bottom: 10.0, top: 10.0),
+                      left: 10.0, right: 10.0, bottom: 10.0),
                   child: const Text(
                     'Powered by Flutter framework.',
                     style: TextStyle(
