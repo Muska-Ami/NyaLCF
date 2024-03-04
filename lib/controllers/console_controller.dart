@@ -29,6 +29,7 @@ class ConsoleController extends GetxController {
   clearProcess() {
     processList.clear();
     processList.refresh();
+    load();
   }
 
   /// 加载进程管理信息

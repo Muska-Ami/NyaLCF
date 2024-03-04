@@ -9,6 +9,7 @@ class DSettingLauncherController extends GetxController {
 
   var appName = ''.obs;
   var appVersion = ''.obs;
+  var appBuildNumber = ''.obs;
   var appPackageName = ''.obs;
 
   var themeAuto = false.obs;
@@ -25,6 +26,7 @@ class DSettingLauncherController extends GetxController {
     appName.value = packageInfo.appName;
     appVersion.value = packageInfo.version;
     appPackageName.value = packageInfo.packageName;
+    appBuildNumber.value = packageInfo.buildNumber;
 
     themeLightSeed.value = lcs.getThemeLightSeedValue();
     themeLightSeedEnable.value = lcs.getThemeLightSeedEnable();

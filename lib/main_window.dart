@@ -12,6 +12,9 @@ import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 class MainWindow {
+
+  static bool shouldCloseWindowShow = true;
+
   /// 启动操作
   static void doWhenWindowReady() async {
     // 禁用系统窗口操作（主要适配MacOS）
@@ -44,38 +47,45 @@ class MainWindow {
 
   /// 关闭拦截
   static void onWindowClose() async {
-    bool isPreventClose = await windowManager.isPreventClose();
-    if (isPreventClose) {
-      appWindow.restore();
-      await Get.dialog(AlertDialog(
-        title: const Text('关闭 Nya LoCyanFrp!'),
-        content:
-            const Text('确定要关闭 Nya LoCyanFrp! 吗，要是 Frpc 没关掉猫猫会生气把 Frpc 一脚踹翻的哦！'),
-        actions: <Widget>[
-          TextButton(
+    if (shouldCloseWindowShow) {
+      shouldCloseWindowShow = false;
+      bool isPreventClose = await windowManager.isPreventClose();
+      if (isPreventClose) {
+        appWindow.restore();
+        await Get.dialog(AlertDialog(
+          title: const Text('关闭 Nya LoCyanFrp!'),
+          content:
+          const Text(
+              '确定要关闭 Nya LoCyanFrp! 吗，要是 Frpc 没关掉猫猫会生气把 Frpc 一脚踹翻的哦！'),
+          actions: <Widget>[
+            TextButton(
+                child: const Text(
+                  '取消',
+                ),
+                onPressed: () async {
+                  shouldCloseWindowShow = true;
+                  Get.close(0);
+                }),
+            TextButton(
               child: const Text(
-                '取消',
+                '确定',
+                style: TextStyle(color: Colors.red),
               ),
-              onPressed: () async {
-                Get.close(0);
-              }),
-          TextButton(
-            child: const Text(
-              '确定',
-              style: TextStyle(color: Colors.red),
+              onPressed: () {
+                try {
+                  FrpcProcessManager().killAll();
+                } catch (e) {
+                  Logger.error('Failed to close all process: $e');
+                }
+                appWindow.close();
+                windowManager.destroy();
+              },
             ),
-            onPressed: () {
-              try {
-                FrpcProcessManager().killAll();
-              } catch (e) {
-                Logger.error('Failed to close all process: $e');
-              }
-              appWindow.close();
-              windowManager.destroy();
-            },
-          ),
-        ],
-      ));
+          ],
+        ));
+      } else {
+        shouldCloseWindowShow = true;
+      }
     }
   }
 }

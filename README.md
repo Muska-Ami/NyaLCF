@@ -36,6 +36,9 @@ The next generation of LoCyanFrp launcher.
 - [x] 暗色主题
 - [x] 仅Frp Token模式
 
+本软件运行需要Microsoft Visual C++ Redistributable运行时，如无法打开请尝试从此处下载安装运行时再使用。
+[https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+
 ## Repo stats
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de384a8e9f2a47b5b26f80c61c2a8bfd)](https://app.codacy.com/gh/Muska-Ami/NyaLCF/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
