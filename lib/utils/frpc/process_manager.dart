@@ -92,11 +92,11 @@ class FrpcProcessManager {
       for (var element in allList) {
         kill(element);
       }
+      cctr.clearProcess();
     } catch (e) {
       fctr.appendErrorLog('[SYSTEM][ERROR] Killing all process error: $e');
       Logger.error(e);
     }
-    cctr.clearProcess();
     Logger.info('All process killed');
     fctr.appendInfoLog('[SYSTEM][INFO] All process killed');
   }
