@@ -83,6 +83,7 @@ class MainWindow {
             ),
           ],
         ));
+        shouldCloseWindowShow = true;
       } else {
         shouldCloseWindowShow = true;
       }
