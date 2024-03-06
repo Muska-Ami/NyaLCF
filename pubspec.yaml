@@ -42,7 +42,7 @@ dependencies:
   path_provider: ^2.1.1
   shared_preferences: ^2.2.2
   get: ^4.6.6
-  flutter_markdown: ^0.6.20
+  flutter_markdown: ^0.6.21
   archive: ^3.4.9
   package_info_plus: ^5.0.1
   flutter_code_editor: ^0.3.1
