@@ -63,7 +63,6 @@ class MainWindow {
                   '取消',
                 ),
                 onPressed: () async {
-                  shouldCloseWindowShow = true;
                   Get.close(0);
                 }),
             TextButton(
