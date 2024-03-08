@@ -3,17 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/models/proxy_info_model.dart';
+import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
+import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
+import 'package:nyalcf/utils/frpc/process_manager.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/proxies/configuration.dart';
 import 'package:nyalcf/utils/network/dio/proxies/get.dart';
-import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf/models/proxy_info_model.dart';
-import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
-import 'package:nyalcf/utils/logger.dart';
-import 'package:nyalcf/utils/frpc/process_manager.dart';
-import 'package:nyalcf/controllers/frpc_controller.dart';
+import 'package:nyalcf/utils/network/dio/proxies/status.dart';
 
 /// 代理 GetX 状态控制器
 class ProxiesController extends GetxController {
@@ -42,6 +43,8 @@ class ProxiesController extends GetxController {
   //     DataCell(Text('-')),
   //   ])
   // ].obs;
+
+  var proxiesStatus = <int, bool?>{}.obs;
 
   var proxiesWidgets = <Widget>[
     const SizedBox(
@@ -83,6 +86,7 @@ class ProxiesController extends GetxController {
         //   ],
         // ));
         // 新UI
+        _getProxiesStatus(element);
         proxiesWidgets.add(
           SizedBox(
             width: 380,
@@ -93,7 +97,9 @@ class ProxiesController extends GetxController {
                 children: <Widget>[
                   ListTile(
                     title: SizedBox(
-                        height: 40.0, child: SelectableText(element.proxyName)),
+                      height: 40.0,
+                      child: SelectableText(element.proxyName),
+                    ),
                     subtitle: Row(
                       children: <Widget>[
                         Container(
@@ -102,6 +108,14 @@ class ProxiesController extends GetxController {
                           decoration:
                               BoxDecoration(color: Get.theme.focusColor),
                           child: Text(element.proxyType.toUpperCase()),
+                        ),
+                        Obx(
+                          () => Icon(
+                            Icons.circle,
+                            color:
+                                _getProxyStatusColor(proxiesStatus[element.id]),
+                            size: 15.0,
+                          ),
                         ),
                         SelectableText('ID: ${element.id.toString()}'),
                       ],
@@ -144,6 +158,31 @@ class ProxiesController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );
+    }
+  }
+
+  _getProxiesStatus(ProxyInfoModel proxy) async {
+    final res =
+        await ProxiesStatusDio().getProxyStatus(proxy, uctr.token.value);
+    switch (res.status) {
+      case 'online':
+        proxiesStatus[proxy.id] = true;
+        break;
+      case 'offline':
+        proxiesStatus[proxy.id] = false;
+        break;
+      case null:
+        proxiesStatus[proxy.id] = null;
+    }
+  }
+
+  _getProxyStatusColor(bool? input) {
+    if (input == null) {
+      return Colors.grey;
+    } else if (input) {
+      return Colors.green;
+    } else {
+      return Colors.red;
     }
   }
 

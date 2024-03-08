@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
-import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/path_provider.dart';
 
 class FrpcStoryStorage {
   static final _supportPath = PathProvider.appSupportPath;

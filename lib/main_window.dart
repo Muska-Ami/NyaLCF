@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/main_tray.dart';
 import 'package:nyalcf/protocol_activation.dart';
-import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 

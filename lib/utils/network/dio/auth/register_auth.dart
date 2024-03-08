@@ -1,10 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:nyalcf/utils/logger.dart';
-
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
 
 class RegisterAuth {
-  final dio = Dio();
+  final dio = Dio(options);
 
   Future<dynamic> requestRegister(
       user, password, confirmPassword, email, verify, qq) async {
@@ -19,8 +18,7 @@ class RegisterAuth {
     try {
       Logger.debug(
           'Post register: $user - $email / $password - $confirmPassword / $verify');
-      final response = await dio
-          .post('${BasicDioConfig.api_v2_url}/users/register', data: data);
+      final response = await dio.post('$apiV2Url/users/register', data: data);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
@@ -41,7 +39,7 @@ class RegisterAuth {
       Map<String, dynamic> paramsMap = {};
       paramsMap['email'] = email;
       final response = await dio.get(
-        '${BasicDioConfig.api_v2_url}/users/send',
+        '$apiV2Url/users/send',
         queryParameters: paramsMap,
       );
       final resData = response.data;

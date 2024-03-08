@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
 import 'package:nyalcf/utils/path_provider.dart';
-import 'package:nyalcf/utils/logger.dart';
 
 class FrpcDownloadDio {
-  final dio = Dio();
+  final dio = Dio(options);
   final _cachePath = PathProvider.appCachePath;
 
   /// 下载Frpc
@@ -20,9 +20,9 @@ class FrpcDownloadDio {
     try {
       final String downloadBasicUrl;
       if (useMirror) {
-        downloadBasicUrl = BasicDioConfig.github_mirrors_url;
+        downloadBasicUrl = githubMirrorsUrl;
       } else {
-        downloadBasicUrl = BasicDioConfig.github_main_url;
+        downloadBasicUrl = githubMainUrl;
       }
 
       if (platform == 'windows') {

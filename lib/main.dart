@@ -1,12 +1,10 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
-import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf/storages/injector.dart';
-import 'package:nyalcf/utils/path_provider.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/main_tray.dart';
 import 'package:nyalcf/main_window.dart';
-import 'package:tray_manager/tray_manager.dart';
-import 'package:get/get.dart';
+import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/storages/injector.dart';
 import 'package:nyalcf/ui/views/auth/login.dart';
 import 'package:nyalcf/ui/views/auth/register.dart';
 import 'package:nyalcf/ui/views/auth/tokenmode.dart';
@@ -19,12 +17,17 @@ import 'package:nyalcf/ui/views/panel/proxies_outdated.dart'
 import 'package:nyalcf/ui/views/setting/injector.dart';
 import 'package:nyalcf/ui/views/tokenmode/panel.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/path_provider.dart';
+import 'package:nyalcf/utils/universe.dart';
 import 'package:nyalcf/utils/updater.dart';
+import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
+
+  await Universe.loadUniverse();
 
   /// 初始化配置文件
   await PathProvider.loadSyncPath();
@@ -99,10 +102,13 @@ class _AppState extends State<App> with WindowListener, TrayListener {
 
   @override
   onWindowClose() => MainWindow.onWindowClose();
+
   @override
   onTrayIconMouseDown() => MainTray.onTrayIconMouseDown();
+
   @override
   onTrayIconRightMouseDown() => MainTray.onTrayIconRightMouseDown();
+
   @override
   onTrayMenuItemClick(MenuItem menuItem) =>
       MainTray.onTrayMenuItemClick(menuItem);

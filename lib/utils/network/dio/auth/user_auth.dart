@@ -4,7 +4,7 @@ import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
 
 class UserAuth {
-  final dio = Dio();
+  final dio = Dio(options);
 
   Future<bool> checkToken(token) async {
     try {
@@ -13,7 +13,7 @@ class UserAuth {
       paramsMap['token'] = token;
 
       final res = await dio.get(
-        '${BasicDioConfig.api_v2_url}/check/token',
+        '$apiV2Url/check/token',
         queryParameters: paramsMap,
       );
       Logger.debug(res.data);
@@ -39,7 +39,7 @@ class UserAuth {
       options = options.copyWith(headers: optionsMap);
 
       final res = await dio.get(
-        '${BasicDioConfig.api_v2_url}/users/info',
+        '$apiV2Url/users/info',
         queryParameters: paramsMap,
         options: options,
       );
