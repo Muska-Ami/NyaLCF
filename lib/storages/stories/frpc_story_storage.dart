@@ -35,7 +35,7 @@ class FrpcStoryStorage {
       Logger.debug('Path check passed.');
       return path;
     } else {
-        return null;
+      return null;
     }
   }
 

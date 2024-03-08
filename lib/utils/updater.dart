@@ -16,10 +16,12 @@ class Updater {
 
       /// 获取远程源版本
       result.then((uIf) {
-        Logger.debug('${uIf?.version} | v${pakInf.version}+${pakInf.buildNumber}');
+        Logger.debug(
+            '${uIf?.version} | v${pakInf.version}+${pakInf.buildNumber}');
 
         /// 比对是否一致
-        if (uIf?.version != null && 'v${pakInf.version}+${pakInf.buildNumber}' != uIf?.version) {
+        if (uIf?.version != null &&
+            'v${pakInf.version}+${pakInf.buildNumber}' != uIf?.version) {
           /// 否
           Logger.info('New version: ${uIf?.version}');
           Get.dialog(AlertDialog(

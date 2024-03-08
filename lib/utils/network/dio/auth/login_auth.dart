@@ -17,14 +17,14 @@ class LoginAuth {
       final resData = responseJson['data'];
       if (responseJson['status'] == 200) {
         final userInfo = UserInfoModel(
-            user: resData['username'],
-            email: resData['email'],
-            token: resData['token'],
-            avatar: resData['avatar'],
-            inbound: resData['inbound'],
-            outbound: resData['outbound'],
-            frpToken: resData['frp_token'],
-            traffic: int.parse(resData['traffic']),
+          user: resData['username'],
+          email: resData['email'],
+          token: resData['token'],
+          avatar: resData['avatar'],
+          inbound: resData['inbound'],
+          outbound: resData['outbound'],
+          frpToken: resData['frp_token'],
+          traffic: int.parse(resData['traffic']),
         );
         return userInfo;
       } else {

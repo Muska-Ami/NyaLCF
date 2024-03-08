@@ -24,8 +24,8 @@ class FrpcArchive {
     /// 确认 Frpc 是否存在
     if (await f.exists()) {
       extractFileToDisk(f.path, _cachePath!);
-      final dir =
-          Directory('$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
+      final dir = Directory(
+          '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
       PathProvider.moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
       return true;
     } else {

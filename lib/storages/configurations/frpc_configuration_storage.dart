@@ -37,5 +37,4 @@ class FrpcConfigurationStorage extends JsonConfiguration {
     list.add(value);
     cfg.setStringList('lists.frpc_installed_versions', list);
   }
-
 }

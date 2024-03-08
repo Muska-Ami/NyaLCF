@@ -84,11 +84,11 @@ class FrpcProcessManager {
 
   void killAll() {
     Logger.info('Killing all process');
-    Logger.debug('Process length: ${cctr.processList.length}');
+    Logger.debug('Process length: ${ConsoleController.processList.length}');
     fctr.appendInfoLog('[SYSTEM][INFO] Killing all process...');
     try {
       var allList = [];
-      allList.addAll(cctr.processList);
+      allList.addAll(ConsoleController.processList);
       for (var element in allList) {
         kill(element);
       }
@@ -108,6 +108,6 @@ class FrpcProcessManager {
     prs['process'].kill();
     cctr.removeProcess(prs);
 
-    Logger.debug('Process length: ${cctr.processList.length}');
+    Logger.debug('Process length: ${ConsoleController.processList.length}');
   }
 }

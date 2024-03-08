@@ -25,67 +25,119 @@ class ProxiesController extends GetxController {
   final FrpcController fctr = Get.find();
   final UserController uctr = Get.find();
 
-  var proxiesListWidgets = <DataRow>[
-    const DataRow(cells: <DataCell>[
-      DataCell(SizedBox(
-        height: 22.0,
-        width: 22.0,
-        child: CircularProgressIndicator(
-          strokeWidth: 2,
-        ),
-      )),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-    ])
+  // var proxiesListWidgets = <DataRow>[
+  //   const DataRow(cells: <DataCell>[
+  //     DataCell(SizedBox(
+  //       height: 22.0,
+  //       width: 22.0,
+  //       child: CircularProgressIndicator(
+  //         strokeWidth: 2,
+  //       ),
+  //     )),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //   ])
+  // ].obs;
+
+  var proxiesWidgets = <Widget>[
+    const SizedBox(
+      height: 22.0,
+      width: 22.0,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+      ),
+    ),
   ].obs;
 
   /// 加载代理列表
   load(username, token) async {
     var proxies = await ProxiesGetDio().get(username, token);
     if (proxies is List<ProxyInfoModel>) {
-      proxiesListWidgets.value = <DataRow>[];
-      proxies.forEach(
-        (element) async => proxiesListWidgets.add(
-          DataRow(
-            cells: <DataCell>[
-              DataCell(
-                SizedBox(
-                  width: 150.0,
-                  height: 30.0,
-                  child: SelectableText(element.proxyName),
-                ),
+      // proxiesListWidgets.clear();
+      proxiesWidgets.clear();
+      ProxyInfoModel element;
+      for (element in proxies) {
+        // proxiesListWidgets.add(DataRow(
+        //   cells: <DataCell>[
+        //     DataCell(
+        //       SizedBox(
+        //         width: 150.0,
+        //         height: 30.0,
+        //         child: SelectableText(element.proxyName),
+        //       ),
+        //     ),
+        //     DataCell(SelectableText(element.id.toString())),
+        //     DataCell(SelectableText(element.node.toString())),
+        //     DataCell(SelectableText(element.proxyType)),
+        //     DataCell(SelectableText(element.localIP)),
+        //     DataCell(
+        //       SelectableText('${element.localPort} -> ${element.remotePort}'),
+        //     ),
+        //     DataCell(
+        //       Row(children: await _buildActions(element)),
+        //     ),
+        //   ],
+        // ));
+        // 新UI
+        proxiesWidgets.add(
+          SizedBox(
+            width: 380,
+            height: 200,
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    title: SizedBox(
+                        height: 40.0, child: SelectableText(element.proxyName)),
+                    subtitle: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(left: 5.0, right: 4.0),
+                          margin: const EdgeInsets.only(right: 5.0),
+                          decoration:
+                              BoxDecoration(color: Get.theme.focusColor),
+                          child: Text(element.proxyType.toUpperCase()),
+                        ),
+                        SelectableText('ID: ${element.id.toString()}'),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SelectableText('本地IP: ${element.localIP}'),
+                        SelectableText(
+                            '映射端口: ${element.localPort} -> ${element.remotePort}')
+                      ],
+                    ),
+                  ),
+                  Row(children: await _buildActions(element)),
+                ],
               ),
-              DataCell(SelectableText(element.id.toString())),
-              DataCell(SelectableText(element.node.toString())),
-              DataCell(SelectableText(element.proxyType)),
-              DataCell(SelectableText(element.localIP)),
-              DataCell(
-                SelectableText('${element.localPort} -> ${element.remotePort}'),
-              ),
-              DataCell(
-                Row(children: await _buildActions(element)),
-              ),
-            ],
+            ),
           ),
-        ),
-      );
-      proxiesListWidgets.refresh();
+        );
+      }
+      // proxiesListWidgets.refresh();
     } else {
-      proxiesListWidgets.value = <DataRow>[
-        const DataRow(cells: <DataCell>[
-          DataCell(Text('获取失败，请尝试刷新一下~')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-        ])
-      ];
+      // proxiesListWidgets.value = <DataRow>[
+      //   const DataRow(cells: <DataCell>[
+      //     DataCell(Text('获取失败，请尝试刷新一下~')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //   ])
+      // ];
       Get.snackbar(
         '发生错误',
         '无法获取隧道列表信息： $proxies',
@@ -222,23 +274,23 @@ class ProxiesController extends GetxController {
 
   /// 重新加载代理列表
   reload(username, token) {
-    proxiesListWidgets.value = <DataRow>[
-      const DataRow(cells: <DataCell>[
-        DataCell(SizedBox(
-          height: 22.0,
-          width: 22.0,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-          ),
-        )),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-      ])
-    ];
+    // proxiesListWidgets.value = <DataRow>[
+    //   const DataRow(cells: <DataCell>[
+    //     DataCell(SizedBox(
+    //       height: 22.0,
+    //       width: 22.0,
+    //       child: CircularProgressIndicator(
+    //         strokeWidth: 2,
+    //       ),
+    //     )),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //   ])
+    // ];
     load(username, token);
   }
 }

@@ -14,6 +14,8 @@ import 'package:nyalcf/ui/views/home.dart';
 import 'package:nyalcf/ui/views/panel/console.dart';
 import 'package:nyalcf/ui/views/panel/home.dart';
 import 'package:nyalcf/ui/views/panel/proxies.dart';
+import 'package:nyalcf/ui/views/panel/proxies_outdated.dart'
+    as panel_proxies_legacy;
 import 'package:nyalcf/ui/views/setting/injector.dart';
 import 'package:nyalcf/ui/views/tokenmode/panel.dart';
 import 'package:nyalcf/utils/logger.dart';
@@ -64,6 +66,8 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/token_mode/panel': (context) => TokenModePanel(title: title),
         '/panel/home': (context) => PanelHome(title: title),
         '/panel/proxies': (context) => PanelProxies(title: title),
+        '/panel/proxies_legacy': (context) =>
+            panel_proxies_legacy.PanelProxies(title: title),
         '/panel/console': (context) => PanelConsole(title: title),
         '/setting': (context) => SettingInjector(title: title),
       },

@@ -9,7 +9,7 @@ class ConsoleController extends GetxController {
   var widgets = <DataRow>[].obs;
 
   /// UI组件列表
-  var processList = <Map<String, dynamic>>[].obs;
+  static var processList = <Map<String, dynamic>>[].obs;
 
   /// 进程管理列表
 
