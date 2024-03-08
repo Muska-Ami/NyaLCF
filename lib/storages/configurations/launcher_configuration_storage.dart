@@ -14,7 +14,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
 
   @override
   Future<Map<String, dynamic>> get defConfig async => {
-        'debug': true,
+        'debug': false,
         'theme': {
           'auto': true,
           'dark': {
