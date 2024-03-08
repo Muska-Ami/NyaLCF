@@ -28,7 +28,7 @@ class FrpcDownloadDio {
       if (platform == 'windows') {
         Logger.debug('Windows, download zip');
         return await dio.download(
-          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version}_${platform}_$arch.zip',
+          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch.zip',
           '$_cachePath/frpc.zip',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
@@ -36,7 +36,7 @@ class FrpcDownloadDio {
       } else {
         Logger.debug('Download tar.gz');
         return await dio.download(
-          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version}_${platform}_$arch.tar.gz',
+          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch.tar.gz',
           '$_cachePath/frpc.tar.gz',
           cancelToken: cancelToken,
           onReceiveProgress: progressCallback,
