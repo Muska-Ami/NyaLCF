@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/ui/models/frpc_download_dialog.dart';
+import 'package:nyalcf/ui/models/frpc_download_tip.dart';
+import 'package:nyalcf/utils/cpu_arch.dart';
 import 'package:nyalcf/utils/frpc/archive.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
 import 'package:nyalcf/utils/logger.dart';
-import 'package:nyalcf/ui/models/frpc_download_tip.dart';
-import 'package:nyalcf/utils/cpu_arch.dart';
 
 class FrpcSettingController extends GetxController {
   FrpcSettingController({required this.context});
@@ -19,6 +19,7 @@ class FrpcSettingController extends GetxController {
   final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
   String platform = '';
+
   // String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   Rx<Widget> frpcDownloadTip = const Card().obs;

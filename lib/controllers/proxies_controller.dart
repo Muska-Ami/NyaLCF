@@ -3,17 +3,18 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/models/proxy_info_model.dart';
+import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
+import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
+import 'package:nyalcf/utils/frpc/process_manager.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/proxies/configuration.dart';
 import 'package:nyalcf/utils/network/dio/proxies/get.dart';
-import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf/models/proxy_info_model.dart';
-import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
-import 'package:nyalcf/utils/logger.dart';
-import 'package:nyalcf/utils/frpc/process_manager.dart';
-import 'package:nyalcf/controllers/frpc_controller.dart';
+import 'package:nyalcf/utils/network/dio/proxies/status.dart';
 
 /// 代理 GetX 状态控制器
 class ProxiesController extends GetxController {
@@ -25,73 +26,163 @@ class ProxiesController extends GetxController {
   final FrpcController fctr = Get.find();
   final UserController uctr = Get.find();
 
-  var proxiesListWidgets = <DataRow>[
-    const DataRow(cells: <DataCell>[
-      DataCell(SizedBox(
-        height: 22.0,
-        width: 22.0,
-        child: CircularProgressIndicator(
-          strokeWidth: 2,
-        ),
-      )),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-      DataCell(Text('-')),
-    ])
+  // var proxiesListWidgets = <DataRow>[
+  //   const DataRow(cells: <DataCell>[
+  //     DataCell(SizedBox(
+  //       height: 22.0,
+  //       width: 22.0,
+  //       child: CircularProgressIndicator(
+  //         strokeWidth: 2,
+  //       ),
+  //     )),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //     DataCell(Text('-')),
+  //   ])
+  // ].obs;
+
+  var proxiesStatus = <int, bool?>{}.obs;
+
+  var proxiesWidgets = <Widget>[
+    const SizedBox(
+      height: 22.0,
+      width: 22.0,
+      child: CircularProgressIndicator(
+        strokeWidth: 2,
+      ),
+    ),
   ].obs;
 
   /// 加载代理列表
   load(username, token) async {
     var proxies = await ProxiesGetDio().get(username, token);
     if (proxies is List<ProxyInfoModel>) {
-      proxiesListWidgets.value = <DataRow>[];
-      proxies.forEach(
-        (element) async => proxiesListWidgets.add(
-          DataRow(
-            cells: <DataCell>[
-              DataCell(
-                SizedBox(
-                  width: 150.0,
-                  height: 30.0,
-                  child: SelectableText(element.proxyName),
-                ),
+      // proxiesListWidgets.clear();
+      proxiesWidgets.clear();
+      ProxyInfoModel element;
+      for (element in proxies) {
+        // proxiesListWidgets.add(DataRow(
+        //   cells: <DataCell>[
+        //     DataCell(
+        //       SizedBox(
+        //         width: 150.0,
+        //         height: 30.0,
+        //         child: SelectableText(element.proxyName),
+        //       ),
+        //     ),
+        //     DataCell(SelectableText(element.id.toString())),
+        //     DataCell(SelectableText(element.node.toString())),
+        //     DataCell(SelectableText(element.proxyType)),
+        //     DataCell(SelectableText(element.localIP)),
+        //     DataCell(
+        //       SelectableText('${element.localPort} -> ${element.remotePort}'),
+        //     ),
+        //     DataCell(
+        //       Row(children: await _buildActions(element)),
+        //     ),
+        //   ],
+        // ));
+        // 新UI
+        _getProxiesStatus(element);
+        proxiesWidgets.add(
+          SizedBox(
+            width: 380,
+            height: 200,
+            child: Card(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  ListTile(
+                    title: SizedBox(
+                      height: 40.0,
+                      child: SelectableText(element.proxyName),
+                    ),
+                    subtitle: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: const EdgeInsets.only(left: 5.0, right: 4.0),
+                          margin: const EdgeInsets.only(right: 5.0),
+                          decoration:
+                              BoxDecoration(color: Get.theme.focusColor),
+                          child: Text(element.proxyType.toUpperCase()),
+                        ),
+                        Obx(
+                          () => Icon(
+                            Icons.circle,
+                            color:
+                                _getProxyStatusColor(proxiesStatus[element.id]),
+                            size: 15.0,
+                          ),
+                        ),
+                        SelectableText('ID: ${element.id.toString()}'),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(15.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        SelectableText('本地IP: ${element.localIP}'),
+                        SelectableText(
+                            '映射端口: ${element.localPort} -> ${element.remotePort}')
+                      ],
+                    ),
+                  ),
+                  Row(children: await _buildActions(element)),
+                ],
               ),
-              DataCell(SelectableText(element.id.toString())),
-              DataCell(SelectableText(element.node.toString())),
-              DataCell(SelectableText(element.proxyType)),
-              DataCell(SelectableText(element.localIP)),
-              DataCell(
-                SelectableText('${element.localPort} -> ${element.remotePort}'),
-              ),
-              DataCell(
-                Row(children: await _buildActions(element)),
-              ),
-            ],
+            ),
           ),
-        ),
-      );
-      proxiesListWidgets.refresh();
+        );
+      }
+      // proxiesListWidgets.refresh();
     } else {
-      proxiesListWidgets.value = <DataRow>[
-        const DataRow(cells: <DataCell>[
-          DataCell(Text('获取失败，请尝试刷新一下~')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-          DataCell(Text('-')),
-        ])
-      ];
+      // proxiesListWidgets.value = <DataRow>[
+      //   const DataRow(cells: <DataCell>[
+      //     DataCell(Text('获取失败，请尝试刷新一下~')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //     DataCell(Text('-')),
+      //   ])
+      // ];
       Get.snackbar(
         '发生错误',
         '无法获取隧道列表信息： $proxies',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );
+    }
+  }
+
+  _getProxiesStatus(ProxyInfoModel proxy) async {
+    final res =
+        await ProxiesStatusDio().getProxyStatus(proxy, uctr.token.value);
+    switch (res.status) {
+      case 'online':
+        proxiesStatus[proxy.id] = true;
+        break;
+      case 'offline':
+        proxiesStatus[proxy.id] = false;
+        break;
+      case null:
+        proxiesStatus[proxy.id] = null;
+    }
+  }
+
+  _getProxyStatusColor(bool? input) {
+    if (input == null) {
+      return Colors.grey;
+    } else if (input) {
+      return Colors.green;
+    } else {
+      return Colors.red;
     }
   }
 
@@ -222,23 +313,23 @@ class ProxiesController extends GetxController {
 
   /// 重新加载代理列表
   reload(username, token) {
-    proxiesListWidgets.value = <DataRow>[
-      const DataRow(cells: <DataCell>[
-        DataCell(SizedBox(
-          height: 22.0,
-          width: 22.0,
-          child: CircularProgressIndicator(
-            strokeWidth: 2,
-          ),
-        )),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-        DataCell(Text('-')),
-      ])
-    ];
+    // proxiesListWidgets.value = <DataRow>[
+    //   const DataRow(cells: <DataCell>[
+    //     DataCell(SizedBox(
+    //       height: 22.0,
+    //       width: 22.0,
+    //       child: CircularProgressIndicator(
+    //         strokeWidth: 2,
+    //       ),
+    //     )),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //     DataCell(Text('-')),
+    //   ])
+    // ];
     load(username, token);
   }
 }

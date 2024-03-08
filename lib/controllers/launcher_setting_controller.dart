@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:nyalcf/utils/logger.dart';
 
 class DSettingLauncherController extends GetxController {
   final lcs = LauncherConfigurationStorage();
-
-  var appName = ''.obs;
-  var appVersion = ''.obs;
-  var appBuildNumber = ''.obs;
-  var appPackageName = ''.obs;
 
   var themeAuto = false.obs;
   var themeDark = false.obs;
@@ -22,12 +16,6 @@ class DSettingLauncherController extends GetxController {
   var debugMode = false.obs;
 
   load() async {
-    final packageInfo = await PackageInfo.fromPlatform();
-    appName.value = packageInfo.appName;
-    appVersion.value = packageInfo.version;
-    appPackageName.value = packageInfo.packageName;
-    appBuildNumber.value = packageInfo.buildNumber;
-
     themeLightSeed.value = lcs.getThemeLightSeedValue();
     themeLightSeedEnable.value = lcs.getThemeLightSeedEnable();
     // 新配置

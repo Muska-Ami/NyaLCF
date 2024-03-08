@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_code_editor/flutter_code_editor.dart';
-import 'package:get/get.dart';
-import 'package:highlight/languages/ini.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf/controllers/proxies_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
+import 'package:nyalcf/utils/highlight/ini_fix.dart';
 
 class FrpcConfigEditorDialogX {
   FrpcConfigEditorDialogX({
@@ -36,10 +36,7 @@ class FrpcConfigEditorDialogX {
           child: SingleChildScrollView(
               child: CodeField(
             controller: c,
-            gutterStyle: const GutterStyle(
-              showErrors: false,
-              showLineNumbers: false,
-            ),
+            gutterStyle: GutterStyle.none,
             textStyle: const TextStyle(
               fontFamily: 'Droid Sans Mono',
               fontSize: 12,

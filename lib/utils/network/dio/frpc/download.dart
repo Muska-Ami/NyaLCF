@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
 import 'package:nyalcf/utils/path_provider.dart';
-import 'package:nyalcf/utils/logger.dart';
 
 class FrpcDownloadDio {
-  final dio = Dio();
+  final dio = Dio(options);
   final _cachePath = PathProvider.appCachePath;
 
   /// 下载Frpc
@@ -20,28 +20,23 @@ class FrpcDownloadDio {
     try {
       final String downloadBasicUrl;
       if (useMirror) {
-        downloadBasicUrl = BasicDioConfig.github_mirrors_url;
+        downloadBasicUrl = githubMirrorsUrl;
       } else {
-        downloadBasicUrl = BasicDioConfig.github_main_url;
+        downloadBasicUrl = githubMainUrl;
       }
 
+      final String suffix;
       if (platform == 'windows') {
-        Logger.debug('Windows, download zip');
-        return await dio.download(
-          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version}_${platform}_$arch.zip',
-          '$_cachePath/frpc.zip',
-          cancelToken: cancelToken,
-          onReceiveProgress: progressCallback,
-        );
+        suffix = 'zip';
       } else {
-        Logger.debug('Download tar.gz');
-        return await dio.download(
-          '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version}_${platform}_$arch.tar.gz',
-          '$_cachePath/frpc.tar.gz',
-          cancelToken: cancelToken,
-          onReceiveProgress: progressCallback,
-        );
+        suffix = 'tar.gz';
       }
+      return await dio.download(
+        '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch.$suffix',
+        '$_cachePath/frpc.$suffix',
+        cancelToken: cancelToken,
+        onReceiveProgress: progressCallback,
+      );
     } on DioException catch (e) {
       if (cancelToken.isCancelled) {
         return true;

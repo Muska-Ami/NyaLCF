@@ -10,11 +10,14 @@ abstract class JsonConfiguration {
 
   /// 配置文件和默认ConfigMap
   File? file;
+
   String get handle;
+
   Future<Map<String, dynamic>> get defConfig async => {};
 
   /// 附加Init方法
   void init() => {};
+
   Future<void> asyncInit() async => {};
 
   FileConfiguration get cfg => FileConfiguration(

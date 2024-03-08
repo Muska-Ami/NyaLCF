@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/utils/path_provider.dart';
+import 'package:nyalcf/utils/universe.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:nyalcf/utils/path_provider.dart';
 
 class LauncherSetting {
   final DSettingLauncherController dsctr = Get.find();
@@ -184,18 +185,16 @@ class LauncherSetting {
                 Container(
                   margin: const EdgeInsets.only(
                       left: 20.0, right: 20.0, bottom: 10.0),
-                  child: Obx(
-                    () => Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        const SelectableText('通用软件名称：Nya LoCyanFrp! 乐青映射启动器'),
-                        SelectableText('内部软件名称：${dsctr.appName}'),
-                        SelectableText('内部软件包名：${dsctr.appPackageName}'),
-                        SelectableText(
-                            '软件版本：${dsctr.appVersion} (+${dsctr.appBuildNumber})'),
-                        const SelectableText('著作权信息：登记中'),
-                      ],
-                    ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      const SelectableText('通用软件名称：Nya LoCyanFrp! 乐青映射启动器'),
+                      SelectableText('内部软件名称：${Universe.appName}'),
+                      SelectableText('内部软件包名：${Universe.appPackageName}'),
+                      SelectableText(
+                          '软件版本：${Universe.appVersion} (+${Universe.appBuildNumber})'),
+                      const SelectableText('著作权信息：登记中'),
+                    ],
                   ),
                 ),
                 Container(

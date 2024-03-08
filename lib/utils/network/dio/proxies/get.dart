@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/network/dio/basic_config.dart';
 import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/network/dio/basic_config.dart';
 
 class ProxiesGetDio {
-  final dio = Dio();
+  final dio = Dio(options);
 
   Future<dynamic> get(username, token) async {
     try {
@@ -21,7 +21,7 @@ class ProxiesGetDio {
       //print(options.headers?.keys);
 
       var response = await dio.get(
-        '${BasicDioConfig.api_v2_url}/proxies/getlist',
+        '$apiV2Url/proxies/getlist',
         queryParameters: paramsMap,
         options: options,
       );

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf/utils/network/dio/frpc/download.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/network/dio/frpc/download.dart';
 
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});

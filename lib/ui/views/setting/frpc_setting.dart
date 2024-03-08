@@ -5,6 +5,7 @@ import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 
 class FrpcSetting {
   FrpcSetting({required this.context});
+
   final BuildContext context;
   final fcs = FrpcConfigurationStorage();
   final FrpcSettingController dsctr = Get.find();

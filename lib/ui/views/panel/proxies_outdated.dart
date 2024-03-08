@@ -16,6 +16,7 @@ class PanelProxies extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pctr = Get.put(ProxiesController(context: context));
+
     pctr.load(uctr.user, uctr.token);
 
     return Scaffold(
@@ -42,7 +43,7 @@ class PanelProxies extends StatelessWidget {
       ),
       drawer: DrawerX(context: context).drawer(),
       body: Container(
-        margin: const EdgeInsets.all(15.0),
+        margin: const EdgeInsets.all(40.0),
         child: ListView(
           children: <Widget>[
             ElevatedButton(
@@ -52,12 +53,27 @@ class PanelProxies extends StatelessWidget {
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
               ),
             ),
-            Container(margin: const EdgeInsets.all(4)),
-            Obx(() => Wrap(
-                  spacing: 8.0, // 水平间距
-                  runSpacing: 4.0,
-                  children: pctr.proxiesWidgets.value,
-                ))
+            Obx(
+              () => Column(
+                children: <Widget>[
+                  DataTable(
+                    columnSpacing: 10.0,
+                    columns: const <DataColumn>[
+                      DataColumn(label: Flexible(child: Text('名称'))),
+                      DataColumn(label: Flexible(child: Text('ID'))),
+                      DataColumn(label: Flexible(child: Text('节点'))),
+                      DataColumn(label: Flexible(child: Text('协议'))),
+                      DataColumn(label: Flexible(child: Text('本地IP'))),
+                      DataColumn(label: Flexible(child: Text('端口'))),
+                      DataColumn(label: Flexible(child: Text('操作')))
+                    ],
+                    rows: [],
+                    //rows: pctr.proxiesListWidgets.value,
+                  ),
+                ],
+              ),
+            ),
+            // ElevatedButton(onPressed: () => Get.toNamed('/panel/proxies_new'), child: Text(''))
           ],
         ),
       ),

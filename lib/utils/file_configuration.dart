@@ -22,29 +22,37 @@ class FileConfiguration {
   /// 气死我里
   /// String
   void setString(String node, String value) => set(node, value);
+
   String getString(String node) => get(node);
+
   void setStringList(String node, List<String> value) => setList(node, value);
+
   List<String> getStringList(String node) =>
       getList(node).map((item) => item as String).toList();
 
   /// int
   void setInt(String node, int value) => set(node, value);
+
   int getInt(String node) => get(node);
 
   /// double
   void setDouble(String node, double value) => set(node, value);
+
   double getDouble(String node) => get(node);
 
   /// bool
   void setBool(String node, bool value) => set(node, value);
+
   bool getBool(String node) => get(node);
 
   /// Symbol
   void setSymbol(String node, Symbol value) => set(node, value);
+
   Symbol getSymbol(String node) => get(node);
 
   /// List
   void setList(String node, List value) => set(node, value);
+
   List getList(String node) => get(node);
 
   /// 设置值
