@@ -36,10 +36,7 @@ class FrpcConfigEditorDialogX {
           child: SingleChildScrollView(
               child: CodeField(
             controller: c,
-            gutterStyle: const GutterStyle(
-              showErrors: false,
-              showLineNumbers: false,
-            ),
+            gutterStyle: GutterStyle.none,
             textStyle: const TextStyle(
               fontFamily: 'Droid Sans Mono',
               fontSize: 12,
