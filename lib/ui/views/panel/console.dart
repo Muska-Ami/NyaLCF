@@ -69,15 +69,11 @@ class PanelConsole extends StatelessWidget {
                 children: <Widget>[
                   ElevatedButton(
                     child: const Text('查看进程列表'),
-                    onPressed: () {
+                    onPressed: () async {
                       Get.dialog(ProcessListDialogX(context: context).build());
                     },
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      FrpcProcessManager().killAll();
-                      cctr.widgets.refresh();
-                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
@@ -87,6 +83,17 @@ class PanelConsole extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    onPressed: () async {
+                      FrpcProcessManager().killAll();
+                      cctr.widgets.refresh();
+                    },
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.delete),
+                    tooltip: '清空日志',
+                    onPressed: () async {
+                      fctr.processOut.clear();
+                    },
                   ),
                 ],
               ),

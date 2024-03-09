@@ -47,13 +47,13 @@ final ini = Mode(
           relevance: 10,
         ),
         Mode(
-          begin: '\"\"\"',
-          end: '\"\"\"',
+          begin: '"""',
+          end: '"""',
           relevance: 10,
         ),
         Mode(
-          begin: '\"',
-          end: '\"',
+          begin: '"',
+          end: '"',
         ),
         Mode(
           begin: "'",
@@ -65,7 +65,7 @@ final ini = Mode(
       className: 'variable',
       variants: [
         Mode(
-          begin: '\\\$[\\w\\d\"][\\w\\d_]*',
+          begin: '\\\$[\\w\\d"][\\w\\d_]*',
         ),
         Mode(
           begin: '\\\$\\{(.*?)}',

@@ -44,7 +44,7 @@ class ProxiesController extends GetxController {
   //   ])
   // ].obs;
 
-  var proxiesStatus = <int, bool?>{}.obs;
+  final proxiesStatus = <int, bool?>{};
 
   var proxiesWidgets = <Widget>[
     const SizedBox(
@@ -86,7 +86,6 @@ class ProxiesController extends GetxController {
         //   ],
         // ));
         // 新UI
-        _getProxiesStatus(element);
         proxiesWidgets.add(
           SizedBox(
             width: 380,
@@ -109,13 +108,11 @@ class ProxiesController extends GetxController {
                               BoxDecoration(color: Get.theme.focusColor),
                           child: Text(element.proxyType.toUpperCase()),
                         ),
-                        Obx(
-                          () => Icon(
-                            Icons.circle,
-                            color:
-                                _getProxyStatusColor(proxiesStatus[element.id]),
-                            size: 15.0,
-                          ),
+                        Icon(
+                          Icons.circle,
+                          color: _getProxyStatusColor(
+                              proxiesStatus[element.id]),
+                          size: 15.0,
                         ),
                         SelectableText('ID: ${element.id.toString()}'),
                       ],
@@ -138,7 +135,9 @@ class ProxiesController extends GetxController {
             ),
           ),
         );
+        _getProxiesStatus(element);
       }
+      proxiesWidgets.refresh();
       // proxiesListWidgets.refresh();
     } else {
       // proxiesListWidgets.value = <DataRow>[
@@ -163,7 +162,8 @@ class ProxiesController extends GetxController {
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
     final res =
-        await ProxiesStatusDio().getProxyStatus(proxy, uctr.token.value);
+        await ProxiesStatusDio().getProxyStatus(proxy, uctr.frpToken.value);
+    Logger.debug(proxiesStatus);
     switch (res.status) {
       case 'online':
         proxiesStatus[proxy.id] = true;
@@ -176,7 +176,8 @@ class ProxiesController extends GetxController {
     }
   }
 
-  _getProxyStatusColor(bool? input) {
+  Color _getProxyStatusColor(bool? input) {
+    Logger.debug(input);
     if (input == null) {
       return Colors.grey;
     } else if (input) {

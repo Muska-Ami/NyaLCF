@@ -116,21 +116,18 @@ class _TokenModePanelState extends State {
                     child: const Text('启动'),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(left: 70.0),
+                    margin: const EdgeInsets.only(left: 30.0),
                     child: Row(
                       children: <Widget>[
                         ElevatedButton(
-                          onPressed: () {
+                          child: const Text('查看进程列表'),
+                          onPressed: () async {
                             Get.dialog(
                                 ProcessListDialogX(context: context).build());
                           },
-                          child: const Text('查看进程列表'),
                         ),
                         Container(margin: const EdgeInsets.only(left: 10.0)),
                         ElevatedButton(
-                          onPressed: () {
-                            FrpcProcessManager().killAll();
-                          },
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all(Colors.red),
@@ -141,6 +138,16 @@ class _TokenModePanelState extends State {
                               color: Colors.white,
                             ),
                           ),
+                          onPressed: () async {
+                          FrpcProcessManager().killAll();
+                        },
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.delete),
+                          tooltip: '清空日志',
+                          onPressed: () async {
+                            fctr.processOut.clear();
+                          },
                         ),
                       ],
                     ),

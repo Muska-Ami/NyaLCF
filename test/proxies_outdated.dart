@@ -67,7 +67,7 @@ class PanelProxies extends StatelessWidget {
                       DataColumn(label: Flexible(child: Text('端口'))),
                       DataColumn(label: Flexible(child: Text('操作')))
                     ],
-                    rows: [],
+                    rows: const [],
                     //rows: pctr.proxiesListWidgets.value,
                   ),
                 ],

@@ -158,9 +158,12 @@ class LauncherSetting {
                               ElevatedButton(
                                 onPressed: () async {
                                   File('$_supportPath/run.log').delete().then(
-                                        (value) =>
-                                            Get.snackbar('好耶！', '已清除日志文件喵'),
-                                      );
+                                        (value) => Get.snackbar(
+                                              '好耶！',
+                                              '已清除日志文件喵',
+                                              snackPosition: SnackPosition.BOTTOM,
+                                              animationDuration: const Duration(milliseconds: 300),
+                                        ));
                                 },
                                 child: const Text('清除日志'),
                               ),
