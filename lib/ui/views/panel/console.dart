@@ -74,10 +74,6 @@ class PanelConsole extends StatelessWidget {
                     },
                   ),
                   ElevatedButton(
-                    onPressed: () async {
-                      FrpcProcessManager().killAll();
-                      cctr.widgets.refresh();
-                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                     ),
@@ -87,6 +83,10 @@ class PanelConsole extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    onPressed: () async {
+                      FrpcProcessManager().killAll();
+                      cctr.widgets.refresh();
+                    },
                   ),
                   IconButton(
                     icon: const Icon(Icons.delete),
