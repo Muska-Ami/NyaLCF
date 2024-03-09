@@ -27,5 +27,5 @@ class ProxyInfoModel {
   final int id;
   final String proxyType;
   final bool useEncryption;
-  final status;
+  final String? status;
 }

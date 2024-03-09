@@ -36,9 +36,13 @@ abstract class JsonConfiguration {
   /// 默认初始化函数
   Future<void> initCfg() async {
     cfg.initMap();
-    cfg.fromMap(await defConfig);
-    //Logger.debug(file);
-    cfg.save();
+    if (await file?.exists() == true) {
+      cfg.fromString(await file!.readAsString());
+    } else {
+      cfg.fromMap(await defConfig);
+      //Logger.debug(file);
+      cfg.save();
+    }
     init();
     asyncInit();
   }
