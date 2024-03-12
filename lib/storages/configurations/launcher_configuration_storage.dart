@@ -53,20 +53,21 @@ class LauncherConfigurationStorage extends JsonConfiguration {
       cfg.setString('theme.light.seed.value', value);
 
   ThemeData getTheme() {
-    final bool systemThemeMode =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark;
-    final auto = cfg.getBool('theme.auto');
-    final darkEnable = cfg.getBool('theme.dark.enable');
-    if (auto) {
-      switch (systemThemeMode) {
-        case true:
-          return ThemeControl.dark;
-        case false:
-          return ThemeControl.light;
+    if (getThemeAuto()) {
+      final bool systemThemeDarkMode =
+          SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+              Brightness.dark;
+      if (systemThemeDarkMode) {
+        return ThemeControl.dark;
+      } else if (getThemeLightSeedEnable()) {
+        return ThemeControl.custom;
+      } else {
+        return ThemeControl.light;
       }
-    } else if (darkEnable) {
+    } else if (getThemeDarkEnable()) {
       return ThemeControl.dark;
+    } else if (getThemeLightSeedEnable()) {
+      return ThemeControl.custom;
     }
     return ThemeControl.light;
   }

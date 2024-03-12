@@ -18,11 +18,18 @@ class ThemeControl {
   /// 切换到暗色主题
   static void switchDarkTheme(bool value) {
     if (value) {
-      Get.changeTheme(dark);
+      Get.changeThemeMode(ThemeMode.dark);
       Logger.info('切换到暗色主题');
     } else {
-      Get.changeTheme(light);
-      Logger.info('切换到亮色主题');
+      if (lcs.getThemeLightSeedEnable()) {
+        Get.changeThemeMode(ThemeMode.light);
+        Get.changeTheme(custom);
+        Logger.info('切换到亮色主题，种子：${lcs.getThemeLightSeedValue()}');
+      } else {
+        Get.changeThemeMode(ThemeMode.light);
+        Get.changeTheme(light);
+        Logger.info('切换到亮色主题');
+      }
     }
   }
 
@@ -54,16 +61,29 @@ class ThemeControl {
   static final custom = ThemeData(
     useMaterial3: true,
     fontFamily: 'HarmonyOS Sans',
-    colorSchemeSeed: colorFromHexCode(lcs.getThemeLightSeedValue()),
+    brightness: Brightness.light,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: colorFromHexCode(lcs.getThemeLightSeedValue()),
+    ),
+    appBarTheme: AppBarTheme(
+      color: colorFromHexCode(lcs.getThemeLightSeedValue()),
+    ),
   );
 
-  static colorFromHexCode(String hex) {
-    return Color(
-      int.parse(
-            hex.substring(0, 6),
-            radix: 16,
-          ) +
-          0xFF000000,
-    );
+  static colorFromHexCode(String code) {
+    Logger.debug(code);
+    if (code.startsWith('#')) {
+      code = code.substring(1); // 移除 # 符号
+    }
+
+    if (code.length == 6) {
+      // 如果是 6 位十六进制颜色代码
+      return Color(int.parse(code, radix: 16) + 0xFF000000);
+    } else if (code.length == 8) {
+      // 如果是 8 位十六进制颜色代码（包含透明度）
+      return Color(int.parse(code, radix: 16));
+    } else {
+      throw UnimplementedError('Could not translate String into hex color');
+    }
   }
 }

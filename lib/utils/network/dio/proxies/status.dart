@@ -16,7 +16,7 @@ class ProxiesStatusDio {
     paramsMap['node_id'] = proxy.node;
 
     //Logger.debug(paramsMap);
-    
+
     try {
       final res = await dio.get('$apiV2Url/proxies/getStatus',
           queryParameters: paramsMap);
