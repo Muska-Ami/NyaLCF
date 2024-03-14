@@ -18,9 +18,11 @@ class Updater {
           '${uIf?.version} | v${Universe.appVersion}+${Universe.appBuildNumber}');
 
       /// 比对是否一致
-      if (uIf?.version != null &&
-          'v${Universe.appVersion}+${Universe.appBuildNumber}' !=
-              uIf?.version) {
+      if (
+          uIf?.version != null
+          && 'v${Universe.appVersion}+${Universe.appBuildNumber}' != uIf?.version
+          && 'v${Universe.appVersion}' != uIf?.version
+      ) {
         /// 否
         Logger.info('New version: ${uIf?.version}');
         Get.dialog(AlertDialog(
