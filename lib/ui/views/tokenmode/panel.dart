@@ -139,8 +139,8 @@ class _TokenModePanelState extends State {
                             ),
                           ),
                           onPressed: () async {
-                          FrpcProcessManager().killAll();
-                        },
+                            FrpcProcessManager().killAll();
+                          },
                         ),
                         IconButton(
                           icon: const Icon(Icons.delete),

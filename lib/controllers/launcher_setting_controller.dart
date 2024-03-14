@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/theme_control.dart';
 
 class DSettingLauncherController extends GetxController {
   final lcs = LauncherConfigurationStorage();
@@ -55,6 +56,7 @@ class DSettingLauncherController extends GetxController {
       Get.changeThemeMode(ThemeMode.dark);
     } else {
       Get.changeThemeMode(ThemeMode.light);
+      if (lcs.getThemeLightSeedEnable()) Get.changeTheme(ThemeControl.custom);
     }
     Get.forceAppUpdate();
     loadx();

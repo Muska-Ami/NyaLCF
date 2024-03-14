@@ -110,8 +110,8 @@ class ProxiesController extends GetxController {
                         ),
                         Icon(
                           Icons.circle,
-                          color: _getProxyStatusColor(
-                              proxiesStatus[element.id]),
+                          color:
+                              _getProxyStatusColor(proxiesStatus[element.id]),
                           size: 15.0,
                         ),
                         SelectableText('ID: ${element.id.toString()}'),

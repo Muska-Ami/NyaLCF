@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/path_provider.dart';
+import 'package:nyalcf/utils/theme_control.dart';
 import 'package:nyalcf/utils/universe.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +16,9 @@ class LauncherSetting {
   final lcs = LauncherConfigurationStorage();
 
   static final String? _supportPath = PathProvider.appSupportPath;
+
+  TextEditingController get _textEditingController =>
+      TextEditingController(text: lcs.getThemeLightSeedValue());
 
   Widget widget() {
     return Container(
@@ -57,8 +62,23 @@ class LauncherSetting {
                                 lcs.save();
                                 dsctr.themeAuto.value = value;
                                 dsctr.loadx();
-                                Get.forceAppUpdate();
-                                // ThemeControl.autoSet();
+                                if (value) {
+                                  ThemeControl.autoSet();
+                                } else if (lcs.getThemeDarkEnable()) {
+                                  // 暗色
+                                  Get.changeThemeMode(ThemeMode.dark);
+                                  Get.forceAppUpdate();
+                                } else {
+                                  // 亮色
+                                  Get.changeThemeMode(ThemeMode.light);
+                                  if (lcs.getThemeLightSeedEnable()) {
+                                    // 自定义
+                                    Get.changeTheme(ThemeControl.custom);
+                                  } else {
+                                    Get.changeTheme(ThemeControl.light);
+                                  }
+                                  Get.forceAppUpdate();
+                                }
                               },
                             ),
                           ],
@@ -76,17 +96,66 @@ class LauncherSetting {
                               width: 200,
                               child: Container(
                                 padding: const EdgeInsets.only(bottom: 10.0),
-                                child: const TextField(
-                                  decoration: InputDecoration(
+                                child: TextField(
+                                  controller: _textEditingController,
+                                  decoration: const InputDecoration(
                                     labelText: '十六进制颜色',
                                   ),
-                                  readOnly: true,
+                                  onSubmitted: (value) async {
+                                    late final String code;
+                                    if (value.startsWith('#')) {
+                                      code = value.substring(1); // 移除 # 符号
+                                    } else {
+                                      code = value;
+                                    }
+                                    if (code.length == 6 || code.length == 8) {
+                                      lcs.setThemeLightSeedValue(value);
+                                      lcs.save();
+                                      Logger.debug(value);
+                                      // 检查是否启用
+                                      // 必须要手动模式才执行操作
+                                      if (lcs.getThemeLightSeedEnable() &&
+                                          !lcs.getThemeAuto()) {
+                                        Get.changeThemeMode(ThemeMode.light);
+                                        Get.changeTheme(ThemeControl.custom);
+                                        Get.forceAppUpdate();
+                                      }
+                                    } else {
+                                      Get.snackbar(
+                                        '大笨蛋！',
+                                        '这不是有效的十六进制颜色代码哦！',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        animationDuration:
+                                            const Duration(milliseconds: 300),
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
                             ),
                             Switch(
                               value: dsctr.themeLightSeedEnable.value,
-                              onChanged: null,
+                              onChanged: (value) async {
+                                lcs.setThemeLightSeedEnable(value);
+                                Logger.debug(lcs.getThemeLightSeedEnable());
+                                lcs.save();
+                                // 必须要手动模式才执行操作
+                                if (!lcs.getThemeAuto()) {
+                                  if (value) {
+                                    // 自定义
+                                    Get.changeThemeMode(ThemeMode.light);
+                                    Get.changeTheme(ThemeControl.custom);
+                                  } else if (lcs.getThemeDarkEnable()) {
+                                    // 暗色
+                                    Get.changeThemeMode(ThemeMode.dark);
+                                  } else {
+                                    // 亮色
+                                    Get.changeThemeMode(ThemeMode.light);
+                                    Get.changeTheme(ThemeControl.light);
+                                  }
+                                }
+                                Get.forceAppUpdate();
+                              },
                             ),
                           ],
                         ),
@@ -157,13 +226,15 @@ class LauncherSetting {
                               ),
                               ElevatedButton(
                                 onPressed: () async {
-                                  File('$_supportPath/run.log').delete().then(
-                                        (value) => Get.snackbar(
-                                              '好耶！',
-                                              '已清除日志文件喵',
-                                              snackPosition: SnackPosition.BOTTOM,
-                                              animationDuration: const Duration(milliseconds: 300),
-                                        ));
+                                  File('$_supportPath/run.log')
+                                      .delete()
+                                      .then((value) => Get.snackbar(
+                                            '好耶！',
+                                            '已清除日志文件喵',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
+                                          ));
                                 },
                                 child: const Text('清除日志'),
                               ),
