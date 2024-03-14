@@ -31,6 +31,7 @@ class ThemeControl {
         Logger.info('切换到亮色主题');
       }
     }
+    Get.forceAppUpdate();
   }
 
   /// 暗色主题设置

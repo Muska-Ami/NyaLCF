@@ -61,6 +61,8 @@ class Home extends StatelessWidget {
 
 // _HC控制器
 class _HC extends GetxController {
+  static bool loaded = false;
+
   // 内容列表
   var w = <Widget>[
     const Text(
@@ -84,6 +86,7 @@ class _HC extends GetxController {
 
   // 加载控制器
   load() async {
+    if (loaded) return;
     // 读取用户信息
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
@@ -117,6 +120,7 @@ class _HC extends GetxController {
       // 重新初始化启动内容
       _initStartup();
     }
+    loaded = true;
   }
 
   // 重新初始化启动内容

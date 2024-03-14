@@ -67,6 +67,7 @@ class LauncherSetting {
                                 } else if (lcs.getThemeDarkEnable()) {
                                   // 暗色
                                   Get.changeThemeMode(ThemeMode.dark);
+                                  Get.forceAppUpdate();
                                 } else {
                                   // 亮色
                                   Get.changeThemeMode(ThemeMode.light);
@@ -76,8 +77,8 @@ class LauncherSetting {
                                   } else {
                                     Get.changeTheme(ThemeControl.light);
                                   }
+                                  Get.forceAppUpdate();
                                 }
-                                Get.forceAppUpdate();
                               },
                             ),
                           ],
@@ -101,7 +102,7 @@ class LauncherSetting {
                                     labelText: '十六进制颜色',
                                   ),
                                   onSubmitted: (value) async {
-                                    late final code;
+                                    late final String code;
                                     if (value.startsWith('#')) {
                                       code = value.substring(1); // 移除 # 符号
                                     } else {
@@ -112,7 +113,9 @@ class LauncherSetting {
                                       lcs.save();
                                       Logger.debug(value);
                                       // 检查是否启用
-                                      if (lcs.getThemeLightSeedEnable()) {
+                                      // 必须要手动模式才执行操作
+                                      if (lcs.getThemeLightSeedEnable() &&
+                                          !lcs.getThemeAuto()) {
                                         Get.changeThemeMode(ThemeMode.light);
                                         Get.changeTheme(ThemeControl.custom);
                                         Get.forceAppUpdate();
@@ -136,17 +139,20 @@ class LauncherSetting {
                                 lcs.setThemeLightSeedEnable(value);
                                 Logger.debug(lcs.getThemeLightSeedEnable());
                                 lcs.save();
-                                if (value) {
-                                  // 自定义
-                                  Get.changeThemeMode(ThemeMode.light);
-                                  Get.changeTheme(ThemeControl.custom);
-                                } else if (lcs.getThemeDarkEnable()) {
-                                  // 暗色
-                                  Get.changeThemeMode(ThemeMode.dark);
-                                } else {
-                                  // 亮色
-                                  Get.changeThemeMode(ThemeMode.light);
-                                  Get.changeTheme(ThemeControl.light);
+                                // 必须要手动模式才执行操作
+                                if (!lcs.getThemeAuto()) {
+                                  if (value) {
+                                    // 自定义
+                                    Get.changeThemeMode(ThemeMode.light);
+                                    Get.changeTheme(ThemeControl.custom);
+                                  } else if (lcs.getThemeDarkEnable()) {
+                                    // 暗色
+                                    Get.changeThemeMode(ThemeMode.dark);
+                                  } else {
+                                    // 亮色
+                                    Get.changeThemeMode(ThemeMode.light);
+                                    Get.changeTheme(ThemeControl.light);
+                                  }
                                 }
                                 Get.forceAppUpdate();
                               },
