@@ -1,4 +1,4 @@
-import 'package:nyalcf/io/user_info_storage.dart';
+import 'package:nyalcf/storages/stories/user_info_storage.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

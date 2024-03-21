@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
-@deprecated
 class UserInfoStorage {
   static final _path = PathProvider.appSupportPath;
 
