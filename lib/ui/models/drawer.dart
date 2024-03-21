@@ -12,17 +12,16 @@ class DrawerX {
         padding: EdgeInsets.zero,
         children: <Widget>[
           DrawerHeader(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
+              decoration: BoxDecoration(
+                image: const DecorationImage(
                     image: NetworkImage('https://api.imlazy.ink/img'),
                     fit: BoxFit.cover),
-                color: Colors.pink,
+                color: Get.theme.primaryColor,
               ),
               child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
                 DecoratedBox(
                     decoration: BoxDecoration(
-                        color: const Color.fromRGBO(
-                            255, 101, 160, 0.4196078431372549),
+                        color: Get.theme.splashColor,
                         borderRadius: BorderRadius.circular(50.0)),
                     child: Center(
                         child: Container(
