@@ -1,0 +1,35 @@
+name: Issues
+
+on:
+  issues:
+    types:
+      - "closed"
+
+jobs:
+  remove-feedback-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    if: github.event.issue.labels ~= "feedback:等待反馈者"
+    steps:
+      - run: gh issue remove-label ${{ github.event.issue.number }} "feedback:等待反馈者"
+        env:
+          GITHUB_TOKEN: ${{ secrets.EDIT_ISSUE_TOKEN }}
+  remove-help_wanted-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    if: github.event.issue.labels ~= "help wanted:需要帮助"
+    steps:
+      - run: gh issue remove-label ${{ github.event.issue.number }} "help wanted:需要帮助"
+        env:
+          GITHUB_TOKEN: ${{ secrets.EDIT_ISSUE_TOKEN }}
+  remove-done_in_dev_channel-labels:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    if: github.event.issue.labels ~= "done in dev channel:开发通道已完成"
+    steps:
+      - run: gh issue remove-label ${{ github.event.issue.number }} "done in dev channel:开发通道已完成"
+        env:
+          GITHUB_TOKEN: ${{ secrets.EDIT_ISSUE_TOKEN }}
