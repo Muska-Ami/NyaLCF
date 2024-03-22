@@ -18,8 +18,8 @@ class FrpcProcessManager {
     required int proxyId,
     required String frpcPath,
   }) async {
-    if (Platform.isLinux) {
-      Logger.info('Linux platform, change file permission');
+    if (Platform.isLinux || Platform.isMacOS) {
+      Logger.info('*unix platform, change file permission');
       await fss.setRunPermission();
     }
     final Map<String, dynamic> pMap = <String, dynamic>{};
