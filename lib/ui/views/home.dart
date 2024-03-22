@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
-import 'package:nyalcf/io/user_info_storage.dart';
+import 'package:nyalcf/storages/stories/user_info_storage.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';

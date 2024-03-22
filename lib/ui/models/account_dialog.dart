@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/panel_controller.dart';
 import 'package:nyalcf/controllers/proxies_controller.dart';
-import 'package:nyalcf/io/user_info_storage.dart';
+import 'package:nyalcf/storages/stories/user_info_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
