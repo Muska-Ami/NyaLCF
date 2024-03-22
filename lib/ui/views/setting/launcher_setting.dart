@@ -304,7 +304,7 @@ class LauncherSetting {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       const Text(
-                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issues来向我们反馈。'),
+                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issue来向我们反馈。'),
                       TextButton(
                         child: const ListTile(
                           leading: Icon(Icons.link),
