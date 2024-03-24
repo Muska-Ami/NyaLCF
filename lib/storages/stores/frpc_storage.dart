@@ -5,7 +5,7 @@ import 'package:nyalcf/utils/frpc/path_provider.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
-class FrpcStoryStorage {
+class FrpcStorage {
   static final _supportPath = PathProvider.appSupportPath;
   static final fcs = FrpcConfigurationStorage();
 

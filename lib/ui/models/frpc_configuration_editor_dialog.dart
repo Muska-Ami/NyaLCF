@@ -56,7 +56,7 @@ class FrpcConfigEditorDialogX {
           onPressed: () async {
             //关闭 返回true
             await ProxiesConfigurationStorage.setConfig(proxyId, c.fullText);
-            pctr.reload(uctr.user, uctr.token);
+            pctr.load(uctr.user, uctr.token);
             Get.close(0);
           },
         ),

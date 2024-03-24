@@ -28,4 +28,9 @@ class ProxyInfoModel {
   final String proxyType;
   final bool useEncryption;
   final String? status;
+
+  @override
+  String toString() {
+    return '$proxyType:$proxyName:$id';
+  }
 }

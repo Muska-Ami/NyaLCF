@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
-import 'package:nyalcf/storages/stories/user_info_storage.dart';
+import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/models/user_info_model.dart';
+import 'package:nyalcf/storages/stores/proxies_storage.dart';
+import 'package:nyalcf/storages/stores/user_info_storage.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/utils/network/dio/auth/user_auth.dart';
+import 'package:nyalcf/utils/network/dio/proxies/get.dart';
+import 'package:nyalcf/utils/proxies_getter.dart';
 
 class Home extends StatelessWidget {
   Home({super.key, required this.title});
@@ -94,6 +98,12 @@ class _HC extends GetxController {
       if (await UserAuth().checkToken(userinfo.token)) {
         // 刷新用户信息
         await UserAuth().refresh(userinfo.token, userinfo.user);
+        List<ProxyInfoModel>? proxies =
+            await ProxiesGetDio().get(userinfo.user, userinfo.token);
+        if (proxies is List<ProxyInfoModel>) {
+          ProxiesStorage.addAll(proxies);
+        }
+        ProxiesGetter.startUp();
         // 清空内容列表
         w.value = <Widget>[];
         // 显示自动登录的SnackBar

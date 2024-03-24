@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
+import 'package:nyalcf/storages/stores/frpc_storage.dart';
 
 class FrpcController extends GetxController {
-  final fss = FrpcStoryStorage();
+  final fss = FrpcStorage();
   final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
   /// 是否存在的标志
