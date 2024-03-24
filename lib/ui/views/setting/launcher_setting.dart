@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/network/dio/launcher/update.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/theme_control.dart';
 import 'package:nyalcf/utils/universe.dart';
+import 'package:nyalcf/utils/updater.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -269,6 +271,16 @@ class LauncherSetting {
                           '软件版本：${Universe.appVersion} (+${Universe.appBuildNumber})'),
                       const SelectableText('著作权信息：登记中'),
                     ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 20, bottom: 10),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Updater.uIf = await LauncherUpdateDio().getUpdate();
+                      if (Updater.check()) Updater.showDialog();
+                    },
+                    child: const Text('检查更新'),
                   ),
                 ),
                 Container(
