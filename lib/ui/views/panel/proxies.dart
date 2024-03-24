@@ -48,13 +48,16 @@ class PanelProxies extends StatelessWidget {
         margin: const EdgeInsets.all(15.0),
         child: ListView(
           children: <Widget>[
-            const Column(
-              children: <Widget>[
-                Text(
-                  '隧道信息每隔15分钟更新，您也可以点击下方按钮立即更新。',
-                  style: TextStyle(fontSize: 15),
-                ),
-              ],
+            Container(
+              margin: const EdgeInsets.all(5),
+              child: const Column(
+                children: <Widget>[
+                  Text(
+                    '隧道信息每隔15分钟更新，您也可以点击下方按钮立即更新。',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
             ),
             ElevatedButton(
               onPressed: () => {pctr.load(uctr.user, uctr.token)},
