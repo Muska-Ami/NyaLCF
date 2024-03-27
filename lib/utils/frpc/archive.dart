@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:archive/archive_io.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
 class FrpcArchive {
@@ -23,10 +24,22 @@ class FrpcArchive {
 
     /// 确认 Frpc 是否存在
     if (await f.exists()) {
-      extractFileToDisk(f.path, _cachePath!);
-      final dir = Directory(
-          '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
-      PathProvider.moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
+      try {
+        extractFileToDisk(f.path, _cachePath!);
+        final dir = Directory(
+            '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
+        final iniDir = Directory('${dir.path}/ini');
+        await iniDir.delete();
+        PathProvider.moveDirectory(
+            dir, Directory('$_supportPath/frpc/$version'));
+        await f.delete();
+      } on PathNotFoundException catch (e) {
+        Logger.warn(e);
+        return true;
+      } catch (e) {
+        Logger.error(e);
+        return false;
+      }
       return true;
     } else {
       return false;
