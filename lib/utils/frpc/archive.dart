@@ -25,7 +25,7 @@ class FrpcArchive {
     /// 确认 Frpc 是否存在
     if (await f.exists()) {
       try {
-        extractFileToDisk(f.path, _cachePath!);
+        await extractFileToDisk(f.path, _cachePath!);
         final dir = Directory(
             '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
         final iniDir = Directory('${dir.path}/ini');
