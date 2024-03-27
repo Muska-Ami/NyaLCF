@@ -29,19 +29,15 @@ class FrpcArchive {
         final dir = Directory(
             '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
         final iniDir = Directory('${dir.path}/ini');
-        await iniDir.delete();
+        if (await iniDir.exists()) await iniDir.delete();
         PathProvider.moveDirectory(
             dir, Directory('$_supportPath/frpc/$version'));
-      } on PathNotFoundException catch (e) {
         await f.delete();
-        Logger.warn(e);
-        return true;
       } catch (e) {
         await f.delete();
         Logger.error(e);
         return false;
       }
-      await f.delete();
       return true;
     } else {
       return false;
