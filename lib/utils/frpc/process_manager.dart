@@ -106,8 +106,7 @@ class FrpcProcessManager {
 
   void kill(prs) {
     Logger.info('Killing frpc process, pid: ${prs['process'].pid}');
-    fctr.appendSystemInfoLog(
-        'Killing process, pid: ${prs['process'].pid}');
+    fctr.appendSystemInfoLog('Killing process, pid: ${prs['process'].pid}');
     prs['process'].kill();
     cctr.removeProcess(prs);
 

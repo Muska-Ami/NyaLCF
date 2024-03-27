@@ -32,14 +32,16 @@ class FrpcArchive {
         await iniDir.delete();
         PathProvider.moveDirectory(
             dir, Directory('$_supportPath/frpc/$version'));
-        await f.delete();
       } on PathNotFoundException catch (e) {
+        await f.delete();
         Logger.warn(e);
         return true;
       } catch (e) {
+        await f.delete();
         Logger.error(e);
         return false;
       }
+      await f.delete();
       return true;
     } else {
       return false;
