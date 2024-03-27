@@ -97,13 +97,7 @@ class _HC extends GetxController {
       // 检查用户令牌是否有效
       if (await UserAuth().checkToken(userinfo.token)) {
         // 刷新用户信息
-        await UserAuth().refresh(userinfo.token, userinfo.user);
-        List<ProxyInfoModel>? proxies =
-            await ProxiesGetDio().get(userinfo.user, userinfo.token);
-        if (proxies is List<ProxyInfoModel>) {
-          ProxiesStorage.addAll(proxies);
-        }
-        ProxiesGetter.startUp();
+        await UserAuth().refresh(userinfo.token, userinfo.user).then((value) => {ProxiesGetter.startUp()});
         // 清空内容列表
         w.value = <Widget>[];
         // 显示自动登录的SnackBar
