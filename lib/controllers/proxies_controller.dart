@@ -8,6 +8,7 @@ import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
+import 'package:nyalcf/storages/stores/proxies_storage.dart';
 import 'package:nyalcf/ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf/utils/frpc/path_provider.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
@@ -44,7 +45,7 @@ class ProxiesController extends GetxController {
   //   ])
   // ].obs;
 
-  final proxiesStatus = <int, bool?>{};
+  static final proxiesStatus = <int, bool?>{};
 
   var proxiesWidgets = <Widget>[
     const SizedBox(
@@ -57,107 +58,63 @@ class ProxiesController extends GetxController {
   ].obs;
 
   /// 加载代理列表
-  load(username, token) async {
-    var proxies = await ProxiesGetDio().get(username, token);
-    if (proxies is List<ProxyInfoModel>) {
-      // proxiesListWidgets.clear();
-      proxiesWidgets.clear();
-      ProxyInfoModel element;
-      for (element in proxies) {
-        // proxiesListWidgets.add(DataRow(
-        //   cells: <DataCell>[
-        //     DataCell(
-        //       SizedBox(
-        //         width: 150.0,
-        //         height: 30.0,
-        //         child: SelectableText(element.proxyName),
-        //       ),
-        //     ),
-        //     DataCell(SelectableText(element.id.toString())),
-        //     DataCell(SelectableText(element.node.toString())),
-        //     DataCell(SelectableText(element.proxyType)),
-        //     DataCell(SelectableText(element.localIP)),
-        //     DataCell(
-        //       SelectableText('${element.localPort} -> ${element.remotePort}'),
-        //     ),
-        //     DataCell(
-        //       Row(children: await _buildActions(element)),
-        //     ),
-        //   ],
-        // ));
-        // 新UI
-        proxiesWidgets.add(
-          SizedBox(
-            width: 380,
-            height: 200,
-            child: Card(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  ListTile(
-                    title: SizedBox(
-                      height: 40.0,
-                      child: SelectableText(element.proxyName),
-                    ),
-                    subtitle: Row(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(left: 5.0, right: 4.0),
-                          margin: const EdgeInsets.only(right: 5.0),
-                          decoration:
-                              BoxDecoration(color: Get.theme.focusColor),
-                          child: Text(element.proxyType.toUpperCase()),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          color:
-                              _getProxyStatusColor(proxiesStatus[element.id]),
-                          size: 15.0,
-                        ),
-                        SelectableText('ID: ${element.id.toString()}'),
-                      ],
-                    ),
+  build(username, token) async {
+    var proxies = ProxiesStorage.get();
+    ProxyInfoModel element;
+    List<Widget> list = [];
+    for (element in proxies) {
+      // 新UI
+      list.add(
+        SizedBox(
+          width: 380,
+          height: 200,
+          child: Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                ListTile(
+                  title: SizedBox(
+                    height: 40.0,
+                    child: SelectableText(element.proxyName),
                   ),
-                  Container(
-                    margin: const EdgeInsets.all(15.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SelectableText('本地IP: ${element.localIP}'),
-                        SelectableText(
-                            '映射端口: ${element.localPort} -> ${element.remotePort}')
-                      ],
-                    ),
+                  subtitle: Row(
+                    children: <Widget>[
+                      Container(
+                        padding: const EdgeInsets.only(left: 5.0, right: 4.0),
+                        margin: const EdgeInsets.only(right: 5.0),
+                        decoration: BoxDecoration(color: Get.theme.focusColor),
+                        child: Text(element.proxyType.toUpperCase()),
+                      ),
+                      Icon(
+                        Icons.circle,
+                        color: _getProxyStatusColor(proxiesStatus[element.id]),
+                        size: 15.0,
+                      ),
+                      SelectableText('ID: ${element.id.toString()}'),
+                    ],
                   ),
-                  Row(children: await _buildActions(element)),
-                ],
-              ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(15.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SelectableText('本地IP: ${element.localIP}'),
+                      SelectableText(
+                          '映射端口: ${element.localPort} -> ${element.remotePort}')
+                    ],
+                  ),
+                ),
+                Row(children: await _buildActions(element)),
+              ],
             ),
           ),
-        );
-        _getProxiesStatus(element);
-      }
-      proxiesWidgets.refresh();
-      // proxiesListWidgets.refresh();
-    } else {
-      // proxiesListWidgets.value = <DataRow>[
-      //   const DataRow(cells: <DataCell>[
-      //     DataCell(Text('获取失败，请尝试刷新一下~')),
-      //     DataCell(Text('-')),
-      //     DataCell(Text('-')),
-      //     DataCell(Text('-')),
-      //     DataCell(Text('-')),
-      //     DataCell(Text('-')),
-      //     DataCell(Text('-')),
-      //   ])
-      // ];
-      Get.snackbar(
-        '发生错误',
-        '无法获取隧道列表信息： $proxies',
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: const Duration(milliseconds: 300),
+        ),
       );
+      _getProxiesStatus(element);
     }
+    proxiesWidgets.value = list;
+    // proxiesListWidgets.refresh();
   }
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
@@ -303,7 +260,7 @@ class ProxiesController extends GetxController {
           tooltip: '移除自定义配置文件',
           onPressed: () async {
             File(fcsp).delete();
-            reload(uctr.user, uctr.token);
+            load(uctr.user, uctr.token);
           },
         ),
       );
@@ -313,7 +270,10 @@ class ProxiesController extends GetxController {
   }
 
   /// 重新加载代理列表
-  reload(username, token) {
+  load(username, token) async {
+    final list = await ProxiesGetDio().get(username, token);
+    ProxiesStorage.clear();
+    ProxiesStorage.addAll(list);
     // proxiesListWidgets.value = <DataRow>[
     //   const DataRow(cells: <DataCell>[
     //     DataCell(SizedBox(
@@ -331,6 +291,6 @@ class ProxiesController extends GetxController {
     //     DataCell(Text('-')),
     //   ])
     // ];
-    load(username, token);
+    build(username, token);
   }
 }

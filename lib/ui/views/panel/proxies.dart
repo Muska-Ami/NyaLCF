@@ -12,12 +12,15 @@ class PanelProxies extends StatelessWidget {
 
   final UserController uctr = Get.find();
   final String title;
+  static bool loaded = false;
 
   @override
   Widget build(BuildContext context) {
     final pctr = Get.put(ProxiesController(context: context));
-    pctr.load(uctr.user, uctr.token);
-
+    if (!loaded) {
+      pctr.load(uctr.user, uctr.token);
+      loaded = true;
+    }
     return Scaffold(
       appBar: AppBar(
         title:
@@ -45,19 +48,35 @@ class PanelProxies extends StatelessWidget {
         margin: const EdgeInsets.all(15.0),
         child: ListView(
           children: <Widget>[
+            Container(
+              margin: const EdgeInsets.all(5),
+              child: const Column(
+                children: <Widget>[
+                  Text(
+                    '隧道信息每隔15分钟更新，您也可以点击下方按钮立即更新。',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+            ),
             ElevatedButton(
-              onPressed: () => {pctr.reload(uctr.user, uctr.token)},
+              onPressed: () => {pctr.load(uctr.user, uctr.token)},
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
               ),
             ),
             Container(margin: const EdgeInsets.all(4)),
-            Obx(() => Wrap(
-                  spacing: 8.0, // 水平间距
-                  runSpacing: 4.0,
-                  children: pctr.proxiesWidgets.value,
-                ))
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Obx(() => Wrap(
+                      spacing: 8.0, // 水平间距
+                      runSpacing: 4.0,
+                      children: pctr.proxiesWidgets.value,
+                    ))
+              ],
+            )
           ],
         ),
       ),

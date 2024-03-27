@@ -17,7 +17,7 @@ class PanelProxies extends StatelessWidget {
   Widget build(BuildContext context) {
     final pctr = Get.put(ProxiesController(context: context));
 
-    pctr.load(uctr.user, uctr.token);
+    pctr.build(uctr.user, uctr.token);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,7 +47,7 @@ class PanelProxies extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => {pctr.reload(uctr.user, uctr.token)},
+              onPressed: () => {pctr.load(uctr.user, uctr.token)},
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],

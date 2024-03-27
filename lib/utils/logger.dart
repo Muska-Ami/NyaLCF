@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:logger/logger.dart' as log_u;
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/utils/logger/file_output.dart';
+import 'package:nyalcf/utils/logger/log_printer.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
 class Logger {
@@ -9,7 +11,7 @@ class Logger {
   static final lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>
-      log_u.FileOutput(file: File('$_supportPath/run.log'));
+      FileOutput(file: File('$_supportPath/run.log'));
   static final log_u.ConsoleOutput _consoleOutput = log_u.ConsoleOutput();
 
   /// 重置日志文件
@@ -22,25 +24,7 @@ class Logger {
     List<log_u.LogOutput> multiOutput = [await _fileOutPut, _consoleOutput];
     return log_u.Logger(
       filter: LogFilter(),
-      printer: log_u.HybridPrinter(
-        log_u.PrettyPrinter(
-          printEmojis: false,
-          printTime: true,
-          methodCount: 0,
-          lineLength: 60,
-          errorMethodCount: null,
-        ),
-        debug: log_u.PrettyPrinter(
-          printEmojis: false,
-          printTime: true,
-          lineLength: 60,
-          levelColors: {
-            log_u.Level.debug: const log_u.AnsiColor.fg(126),
-          },
-          methodCount: 0,
-          errorMethodCount: null,
-        ),
-      ),
+      printer: LogPrinter(),
       output: log_u.MultiOutput(multiOutput),
     );
   }

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
+import 'package:nyalcf/storages/stores/frpc_storage.dart';
 
 class FrpcController extends GetxController {
-  final fss = FrpcStoryStorage();
+  final fss = FrpcStorage();
   final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
 
   /// 是否存在的标志
@@ -91,6 +91,66 @@ class FrpcController extends GetxController {
     processOut.add(
       SelectableText(
         '[FRPC][ERROR] $element',
+        style: const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
+
+  void appendSystemInfoLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加警告日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][INFO] $element',
+        style: const TextStyle(
+          color: Colors.teal,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
+
+  void appendSystemWarnLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加信息日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][WARN] $element',
+        style: const TextStyle(
+          color: Colors.orange,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
+
+  void appendSystemErrorLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加错误日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][ERROR] $element',
         style: const TextStyle(
           color: Colors.red,
           fontWeight: FontWeight.w200,

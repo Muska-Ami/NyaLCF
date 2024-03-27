@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:nyalcf/storages/stories/frpc_story_storage.dart';
+import 'package:nyalcf/storages/stores/frpc_storage.dart';
 
 class FrpcPathProvider {
-  final fss = FrpcStoryStorage();
+  final fss = FrpcStorage();
 
   Future<String> get frpcWorkPath async => await fss.getRunPath();
 

@@ -31,7 +31,7 @@ void main() async {
   await PathProvider.loadSyncPath();
   await StoragesInjector.init();
 
-  //await Logger.clear();
+  await Logger.clear();
 
   /// 启动更新
   Updater.startUp();
