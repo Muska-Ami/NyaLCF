@@ -18,11 +18,12 @@ class FileOutput extends LogOutput {
     const AnsiColor.fg(196),
     const AnsiColor.fg(199),
     const AnsiColor.fg(123),
+    const AnsiColor.fg(120),
   ];
 
   FileOutput({
     required this.file,
-    this.overrideExisting = true,
+    this.overrideExisting = false,
     this.encoding = utf8,
   });
 
@@ -36,7 +37,7 @@ class FileOutput extends LogOutput {
 
   @override
   void output(OutputEvent event) {
-    _sink?.writeAll(_removeAnsiEscapeCodes(event.lines), '\n');
+    _sink?.write('${_removeAnsiEscapeCodes(event.lines)}\n');
     _sink?.writeln();
   }
 
