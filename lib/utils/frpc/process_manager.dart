@@ -51,14 +51,17 @@ class FrpcProcessManager {
     process.stdout.forEach((List<int> element) {
       final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
       final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
-      if (fmtStr.contains('stopped') ||
+      if (fmtStr.contains('[W]') ||
+          fmtStr.contains('stopped') ||
           fmtStr.contains('启动失败') ||
           fmtStr.contains('无法连接')) {
         Logger.frpcWarn('[$proxyId] $fmtStr');
         fctr.appendWarnLog(fmtStr);
         process.kill();
         cctr.removeProcess(pMap);
-      } else if (fmtStr.contains('failed') || fmtStr.contains('err')) {
+      } else if (fmtStr.contains('[E]') ||
+          fmtStr.contains('failed') ||
+          (fmtStr.contains('err') && !fmtStr.contains('terr'))) {
         Logger.frpcError('[$proxyId] $fmtStr');
         if (!fmtStr.contains(
             'No connection could be made because the target machine actively refused it')) {
@@ -85,7 +88,7 @@ class FrpcProcessManager {
   void killAll() {
     Logger.info('Killing all process');
     Logger.debug('Process length: ${ConsoleController.processList.length}');
-    fctr.appendInfoLog('[SYSTEM][INFO] Killing all process...');
+    fctr.appendSystemInfoLog('Killing all process...');
     try {
       var allList = [];
       allList.addAll(ConsoleController.processList);
@@ -94,17 +97,17 @@ class FrpcProcessManager {
       }
       cctr.clearProcess();
     } catch (e) {
-      fctr.appendErrorLog('[SYSTEM][ERROR] Killing all process error: $e');
+      fctr.appendSystemErrorLog('Killing all process error: $e');
       Logger.error(e);
     }
     Logger.info('All process killed');
-    fctr.appendInfoLog('[SYSTEM][INFO] All process killed');
+    fctr.appendSystemInfoLog('All process killed');
   }
 
   void kill(prs) {
     Logger.info('Killing frpc process, pid: ${prs['process'].pid}');
-    fctr.appendInfoLog(
-        '[SYSTEM][INFO] Killing process, pid: ${prs['process'].pid}');
+    fctr.appendSystemInfoLog(
+        'Killing process, pid: ${prs['process'].pid}');
     prs['process'].kill();
     cctr.removeProcess(prs);
 

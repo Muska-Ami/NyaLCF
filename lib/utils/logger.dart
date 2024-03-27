@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:logger/logger.dart' as log_u;
-import 'package:nyalcf/utils/logger/file_output.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf/utils/logger/file_output.dart';
 import 'package:nyalcf/utils/logger/log_printer.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 
@@ -10,7 +10,8 @@ class Logger {
   static final String? _supportPath = PathProvider.appSupportPath;
   static final lcs = LauncherConfigurationStorage();
 
-  static get _fileOutPut async => FileOutput(file: File('$_supportPath/run.log'));
+  static get _fileOutPut async =>
+      FileOutput(file: File('$_supportPath/run.log'));
   static final log_u.ConsoleOutput _consoleOutput = log_u.ConsoleOutput();
 
   /// 重置日志文件

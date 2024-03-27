@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:logger/logger.dart' as log_u;
 
 class LogPrinter extends log_u.LogPrinter {
-
   static const rstColor = log_u.AnsiColor.ansiDefault;
   static const timeColor = log_u.AnsiColor.fg(123);
   static const dataColor = log_u.AnsiColor.fg(120);
@@ -34,7 +33,8 @@ class LogPrinter extends log_u.LogPrinter {
     String level = levelPrefixes[event.level] ?? 'UNKNOWN';
     log_u.AnsiColor levelColor = _getLevelColor(event.level);
     dynamic message = event.message;
-    String prefix = '[$timeColor$time$rstColor][$levelColor$level$rstColor]: ${(event.level == log_u.Level.warning) || (event.level == log_u.Level.error) ? levelColor : rstColor}';
+    String prefix =
+        '[$timeColor$time$rstColor][$levelColor$level$rstColor]: ${(event.level == log_u.Level.warning) || (event.level == log_u.Level.error) ? levelColor : rstColor}';
 
     output.write('$prefix${_stringifyMessage(message, prefix)}$rstColor');
     if (event.error != null) {
@@ -50,7 +50,9 @@ class LogPrinter extends log_u.LogPrinter {
 
   String _stringifyMessage(dynamic message, String prefix) {
     var finalMessage = message is Function ? message() : message;
-    if (finalMessage is Map || finalMessage is Response || finalMessage is Iterable) {
+    if (finalMessage is Map ||
+        finalMessage is Response ||
+        finalMessage is Iterable) {
       if (finalMessage is Response) finalMessage = finalMessage.data;
       var encoder = JsonEncoder.withIndent('  ', _toEncodableFallback);
       return '=== [${dataColor}DATA$rstColor] ===\n$dataColor${encoder.convert(finalMessage)}';

@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:highlight/languages/elixir.dart';
 import 'package:nyalcf/controllers/proxies_controller.dart';
-import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';

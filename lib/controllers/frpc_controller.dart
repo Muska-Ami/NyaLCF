@@ -102,4 +102,64 @@ class FrpcController extends GetxController {
     /// 刷新输出文本
     processOut.refresh();
   }
+
+  void appendSystemInfoLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加警告日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][INFO] $element',
+        style: const TextStyle(
+          color: Colors.teal,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
+
+  void appendSystemWarnLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加信息日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][WARN] $element',
+        style: const TextStyle(
+          color: Colors.orange,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
+
+  void appendSystemErrorLog(String element) {
+    /// 如果输出文本长度超过500，则移除第一条文本
+    if (processOut.length >= 500) processOut.remove(processOut.first);
+
+    /// 添加错误日志文本
+    processOut.add(
+      SelectableText(
+        '[SYSTEM][ERROR] $element',
+        style: const TextStyle(
+          color: Colors.red,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Droid Sans Mono',
+        ),
+      ),
+    );
+
+    /// 刷新输出文本
+    processOut.refresh();
+  }
 }

@@ -33,13 +33,10 @@ class FileOutput extends LogOutput {
       encoding: encoding,
     );
   }
-  
+
   @override
   void output(OutputEvent event) {
-    _sink?.writeAll(
-        _removeAnsiEscapeCodes(event.lines),
-        '\n'
-    );
+    _sink?.writeAll(_removeAnsiEscapeCodes(event.lines), '\n');
     _sink?.writeln();
   }
 
