@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/panel_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/drawer.dart';
@@ -13,12 +14,11 @@ import 'package:nyalcf/utils/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PanelHome extends StatelessWidget {
-  PanelHome({super.key, required this.title});
+  PanelHome({super.key});
 
   final UserController uctr = Get.find();
   final DPanelController dpctr = Get.put(DPanelController());
   final ConsoleController cctr = Get.put(ConsoleController());
-  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PanelHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
+            const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
         actions: AppbarActionsX(append: <Widget>[

@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/proxies_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 
 class PanelProxies extends StatelessWidget {
-  PanelProxies({super.key, required this.title});
+  PanelProxies({super.key});
 
   final UserController uctr = Get.find();
-  final String title;
   static bool loaded = false;
 
   @override
@@ -24,7 +24,7 @@ class PanelProxies extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
+            const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
         actions: AppbarActionsX(append: <Widget>[

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
@@ -8,19 +9,13 @@ import 'package:nyalcf/utils/network/dio/auth/login_auth.dart';
 import 'package:nyalcf/utils/network/dio/auth/register_auth.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key, required this.title});
-
-  final String title;
+  const Register({super.key});
 
   @override
-  State<StatefulWidget> createState() => _RegisterState(title: title);
+  State<StatefulWidget> createState() => _RegisterState();
 }
 
 class _RegisterState extends State<Register> {
-  _RegisterState({required this.title});
-
-  final String title;
-
   final userController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -43,7 +38,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - 注册', style: const TextStyle(color: Colors.white)),
+        title: const Text('$title - 注册', style: TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

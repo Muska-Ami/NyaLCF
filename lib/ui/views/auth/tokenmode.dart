@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 
 class TokenModeAuth extends StatefulWidget {
-  const TokenModeAuth({super.key, required this.title});
-
-  final String title;
+  const TokenModeAuth({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TokenModeAuthState(title: title);
+  State<StatefulWidget> createState() => _TokenModeAuthState();
 }
 
 class _TokenModeAuthState extends State {
-  _TokenModeAuthState({required this.title});
-
-  final String title;
-
   final tokenController = TextEditingController();
 
   @override
@@ -30,8 +25,8 @@ class _TokenModeAuthState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - TokenMode',
-            style: const TextStyle(color: Colors.white)),
+        title: const Text('$title - TokenMode',
+            style: TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

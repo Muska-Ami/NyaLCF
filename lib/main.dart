@@ -21,6 +21,8 @@ import 'package:nyalcf/utils/updater.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
+const title = 'Nya LoCyanFrp!';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
@@ -45,12 +47,10 @@ class App extends StatefulWidget {
   const App({super.key});
 
   @override
-  _AppState createState() => _AppState();
+  State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> with WindowListener, TrayListener {
-  final title = 'Nya LoCyanFrp!';
-
   /// 根组件
   @override
   Widget build(BuildContext context) {
@@ -61,14 +61,14 @@ class _AppState extends State<App> with WindowListener, TrayListener {
       title: 'Nya LoCyanFrp!',
       routes: {
         '/': (context) => Home(title: title),
-        '/auth/login': (context) => Login(title: title),
-        '/auth/register': (context) => Register(title: title),
-        '/token_mode/login': (context) => TokenModeAuth(title: title),
-        '/token_mode/panel': (context) => TokenModePanel(title: title),
-        '/panel/home': (context) => PanelHome(title: title),
-        '/panel/proxies': (context) => PanelProxies(title: title),
-        '/panel/console': (context) => PanelConsole(title: title),
-        '/setting': (context) => SettingInjector(title: title),
+        '/auth/login': (context) => const Login(),
+        '/auth/register': (context) => const Register(),
+        '/token_mode/login': (context) => const TokenModeAuth(),
+        '/token_mode/panel': (context) => const TokenModePanel(),
+        '/panel/home': (context) => PanelHome(),
+        '/panel/proxies': (context) => PanelProxies(),
+        '/panel/console': (context) => PanelConsole(),
+        '/setting': (context) => const SettingInjector(),
       },
       theme: themeData,
     );

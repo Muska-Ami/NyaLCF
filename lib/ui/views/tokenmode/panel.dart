@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
@@ -11,19 +12,13 @@ import 'package:nyalcf/utils/frpc/path_provider.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 class TokenModePanel extends StatefulWidget {
-  const TokenModePanel({super.key, required this.title});
-
-  final String title;
+  const TokenModePanel({super.key});
 
   @override
-  State<StatefulWidget> createState() => _TokenModePanelState(title: title);
+  State<StatefulWidget> createState() => _TokenModePanelState();
 }
 
 class _TokenModePanelState extends State {
-  _TokenModePanelState({required this.title});
-
-  final String title;
-
   final proxyController = TextEditingController();
 
   final fcs = FrpcConfigurationStorage();
@@ -41,8 +36,8 @@ class _TokenModePanelState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - TokenMode',
-            style: const TextStyle(color: Colors.white)),
+        title: const Text('$title - TokenMode',
+            style: TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
