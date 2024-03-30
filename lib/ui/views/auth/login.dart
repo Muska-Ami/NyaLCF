@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
@@ -7,18 +8,13 @@ import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/utils/network/dio/auth/login_auth.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
-
-  final String title;
+  const Login({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LoginState(title: title);
+  State<StatefulWidget> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  _LoginState({required this.title});
-
-  final String title;
   final userController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -33,7 +29,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('$title - 登录', style: const TextStyle(color: Colors.white)),
+        title: const Text('$title - 登录', style: TextStyle(color: Colors.white)),
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

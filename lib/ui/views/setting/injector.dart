@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf/controllers/launcher_setting_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/ui/views/setting/frpc_setting.dart';
 import 'package:nyalcf/ui/views/setting/launcher_setting.dart';
 
 class SettingInjector extends StatelessWidget {
-  const SettingInjector({super.key, required this.title});
-
-  final String title;
+  const SettingInjector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +24,8 @@ class SettingInjector extends StatelessWidget {
         length: 2,
         child: Scaffold(
             appBar: AppBar(
-              title: Text('$title - 设置',
-                  style: const TextStyle(color: Colors.white)),
+              title: const Text('$title - 设置',
+                  style: TextStyle(color: Colors.white)),
               actions:
                   AppbarActionsX(context: context, setting: false).actions(),
               bottom: const TabBar(

@@ -50,7 +50,6 @@ dependencies:
   tray_manager: ^0.2.1
   window_manager: ^0.3.8
   flutter_highlight: ^0.7.0
-  highlight: ^0.7.0
   crypto: ^3.0.3
   open_filex: ^4.4.0
 

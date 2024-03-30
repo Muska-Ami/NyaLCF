@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/drawer.dart';
@@ -11,12 +12,11 @@ import 'package:nyalcf/ui/models/process_list_dialog.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 class PanelConsole extends StatelessWidget {
-  PanelConsole({super.key, required this.title});
+  PanelConsole({super.key});
 
   final UserController uctr = Get.find();
   final FrpcController fctr = Get.find();
   final ConsoleController cctr = Get.find();
-  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class PanelConsole extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            Text('$title - 仪表板', style: const TextStyle(color: Colors.white)),
+            const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
         actions: AppbarActionsX(append: <Widget>[
