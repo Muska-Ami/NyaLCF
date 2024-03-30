@@ -32,10 +32,10 @@ class MainWindow {
     );
     trayManager.setContextMenu(MainTray.menu);
 
-    // Protocol Channel
-    void callback(deepLink) {
-      Logger.debug(deepLink);
-    }
+    // // Protocol Channel
+    // void callback(deepLink) {
+    //   Logger.debug(deepLink);
+    // }
 
     // 显示主窗体
     appWindow.show();

@@ -36,15 +36,21 @@ class AccountDialogX {
               try {
                 final DPanelController dpctr = Get.find();
                 dpctr.dispose();
-              } catch (ignore) {}
+              } catch (ignore) {
+                //
+              }
               try {
                 final ProxiesController pctr = Get.find();
                 pctr.dispose();
-              } catch (ignore) {}
+              } catch (ignore) {
+                //
+              }
               try {
                 final ConsoleController cctr = Get.find();
                 cctr.dispose();
-              } catch (ignore) {}
+              } catch (ignore) {
+                //
+              }
               Get.toNamed('/');
             }),
         SimpleDialogOption(
