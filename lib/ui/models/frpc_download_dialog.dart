@@ -68,6 +68,7 @@ class FrpcDownloadDialogX {
               left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
             children: <Widget>[
+              // ignore: invalid_use_of_protected_member
               Obx(() => Column(children: dsctr.frpcDownloadShow.value)),
               Obx(() => Text(
                   '进度：${(dsctr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),

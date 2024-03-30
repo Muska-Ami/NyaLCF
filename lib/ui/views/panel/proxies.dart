@@ -73,6 +73,7 @@ class PanelProxies extends StatelessWidget {
                 Obx(() => Wrap(
                       spacing: 8.0, // 水平间距
                       runSpacing: 4.0,
+                      // ignore: invalid_use_of_protected_member
                       children: pctr.proxiesWidgets.value,
                     ))
               ],

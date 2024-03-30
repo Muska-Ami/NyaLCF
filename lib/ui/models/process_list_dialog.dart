@@ -19,6 +19,7 @@ class ProcessListDialogX {
               DataColumn(label: Text('隧道ID')),
               DataColumn(label: Text('操作')),
             ],
+            // ignore: invalid_use_of_protected_member
             rows: cctr.widgets.value,
           ),
         ),
