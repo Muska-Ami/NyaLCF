@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
   final FrpcController fctr = Get.put(FrpcController());
 
   // _HC控制器实例
-  final hc = Get.put(_HC());
+  final hc = Get.put(HC());
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class Home extends StatelessWidget {
 }
 
 // _HC控制器
-class _HC extends GetxController {
+class HC extends GetxController {
   static bool loaded = false;
 
   // 内容列表
@@ -86,8 +86,8 @@ class _HC extends GetxController {
   ].obs;
 
   // 加载控制器
-  load() async {
-    if (loaded) return;
+  load({ bool force = false }) async {
+    if (loaded && !force) return;
     // 读取用户信息
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {

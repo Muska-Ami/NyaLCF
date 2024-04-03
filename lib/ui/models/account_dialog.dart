@@ -4,6 +4,7 @@ import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/panel_controller.dart';
 import 'package:nyalcf/controllers/proxies_controller.dart';
 import 'package:nyalcf/storages/stores/user_info_storage.dart';
+import 'package:nyalcf/ui/views/home.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,6 +25,8 @@ class AccountDialogX {
             onPressed: () async {
               try {
                 await UserInfoStorage.sigo();
+                final HC hc = Get.put(HC());
+                hc.load(force: true);
               } catch (e) {
                 Get.snackbar(
                   '发生错误',
