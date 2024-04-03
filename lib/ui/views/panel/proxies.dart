@@ -12,15 +12,11 @@ class PanelProxies extends StatelessWidget {
   PanelProxies({super.key});
 
   final UserController uctr = Get.find();
-  static bool loaded = false;
 
   @override
   Widget build(BuildContext context) {
     final pctr = Get.put(ProxiesController(context: context));
-    if (!loaded) {
-      pctr.load(uctr.user, uctr.token);
-      loaded = true;
-    }
+    pctr.load(uctr.user, uctr.token);
     return Scaffold(
       appBar: AppBar(
         title:
@@ -60,7 +56,8 @@ class PanelProxies extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () => {pctr.load(uctr.user, uctr.token)},
+              onPressed: () =>
+                  {pctr.load(uctr.user, uctr.token, request: true)},
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],

@@ -18,7 +18,7 @@ class PanelHome extends StatelessWidget {
 
   final UserController uctr = Get.find();
   final DPanelController dpctr = Get.put(DPanelController());
-  final ConsoleController cctr = Get.put(ConsoleController());
+  final ConsoleController cctr = Get.find();
 
   @override
   Widget build(BuildContext context) {

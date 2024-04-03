@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/controllers/console_controller.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/main.dart';
@@ -7,6 +8,7 @@ import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/stores/user_info_storage.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf/utils/frpc/startup_loader.dart';
 import 'package:nyalcf/utils/network/dio/auth/user_auth.dart';
 import 'package:nyalcf/utils/proxies_getter.dart';
 
@@ -21,6 +23,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ConsoleController());
     Get.put(UserController());
     // 加载hc控制器
     hc.load();
@@ -84,17 +87,19 @@ class HC extends GetxController {
   ].obs;
 
   // 加载控制器
-  load({ bool force = false }) async {
+  load({bool force = false}) async {
     if (loaded && !force) return;
+    loaded = true;
     // 读取用户信息
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
       // 检查用户令牌是否有效
       if (await UserAuth().checkToken(userinfo.token)) {
         // 刷新用户信息
-        await UserAuth()
-            .refresh(userinfo.token, userinfo.user)
-            .then((value) => {ProxiesGetter.startUp()});
+        await UserAuth().refresh(userinfo.token, userinfo.user).then((value) {
+          ProxiesGetter.startUp();
+          FrpcStartUpLoader().onProgramStartUp();
+        });
         // 清空内容列表
         w.value = <Widget>[];
         // 显示自动登录的SnackBar
@@ -121,7 +126,6 @@ class HC extends GetxController {
       // 重新初始化启动内容
       _initStartup();
     }
-    loaded = true;
   }
 
   // 重新初始化启动内容
