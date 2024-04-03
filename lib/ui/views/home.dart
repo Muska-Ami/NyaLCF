@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
+import 'package:nyalcf/main.dart';
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/stores/user_info_storage.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
@@ -10,16 +11,13 @@ import 'package:nyalcf/utils/network/dio/auth/user_auth.dart';
 import 'package:nyalcf/utils/proxies_getter.dart';
 
 class Home extends StatelessWidget {
-  Home({super.key, required this.title});
-
-  // 首页标题
-  final String title;
+  Home({super.key});
 
   // FrpcController实例
   final FrpcController fctr = Get.put(FrpcController());
 
   // _HC控制器实例
-  final hc = Get.put(_HC());
+  final hc = Get.put(HC());
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +30,7 @@ class Home extends StatelessWidget {
       // 构建应用栏
       appBar: AppBar(
         // 设置应用栏标题
-        title: Text('$title - 首页', style: const TextStyle(color: Colors.white)),
+        title: const Text('$title - 首页', style: TextStyle(color: Colors.white)),
         // 设置应用栏操作按钮
         actions: AppbarActionsX(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
@@ -61,7 +59,7 @@ class Home extends StatelessWidget {
 }
 
 // _HC控制器
-class _HC extends GetxController {
+class HC extends GetxController {
   static bool loaded = false;
 
   // 内容列表
@@ -86,8 +84,8 @@ class _HC extends GetxController {
   ].obs;
 
   // 加载控制器
-  load() async {
-    if (loaded) return;
+  load({ bool force = false }) async {
+    if (loaded && !force) return;
     // 读取用户信息
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
