@@ -32,6 +32,55 @@ class LauncherSetting {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const ListTile(
+                  leading: Icon(Icons.bug_report),
+                  title: Text('启动'),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 50.0),
+                  child: Obx(
+                    () => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.file_open),
+                                title: Text('自动启动'),
+                              ),
+                            ),
+                            Switch(
+                              value: dsctr.autostart.value,
+                              onChanged: (value) async {
+                                if (Platform.isWindows) {
+                                  dsctr.setAutostart(value);
+                                } else {
+                                  Get.snackbar(
+                                    '呜哇！',
+                                    '这个功能貌似只能在Windows系统上使用，其他平台尚在开发喵~',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    animationDuration:
+                                        const Duration(milliseconds: 300),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const ListTile(
                   leading: Icon(Icons.color_lens),
                   title: Text('主题'),
                 ),

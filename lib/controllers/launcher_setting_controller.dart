@@ -1,11 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/theme_control.dart';
 
 class DSettingLauncherController extends GetxController {
   final lcs = LauncherConfigurationStorage();
+  final _supportPath = PathProvider.appSupportPath;
+
+  var autostart = false.obs;
 
   var themeAuto = false.obs;
   var themeDark = false.obs;
@@ -17,6 +23,8 @@ class DSettingLauncherController extends GetxController {
   var debugMode = false.obs;
 
   load() async {
+    autostart.value = _getAutostartInkExist();
+
     themeLightSeed.value = lcs.getThemeLightSeedValue();
     themeLightSeedEnable.value = lcs.getThemeLightSeedEnable();
     // 新配置
@@ -61,5 +69,65 @@ class DSettingLauncherController extends GetxController {
     Get.forceAppUpdate();
     loadx();
     // ThemeControl.switchDarkTheme(value);
+  }
+
+  void setAutostart(bool value) async {
+    final userProgramPath = Directory(_supportPath!).parent.parent.path;
+    final startUpPath =
+        '$userProgramPath/Microsoft/Windows/Start Menu/Programs/Startup';
+    final lnkFile = '$startUpPath/nyanana.lnk';
+    final executablePath = Platform.resolvedExecutable;
+    if (value) {
+      Logger.debug('Create lnk file');
+      Logger.debug('$lnkFile -> $executablePath');
+      await _createShortcut(executablePath, lnkFile);
+    } else {
+      Logger.debug('Remove lnk file');
+      await File(lnkFile).delete();
+    }
+    autostart.value = _getAutostartInkExist();
+  }
+
+  bool _getAutostartInkExist() {
+    final userProgramPath = Directory(_supportPath!).parent.parent.path;
+    final startUpPath =
+        '$userProgramPath/Microsoft/Windows/Start Menu/Programs/Startup';
+    final lnkFile = '$startUpPath/nyanana.lnk';
+    return File(lnkFile).existsSync();
+  }
+
+  Future<void> _createShortcut(String targetPath, String shortcutPath) async {
+    // 构建 PowerShell 脚本内容
+    var powerShellScript = '''
+\$targetPath = "${targetPath.replaceAll('\\', '\\\\')}"
+\$shortcutPath = "${shortcutPath.replaceAll('\\', '\\\\')}"
+\$WScriptShell = New-Object -ComObject WScript.Shell
+\$Shortcut = \$WScriptShell.CreateShortcut(\$shortcutPath)
+\$Shortcut.TargetPath = \$targetPath
+\$Shortcut.Save()
+  ''';
+
+    // 保存 PowerShell 脚本内容到临时文件
+    var scriptFile = File('temp.ps1');
+    await scriptFile.writeAsString(powerShellScript);
+
+    // 构建执行 PowerShell 脚本的命令
+    var cmdCommand =
+        'powershell.exe -ExecutionPolicy Bypass -File ${scriptFile.path}';
+
+    // 执行命令
+    var result = await Process.run('cmd.exe', ['/c', cmdCommand]);
+
+    // 打印结果
+    Logger.debug('[PSOUT] ${result.stdout}');
+
+    if (result.exitCode == 0) {
+      Logger.info('Shortcut created successfully.');
+    } else {
+      Logger.error('Failed to create shortcut: ${result.stderr}');
+    }
+
+    // 删除临时 PowerShell 脚本文件
+    await scriptFile.delete();
   }
 }

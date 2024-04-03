@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf/controllers/frpc_controller.dart';
 import 'package:nyalcf/controllers/user_controller.dart';
 import 'package:nyalcf/models/proxy_info_model.dart';
+import 'package:nyalcf/storages/configurations/autostart_proxies_storage.dart';
 import 'package:nyalcf/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf/storages/stores/proxies_storage.dart';
@@ -23,6 +24,7 @@ class ProxiesController extends GetxController {
 
   final BuildContext context;
   final fcs = FrpcConfigurationStorage();
+  final aps = AutostartProxiesStorage();
 
   final FrpcController fctr = Get.find();
   final UserController uctr = Get.find();
@@ -60,14 +62,22 @@ class ProxiesController extends GetxController {
   /// 加载代理列表
   build(username, token) async {
     var proxies = ProxiesStorage.get();
-    ProxyInfoModel element;
+    proxiesWidgets.value = [
+      const SizedBox(
+        height: 22.0,
+        width: 22.0,
+        child: CircularProgressIndicator(
+          strokeWidth: 2,
+        ),
+      )
+    ];
     List<Widget> list = [];
-    for (element in proxies) {
+    proxies.forEach((element) async {
       // 新UI
       list.add(
         SizedBox(
           width: 380,
-          height: 200,
+          height: 230,
           child: Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,6 +115,18 @@ class ProxiesController extends GetxController {
                     ],
                   ),
                 ),
+                Row(children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(left: 5.0),
+                    child: Checkbox(
+                      value: _getIfAutostart(element.id),
+                      onChanged: (value) async {
+                        _changeAutostart(element.id, value);
+                      },
+                    ),
+                  ),
+                  const Text('跟随程序启动'),
+                ]),
                 Row(children: await _buildActions(element)),
               ],
             ),
@@ -112,9 +134,30 @@ class ProxiesController extends GetxController {
         ),
       );
       _getProxiesStatus(element);
-    }
-    proxiesWidgets.value = list;
+      proxiesWidgets.value = list;
+    });
     // proxiesListWidgets.refresh();
+  }
+
+  _getIfAutostart(int proxyId) {
+    final list = aps.getList();
+    return list.contains(proxyId);
+  }
+
+  _changeAutostart(int proxyId, bool? value) async {
+    Logger.debug(value);
+    if (value == false) {
+      Logger.debug('Remove autostart proxy from list: $proxyId');
+      aps.removeFromList(proxyId);
+      aps.save();
+      Logger.debug(_getIfAutostart(proxyId));
+    } else {
+      Logger.debug('Add autostart proxy to list: $proxyId');
+      aps.appendList(proxyId);
+      aps.save();
+      Logger.debug(_getIfAutostart(proxyId));
+    }
+    load(uctr.user, uctr.token);
   }
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
@@ -270,10 +313,12 @@ class ProxiesController extends GetxController {
   }
 
   /// 重新加载代理列表
-  load(username, token) async {
-    final list = await ProxiesGetDio().get(username, token);
-    ProxiesStorage.clear();
-    ProxiesStorage.addAll(list);
+  load(username, token, {bool request = false}) async {
+    if (request) {
+      final list = await ProxiesGetDio().get(username, token);
+      ProxiesStorage.clear();
+      ProxiesStorage.addAll(list);
+    }
     // proxiesListWidgets.value = <DataRow>[
     //   const DataRow(cells: <DataCell>[
     //     DataCell(SizedBox(

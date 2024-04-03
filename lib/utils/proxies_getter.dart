@@ -22,7 +22,7 @@ class ProxiesGetter {
       ProxiesStorage.addAll(result);
       try {
         final ProxiesController pctr = Get.find();
-        pctr.load(user.user, user.token);
+        pctr.load(user.user, user.token, request: true);
       } catch (e) {
         Logger.warn(
             'Can not update proxies list widgets, maybe it is not serialized yet.');
