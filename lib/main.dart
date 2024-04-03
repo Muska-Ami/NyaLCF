@@ -60,7 +60,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
       logWriterCallback: Logger.getxLogWriter,
       title: 'Nya LoCyanFrp!',
       routes: {
-        '/': (context) => Home(title: title),
+        '/': (context) => Home(),
         '/auth/login': (context) => const Login(),
         '/auth/register': (context) => const Register(),
         '/token_mode/login': (context) => const TokenModeAuth(),
