@@ -185,6 +185,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  flukit:
+    dependency: "direct main"
+    description:
+      name: flukit
+      sha256: e71be5693a2c612be09ca1d1e97dd2584c60f9e467fec7674bf4198f47ef2037
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.1"
   flutter:
     dependency: "direct main"
     description: flutter
