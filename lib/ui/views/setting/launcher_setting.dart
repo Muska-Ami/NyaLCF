@@ -285,7 +285,17 @@ class LauncherSetting {
                                             snackPosition: SnackPosition.BOTTOM,
                                             animationDuration: const Duration(
                                                 milliseconds: 300),
-                                          ));
+                                          ))
+                                      .onError((error, stackTrace) {
+                                    Logger.error(error);
+                                    return Get.snackbar(
+                                      '坏！',
+                                      '发生了一点小问题QAQ $error}',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      animationDuration:
+                                          const Duration(milliseconds: 300),
+                                    );
+                                  });
                                 },
                                 child: const Text('清除日志'),
                               ),
