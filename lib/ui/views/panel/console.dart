@@ -8,7 +8,6 @@ import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
-import 'package:nyalcf/ui/models/process_list_dialog.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 class PanelConsole extends StatelessWidget {
@@ -45,63 +44,119 @@ class PanelConsole extends StatelessWidget {
       ),
       drawer: DrawerX(context: context).drawer(),
       body: Center(
-        child: ListView(
-          children: <Widget>[
-            Obx(
-              () => Card(
-                margin: const EdgeInsets.all(20.0),
-                color: Colors.grey.shade900,
-                child: SizedBox(
-                  width: Checkbox.width,
-                  height: 340.0,
-                  child: Container(
-                    margin: const EdgeInsets.all(10.0),
-                    child: ListView(
-                      children: fctr.processOut,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-              child: Row(
-                children: <Widget>[
-                  ElevatedButton(
-                    child: const Text('查看进程列表'),
-                    onPressed: () async {
-                      Get.dialog(ProcessListDialogX(context: context).build());
-                    },
-                  ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
-                    ),
-                    child: const Text(
-                      '关闭所有进程',
-                      style: TextStyle(
-                        color: Colors.white,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 180.0,
+                      height: 340,
+                      child: Card(
+                        child: Obx(
+                          () => Column(
+                            children: <Widget>[
+                              const ListTile(title: Text('进程列表')),
+                              Expanded(
+                                child: ListView(
+                                  children:
+                                      ConsoleController.processListWidget.value,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                    onPressed: () async {
-                      FrpcProcessManager().killAll();
-                      cctr.widgets.refresh();
-                    },
+                    Expanded(
+                      child: SizedBox(
+                        height: 340,
+                        child: Card(
+                          color: Colors.grey.shade900,
+                          child: Container(
+                            margin: const EdgeInsets.all(10.0),
+                            child: Obx(
+                              () => ListView(
+                                children: fctr.processOut,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 20.0),
+                  child: Row(
+                    children: <Widget>[
+                      // ElevatedButton(
+                      //   child: const Text('查看进程列表'),
+                      //   onPressed: () async {
+                      //     Get.dialog(
+                      //         ProcessListDialogX(context: context).build());
+                      //   },
+                      // ),
+                      ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.red),
+                        ),
+                        child: const Text(
+                          '关闭所有进程',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () async {
+                          FrpcProcessManager().killAll();
+                          cctr.widgets.refresh();
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        tooltip: '清空日志',
+                        onPressed: () async {
+                          fctr.processOut.clear();
+                        },
+                      ),
+                    ],
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    tooltip: '清空日志',
-                    onPressed: () async {
-                      fctr.processOut.clear();
-                    },
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButtonX().button(),
     );
+  }
+
+  static buildProcessListWidget() {
+    var processList = ConsoleController.processList;
+    var widgets = <Card>[];
+
+    for (var element in processList) {
+      widgets.add(
+        Card(
+          color: Get.theme.highlightColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            side: BorderSide.none,
+          ),
+          elevation: 0,
+          child: ListTile(
+            title: Text('隧道 ${element['proxy_id']}'),
+            subtitle: Text('进程PID: ${element['process'].pid}'),
+          ),
+        ),
+      );
+    }
+
+    ConsoleController.processListWidget.value = widgets;
   }
 }

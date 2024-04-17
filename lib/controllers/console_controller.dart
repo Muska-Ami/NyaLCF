@@ -2,12 +2,14 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/ui/views/panel/console.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 /// 控制台 GetX 状态控制器
 class ConsoleController extends GetxController {
   /// UI组件列表
   var widgets = <DataRow>[].obs;
+  static var processListWidget = <Card>[].obs;
 
   /// 进程管理列表
   static var processList = <Map<String, dynamic>>[].obs;
@@ -16,12 +18,14 @@ class ConsoleController extends GetxController {
   addProcess(Map<String, dynamic> pMap) {
     processList.add(pMap);
     processList.refresh();
+    PanelConsole.buildProcessListWidget();
   }
 
   /// 移除进程
   removeProcess(Map<String, dynamic> pMap) {
     processList.remove(pMap);
     processList.refresh();
+    PanelConsole.buildProcessListWidget();
   }
 
   /// 清空进程
@@ -29,6 +33,7 @@ class ConsoleController extends GetxController {
     processList.clear();
     processList.refresh();
     load();
+    PanelConsole.buildProcessListWidget();
   }
 
   /// 加载进程管理信息
