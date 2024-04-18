@@ -8,6 +8,7 @@ import 'package:nyalcf/ui/models/account_dialog.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/drawer.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf/ui/models/process_action_dialog.dart';
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 
 class PanelConsole extends StatelessWidget {
@@ -60,7 +61,15 @@ class PanelConsole extends StatelessWidget {
                         child: Obx(
                           () => Column(
                             children: <Widget>[
-                              const ListTile(title: Text('进程列表')),
+                              ListTile(
+                                title: const Text('进程列表'),
+                                subtitle: Text(
+                                  '点击操作进程',
+                                  style: TextStyle(
+                                    color: Get.theme.disabledColor,
+                                  ),
+                                ),
+                              ),
                               Expanded(
                                 child: ListView(
                                   children:
@@ -138,7 +147,7 @@ class PanelConsole extends StatelessWidget {
 
   static buildProcessListWidget() {
     var processList = ConsoleController.processList;
-    var widgets = <Card>[];
+    var widgets = <Widget>[];
 
     for (var element in processList) {
       widgets.add(
@@ -149,9 +158,14 @@ class PanelConsole extends StatelessWidget {
             side: BorderSide.none,
           ),
           elevation: 0,
-          child: ListTile(
-            title: Text('隧道 ${element['proxy_id']}'),
-            subtitle: Text('进程PID: ${element['process'].pid}'),
+          child: InkWell(
+            child: ListTile(
+              title: Text('隧道 ${element['proxy_id']}'),
+              subtitle: Text('进程PID: ${element['process'].pid}'),
+            ),
+            onTap: () async {
+              Get.dialog(ProcessActionDialogX(process: element).build());
+            },
           ),
         ),
       );
