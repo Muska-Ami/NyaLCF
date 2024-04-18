@@ -9,7 +9,7 @@ import 'package:nyalcf/utils/frpc/process_manager.dart';
 class ConsoleController extends GetxController {
   /// UI组件列表
   var widgets = <DataRow>[].obs;
-  static var processListWidget = <Card>[].obs;
+  static var processListWidget = <Widget>[].obs;
 
   /// 进程管理列表
   static var processList = <Map<String, dynamic>>[].obs;
