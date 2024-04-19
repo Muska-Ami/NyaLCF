@@ -10,7 +10,7 @@ priority: optional
 section: x11
 installed_size: 6604
 essential: false
-icon: asset/icon/icon.png
+icon: icon.png
 
 postinstall_scripts: []
 postuninstall_scripts:
