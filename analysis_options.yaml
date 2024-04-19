@@ -10,7 +10,7 @@
 include: package:flutter_lints/flutter.yaml
 analyzer:
   exclude:
-    - tool/**
+    - tools/**
     - lib/utils/highlight/ini_fix.dart
 
 linter:
