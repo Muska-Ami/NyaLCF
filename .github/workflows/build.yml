@@ -11,6 +11,8 @@ on:
       - main
       - dev
 
+permissions: write-all
+
 jobs:
   windows:
     runs-on: windows-latest
@@ -132,11 +134,11 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: ./repo/ChangeLog.md
-          prerelease: false
-          draft: false
-          tag_name: v${{ steps.get_version.outputs.version }}
-          files: |
-            *.zip
+            body_path: ./repo/ChangeLog.md
+            prerelease: false
+            draft: false
+            tag_name: v${{ steps.get_version.outputs.version }}
+            files: |
+              *.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
