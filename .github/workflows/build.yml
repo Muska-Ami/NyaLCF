@@ -142,7 +142,7 @@ jobs:
           timezoneLinux: 'Asia/Shanghai'
 
       - name: Install Tools
-        run: sudo apt install p7zip-full && snap install yq
+        run: sudo apt install p7zip-full && sudo snap install yq
 
       - name: Download Artifacts
         uses: actions/download-artifact@v3
