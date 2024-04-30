@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Build
+name: Build and Release
 
 on:
   push:
@@ -123,3 +123,17 @@ jobs:
         with:
           name: MacOS Artifact(Dist)
           path: dist
+
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: ./repo/ChangeLog.md
+          prerelease: false
+          draft: false
+          tag_name: v${{ env.MCSL2_VERSION }}
+          files: |
+            *.zip
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
