@@ -28,7 +28,7 @@ class MainWindow {
     // 设置托盘菜单
     await trayManager.setToolTip('Nya~');
     await trayManager.setIcon(
-      Platform.isWindows ? 'asset/icon/icon.ico' : 'asset/icon/icon.png',
+      Platform.isWindows ? 'icon.ico' : 'icon.png',
     );
     trayManager.setContextMenu(MainTray.menu);
 
