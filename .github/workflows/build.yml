@@ -183,6 +183,7 @@ jobs:
 
       - name: Unpack Dist
         run: |-
+          ls 
           unzip  "Windows Artifact(Dist).zip"
           unzip  "Linux Artifact(Dist).zip"
           unzip  "MacOS Artifact(Dist).zip"
