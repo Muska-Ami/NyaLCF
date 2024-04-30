@@ -143,7 +143,7 @@ jobs:
 
       - name: Install Tools
         run: |- 
-          sudo apt install p7zip-full
+          sudo apt install unzip
           sudo snap install yq
 
       - name: Download Artifacts
@@ -183,9 +183,9 @@ jobs:
 
       - name: Unpack Dist
         run: |-
-          7z x "Windows Artifact(Dist).zip"
-          7z x "Linux Artifact(Dist).zip"
-          7z x "MacOS Artifact(Dist).zip"
+          unzip  "Windows Artifact(Dist).zip"
+          unzip  "Linux Artifact(Dist).zip"
+          unzip  "MacOS Artifact(Dist).zip"
 
       - name: Release
         uses: softprops/action-gh-release@v1
