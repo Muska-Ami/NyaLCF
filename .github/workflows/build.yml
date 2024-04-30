@@ -54,18 +54,6 @@ jobs:
         id: get_version
         run: echo "::set-output name=version::$(yq eval '.version' pubspec.yaml)"
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: ./repo/ChangeLog.md
-          prerelease: false
-          draft: false
-          tag_name: v${{ steps.get_version.outputs.version }}
-          files: |
-            *.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
 
   linux:
     runs-on: ubuntu-latest
@@ -105,21 +93,6 @@ jobs:
         with:
           name: Linux Artifact(Dist)
           path: dist
-      - name: Get version from pubspec.yaml
-        id: get_version
-        run: echo "::set-output name=version::$(yq eval '.version' pubspec.yaml)"
-
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body_path: ./repo/ChangeLog.md
-          prerelease: false
-          draft: false
-          tag_name: v${{ steps.get_version.outputs.version }}
-          files: |
-            *.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
   macos:
@@ -157,18 +130,70 @@ jobs:
         with:
           name: MacOS Artifact(Dist)
           path: dist
-      - name: Get version from pubspec.yaml
-        id: get_version
-        run: echo "::set-output name=version::$(yq eval '.version' pubspec.yaml)"
 
-      - name: Release
-        uses: softprops/action-gh-release@v1
+  Release:
+    runs-on: ubuntu-latest
+
+    needs:
+      - Windows
+      - Linux
+
+    steps:
+
+      - uses: szenius/set-timezone@v1.0
         with:
-            body_path: ./repo/ChangeLog.md
-            prerelease: false
-            draft: false
-            tag_name: v${{ steps.get_version.outputs.version }}
-            files: |
-              *.zip
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          timezoneLinux: 'Asia/Shanghai'
+
+      - name: Install Tools
+        run: sudo apt install p7zip-full && snap install yq
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          path: repo
+
+      - name: Set Environment Variable
+        run: |
+          cd repo
+          nyalcf_version=$(yq eval '.version' pubspec.yaml)
+          echo "NyaLCF_VERSION=$nyalcf_version" >> $GITHUB_ENV
+          cd ..
+
+      - name: ls
+        run: ls
+
+#      - name: Compress
+#        run: |
+#          7z a -tzip "MCSL2-${{ env.NyaLCF_VERSION }}-Windows-x64.zip" "./MCSL2-Windows-x64/*"
+#          7z a -tzip "MCSL2-${{ env.NyaLCF_VERSION }}-Linux-x64.zip" "./MCSL2-Linux-x64/*"
+#          mkdir Update
+#          cd Update
+#          mkdir Linux-x64 Windows-x64
+#          cd Linux-x64
+#          mkdir MCSL2Lib
+#          cd ..
+#          cd Windows-x64
+#          mkdir MCSL2Lib
+#          cd ..
+#          cp -r ../MCSL2-Linux-x64/MCSL2.bin Linux-x64/
+#          cp -r ../MCSL2-Windows-x64/MCSL2.exe Windows-x64/
+#          cp -r ../MCSL2-Linux-x64/MCSL2Lib/verification.so Linux-x64/MCSL2Lib/
+#          cp -r ../MCSL2-Windows-x64/MCSL2Lib/verification.pyd Windows-x64/MCSL2Lib/
+#          cd ..
+#          7z a -tzip "Update-${{ env.NyaLCF_VERSION }}.zip" "./Update/*"
+#
+#      - name: Release
+#        uses: softprops/action-gh-release@v1
+#        with:
+#          body_path: ./repo/ChangeLog.md
+#          prerelease: false
+#          draft: false
+#          tag_name: v${{ env.MCSL2_VERSION }}
+#          files: |
+#            *.zip
+#
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
