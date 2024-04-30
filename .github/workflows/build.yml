@@ -125,15 +125,18 @@ jobs:
           path: dist
 
 
+      - name: Get version from pubspec.yaml
+        id: get_version
+        run: echo "::set-output name=version::$(yq eval '.version' pubspec.yaml)"
+
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           body_path: ./repo/ChangeLog.md
           prerelease: false
           draft: false
-          tag_name: v${{ env.MCSL2_VERSION }}
+          tag_name: v${{ steps.get_version.outputs.version }}
           files: |
             *.zip
-
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
