@@ -164,9 +164,9 @@ jobs:
           cd ..
           ls
           ls repo
-          ls Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}
-          ls Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}
-          ls macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}
+          ls Windows-Dist-Artifact${{ env.NyaLCF_VERSION}}
+          ls Linux-Dist-Artifact${{ env.NyaLCF_VERSION}}
+          ls macOS-Dist-Artifact${{ env.NyaLCF_VERSION}}
           
 
       - name: Release
