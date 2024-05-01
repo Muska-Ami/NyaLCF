@@ -149,11 +149,7 @@ jobs:
 
       - name: Install Tools
         run: |- 
-          sudo apt install p7zip-full
           sudo snap install yq
-
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
 
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -167,12 +163,6 @@ jobs:
           echo "NyaLCF_VERSION=$nyalcf_version" >> $GITHUB_ENV
           cd ..
 
-      - name: Extract
-        run: |
-          7z e "Windows-Dist-Artifact.zip"
-          7z e "Linux-Dist-Artifact.zip"
-          7z e "macOS-Dist-Artifact.zip"
-
       - name: Release
         uses: softprops/action-gh-release@v1
         env:
@@ -183,4 +173,6 @@ jobs:
           draft: false
           tag_name: v${{ env.NyaLCF_VERSION }}
           files: |
-            ${{ env.NyaLCF_VERSION}}/*
+            Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*
+            Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*
+            macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*
