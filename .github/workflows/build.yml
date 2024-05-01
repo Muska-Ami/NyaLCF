@@ -173,6 +173,8 @@ jobs:
           draft: false
           tag_name: v${{ env.NyaLCF_VERSION }}
           files: |
-            Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*/**
-            Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*/**
-            macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}/*/**
+            Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}/nyalcf-${{ env.NyaLCF_VERSION}}-windows-setup.exe
+            Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}/nyalcf-${{ env.NyaLCF_VERSION}}-linux.AppImage
+            Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}/nyalcf-${{ env.NyaLCF_VERSION}}-linux.deb
+            Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}/nyalcf-${{ env.NyaLCF_VERSION}}-linux.rpm
+            macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}/nyalcf-${{ env.NyaLCF_VERSION}}-macos.dmg
