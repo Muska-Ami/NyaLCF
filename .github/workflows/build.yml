@@ -162,6 +162,7 @@ jobs:
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
           echo "NyaLCF_VERSION=$nyalcf_version" >> $GITHUB_ENV
           cd ..
+          ls
           ls Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}
           ls Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}
           ls macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}
