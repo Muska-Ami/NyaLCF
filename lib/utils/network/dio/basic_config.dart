@@ -11,7 +11,7 @@ BaseOptions options = BaseOptions(
 );
 const apiV1Url = 'https://api.locyanfrp.cn';
 const apiV2Url = 'https://api-v2.locyanfrp.cn/api/v2';
-const frpcConfigUrl = 'https://www.locyanfrp.cn/api';
+const frpcConfigUrl = 'https://lcf-frps-api.locyanfrp.cn/api';
 const githubApiUrl = 'https://api-gh.1l1.icu';
 const githubMainUrl = 'https://github.com';
 const githubMirrorsUrl = 'https://proxy-gh.1l1.icu/https://github.com';
