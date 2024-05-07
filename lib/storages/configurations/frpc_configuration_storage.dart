@@ -12,7 +12,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   @override
   Future<Map<String, dynamic>> get defConfig async => {
         'settings': {
-          'frpc_version': '0.51.3-2',
+          'frpc_version': '0.51.3-3',
           'github_mirror': true,
         },
         'lists': {
