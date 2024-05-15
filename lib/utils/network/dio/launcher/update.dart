@@ -1,25 +1,39 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/models/update_info_model.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/response_type.dart';
 
 class LauncherUpdateDio {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<UpdateInfoModel?> getUpdate() async {
+  Future<Response> getUpdate() async {
     try {
-      final res =
-          await dio.get('$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest');
+      final res = await instance
+          .get('$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest');
       final Map<String, dynamic> resData = res.data;
       // print(resData);
-      return UpdateInfoModel(
-        version: resData['name'],
-        tag: resData['tag_name'],
-        downloadUrl: resData['assets'],
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'update_info': UpdateInfoModel(
+            version: resData['name'],
+            tag: resData['tag_name'],
+            downloadUrl: resData['assets'],
+          ),
+          'origin_response': res,
+        },
       );
     } catch (e) {
       Logger.error(e);
-      return null;
+      return Response(
+        status: false,
+        message: e.toString(),
+        data: {
+          'error': e,
+        },
+      );
     }
   }
 }

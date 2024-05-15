@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
-import 'package:nyalcf/utils/network/dio/response_type.dart';
+import 'package:nyalcf/utils/network/response_type.dart';
 
 class LoginAuth {
   final instance = dio.Dio(options);

@@ -7,19 +7,24 @@ import 'package:nyalcf/utils/universe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Updater {
+  /// 获取内部包版本
   static UpdateInfoModel? uIf = UpdateInfoModel(
       version: Universe.appVersion, tag: Universe.appVersion, downloadUrl: []);
 
   static void startUp() async {
     Logger.info('Checking update...');
 
-    /// 获取内部包版本
-    uIf = await LauncherUpdateDio().getUpdate();
+    /// 获取远程源版本
+    final remote = await LauncherUpdateDio().getUpdate();
+    if (remote.status) {
+      uIf = remote.data['update_info'];
+    } else {
+      Logger.warn('Get remote version info failed.');
+    }
 
     if (check()) {
       showDialog();
     } else {
-      /// 是
       Logger.info('You are running latest version.');
       Future.delayed(const Duration(hours: 1), () {
         startUp();
@@ -28,7 +33,6 @@ class Updater {
   }
 
   static bool check() {
-    /// 获取远程源版本
     Logger.debug(
         '${uIf?.version} | v${Universe.appVersion}+${Universe.appBuildNumber}');
 
@@ -36,7 +40,6 @@ class Updater {
     if (uIf?.version != null &&
         'v${Universe.appVersion}+${Universe.appBuildNumber}' != uIf?.version &&
         'v${Universe.appVersion}' != uIf?.version) {
-      /// 否
       Logger.info('New version: ${uIf?.version}');
       return true;
     }

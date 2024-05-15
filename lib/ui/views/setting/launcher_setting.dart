@@ -336,8 +336,18 @@ class LauncherSetting {
                   margin: const EdgeInsets.only(left: 20, bottom: 10),
                   child: ElevatedButton(
                     onPressed: () async {
-                      Updater.uIf = await LauncherUpdateDio().getUpdate();
-                      if (Updater.check()) Updater.showDialog();
+                      final remote = await LauncherUpdateDio().getUpdate();
+                      if (remote.status) {
+                        Updater.uIf = remote.data['update_info'];
+                        if (Updater.check()) Updater.showDialog();
+                      } else {
+                        Get.snackbar(
+                          '发生错误',
+                          '无法检查版本更新：${remote.message}',
+                          snackPosition: SnackPosition.BOTTOM,
+                          animationDuration: const Duration(milliseconds: 300),
+                        );
+                      }
                     },
                     child: const Text('检查更新'),
                   ),
