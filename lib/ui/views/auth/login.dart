@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/main.dart';
-import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
@@ -85,18 +84,14 @@ class _LoginState extends State<Login> {
     );
   }
 
-  void _showSnackbar(String message) {
-    Get.snackbar(
-      '无效数据',
-      message,
-      snackPosition: SnackPosition.BOTTOM,
-      animationDuration: const Duration(milliseconds: 300),
-    );
-  }
-
   void _login() async {
     if (userController.text.isEmpty || passwordController.text.isEmpty) {
-      _showSnackbar('请输入用户名或密码');
+      Get.snackbar(
+        '无效数据',
+        '请输入用户名或密码',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
       return;
     }
 
@@ -108,18 +103,23 @@ class _LoginState extends State<Login> {
     );
     final res = await LoginAuth()
         .requestLogin(userController.text, passwordController.text);
-    if (res is UserInfoModel) {
-      await UserInfoPrefs.setInfo(res);
+    if (res.status) {
+      await UserInfoPrefs.setInfo(res.data['user_info']);
       UserInfoPrefs.saveToFile();
       Get.snackbar(
         '登录成功',
-        '欢迎您，指挥官 ${res.user}',
+        '欢迎您，指挥官 ${res.data['user_info'].user}',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );
       Get.toNamed('/panel/home');
     } else {
-      _showSnackbar(res.toString());
+      Get.snackbar(
+        '登录失败',
+        res.message,
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
     }
   }
 }

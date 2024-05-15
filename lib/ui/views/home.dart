@@ -9,6 +9,7 @@ import 'package:nyalcf/storages/stores/user_info_storage.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
 import 'package:nyalcf/utils/frpc/startup_loader.dart';
+import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/auth/user_auth.dart';
 import 'package:nyalcf/utils/proxies_getter.dart';
 
@@ -94,9 +95,13 @@ class HC extends GetxController {
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
       // 检查用户令牌是否有效
-      if (await UserAuth().checkToken(userinfo.token)) {
+      final checkTokenRes = await UserAuth().checkToken(userinfo.token);
+      if (checkTokenRes.status) {
         // 刷新用户信息
         await UserAuth().refresh(userinfo.token, userinfo.user).then((value) {
+          if (!value.status) {
+            Logger.warn('Check user token success but refresh token failed. User info may not the latest!');
+          }
           ProxiesGetter.startUp();
           FrpcStartUpLoader().onProgramStartUp();
         });

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/main.dart';
-import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/ui/models/appbar_actions.dart';
 import 'package:nyalcf/ui/models/floating_action_button.dart';
@@ -137,8 +136,8 @@ class _RegisterState extends State<Register> {
                                           final res = await RegisterAuth()
                                               .requestCode(
                                                   emailController.text);
-                                          if (res is bool) {
-                                            if (res) {
+                                          if (res.status) {
+                                            // if (res) {
                                               Get.snackbar(
                                                 '操作成功',
                                                 '已发送，如未收到请检查垃圾箱',
@@ -148,21 +147,21 @@ class _RegisterState extends State<Register> {
                                                     const Duration(
                                                         milliseconds: 300),
                                               );
-                                            } else {
-                                              Get.snackbar(
-                                                '操作失败',
-                                                '发生失败，内部错误',
-                                                snackPosition:
-                                                    SnackPosition.BOTTOM,
-                                                animationDuration:
-                                                    const Duration(
-                                                        milliseconds: 300),
-                                              );
-                                            }
+                                            // } else {
+                                            //   Get.snackbar(
+                                            //     '操作失败',
+                                            //     '发生失败，内部错误',
+                                            //     snackPosition:
+                                            //         SnackPosition.BOTTOM,
+                                            //     animationDuration:
+                                            //         const Duration(
+                                            //             milliseconds: 300),
+                                            //   );
+                                            // }
                                           } else {
                                             Get.snackbar(
                                               '操作失败',
-                                              '发送失败，原因：${res.toString()}',
+                                              '发送失败，原因：${res.message}',
                                               snackPosition:
                                                   SnackPosition.BOTTOM,
                                               animationDuration: const Duration(
@@ -202,6 +201,13 @@ class _RegisterState extends State<Register> {
                           margin: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
                             onPressed: () async {
+                              Get.snackbar(
+                                '正在请求',
+                                '正在请求注册',
+                                snackPosition: SnackPosition.BOTTOM,
+                                animationDuration:
+                                const Duration(milliseconds: 300),
+                              );
                               final res = await RegisterAuth().requestRegister(
                                 userController.text,
                                 passwordController.text,
@@ -210,8 +216,8 @@ class _RegisterState extends State<Register> {
                                 verifyController.text,
                                 qqController.text,
                               );
-                              if (res is bool) {
-                                if (res) {
+                              if (res.status) {
+                                // if (res) {
                                   Get.snackbar(
                                     '注册成功',
                                     '正在自动登录',
@@ -226,14 +232,14 @@ class _RegisterState extends State<Register> {
                                   );
 
                                   /// 从登录页面抄过来的
-                                  if (resLogin is UserInfoModel) {
+                                  if (resLogin.status) {
                                     //UserInfoCache.info = res;
                                     //print(UserInfoCache.info);
-                                    await UserInfoPrefs.setInfo(resLogin);
+                                    await UserInfoPrefs.setInfo(resLogin.data['user_info']);
                                     UserInfoPrefs.saveToFile();
                                     Get.snackbar(
                                       '登录成功',
-                                      '欢迎您，指挥官 ${resLogin.user}',
+                                      '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
                                       snackPosition: SnackPosition.BOTTOM,
                                       animationDuration:
                                           const Duration(milliseconds: 300),
@@ -242,26 +248,26 @@ class _RegisterState extends State<Register> {
                                   } else {
                                     Get.snackbar(
                                       '登录失败',
-                                      '无法自动完成登录，请尝试手动登录，原因： ${resLogin.toString()}',
+                                      '无法自动完成登录，请尝试手动登录，原因： ${resLogin.message}',
                                       snackPosition: SnackPosition.BOTTOM,
                                       animationDuration:
                                           const Duration(milliseconds: 300),
                                     );
                                     Get.toNamed('/login');
                                   }
-                                } else {
-                                  Get.snackbar(
-                                    '操作失败',
-                                    '注册失败，内部错误',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    animationDuration:
-                                        const Duration(milliseconds: 300),
-                                  );
-                                }
+                                // } else {
+                                //   Get.snackbar(
+                                //     '操作失败',
+                                //     '注册失败，内部错误',
+                                //     snackPosition: SnackPosition.BOTTOM,
+                                //     animationDuration:
+                                //         const Duration(milliseconds: 300),
+                                //   );
+                                // }
                               } else {
                                 Get.snackbar(
                                   '操作失败',
-                                  '注册失败，原因：${res.toString()}',
+                                  '注册失败，原因：${res.message}',
                                   snackPosition: SnackPosition.BOTTOM,
                                   animationDuration:
                                       const Duration(milliseconds: 300),

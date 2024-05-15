@@ -1,44 +1,57 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/dio/response_type.dart';
 
 class UserAuth {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<bool> checkToken(token) async {
+  Future<Response> checkToken(token) async {
     try {
       Logger.info('Check token if is valid');
       Map<String, dynamic> paramsMap = {};
       paramsMap['token'] = token;
 
-      final res = await dio.get(
+      final res = await instance.get(
         '$apiV2Url/check/token',
         queryParameters: paramsMap,
       );
       Logger.debug(res.data);
 
-      return true;
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'origin_response': res,
+        },
+      );
     } catch (e) {
       Logger.error(e);
-      return false;
+      return Response(
+        status: false,
+        message: e.toString(),
+        data: {
+          'error': e,
+        },
+      );
     }
   }
 
-  Future<bool> refresh(token, username) async {
+  Future<Response> refresh(token, username) async {
     try {
       Logger.info('Refresh user info');
       Map<String, dynamic> paramsMap = {};
       paramsMap['username'] = username;
 
-      Options options = Options();
+      dio.Options options = dio.Options();
       Map<String, dynamic> optionsMap = {};
       optionsMap['Content-Type'] =
           'application/x-www-form-urlencoded;charset=UTF-8';
       optionsMap['Authorization'] = 'Bearer $token';
       options = options.copyWith(headers: optionsMap);
 
-      final res = await dio.get(
+      final res = await instance.get(
         '$apiV2Url/users/info',
         queryParameters: paramsMap,
         options: options,
@@ -51,10 +64,22 @@ class UserAuth {
       //UserInfoPrefs.setInbound(resData['inbound']);
       //UserInfoPrefs.setOutbound(resData['outbound']);
 
-      return true;
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'origin_response': res,
+        },
+      );
     } catch (e) {
       Logger.error(e);
-      return false;
+      return Response(
+        status: false,
+        message: e.toString(),
+        data: {
+          'error': e,
+        },
+      );
     }
   }
 }

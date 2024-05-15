@@ -1,16 +1,18 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/models/user_info_model.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/dio/response_type.dart';
 
 class LoginAuth {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<dynamic> requestLogin(user, password) async {
-    FormData data = FormData.fromMap({'username': user, 'password': password});
+  Future<Response> requestLogin(user, password) async {
+    dio.FormData data =
+        dio.FormData.fromMap({'username': user, 'password': password});
     try {
       Logger.debug('Post login: $user / $password');
-      final response = await dio.post('$apiV2Url/users/login', data: data);
+      final response = await instance.post('$apiV2Url/users/login', data: data);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
@@ -25,13 +27,32 @@ class LoginAuth {
           frpToken: resData['frp_token'],
           traffic: int.parse(resData['traffic']),
         );
-        return userInfo;
+        return Response(
+          status: true,
+          message: 'OK',
+          data: {
+            'user_info': userInfo,
+            'origin_response': resData,
+          },
+        );
       } else {
-        return resData['msg'] ?? responseJson['status'];
+        return Response(
+          status: false,
+          message: resData['msg'] ?? responseJson['status'],
+          data: {
+            'origin_response': resData,
+          },
+        );
       }
     } catch (ex) {
       Logger.error(ex);
-      return ex;
+      return Response(
+        status: false,
+        message: ex.toString(),
+        data: {
+          'error': ex,
+        },
+      );
     }
   }
 }
