@@ -100,8 +100,8 @@ class FrpcSettingController extends GetxController {
               ).then((value) async {
                 Logger.debug(value);
                 if (value) {
-                  fcs.setSettingsFrpcVersion('0.51.3-2');
-                  fcs.addInstalledVersion('0.51.3-2');
+                  fcs.setSettingsFrpcVersion('0.51.3-3');
+                  fcs.addInstalledVersion('0.51.3-3');
                   fcs.save();
                   /**if (!Platform.isWindows) {
                       print('*nix platform, change file permission');

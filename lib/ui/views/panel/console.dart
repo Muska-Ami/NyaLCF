@@ -133,6 +133,13 @@ class PanelConsole extends StatelessWidget {
                           fctr.processOut.clear();
                         },
                       ),
+                      IconButton(
+                        icon: const Icon(Icons.fullscreen),
+                        tooltip: '全屏',
+                        onPressed: () async {
+                          Get.toNamed('/panel/console/full');
+                        },
+                      ),
                     ],
                   ),
                 ),

@@ -111,8 +111,8 @@ class FrpcController extends GetxController {
     processOut.add(
       SelectableText(
         '[SYSTEM][INFO] $element',
-        style: const TextStyle(
-          color: Colors.teal,
+        style: TextStyle(
+          color: Colors.tealAccent[400],
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
         ),
@@ -131,8 +131,8 @@ class FrpcController extends GetxController {
     processOut.add(
       SelectableText(
         '[SYSTEM][WARN] $element',
-        style: const TextStyle(
-          color: Colors.orange,
+        style: TextStyle(
+          color: Colors.orangeAccent[400],
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
         ),
@@ -151,8 +151,8 @@ class FrpcController extends GetxController {
     processOut.add(
       SelectableText(
         '[SYSTEM][ERROR] $element',
-        style: const TextStyle(
-          color: Colors.red,
+        style: TextStyle(
+          color: Colors.redAccent[400],
           fontWeight: FontWeight.w200,
           fontFamily: 'Droid Sans Mono',
         ),

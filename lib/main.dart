@@ -10,6 +10,7 @@ import 'package:nyalcf/ui/views/auth/register.dart';
 import 'package:nyalcf/ui/views/auth/tokenmode.dart';
 import 'package:nyalcf/ui/views/home.dart';
 import 'package:nyalcf/ui/views/panel/console.dart';
+import 'package:nyalcf/ui/views/panel/console_full.dart';
 import 'package:nyalcf/ui/views/panel/home.dart';
 import 'package:nyalcf/ui/views/panel/proxies.dart';
 import 'package:nyalcf/ui/views/setting/injector.dart';
@@ -68,6 +69,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/panel/home': (context) => PanelHome(),
         '/panel/proxies': (context) => PanelProxies(),
         '/panel/console': (context) => PanelConsole(),
+        '/panel/console/full': (context) => PanelConsoleFull(),
         '/setting': (context) => const SettingInjector(),
       },
       theme: themeData,
