@@ -27,12 +27,13 @@ class UserInfoPrefs {
 
   static Future<void> setTraffic(int traffic) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Logger.debug(traffic);
     prefs.setInt('user_traffic', traffic);
   }
 
-  static Future<void> setFrpToken(int frpToken) async {
+  static Future<void> setFrpToken(String frpToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('user_frp_token', frpToken);
+    prefs.setString('user_frp_token', frpToken);
   }
 
   static Future<void> saveToFile() async {
