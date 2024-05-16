@@ -21,7 +21,7 @@ jobs:
         with:
           submodules: true
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
           version: 3.19.4
@@ -59,9 +59,10 @@ jobs:
         with:
           submodules: true
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
+          version: 3.19.4
 
       - name: Install Dependencies
         run: |-
@@ -98,9 +99,11 @@ jobs:
         with:
           submodules: true
       - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
+          version: 3.19.4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
