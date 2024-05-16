@@ -9,7 +9,6 @@ on:
   push:
     branches:
       - main
-      - dev
 
 
 jobs:
@@ -156,19 +155,19 @@ jobs:
         with:
           path: repo
 
-      - name: Download Build Artifact
+      - name: Download Build Artifact for Windows Platform
         uses: actions/download-artifact@v4
         with:
           name: Windows-Dist-Artifact
           path: Windows-Dist-Artifact
 
-      - name: Download Build Artifact
+      - name: Download Build Artifact for Linux Platform
         uses: actions/download-artifact@v4
         with:
           name: Linux-Dist-Artifact
           path: Linux-Dist-Artifact
 
-      - name: Download Build Artifact
+      - name: Download Build Artifact for MacOS Platform
         uses: actions/download-artifact@v4
         with:
           name: macOS-Dist-Artifact
@@ -180,11 +179,6 @@ jobs:
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
           echo "NyaLCF_VERSION=$nyalcf_version" >> $GITHUB_ENV
           cd ..
-          ls
-          ls repo
-          ls Windows-Dist-Artifact/${{ env.NyaLCF_VERSION}}
-          ls Linux-Dist-Artifact/${{ env.NyaLCF_VERSION}}
-          ls macOS-Dist-Artifact/${{ env.NyaLCF_VERSION}}
           
 
       - name: Release
