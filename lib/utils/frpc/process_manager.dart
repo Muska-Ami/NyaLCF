@@ -64,15 +64,20 @@ class FrpcProcessManager {
           fmtStr.contains('failed') ||
           (fmtStr.contains('err') && !fmtStr.contains('terr'))) {
         Logger.frpcError('[$proxyId] $fmtStr');
+        fctr.appendErrorLog(fmtStr);
         if (!fmtStr.contains(
             'No connection could be made because the target machine actively refused it')) {
           process.kill();
+          cctr.removeProcess(pMap);
         }
-        fctr.appendErrorLog(fmtStr);
-        cctr.removeProcess(pMap);
       } else {
         Logger.frpcInfo('[$proxyId] $fmtStr');
         fctr.appendInfoLog(fmtStr);
+      }
+      if (fmtStr.contains('403')) {
+        fctr.appendSystemInfoLog('提示：403 Forbidden - 当前错误可能由于未完成实名/实人认证，或后端服务器无法连接到验证服务器导致');
+      } else if (fmtStr.contains('404')) {
+        fctr.appendSystemInfoLog('提示：404 Not Found - 当前节点可能已经下架');
       }
     });
     process.stderr.forEach((List<int> element) {
