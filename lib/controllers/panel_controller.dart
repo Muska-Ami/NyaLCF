@@ -7,10 +7,10 @@ class DPanelController extends GetxController {
   var announcementCommon = '喵喵喵？正在请求捏'.obs;
 
   load() async {
-    final announcementRes = await AnnouncementDio().getBroadcast();
-    final announcementCommonRes = await AnnouncementDio().getCommon();
-    if (announcementRes != null) {
-      announcement.value = announcementRes;
+    final broadcast = await AnnouncementDio().getBroadcast();
+    final ads = await AnnouncementDio().getAds();
+    if (broadcast.status) {
+      announcement.value = broadcast.data['broadcast'];
     } else if (!loaded) {
       announcement.value = '获取失败了啊呜，可能是猫猫把网线偷走了~';
       Get.snackbar(
@@ -27,8 +27,8 @@ class DPanelController extends GetxController {
         animationDuration: const Duration(milliseconds: 300),
       );
     }
-    if (announcementCommonRes != null) {
-      announcementCommon.value = announcementCommonRes;
+    if (ads.status) {
+      announcementCommon.value = ads.data['ads'];
     } else if (!loaded) {
       announcementCommon.value = '获取失败了啊呜，可能是猫猫把网线偷走了~';
       Get.snackbar(

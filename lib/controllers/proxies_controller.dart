@@ -164,15 +164,19 @@ class ProxiesController extends GetxController {
     final res =
         await ProxiesStatusDio().getProxyStatus(proxy, uctr.frpToken.value);
     Logger.debug(proxiesStatus);
-    switch (res.status) {
-      case 'online':
-        proxiesStatus[proxy.id] = true;
-        break;
-      case 'offline':
-        proxiesStatus[proxy.id] = false;
-        break;
-      case null:
-        proxiesStatus[proxy.id] = null;
+    if (res.status) {
+      switch (res.data['proxy_status']) {
+        case 'online':
+          proxiesStatus[proxy.id] = true;
+          break;
+        case 'offline':
+          proxiesStatus[proxy.id] = false;
+        // break;
+        // case null:
+        //   proxiesStatus[proxy.id] = null;
+      }
+    } else {
+      proxiesStatus[proxy.id] = null;
     }
   }
 
@@ -316,8 +320,18 @@ class ProxiesController extends GetxController {
   load(username, token, {bool request = false}) async {
     if (request) {
       final list = await ProxiesGetDio().get(username, token);
-      ProxiesStorage.clear();
-      ProxiesStorage.addAll(list);
+      if (list.status) {
+        ProxiesStorage.clear();
+        ProxiesStorage.addAll(list.data['proxies_list']);
+      } else {
+        // 我草我之前怎么没写这个
+        Get.snackbar(
+          '坏！',
+          '请求隧道列表失败了，再试一次或许能正常响应...',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
+      }
     }
     // proxiesListWidgets.value = <DataRow>[
     //   const DataRow(cells: <DataCell>[

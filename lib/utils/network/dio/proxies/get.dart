@@ -1,17 +1,18 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/response_type.dart';
 
 class ProxiesGetDio {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<dynamic> get(username, token) async {
+  Future<Response> get(username, token) async {
     try {
       Map<String, dynamic> paramsMap = {};
       paramsMap['username'] = username;
 
-      Options options = Options();
+      dio.Options options = dio.Options();
       Map<String, dynamic> optionsMap = {};
       optionsMap['Content-Type'] =
           'application/x-www-form-urlencoded;charset=UTF-8';
@@ -20,7 +21,7 @@ class ProxiesGetDio {
 
       //print(options.headers?.keys);
 
-      var response = await dio.get(
+      var response = await instance.get(
         '$apiV2Url/proxies/getlist',
         queryParameters: paramsMap,
         options: options,
@@ -48,10 +49,23 @@ class ProxiesGetDio {
           status: proxy['status'],
         ));
       }
-      return list;
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'proxies_list': list,
+          'origin_response': resData,
+        },
+      );
     } catch (e) {
       Logger.error(e);
-      return e;
+      return Response(
+        status: false,
+        message: e.toString(),
+        data: {
+          'error': e,
+        },
+      );
     }
   }
 }

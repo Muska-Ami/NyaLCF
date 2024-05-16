@@ -100,7 +100,8 @@ class HC extends GetxController {
         // 刷新用户信息
         await UserAuth().refresh(userinfo.token, userinfo.user).then((value) {
           if (!value.status) {
-            Logger.warn('Check user token success but refresh token failed. User info may not the latest!');
+            Logger.warn(
+                'Check user token success but refresh token failed. User info may not the latest!');
           }
           ProxiesGetter.startUp();
           FrpcStartUpLoader().onProgramStartUp();

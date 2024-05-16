@@ -138,15 +138,14 @@ class _RegisterState extends State<Register> {
                                                   emailController.text);
                                           if (res.status) {
                                             // if (res) {
-                                              Get.snackbar(
-                                                '操作成功',
-                                                '已发送，如未收到请检查垃圾箱',
-                                                snackPosition:
-                                                    SnackPosition.BOTTOM,
-                                                animationDuration:
-                                                    const Duration(
-                                                        milliseconds: 300),
-                                              );
+                                            Get.snackbar(
+                                              '操作成功',
+                                              '已发送，如未收到请检查垃圾箱',
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              animationDuration: const Duration(
+                                                  milliseconds: 300),
+                                            );
                                             // } else {
                                             //   Get.snackbar(
                                             //     '操作失败',
@@ -206,7 +205,7 @@ class _RegisterState extends State<Register> {
                                 '正在请求注册',
                                 snackPosition: SnackPosition.BOTTOM,
                                 animationDuration:
-                                const Duration(milliseconds: 300),
+                                    const Duration(milliseconds: 300),
                               );
                               final res = await RegisterAuth().requestRegister(
                                 userController.text,
@@ -218,43 +217,43 @@ class _RegisterState extends State<Register> {
                               );
                               if (res.status) {
                                 // if (res) {
+                                Get.snackbar(
+                                  '注册成功',
+                                  '正在自动登录',
+                                  snackPosition: SnackPosition.BOTTOM,
+                                  animationDuration:
+                                      const Duration(milliseconds: 300),
+                                );
+                                final resLogin = await LoginAuth().requestLogin(
+                                  userController.text,
+                                  passwordController.text,
+                                );
+
+                                /// 从登录页面抄过来的
+                                if (resLogin.status) {
+                                  //UserInfoCache.info = res;
+                                  //print(UserInfoCache.info);
+                                  await UserInfoPrefs.setInfo(
+                                      resLogin.data['user_info']);
+                                  UserInfoPrefs.saveToFile();
                                   Get.snackbar(
-                                    '注册成功',
-                                    '正在自动登录',
+                                    '登录成功',
+                                    '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
                                     snackPosition: SnackPosition.BOTTOM,
                                     animationDuration:
                                         const Duration(milliseconds: 300),
                                   );
-                                  final resLogin =
-                                      await LoginAuth().requestLogin(
-                                    userController.text,
-                                    passwordController.text,
+                                  Get.toNamed('/panel/home');
+                                } else {
+                                  Get.snackbar(
+                                    '登录失败',
+                                    '无法自动完成登录，请尝试手动登录，原因： ${resLogin.message}',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    animationDuration:
+                                        const Duration(milliseconds: 300),
                                   );
-
-                                  /// 从登录页面抄过来的
-                                  if (resLogin.status) {
-                                    //UserInfoCache.info = res;
-                                    //print(UserInfoCache.info);
-                                    await UserInfoPrefs.setInfo(resLogin.data['user_info']);
-                                    UserInfoPrefs.saveToFile();
-                                    Get.snackbar(
-                                      '登录成功',
-                                      '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      animationDuration:
-                                          const Duration(milliseconds: 300),
-                                    );
-                                    Get.toNamed('/panel/home');
-                                  } else {
-                                    Get.snackbar(
-                                      '登录失败',
-                                      '无法自动完成登录，请尝试手动登录，原因： ${resLogin.message}',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      animationDuration:
-                                          const Duration(milliseconds: 300),
-                                    );
-                                    Get.toNamed('/login');
-                                  }
+                                  Get.toNamed('/login');
+                                }
                                 // } else {
                                 //   Get.snackbar(
                                 //     '操作失败',

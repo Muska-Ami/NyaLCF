@@ -1,14 +1,14 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/models/proxy_info_model.dart';
 import 'package:nyalcf/models/proxy_status_model.dart';
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/response_type.dart';
 
 class ProxiesStatusDio {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<ProxyStatusModel> getProxyStatus(
-      ProxyInfoModel proxy, String token) async {
+  Future<Response> getProxyStatus(ProxyInfoModel proxy, String token) async {
     Map<String, dynamic> paramsMap = {};
     paramsMap['token'] = token;
     paramsMap['proxy_name'] = proxy.proxyName;
@@ -18,17 +18,26 @@ class ProxiesStatusDio {
     //Logger.debug(paramsMap);
 
     try {
-      final res = await dio.get('$apiV2Url/proxies/getStatus',
+      final res = await instance.get('$apiV2Url/proxies/getStatus',
           queryParameters: paramsMap);
       Logger.debug(res);
       final Map<String, dynamic> data = res.data['data'];
-      return ProxyStatusModel(
-        status: data['status'],
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'proxy_status': data['status'],
+          'origin_response': res,
+        },
       );
     } catch (e) {
       Logger.debug(e);
-      return ProxyStatusModel(
-        status: null,
+      return Response(
+        status: true,
+        message: e.toString(),
+        data: {
+          'error': e,
+        },
       );
     }
   }

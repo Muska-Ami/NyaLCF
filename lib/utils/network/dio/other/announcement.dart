@@ -1,33 +1,60 @@
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf/utils/logger.dart';
 import 'package:nyalcf/utils/network/dio/basic_config.dart';
+import 'package:nyalcf/utils/network/response_type.dart';
 
 class AnnouncementDio {
-  final dio = Dio(options);
+  final instance = dio.Dio(options);
 
-  Future<String?> getBroadcast() async {
+  Future<Response> getBroadcast() async {
     try {
       Logger.info('Get broadcast announcement');
-      final response = await dio.get('$apiV1Url/App/GetBroadCast');
+      final response = await instance.get('$apiV1Url/App/GetBroadCast');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
-      return resData['broadcast'];
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'broadcast': resData['broadcast'],
+          'origin_response': resData,
+        },
+      );
     } catch (ex) {
       Logger.error(ex);
-      return null;
+      return Response(
+        status: false,
+        message: ex.toString(),
+        data: {
+          'error': ex,
+        },
+      );
     }
   }
 
-  Future<String?> getCommon() async {
+  Future<Response> getAds() async {
     try {
       Logger.info('Get common announcement');
-      final response = await dio.get('$apiV1Url/App');
+      final response = await instance.get('$apiV1Url/App');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
-      return resData['ads'];
+      return Response(
+        status: true,
+        message: 'OK',
+        data: {
+          'ads': resData['ads'],
+          'origin_response': resData,
+        },
+      );
     } catch (ex) {
       Logger.error(ex);
-      return null;
+      return Response(
+        status: false,
+        message: ex.toString(),
+        data: {
+          'error': ex,
+        },
+      );
     }
   }
 }
