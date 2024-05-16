@@ -5,8 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf/main_tray.dart';
-import 'package:nyalcf/utils/frpc/process_manager.dart';
-import 'package:nyalcf/utils/logger.dart';
+import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -15,6 +16,7 @@ class MainWindow {
 
   /// 启动操作
   static void doWhenWindowReady() async {
+    mainWindow = MainWindow;
     // 禁用系统窗口操作（主要适配MacOS）
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 

@@ -31,28 +31,17 @@ dependencies:
   flutter:
     sdk: flutter
 
+  nyalcf_inject:
+    path: ./nyalcf_inject
+  nyalcf_core:
+    path: ./nyalcf_core
+  nyalcf_ui:
+    path: ./nyalcf_ui
 
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  #cupertino_icons: ^1.0.2
-  dio: ^5.4.1
-  url_launcher: ^6.2.6
-  flutter_launcher_icons: ^0.13.1
-  bitsdojo_window: ^0.1.5
-  path_provider: ^2.1.3
-  shared_preferences: ^2.2.3
   get: ^4.6.6
-  flutter_markdown: ^0.6.23
-  archive: ^3.4.9
-  package_info_plus: ^7.0.0
-  flutter_code_editor: ^0.3.1
-  logger: ^2.1.0
+  bitsdojo_window: ^0.1.5
   tray_manager: ^0.2.2
   window_manager: ^0.3.8
-  flutter_highlight: ^0.7.0
-  crypto: ^3.0.3
-  open_filex: ^4.4.0
-  flukit: ^3.0.1
 
 dev_dependencies:
   flutter_lints: ^3.0.1

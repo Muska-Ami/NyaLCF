@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/controllers/proxies_controller.dart';
-import 'package:nyalcf/controllers/user_controller.dart';
-import 'package:nyalcf/ui/models/account_dialog.dart';
-import 'package:nyalcf/ui/models/appbar_actions.dart';
-import 'package:nyalcf/ui/models/drawer.dart';
-import 'package:nyalcf/ui/models/floating_action_button.dart';
+import 'package:nyalcf_core/controllers/proxies_controller.dart';
+import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_ui/models/account_dialog.dart';
+import 'package:nyalcf_ui/models/appbar_actions.dart';
+import 'package:nyalcf_ui/models/drawer.dart';
+import 'package:nyalcf_ui/models/floating_action_button.dart';
 
 class PanelProxies extends StatelessWidget {
   PanelProxies({super.key, required this.title});
