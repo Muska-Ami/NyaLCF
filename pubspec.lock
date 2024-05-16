@@ -675,7 +675,7 @@ packages:
     source: hosted
     version: "0.6.1"
   tray_manager:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: tray_manager
       sha256: e0ac9a88b2700f366b8629b97e8663b6ef450a2f169560a685dc167bfe9c9c29
@@ -795,7 +795,7 @@ packages:
     source: hosted
     version: "5.3.0"
   window_manager:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: window_manager
       sha256: b3c895bdf936c77b83c5254bec2e6b3f066710c1f89c38b20b8acc382b525494

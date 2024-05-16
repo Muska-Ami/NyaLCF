@@ -2,7 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_ui/main_window.dart';
 
 class AppbarActionsX {
   AppbarActionsX(
@@ -45,7 +45,7 @@ class AppbarActionsX {
 
       /// 关闭
       IconButton(
-        onPressed: () => mainWindow.onWindowClose(),
+        onPressed: () => MainWindow.onWindowClose(),
         icon: const Icon(Icons.close),
         tooltip: '关闭',
         color: Colors.white,

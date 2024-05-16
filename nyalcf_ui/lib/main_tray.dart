@@ -1,6 +1,6 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/main_window.dart';
+import 'package:nyalcf_ui/main_window.dart';
 import 'package:tray_manager/tray_manager.dart';
 
 class MainTray {

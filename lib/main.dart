@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf/main_tray.dart';
-import 'package:nyalcf/main_window.dart';
+import 'package:nyalcf_ui/main_tray.dart';
+import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
