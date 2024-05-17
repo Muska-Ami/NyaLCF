@@ -340,20 +340,44 @@ class LauncherSetting {
                     child: const Text('检查更新'),
                   ),
                 ),
-                Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  ),
-                  padding: const EdgeInsets.all(10.0),
-                  margin: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, bottom: 10.0),
-                  child: const Text(
-                    'Powered by Flutter framework.',
-                    style: TextStyle(
-                      color: Color.fromRGBO(57, 186, 255, 1.0),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                      ),
+                      padding: const EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.only(
+                          left: 10.0, right: 10.0, bottom: 10.0),
+                      child: const Text(
+                        'Powered by Flutter framework.',
+                        style: TextStyle(
+                          color: Color.fromRGBO(57, 186, 255, 1.0),
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: ElevatedButton(
+                        style: const ButtonStyle(
+                          padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                        ),
+                        onPressed: () => Get.to(
+                          () => LicensePage(
+                            applicationVersion: Universe.appVersion,
+                            applicationIcon: SizedBox(
+                              width: 48,
+                              child: Image.asset('icon.ico'),
+                            ),
+                          ),
+                        ),
+                        child: Text('开源许可证'),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
