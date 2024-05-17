@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/network/dio/basic_config.dart';
 
-class ProxiesConfigurationDio {
+class ProxiesConfiguration {
   final dio = Dio(options);
 
   Future<dynamic> get(String frpToken, int proxyId) async {

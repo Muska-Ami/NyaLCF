@@ -14,9 +14,7 @@ import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/configuration.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/get.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/status.dart';
+import 'package:nyalcf_core/utils/network/dio/proxies/proxies.dart';
 
 /// 代理 GetX 状态控制器
 class ProxiesController extends GetxController {
@@ -162,7 +160,7 @@ class ProxiesController extends GetxController {
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
     final res =
-        await ProxiesStatusDio().getProxyStatus(proxy, uctr.frpToken.value);
+        await ProxiesStatus().getProxyStatus(proxy, uctr.frpToken.value);
     Logger.debug(proxiesStatus);
     if (res.status) {
       switch (res.data['proxy_status']) {
@@ -249,7 +247,7 @@ class ProxiesController extends GetxController {
             /// 配置不存在，获取写入
             Get.dialog(FrpcConfigEditorDialogX(context: context).loading(),
                 barrierDismissible: false);
-            final res = await ProxiesConfigurationDio()
+            final res = await ProxiesConfiguration()
                 .get(uctr.frpToken.value, element.id);
             if (res is String) {
               Logger.info('Successfully get config ini');
@@ -319,7 +317,7 @@ class ProxiesController extends GetxController {
   /// 重新加载代理列表
   load(username, token, {bool request = false}) async {
     if (request) {
-      final list = await ProxiesGetDio().get(username, token);
+      final list = await ProxiesGet().get(username, token);
       if (list.status) {
         ProxiesStorage.clear();
         ProxiesStorage.addAll(list.data['proxies_list']);

@@ -4,13 +4,13 @@ import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/get.dart';
+import 'package:nyalcf_core/utils/network/dio/proxies/proxies.dart';
 
 class ProxiesGetter {
   static void startUp() async {
     Logger.info('Auto updating proxies list...');
     final UserInfoModel user = await UserInfoPrefs.getInfo();
-    final result = await ProxiesGetDio().get(user.user, user.token);
+    final result = await ProxiesGet().get(user.user, user.token);
 
     if (result.status) {
       ProxiesStorage.clear();

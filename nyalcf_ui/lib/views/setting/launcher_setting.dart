@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/launcher/update.dart';
+import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_core/utils/universe.dart';
@@ -147,40 +147,28 @@ class LauncherSetting {
                               width: 200,
                               child: Container(
                                 padding: const EdgeInsets.only(bottom: 10.0),
-                                child: TextField(
-                                  controller: _textEditingController,
-                                  decoration: const InputDecoration(
-                                    labelText: '十六进制颜色',
-                                  ),
-                                  onSubmitted: (value) async {
-                                    late final String code;
-                                    if (value.startsWith('#')) {
-                                      code = value.substring(1); // 移除 # 符号
-                                    } else {
-                                      code = value;
-                                    }
-                                    if (code.length == 6 || code.length == 8) {
-                                      lcs.setThemeLightSeedValue(value);
-                                      lcs.save();
-                                      Logger.debug(value);
-                                      // 检查是否启用
-                                      // 必须要手动模式才执行操作
-                                      if (lcs.getThemeLightSeedEnable() &&
-                                          !lcs.getThemeAuto()) {
-                                        Get.changeThemeMode(ThemeMode.light);
-                                        Get.changeTheme(ThemeControl.custom);
-                                        Get.forceAppUpdate();
-                                      }
-                                    } else {
-                                      Get.snackbar(
-                                        '大笨蛋！',
-                                        '这不是有效的十六进制颜色代码哦！',
-                                        snackPosition: SnackPosition.BOTTOM,
-                                        animationDuration:
-                                            const Duration(milliseconds: 300),
-                                      );
-                                    }
-                                  },
+                                child: Row(
+                                  children: <Widget>[
+                                    Expanded(
+                                      child: TextField(
+                                        controller: _textEditingController,
+                                        decoration: const InputDecoration(
+                                          labelText: '十六进制颜色',
+                                        ),
+                                        onSubmitted: (value) async =>
+                                            _customThemeColorSeed(value),
+                                      ),
+                                    ),
+                                    Transform.translate(
+                                      offset: const Offset(0, 5),
+                                      child: ElevatedButton(
+                                        onPressed: () async =>
+                                            _customThemeColorSeed(
+                                                _textEditingController.text),
+                                        child: const Text('保存'),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -336,7 +324,7 @@ class LauncherSetting {
                   margin: const EdgeInsets.only(left: 20, bottom: 10),
                   child: ElevatedButton(
                     onPressed: () async {
-                      final remote = await LauncherUpdateDio().getUpdate();
+                      final remote = await UpdateLauncher().getUpdate();
                       if (remote.status) {
                         Updater.uIf = remote.data['update_info'];
                         if (Updater.check()) Updater.showDialog();
@@ -417,5 +405,32 @@ class LauncherSetting {
         ],
       ),
     );
+  }
+
+  void _customThemeColorSeed(String code) {
+    if (code.startsWith('#')) {
+      code = code.substring(1); // 移除 # 符号
+    } else {
+      code = code;
+    }
+    if (code.length == 6 || code.length == 8) {
+      lcs.setThemeLightSeedValue(code);
+      lcs.save();
+      Logger.debug(code);
+      // 检查是否启用
+      // 必须要手动模式才执行操作
+      if (lcs.getThemeLightSeedEnable() && !lcs.getThemeAuto()) {
+        Get.changeThemeMode(ThemeMode.light);
+        Get.changeTheme(ThemeControl.custom);
+        Get.forceAppUpdate();
+      }
+    } else {
+      Get.snackbar(
+        '大笨蛋！',
+        '这不是有效的十六进制颜色代码哦！',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+    }
   }
 }

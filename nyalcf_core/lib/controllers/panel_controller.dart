@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:nyalcf_core/utils/network/dio/other/announcement.dart';
+import 'package:nyalcf_core/utils/network/dio/other/other.dart';
 
 class DPanelController extends GetxController {
   static var loaded = false;
@@ -7,8 +7,8 @@ class DPanelController extends GetxController {
   var announcementCommon = '喵喵喵？正在请求捏'.obs;
 
   load() async {
-    final broadcast = await AnnouncementDio().getBroadcast();
-    final ads = await AnnouncementDio().getAds();
+    final broadcast = await OtherAnnouncement().getBroadcast();
+    final ads = await OtherAnnouncement().getAds();
     if (broadcast.status) {
       announcement.value = broadcast.data['broadcast'];
     } else if (!loaded) {
