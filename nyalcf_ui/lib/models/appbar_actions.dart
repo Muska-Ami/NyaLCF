@@ -54,8 +54,8 @@ class AppbarActionsX {
 
   List<Widget> get _beforeList => <Widget>[
         SizedBox(
-          width: 24,
-          height: 24,
+          width: 16,
+          height: 16,
           child: Obx(
             () =>
                 loading.value ? const CircularProgressIndicator() : Container(),

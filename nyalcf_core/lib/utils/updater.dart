@@ -4,12 +4,19 @@ import 'package:nyalcf_core/models/update_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/universe.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Updater {
-  static late final UpdateInfoModel uIf;
+  static UpdateInfoModel uIf = UpdateInfoModel(
+    version: Universe.appVersion,
+    tag: Universe.appVersion,
+    buildNumber: Universe.appBuildNumber,
+    downloadUrl: [],
+  );
 
   static void startUp() async {
+    loading.value = true;
     Logger.info('Checking update...');
 
     // 获取远程源版本
@@ -29,10 +36,12 @@ class Updater {
     } else {
       Logger.warn('Get remote version info failed.');
     }
+    loading.value = false;
   }
 
   static bool check() {
-    Logger.debug('${uIf.version}, ${uIf.buildNumber} | v${Universe.appVersion}, ${Universe.appBuildNumber}');
+    Logger.debug(
+        '${uIf.version}, ${uIf.buildNumber} | v${Universe.appVersion}, ${Universe.appBuildNumber}');
 
     // 比对是否一致
     // 先判断大版本号，大版本号不一致就不检查构建号了

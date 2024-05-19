@@ -10,6 +10,7 @@ import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:nyalcf_core/utils/updater.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -324,6 +325,7 @@ class LauncherSetting {
                   margin: const EdgeInsets.only(left: 20, bottom: 10),
                   child: ElevatedButton(
                     onPressed: () async {
+                      loading.value = true;
                       final remote = await UpdateLauncher().getUpdate();
                       if (remote.status) {
                         Updater.uIf = remote.data['update_info'];
@@ -336,6 +338,7 @@ class LauncherSetting {
                           animationDuration: const Duration(milliseconds: 300),
                         );
                       }
+                      loading.value = false;
                     },
                     child: const Text('检查更新'),
                   ),
