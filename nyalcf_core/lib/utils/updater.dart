@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/launcher/update.dart';
+import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -15,7 +15,7 @@ class Updater {
     Logger.info('Checking update...');
 
     /// 获取远程源版本
-    final remote = await LauncherUpdateDio().getUpdate();
+    final remote = await UpdateLauncher().getUpdate();
     if (remote.status) {
       uIf = remote.data['update_info'];
     } else {

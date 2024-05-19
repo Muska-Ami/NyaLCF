@@ -10,7 +10,7 @@ import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 import 'package:nyalcf_core/utils/frpc/startup_loader.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/auth/user_auth.dart';
+import 'package:nyalcf_core/utils/network/dio/auth/auth.dart';
 import 'package:nyalcf_core/utils/proxies_getter.dart';
 
 class Home extends StatelessWidget {

@@ -4,7 +4,7 @@ import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/network/response_type.dart';
 
-class ProxiesStatusDio {
+class ProxiesStatus {
   final instance = dio.Dio(options);
 
   Future<Response> getProxyStatus(ProxyInfoModel proxy, String token) async {

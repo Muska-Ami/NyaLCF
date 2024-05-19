@@ -36,8 +36,13 @@ jobs:
         run: |-
           ./tools/is_setup.exe /VERYSLIENT
           Copy-Item "./tools/ChineseSimplified.isl" -Destination "C:\Program Files (x86)\Inno Setup 6\Languages"
-      - name: Pack EXE Installer
-        run: flutter_distributor package --platform windows --target exe
+      - name: Setup 7ZIP
+        shell: pwsh
+        run: |-
+          ./tools/7z2405-x64.exe /S
+
+      - name: Pack EXE Installer & Portable Archive
+        run: flutter_distributor package --platform windows --target exe,zip
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4

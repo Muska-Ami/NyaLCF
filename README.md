@@ -39,6 +39,19 @@ The next generation of LoCyanFrp launcher.
 本软件运行需要Microsoft Visual C++ Redistributable运行时，如无法打开请尝试从此处下载安装运行时再使用。
 [https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
 
+## 软件测试
+
+以下是本软件测试运行状况，若您发现无法正常运作，请提交Issues。
+
+| 打包类型          | 系统类型    | 状态 | 已测试通过环境                                                       |
+|---------------|---------|----|---------------------------------------------------------------|
+| EXE Installer | Windows | ✅  | Windows 11 (Home&Student, Pro)                                |
+| Portable ZIP  | Windows | ✅  | Windows 11 (Pro)                                              |
+| AppImage      | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Manjaro Linux(Linux 6.1)      |
+| DEB           | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Debian 12(Linux5.9, Linux6.1) |
+| RPM           | Linux   | ❓  | -                                                             |
+| DMG           | MacOS   | 💠 | Tested by Community                                           |
+
 ## Repo stats
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/de384a8e9f2a47b5b26f80c61c2a8bfd)](https://app.codacy.com/gh/Muska-Ami/NyaLCF/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
@@ -55,5 +68,5 @@ The next generation of LoCyanFrp launcher.
 
 ### 感谢我们的开发者！是他们使NyaLCF变的更好！
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px" />
+  <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px"  alt="Contributors"/>
 </a>

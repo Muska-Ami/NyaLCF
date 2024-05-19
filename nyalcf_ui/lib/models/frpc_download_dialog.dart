@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/frpc/download.dart';
+import 'package:nyalcf_core/utils/network/dio/frpc/frpc.dart';
 
 class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
@@ -39,7 +39,7 @@ class FrpcDownloadDialogX {
 
                   /// 开始下载
                   Get.dialog(_downloading(), barrierDismissible: false);
-                  final res = await FrpcDownloadDio().download(
+                  final res = await DownloadFrpc().download(
                     arch: dsctr.arch[dsctr.frpcDownloadArch.value]['arch'],
                     platform: dsctr.platform,
                     version: '0.51.3-3',
