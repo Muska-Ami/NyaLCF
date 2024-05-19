@@ -26,7 +26,7 @@ class ProxiesGetter {
       }
     } else {
       Logger.warn('Can not update proxies list widgets, request failed.');
-      Logger.warn(result.toString());
+      Logger.warn(result.data['error'].toString());
     }
     loading.value = false;
 

@@ -13,13 +13,22 @@ class UpdateLauncher {
           .get('$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest');
       final Map<String, dynamic> resData = res.data;
       // print(resData);
+      // 解析信息
+      String name = resData['name'];
+      String buildNumber = '0';
+      if (name.split('+').length == 2) {
+        final info = name.split('+');
+        name = info[0];
+        buildNumber = info[1];
+      }
       return Response(
         status: true,
         message: 'OK',
         data: {
           'update_info': UpdateInfoModel(
-            version: resData['name'],
+            version: name,
             tag: resData['tag_name'],
+            buildNumber: buildNumber,
             downloadUrl: resData['assets'],
           ),
           'origin_response': res,

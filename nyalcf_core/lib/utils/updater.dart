@@ -7,43 +7,45 @@ import 'package:nyalcf_core/utils/universe.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Updater {
-  /// 获取内部包版本
-  static UpdateInfoModel? uIf = UpdateInfoModel(
-      version: Universe.appVersion, tag: Universe.appVersion, downloadUrl: []);
+  static late final UpdateInfoModel uIf;
 
   static void startUp() async {
     Logger.info('Checking update...');
 
-    /// 获取远程源版本
+    // 获取远程源版本
     final remote = await UpdateLauncher().getUpdate();
     if (remote.status) {
+      // 远程源版本获取到的时候才检测
       uIf = remote.data['update_info'];
+      if (check()) {
+        showDialog();
+      } else {
+        Logger.info('You are running latest version.');
+        // 计划下一次检查
+        Future.delayed(const Duration(hours: 1), () {
+          startUp();
+        });
+      }
     } else {
       Logger.warn('Get remote version info failed.');
-    }
-
-    if (check()) {
-      showDialog();
-    } else {
-      Logger.info('You are running latest version.');
-      Future.delayed(const Duration(hours: 1), () {
-        startUp();
-      });
     }
   }
 
   static bool check() {
-    Logger.debug(
-        '${uIf?.version} | v${Universe.appVersion}+${Universe.appBuildNumber}');
+    Logger.debug('${uIf.version}, ${uIf.buildNumber} | v${Universe.appVersion}, ${Universe.appBuildNumber}');
 
-    /// 比对是否一致
-    if (uIf?.version != null &&
-        'v${Universe.appVersion}+${Universe.appBuildNumber}' != uIf?.version &&
-        'v${Universe.appVersion}' != uIf?.version) {
-      Logger.info('New version: ${uIf?.version}');
+    // 比对是否一致
+    // 先判断大版本号，大版本号不一致就不检查构建号了
+    // 大版本号一致再检查构建号
+    if ('v${Universe.appVersion}' != uIf.version) {
+      Logger.info('New version: ${uIf.version}');
       return true;
+    } else if (uIf.buildNumber != Universe.appBuildNumber) {
+      Logger.info('New version: ${uIf.version}');
+      return true;
+    } else {
+      return false;
     }
-    return false;
   }
 
   static void showDialog() {
@@ -53,8 +55,8 @@ class Updater {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Text('当前版本：v${Universe.appVersion}+${Universe.appBuildNumber}'),
-          Text('新版本：${uIf?.version}'),
+          Text('当前版本：v${Universe.appVersion} (+${Universe.appBuildNumber})'),
+          Text('更新版本：${uIf.version} (+${uIf.buildNumber})'),
           const Text('是否打开下载界面喵？'),
         ],
       ),
