@@ -2,4 +2,5 @@
 
 ## 更新日志
 
+- This is a test version
 <!-- Some change log here -->
