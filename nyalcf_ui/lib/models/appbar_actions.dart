@@ -64,13 +64,14 @@ class AppbarActionsX {
       ];
 
   List<Widget> actions() {
+    // Actions列表
     List<Widget> l = <Widget>[];
     l.addAll(_beforeList);
     l.addAll(append);
     if (setting) {
       l.add(
         IconButton(
-          onPressed: () => {Get.toNamed('/setting')},
+          onPressed: () => Get.toNamed('/setting'),
           icon: const Icon(
             Icons.settings,
             color: Colors.white,

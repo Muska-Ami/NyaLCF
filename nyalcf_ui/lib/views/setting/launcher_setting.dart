@@ -377,7 +377,7 @@ class LauncherSetting {
                             ),
                           ),
                         ),
-                        child: Text('开源许可证'),
+                        child: const Text('开源许可证'),
                       ),
                     ),
                   ],

@@ -47,7 +47,7 @@ class PanelConsoleFull extends StatelessWidget {
             color: Colors.grey.shade900,
             child: Obx(
               () => SizedBox(
-                height: MediaQuery.of(context).size.height-55,
+                height: MediaQuery.of(context).size.height-56,
                 child: ListView(
                   padding: const EdgeInsets.all(10),
                   physics: const AlwaysScrollableScrollPhysics(),

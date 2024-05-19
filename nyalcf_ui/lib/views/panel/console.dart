@@ -56,7 +56,7 @@ class PanelConsole extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 180.0,
-                      height: 340,
+                      height: MediaQuery.of(context).size.height-160,
                       child: Card(
                         child: Obx(
                           () => Column(
@@ -83,7 +83,7 @@ class PanelConsole extends StatelessWidget {
                     ),
                     Expanded(
                       child: SizedBox(
-                        height: 340,
+                        height: MediaQuery.of(context).size.height-160,
                         child: Card(
                           color: Colors.grey.shade900,
                           child: Container(
