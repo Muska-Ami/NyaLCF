@@ -123,59 +123,7 @@ class _RegisterState extends State<Register> {
                                   child: Container(
                                     margin: const EdgeInsets.all(8.0),
                                     child: ElevatedButton(
-                                      onPressed: () async {
-                                        if (emailController.text != '') {
-                                          Get.snackbar(
-                                            '正在请求',
-                                            '正在请求发送验证码',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration: const Duration(
-                                                milliseconds: 300),
-                                          );
-                                          final res = await RegisterAuth()
-                                              .requestCode(
-                                                  emailController.text);
-                                          if (res.status) {
-                                            // if (res) {
-                                            Get.snackbar(
-                                              '操作成功',
-                                              '已发送，如未收到请检查垃圾箱',
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              animationDuration: const Duration(
-                                                  milliseconds: 300),
-                                            );
-                                            // } else {
-                                            //   Get.snackbar(
-                                            //     '操作失败',
-                                            //     '发生失败，内部错误',
-                                            //     snackPosition:
-                                            //         SnackPosition.BOTTOM,
-                                            //     animationDuration:
-                                            //         const Duration(
-                                            //             milliseconds: 300),
-                                            //   );
-                                            // }
-                                          } else {
-                                            Get.snackbar(
-                                              '操作失败',
-                                              '发送失败，原因：${res.message}',
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              animationDuration: const Duration(
-                                                  milliseconds: 300),
-                                            );
-                                          }
-                                        } else {
-                                          Get.snackbar(
-                                            '操作失败',
-                                            '请输入邮箱',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration: const Duration(
-                                                milliseconds: 300),
-                                          );
-                                        }
-                                      },
+                                      onPressed: () => _sendEmailCode(),
                                       child: const Text('获取'),
                                     ),
                                   ),
@@ -198,80 +146,7 @@ class _RegisterState extends State<Register> {
                         Container(
                           margin: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
-                            onPressed: () async {
-                              Get.snackbar(
-                                '正在请求',
-                                '正在请求注册',
-                                snackPosition: SnackPosition.BOTTOM,
-                                animationDuration:
-                                    const Duration(milliseconds: 300),
-                              );
-                              final res = await RegisterAuth().requestRegister(
-                                userController.text,
-                                passwordController.text,
-                                confirmPasswordController.text,
-                                emailController.text,
-                                verifyController.text,
-                                qqController.text,
-                              );
-                              if (res.status) {
-                                // if (res) {
-                                Get.snackbar(
-                                  '注册成功',
-                                  '正在自动登录',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  animationDuration:
-                                      const Duration(milliseconds: 300),
-                                );
-                                final resLogin = await LoginAuth().requestLogin(
-                                  userController.text,
-                                  passwordController.text,
-                                );
-
-                                /// 从登录页面抄过来的
-                                if (resLogin.status) {
-                                  //UserInfoCache.info = res;
-                                  //print(UserInfoCache.info);
-                                  await UserInfoPrefs.setInfo(
-                                      resLogin.data['user_info']);
-                                  UserInfoPrefs.saveToFile();
-                                  Get.snackbar(
-                                    '登录成功',
-                                    '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    animationDuration:
-                                        const Duration(milliseconds: 300),
-                                  );
-                                  Get.toNamed('/panel/home');
-                                } else {
-                                  Get.snackbar(
-                                    '登录失败',
-                                    '无法自动完成登录，请尝试手动登录，原因： ${resLogin.message}',
-                                    snackPosition: SnackPosition.BOTTOM,
-                                    animationDuration:
-                                        const Duration(milliseconds: 300),
-                                  );
-                                  Get.toNamed('/login');
-                                }
-                                // } else {
-                                //   Get.snackbar(
-                                //     '操作失败',
-                                //     '注册失败，内部错误',
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //     animationDuration:
-                                //         const Duration(milliseconds: 300),
-                                //   );
-                                // }
-                              } else {
-                                Get.snackbar(
-                                  '操作失败',
-                                  '注册失败，原因：${res.message}',
-                                  snackPosition: SnackPosition.BOTTOM,
-                                  animationDuration:
-                                      const Duration(milliseconds: 300),
-                                );
-                              }
-                            },
+                            onPressed: () => _register(),
                             child: const Text('注册'),
                           ),
                         ),
@@ -286,5 +161,124 @@ class _RegisterState extends State<Register> {
       ),
       floatingActionButton: FloatingActionButtonX().button(),
     );
+  }
+
+  void _sendEmailCode() async {
+    loading.value = true;
+    if (emailController.text != '') {
+      Get.snackbar(
+        '正在请求',
+        '正在请求发送验证码',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+      final res = await RegisterAuth().requestCode(emailController.text);
+      if (res.status) {
+        // if (res) {
+        Get.snackbar(
+          '操作成功',
+          '已发送，如未收到请检查垃圾箱',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
+        // } else {
+        //   Get.snackbar(
+        //     '操作失败',
+        //     '发生失败，内部错误',
+        //     snackPosition:
+        //         SnackPosition.BOTTOM,
+        //     animationDuration:
+        //         const Duration(
+        //             milliseconds: 300),
+        //   );
+        // }
+      } else {
+        Get.snackbar(
+          '操作失败',
+          '发送失败，原因：${res.message}',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
+      }
+    } else {
+      Get.snackbar(
+        '操作失败',
+        '请输入邮箱',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+    }
+    loading.value = false;
+  }
+
+  void _register() async {
+    loading.value = true;
+    Get.snackbar(
+      '正在请求',
+      '正在请求注册',
+      snackPosition: SnackPosition.BOTTOM,
+      animationDuration: const Duration(milliseconds: 300),
+    );
+    final res = await RegisterAuth().requestRegister(
+      userController.text,
+      passwordController.text,
+      confirmPasswordController.text,
+      emailController.text,
+      verifyController.text,
+      qqController.text,
+    );
+    if (res.status) {
+      // if (res) {
+      Get.snackbar(
+        '注册成功',
+        '正在自动登录',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+      final resLogin = await LoginAuth().requestLogin(
+        userController.text,
+        passwordController.text,
+      );
+
+      /// 从登录页面抄过来的
+      if (resLogin.status) {
+        //UserInfoCache.info = res;
+        //print(UserInfoCache.info);
+        await UserInfoPrefs.setInfo(resLogin.data['user_info']);
+        UserInfoPrefs.saveToFile();
+        Get.snackbar(
+          '登录成功',
+          '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
+        Get.toNamed('/panel/home');
+      } else {
+        Get.snackbar(
+          '登录失败',
+          '无法自动完成登录，请尝试手动登录，原因： ${resLogin.message}',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
+        Get.toNamed('/login');
+      }
+      // } else {
+      //   Get.snackbar(
+      //     '操作失败',
+      //     '注册失败，内部错误',
+      //     snackPosition: SnackPosition.BOTTOM,
+      //     animationDuration:
+      //         const Duration(milliseconds: 300),
+      //   );
+      // }
+    } else {
+      Get.snackbar(
+        '操作失败',
+        '注册失败，原因：${res.message}',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+    }
+    loading.value = false;
   }
 }

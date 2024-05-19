@@ -5,9 +5,11 @@ import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/network/dio/proxies/proxies.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class ProxiesGetter {
   static void startUp() async {
+    loading.value = true;
     Logger.info('Auto updating proxies list...');
     final UserInfoModel user = await UserInfoPrefs.getInfo();
     final result = await ProxiesGet().get(user.user, user.token);
@@ -24,8 +26,9 @@ class ProxiesGetter {
       }
     } else {
       Logger.warn('Can not update proxies list widgets, request failed.');
-      Logger.warn(result.toString());
+      Logger.warn(result.data['error'].toString());
     }
+    loading.value = false;
 
     Future.delayed(const Duration(minutes: 5), () {
       startUp();

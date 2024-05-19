@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  nyalcf_inject:
+    path: ../nyalcf_inject
   nyalcf_ui:
     path: ../nyalcf_ui
 

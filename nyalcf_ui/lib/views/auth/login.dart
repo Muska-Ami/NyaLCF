@@ -85,6 +85,7 @@ class _LoginState extends State<Login> {
   }
 
   void _login() async {
+    loading.value = true;
     if (userController.text.isEmpty || passwordController.text.isEmpty) {
       Get.snackbar(
         '无效数据',
@@ -121,5 +122,6 @@ class _LoginState extends State<Login> {
         animationDuration: const Duration(milliseconds: 300),
       );
     }
+    loading.value = false;
   }
 }

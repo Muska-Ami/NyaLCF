@@ -10,6 +10,7 @@ import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.da
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/frpc/process_manager.dart';
@@ -316,6 +317,7 @@ class ProxiesController extends GetxController {
 
   /// 重新加载代理列表
   load(username, token, {bool request = false}) async {
+    loading.value = true;
     if (request) {
       final list = await ProxiesGet().get(username, token);
       if (list.status) {
@@ -349,5 +351,6 @@ class ProxiesController extends GetxController {
     //   ])
     // ];
     build(username, token);
+    loading.value = false;
   }
 }
