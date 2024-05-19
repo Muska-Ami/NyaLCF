@@ -6,6 +6,7 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/theme_control.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class DSettingLauncherController extends GetxController {
   final lcs = LauncherConfigurationStorage();
@@ -72,6 +73,7 @@ class DSettingLauncherController extends GetxController {
   }
 
   void setAutostart(bool value) async {
+    loading.value = true;
     final userProgramPath = Directory(_supportPath!).parent.parent.path;
     final startUpPath =
         '$userProgramPath/Microsoft/Windows/Start Menu/Programs/Startup';
@@ -86,6 +88,7 @@ class DSettingLauncherController extends GetxController {
       await File(lnkFile).delete();
     }
     autostart.value = _getAutostartInkExist();
+    loading.value = false;
   }
 
   bool _getAutostartInkExist() {
