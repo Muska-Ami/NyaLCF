@@ -25,6 +25,7 @@ jobs:
         with:
           channel: 'stable'
           version: 3.19.4
+          cache-sdk: true
 
       - name: Install Dependencies
         shell: pwsh
@@ -68,6 +69,7 @@ jobs:
         with:
           channel: 'stable'
           version: 3.19.4
+          cache-sdk: true
 
       - name: Install Dependencies
         run: |-
@@ -108,6 +110,7 @@ jobs:
         with:
           channel: 'stable'
           version: 3.19.4
+          cache-sdk: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
