@@ -125,7 +125,7 @@ class _TokenModePanelState extends State {
                         ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
+                                WidgetStateProperty.all(Colors.red),
                           ),
                           child: const Text(
                             '关闭所有进程',

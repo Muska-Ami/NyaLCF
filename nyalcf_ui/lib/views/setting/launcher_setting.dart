@@ -366,7 +366,7 @@ class LauncherSetting {
                       margin: const EdgeInsets.only(bottom: 10),
                       child: ElevatedButton(
                         style: const ButtonStyle(
-                          padding: MaterialStatePropertyAll(EdgeInsets.all(20)),
+                          padding: WidgetStatePropertyAll(EdgeInsets.all(20)),
                         ),
                         onPressed: () => Get.to(
                           () => LicensePage(

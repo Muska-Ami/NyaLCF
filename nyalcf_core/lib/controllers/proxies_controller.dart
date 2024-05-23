@@ -246,8 +246,15 @@ class ProxiesController extends GetxController {
             showDialogX(text);
           } else {
             /// 配置不存在，获取写入
-            Get.dialog(FrpcConfigEditorDialogX(context: context).loading(),
-                barrierDismissible: false);
+            if (context.mounted) {
+              Get.dialog(
+                FrpcConfigEditorDialogX(context: context).loading(),
+                barrierDismissible: false,
+              );
+            } else {
+              Logger.error(
+                  'Context not mounted while executing a async function!');
+            }
             final res = await ProxiesConfiguration()
                 .get(uctr.frpToken.value, element.id);
             if (res is String) {

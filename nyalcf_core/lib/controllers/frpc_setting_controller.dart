@@ -51,10 +51,18 @@ class FrpcSettingController extends GetxController {
 
   void _loadTip() async {
     if (await FrpcPathProvider().frpcPath == null) {
-      frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
+      if (context.mounted) {
+        frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
+      } else {
+        Logger.error('Context not mounted while executing a async function!');
+      }
     } else {
-      frpcDownloadTip.value =
-          await FrpcDownloadTip.downloaded(context: context);
+      if (context.mounted) {
+        frpcDownloadTip.value =
+            await FrpcDownloadTip.downloaded(context: context);
+      } else {
+        Logger.error('Context not mounted while executing a async function!');
+      }
     }
   }
 
