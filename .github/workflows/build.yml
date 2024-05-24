@@ -126,7 +126,8 @@ jobs:
       - name: Pack DMG Installer
         run: flutter_distributor package --platform macos --target dmg
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: MacOS Artifact(Build)
           path: build
