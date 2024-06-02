@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
+import 'package:nyalcf_core/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Updater {
+class TaskUpdater extends TaskBasic {
   static UpdateInfoModel uIf = UpdateInfoModel(
     version: Universe.appVersion,
     tag: Universe.appVersion,
@@ -15,7 +16,9 @@ class Updater {
     downloadUrl: [],
   );
 
-  static void startUp() async {
+  @override
+  void startUp({Function? callback}) async {
+    if (callback != null) this.callback = callback;
     loading.value = true;
     Logger.info('Checking update...');
 
@@ -29,9 +32,7 @@ class Updater {
       } else {
         Logger.info('You are running latest version.');
         // 计划下一次检查
-        Future.delayed(const Duration(hours: 1), () {
-          startUp();
-        });
+        if (this.callback != null) this.callback!();
       }
     } else {
       Logger.warn('Get remote version info failed.');

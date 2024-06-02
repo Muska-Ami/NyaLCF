@@ -9,7 +9,7 @@ import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_core/utils/universe.dart';
-import 'package:nyalcf_core/utils/updater.dart';
+import 'package:nyalcf_core/tasks/updater.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -328,8 +328,8 @@ class LauncherSetting {
                       loading.value = true;
                       final remote = await UpdateLauncher().getUpdate();
                       if (remote.status) {
-                        Updater.uIf = remote.data['update_info'];
-                        if (Updater.check()) Updater.showDialog();
+                        TaskUpdater.uIf = remote.data['update_info'];
+                        if (TaskUpdater.check()) TaskUpdater.showDialog();
                       } else {
                         Get.snackbar(
                           '发生错误',

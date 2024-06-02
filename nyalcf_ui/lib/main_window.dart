@@ -41,7 +41,7 @@ class MainWindow {
     appWindow.show();
   }
 
-  /// 关闭拦截
+  /// 关闭确认
   static void onWindowClose() async {
     if (shouldCloseWindowShow) {
       shouldCloseWindowShow = false;

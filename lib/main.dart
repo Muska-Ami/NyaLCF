@@ -18,7 +18,7 @@ import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/universe.dart';
-import 'package:nyalcf_core/utils/updater.dart';
+import 'package:nyalcf_core/utils/task_scheduler.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -34,8 +34,8 @@ void main() async {
 
   await Logger.clear();
 
-  /// 启动更新
-  Updater.startUp();
+  /// 启动定时任务
+  TaskScheduler.start();
 
   runApp(const App());
 
