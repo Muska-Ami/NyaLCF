@@ -4,8 +4,8 @@ import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.d
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 
 class FrpcController extends GetxController {
-  final fss = FrpcStorage();
-  final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
+  final _fss = FrpcStorage();
+  final FrpcConfigurationStorage _fcs = FrpcConfigurationStorage();
 
   /// 是否存在的标志
   RxBool exist = false.obs;
@@ -33,11 +33,11 @@ class FrpcController extends GetxController {
   }
 
   /// 获取Frpc文件对象
-  get file => fss.getFile();
+  get file => _fss.getFile();
 
   /// 获取版本号
   Future<String> getVersion() async {
-    return fcs.getSettingsFrpcVersion();
+    return _fcs.getSettingsFrpcVersion();
   }
 
   /// 追加信息日志

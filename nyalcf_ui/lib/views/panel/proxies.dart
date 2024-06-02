@@ -1,4 +1,4 @@
-import 'package:flukit/flukit.dart';
+import 'package:nyalcf_core/utils/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/proxies_controller.dart';
@@ -13,7 +13,7 @@ import 'package:nyalcf_ui/models/floating_action_button.dart';
 class PanelProxies extends StatelessWidget {
   PanelProxies({super.key});
 
-  final UserController uctr = Get.find();
+  final UserController _uCtr = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class PanelProxies extends StatelessWidget {
     return AfterLayout(
       callback: (RenderAfterLayout ral) {
         if (ProxiesStorage.get().isEmpty) {
-          pctr.load(uctr.user, uctr.token, request: true);
+          pctr.load(_uCtr.user, _uCtr.token, request: true);
         } else {
-          pctr.load(uctr.user, uctr.token);
+          pctr.load(_uCtr.user, _uCtr.token);
         }
       },
       child: Scaffold(
@@ -40,7 +40,7 @@ class PanelProxies extends StatelessWidget {
               icon: Obx(() => ClipRRect(
                     borderRadius: BorderRadius.circular(500),
                     child: Image.network(
-                      '${uctr.avatar}',
+                      '${_uCtr.avatar}',
                       width: 35,
                     ),
                   )),
@@ -66,7 +66,7 @@ class PanelProxies extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () =>
-                    {pctr.load(uctr.user, uctr.token, request: true)},
+                    {pctr.load(_uCtr.user, _uCtr.token, request: true)},
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[Text('刷新'), Icon(Icons.refresh)],

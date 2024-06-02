@@ -14,7 +14,7 @@ class FrpcConfigEditorDialogX {
 
   final BuildContext context;
 
-  final UserController uctr = Get.find();
+  final UserController _uCtr = Get.find();
   final ProxiesController pctr = Get.find();
 
   CodeController _controller(defText) => CodeController(
@@ -56,7 +56,7 @@ class FrpcConfigEditorDialogX {
           onPressed: () async {
             //关闭 返回true
             await ProxiesConfigurationStorage.setConfig(proxyId, c.fullText);
-            pctr.load(uctr.user, uctr.token);
+            pctr.load(_uCtr.user, _uCtr.token);
             Get.close(0);
           },
         ),

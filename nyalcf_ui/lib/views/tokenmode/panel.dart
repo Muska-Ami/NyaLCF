@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/console_controller.dart';
 import 'package:nyalcf_core/controllers/frpc_controller.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
-import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
@@ -21,9 +20,7 @@ class TokenModePanel extends StatefulWidget {
 class _TokenModePanelState extends State {
   final proxyController = TextEditingController();
 
-  final fcs = FrpcConfigurationStorage();
-
-  final FrpcController fctr = Get.find();
+  final FrpcController _fCtr = Get.find();
   final ConsoleController cctr = Get.put(ConsoleController());
 
   @override
@@ -125,7 +122,7 @@ class _TokenModePanelState extends State {
                         ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                MaterialStateProperty.all(Colors.red),
+                                WidgetStateProperty.all(Colors.red),
                           ),
                           child: const Text(
                             '关闭所有进程',
@@ -141,7 +138,7 @@ class _TokenModePanelState extends State {
                           icon: const Icon(Icons.delete),
                           tooltip: '清空日志',
                           onPressed: () async {
-                            fctr.processOut.clear();
+                            _fCtr.processOut.clear();
                           },
                         ),
                       ],
@@ -161,7 +158,7 @@ class _TokenModePanelState extends State {
                 child: Container(
                   margin: const EdgeInsets.all(10.0),
                   child: ListView(
-                    children: fctr.processOut,
+                    children: _fCtr.processOut,
                   ),
                 ),
               ),

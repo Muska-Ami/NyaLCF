@@ -9,10 +9,12 @@ import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class DSettingLauncherController extends GetxController {
-  final lcs = LauncherConfigurationStorage();
+  final _lcs = LauncherConfigurationStorage();
   final _supportPath = PathProvider.appSupportPath;
 
   var autostart = false.obs;
+
+  var autoSign = false.obs;
 
   var themeAuto = false.obs;
   var themeDark = false.obs;
@@ -26,12 +28,14 @@ class DSettingLauncherController extends GetxController {
   load() async {
     autostart.value = _getAutostartInkExist();
 
-    themeLightSeed.value = lcs.getThemeLightSeedValue();
-    themeLightSeedEnable.value = lcs.getThemeLightSeedEnable();
+    autoSign.value = _lcs.getAutoSign();
+
+    themeLightSeed.value = _lcs.getThemeLightSeedValue();
+    themeLightSeedEnable.value = _lcs.getThemeLightSeedEnable();
     // 新配置
-    themeAuto.value = lcs.getThemeAuto();
-    themeDark.value = lcs.getThemeDarkEnable();
-    debugMode.value = lcs.getDebug();
+    themeAuto.value = _lcs.getThemeAuto();
+    themeDark.value = _lcs.getThemeDarkEnable();
+    debugMode.value = _lcs.getDebug();
     loadx();
   }
 
@@ -58,14 +62,14 @@ class DSettingLauncherController extends GetxController {
   }
 
   void switchDarkTheme(value) async {
-    lcs.setThemeDarkEnable(value);
-    lcs.save();
+    _lcs.setThemeDarkEnable(value);
+    _lcs.save();
     themeDark.value = value;
     if (value) {
       Get.changeThemeMode(ThemeMode.dark);
     } else {
       Get.changeThemeMode(ThemeMode.light);
-      if (lcs.getThemeLightSeedEnable()) Get.changeTheme(ThemeControl.custom);
+      if (_lcs.getThemeLightSeedEnable()) Get.changeTheme(ThemeControl.custom);
     }
     Get.forceAppUpdate();
     loadx();

@@ -6,7 +6,7 @@ import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 
 class FrpcDownloadTip {
-  static final fcs = FrpcConfigurationStorage();
+  static final _fcs = FrpcConfigurationStorage();
   static final FrpcSettingController fsctr = Get.find();
 
   static Future<Card> tip({required context}) async => Card(
@@ -66,7 +66,7 @@ class FrpcDownloadTip {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text('已安装版本列表：'),
-                  Text(fcs.getInstalledVersions().toString()),
+                  Text(_fcs.getInstalledVersions().toString()),
                   Text(
                       'Frpc 文件路径：${await FrpcPathProvider().frpcPath ?? '未找到'}'),
                 ],

@@ -24,7 +24,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Install Dependencies
         shell: pwsh
@@ -67,7 +68,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Install Dependencies
         run: |-
@@ -107,7 +109,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -123,7 +126,8 @@ jobs:
       - name: Pack DMG Installer
         run: flutter_distributor package --platform macos --target dmg
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: MacOS Artifact(Build)
           path: build

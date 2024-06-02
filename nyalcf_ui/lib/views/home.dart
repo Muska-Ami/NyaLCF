@@ -16,14 +16,12 @@ import 'package:nyalcf_core/utils/proxies_getter.dart';
 class Home extends StatelessWidget {
   Home({super.key});
 
-  // FrpcController实例
-  final FrpcController fctr = Get.put(FrpcController());
-
   // _HC控制器实例
   final hc = Get.put(HC());
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FrpcController());
     Get.put(ConsoleController());
     Get.put(UserController());
     // 加载hc控制器
@@ -101,7 +99,7 @@ class HC extends GetxController {
         await UserAuth().refresh(userinfo.token, userinfo.user).then((value) {
           if (!value.status) {
             Logger.warn(
-                'Check user token success but refresh token failed. User info may not the latest!');
+                'Check user token success but refresh user info failed. User info may not the latest!');
           }
           ProxiesGetter.startUp();
           FrpcStartUpLoader().onProgramStartUp();

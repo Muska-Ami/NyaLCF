@@ -14,8 +14,8 @@ import 'package:nyalcf_core/utils/frpc/process_manager.dart';
 class PanelConsole extends StatelessWidget {
   PanelConsole({super.key});
 
-  final UserController uctr = Get.find();
-  final FrpcController fctr = Get.find();
+  final UserController _uCtr = Get.find();
+  final FrpcController _fCtr = Get.find();
   final ConsoleController cctr = Get.find();
 
   @override
@@ -35,7 +35,7 @@ class PanelConsole extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${uctr.avatar}',
+                    '${_uCtr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -90,7 +90,7 @@ class PanelConsole extends StatelessWidget {
                             margin: const EdgeInsets.all(10.0),
                             child: Obx(
                               () => ListView(
-                                children: fctr.processOut,
+                                children: _fCtr.processOut,
                               ),
                             ),
                           ),
@@ -113,7 +113,7 @@ class PanelConsole extends StatelessWidget {
                       ElevatedButton(
                         style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.red),
+                              WidgetStateProperty.all(Colors.red),
                         ),
                         child: const Text(
                           '关闭所有进程',
@@ -130,7 +130,7 @@ class PanelConsole extends StatelessWidget {
                         icon: const Icon(Icons.delete),
                         tooltip: '清空日志',
                         onPressed: () async {
-                          fctr.processOut.clear();
+                          _fCtr.processOut.clear();
                         },
                       ),
                       IconButton(

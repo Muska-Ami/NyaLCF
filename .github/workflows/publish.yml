@@ -23,7 +23,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Install Dependencies
         shell: pwsh
@@ -61,7 +62,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Install Dependencies
         run: |-
@@ -96,7 +98,8 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.19.4
+          version: 3.22.1
+          cache-sdk: true
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -127,7 +130,7 @@ jobs:
       - macos
 
     steps:
-      - name: Checkout Repo
+      - name: Checkout
         uses: actions/checkout@v4
       - name: Fetch Version
         run: |
@@ -165,3 +168,9 @@ jobs:
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.rpm
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.AppImage
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-macos.dmg
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows-setup.exe
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows.zip
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.deb
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.rpm
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.AppImage
+            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-macos.dmg

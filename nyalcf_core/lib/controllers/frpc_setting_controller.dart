@@ -16,7 +16,7 @@ class FrpcSettingController extends GetxController {
 
   BuildContext context;
   List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
-  final FrpcConfigurationStorage fcs = FrpcConfigurationStorage();
+  final FrpcConfigurationStorage _fcs = FrpcConfigurationStorage();
 
   String platform = '';
 
@@ -42,19 +42,27 @@ class FrpcSettingController extends GetxController {
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
     // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-    frpcDownloadUseMirror.value = fcs.getSettingsGitHubMirror();
+    frpcDownloadUseMirror.value = _fcs.getSettingsGitHubMirror();
 
-    frpcVersion.value = fcs.getSettingsFrpcVersion();
+    frpcVersion.value = _fcs.getSettingsFrpcVersion();
     _loadTip();
     _loadFrpcDropdownitem();
   }
 
   void _loadTip() async {
     if (await FrpcPathProvider().frpcPath == null) {
-      frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
+      if (context.mounted) {
+        frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
+      } else {
+        Logger.error('Context not mounted while executing a async function!');
+      }
     } else {
-      frpcDownloadTip.value =
-          await FrpcDownloadTip.downloaded(context: context);
+      if (context.mounted) {
+        frpcDownloadTip.value =
+            await FrpcDownloadTip.downloaded(context: context);
+      } else {
+        Logger.error('Context not mounted while executing a async function!');
+      }
     }
   }
 
@@ -96,13 +104,13 @@ class FrpcSettingController extends GetxController {
           () => FrpcArchive.unarchive(
                 platform: platform,
                 arch: arch[frpcDownloadArch.value]['arch'],
-                version: fcs.getSettingsFrpcVersion(),
+                version: _fcs.getSettingsFrpcVersion(),
               ).then((value) async {
                 Logger.debug(value);
                 if (value) {
-                  fcs.setSettingsFrpcVersion('0.51.3-3');
-                  fcs.addInstalledVersion('0.51.3-3');
-                  fcs.save();
+                  _fcs.setSettingsFrpcVersion('0.51.3-3');
+                  _fcs.addInstalledVersion('0.51.3-3');
+                  _fcs.save();
                   /**if (!Platform.isWindows) {
                       print('*nix platform, change file permission');
                       await FrpcManagerStorage.setRunPermission();

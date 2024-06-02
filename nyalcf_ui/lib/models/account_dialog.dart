@@ -67,7 +67,12 @@ class AccountDialogX {
                 const snackBar = SnackBar(
                   content: Text('无法打开网页，请检查设备是否存在WebView'),
                 );
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                } else {
+                  Logger.error(
+                      'Context not mounted while executing a async function!');
+                }
               }
             }),
       ],

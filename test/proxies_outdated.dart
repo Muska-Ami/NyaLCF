@@ -10,14 +10,14 @@ import 'package:nyalcf_ui/models/floating_action_button.dart';
 class PanelProxies extends StatelessWidget {
   PanelProxies({super.key, required this.title});
 
-  final UserController uctr = Get.find();
+  final UserController _uCtr = Get.find();
   final String title;
 
   @override
   Widget build(BuildContext context) {
     final pctr = Get.put(ProxiesController(context: context));
 
-    pctr.build(uctr.user, uctr.token);
+    pctr.build(_uCtr.user, _uCtr.token);
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +33,7 @@ class PanelProxies extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${uctr.avatar}',
+                    '${_uCtr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -47,7 +47,7 @@ class PanelProxies extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             ElevatedButton(
-              onPressed: () => {pctr.load(uctr.user, uctr.token)},
+              onPressed: () => {pctr.load(_uCtr.user, _uCtr.token)},
               child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
