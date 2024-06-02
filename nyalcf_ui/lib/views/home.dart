@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/console_controller.dart';
-import 'package:nyalcf_core/controllers/frpc_controller.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
@@ -15,9 +14,6 @@ import 'package:nyalcf_core/utils/proxies_getter.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
-
-  // FrpcController实例
-  final FrpcController fctr = Get.put(FrpcController());
 
   // _HC控制器实例
   final hc = Get.put(HC());
@@ -101,7 +97,7 @@ class HC extends GetxController {
         await UserAuth().refresh(userinfo.token, userinfo.user).then((value) {
           if (!value.status) {
             Logger.warn(
-                'Check user token success but refresh token failed. User info may not the latest!');
+                'Check user token success but refresh user info failed. User info may not the latest!');
           }
           ProxiesGetter.startUp();
           FrpcStartUpLoader().onProgramStartUp();

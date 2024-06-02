@@ -7,7 +7,7 @@ import 'package:nyalcf_core/utils/path_provider.dart';
 
 class FrpcStorage {
   static final _supportPath = PathProvider.appSupportPath;
-  static final fcs = FrpcConfigurationStorage();
+  static final _fcs = FrpcConfigurationStorage();
 
   static Future<String> get _path async {
     return '$_supportPath/frpc';
@@ -40,7 +40,7 @@ class FrpcStorage {
 
   /// 获取Frpc运行路径
   Future<String> getRunPath() async {
-    var path = '${await _path}/${fcs.getSettingsFrpcVersion()}/';
+    var path = '${await _path}/${_fcs.getSettingsFrpcVersion()}/';
     if (Platform.isWindows) path = path.replaceAll('/', '\\');
     return path;
   }

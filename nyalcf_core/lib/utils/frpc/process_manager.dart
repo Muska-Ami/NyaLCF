@@ -9,8 +9,8 @@ import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class FrpcProcessManager {
-  final fss = FrpcStorage();
-  final FrpcController fctr = Get.find();
+  final _fss = FrpcStorage();
+  final FrpcController _fCtr = Get.find();
   final ConsoleController cctr = Get.find();
 
   void nwprcs({
@@ -20,7 +20,7 @@ class FrpcProcessManager {
   }) async {
     if (Platform.isLinux || Platform.isMacOS) {
       Logger.info('*unix platform, change file permission');
-      await fss.setRunPermission();
+      await _fss.setRunPermission();
     }
     final Map<String, dynamic> pMap = <String, dynamic>{};
     List<String> arguments = <String>[];
@@ -41,7 +41,7 @@ class FrpcProcessManager {
     final Process process = await Process.start(
       frpcPath,
       arguments,
-      workingDirectory: await fss.getRunPath(),
+      workingDirectory: await _fss.getRunPath(),
     );
     pMap['process'] = process;
     pMap['proxy_id'] = proxyId;
@@ -57,14 +57,14 @@ class FrpcProcessManager {
               fmtStr.contains('无法连接')) &&
           !fmtStr.contains('重连失败')) {
         Logger.frpcWarn('[$proxyId] $fmtStr');
-        fctr.appendWarnLog(fmtStr);
+        _fCtr.appendWarnLog(fmtStr);
         process.kill();
         cctr.removeProcess(pMap);
       } else if (fmtStr.contains('[E]') ||
           fmtStr.contains('failed') ||
           (fmtStr.contains('err') && !fmtStr.contains('terr'))) {
         Logger.frpcError('[$proxyId] $fmtStr');
-        fctr.appendErrorLog(fmtStr);
+        _fCtr.appendErrorLog(fmtStr);
         if (!fmtStr.contains(
             'No connection could be made because the target machine actively refused it')) {
           process.kill();
@@ -72,18 +72,18 @@ class FrpcProcessManager {
         }
       } else {
         Logger.frpcInfo('[$proxyId] $fmtStr');
-        fctr.appendInfoLog(fmtStr);
+        _fCtr.appendInfoLog(fmtStr);
       }
       if (fmtStr.contains('403')) {
-        fctr.appendSystemInfoLog('提示：403 Forbidden - 当前错误可能由于未完成实名/实人认证，或后端服务器无法连接到验证服务器导致');
+        _fCtr.appendSystemInfoLog('提示：403 Forbidden - 当前错误可能由于未完成实名/实人认证，或后端服务器无法连接到验证服务器导致');
       } else if (fmtStr.contains('404')) {
-        fctr.appendSystemInfoLog('提示：404 Not Found - 当前节点可能已经下架');
+        _fCtr.appendSystemInfoLog('提示：404 Not Found - 当前节点可能已经下架');
       }
     });
     process.stderr.forEach((List<int> element) {
       final String fmtStr = utf8.decode(element).trim();
       Logger.frpcError('[$proxyId] $fmtStr');
-      fctr.appendErrorLog(fmtStr);
+      _fCtr.appendErrorLog(fmtStr);
       process.kill();
       cctr.removeProcess(pMap);
     });
@@ -94,7 +94,7 @@ class FrpcProcessManager {
   void killAll() {
     Logger.info('Killing all process');
     Logger.debug('Process length: ${ConsoleController.processList.length}');
-    fctr.appendSystemInfoLog('Killing all process...');
+    _fCtr.appendSystemInfoLog('Killing all process...');
     try {
       var allList = [];
       allList.addAll(ConsoleController.processList);
@@ -103,16 +103,16 @@ class FrpcProcessManager {
       }
       cctr.clearProcess();
     } catch (e) {
-      fctr.appendSystemErrorLog('Killing all process error: $e');
+      _fCtr.appendSystemErrorLog('Killing all process error: $e');
       Logger.error(e);
     }
     Logger.info('All process killed');
-    fctr.appendSystemInfoLog('All process killed');
+    _fCtr.appendSystemInfoLog('All process killed');
   }
 
   void kill(prs) {
     Logger.info('Killing frpc process, pid: ${prs['process'].pid}');
-    fctr.appendSystemInfoLog('Killing process, pid: ${prs['process'].pid}');
+    _fCtr.appendSystemInfoLog('Killing process, pid: ${prs['process'].pid}');
     prs['process'].kill();
     cctr.removeProcess(prs);
 

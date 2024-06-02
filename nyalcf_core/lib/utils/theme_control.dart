@@ -5,7 +5,7 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger.dart';
 
 class ThemeControl {
-  static final lcs = LauncherConfigurationStorage();
+  static final _lcs = LauncherConfigurationStorage();
 
   /// 设置主题为自动模式
   static void autoSet() {
@@ -21,10 +21,10 @@ class ThemeControl {
       Get.changeThemeMode(ThemeMode.dark);
       Logger.info('切换到暗色主题');
     } else {
-      if (lcs.getThemeLightSeedEnable()) {
+      if (_lcs.getThemeLightSeedEnable()) {
         Get.changeThemeMode(ThemeMode.light);
         Get.changeTheme(custom);
-        Logger.info('切换到亮色主题，种子：${lcs.getThemeLightSeedValue()}');
+        Logger.info('切换到亮色主题，种子：${_lcs.getThemeLightSeedValue()}');
       } else {
         Get.changeThemeMode(ThemeMode.light);
         Get.changeTheme(light);
@@ -64,10 +64,10 @@ class ThemeControl {
     fontFamily: 'HarmonyOS Sans',
     brightness: Brightness.light,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: colorFromHexCode(lcs.getThemeLightSeedValue()),
+      seedColor: colorFromHexCode(_lcs.getThemeLightSeedValue()),
     ),
     appBarTheme: AppBarTheme(
-      color: colorFromHexCode(lcs.getThemeLightSeedValue()),
+      color: colorFromHexCode(_lcs.getThemeLightSeedValue()),
     ),
   );
 

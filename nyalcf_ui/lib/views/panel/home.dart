@@ -16,13 +16,13 @@ import 'package:url_launcher/url_launcher.dart';
 class PanelHome extends StatelessWidget {
   PanelHome({super.key});
 
-  final UserController uctr = Get.find();
+  final UserController _uCtr = Get.find();
   final DPanelController dpctr = Get.put(DPanelController());
   final ConsoleController cctr = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    uctr.load();
+    _uCtr.load();
     dpctr.load();
 
     return Scaffold(
@@ -39,7 +39,7 @@ class PanelHome extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${uctr.avatar}',
+                    '${_uCtr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -54,7 +54,7 @@ class PanelHome extends StatelessWidget {
           Column(
             children: <Widget>[
               Obx(() => Text(
-                    '指挥官 ${uctr.user}，${uctr.welcomeText}喵！',
+                    '指挥官 ${_uCtr.user}，${_uCtr.welcomeText}喵！',
                     style: const TextStyle(fontSize: 15),
                   )),
               Row(
@@ -79,12 +79,12 @@ class PanelHome extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Obx(() => Text('用户名：${uctr.user}')),
-                                Obx(() => Text('邮箱：${uctr.email}')),
+                                Obx(() => Text('用户名：${_uCtr.user}')),
+                                Obx(() => Text('邮箱：${_uCtr.email}')),
                                 Obx(() => Text(
-                                    '限制速率：${uctr.inbound / 1024 * 8}Mbps/${uctr.outbound / 1024 * 8}Mbps')),
+                                    '限制速率：${_uCtr.inbound / 1024 * 8}Mbps/${_uCtr.outbound / 1024 * 8}Mbps')),
                                 Obx(() =>
-                                    Text('剩余流量：${uctr.traffic / 1024}GiB'))
+                                    Text('剩余流量：${_uCtr.traffic / 1024}GiB'))
                               ],
                             ),
                           )
@@ -115,7 +115,7 @@ class PanelHome extends StatelessWidget {
                                       onPressed: () async {
                                         Clipboard.setData(
                                           ClipboardData(
-                                            text: uctr.frpToken.value,
+                                            text: _uCtr.frpToken.value,
                                           ),
                                         );
                                         ScaffoldMessenger.of(context)
@@ -132,7 +132,7 @@ class PanelHome extends StatelessWidget {
                                       onPressed: () async {
                                         Clipboard.setData(
                                           ClipboardData(
-                                            text: uctr.token.value,
+                                            text: _uCtr.token.value,
                                           ),
                                         );
                                         ScaffoldMessenger.of(context)

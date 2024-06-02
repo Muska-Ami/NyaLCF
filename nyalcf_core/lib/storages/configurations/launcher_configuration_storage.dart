@@ -27,6 +27,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
             },
           }
         },
+        'auto_sign': false,
       };
 
   bool getDebug() => cfg.getBool('debug');
@@ -51,6 +52,11 @@ class LauncherConfigurationStorage extends JsonConfiguration {
 
   void setThemeLightSeedValue(String value) =>
       cfg.setString('theme.light.seed.value', value);
+
+  bool getAutoSign() => cfg.getBool('auto_sign');
+
+  void setAutoSign(bool value) =>
+      cfg.setBool('auto_sign', value);
 
   ThemeData getTheme() {
     if (getThemeAuto()) {

@@ -15,10 +15,10 @@ class SettingInjector extends StatelessWidget {
   Widget build(BuildContext context) {
     final FrpcSettingController fsctr =
         Get.put(FrpcSettingController(context: context));
-    final DSettingLauncherController dslctr =
+    final DSettingLauncherController _dslCtr =
         Get.put(DSettingLauncherController());
     fsctr.load();
-    dslctr.load();
+    _dslCtr.load();
 
     return DefaultTabController(
         length: 2,

@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_core/controllers/frpc_controller.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
-import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
@@ -22,11 +20,9 @@ class ProxiesController extends GetxController {
   ProxiesController({required this.context});
 
   final BuildContext context;
-  final fcs = FrpcConfigurationStorage();
   final aps = AutostartProxiesStorage();
 
-  final FrpcController fctr = Get.find();
-  final UserController uctr = Get.find();
+  final UserController _uCtr = Get.find();
 
   // var proxiesListWidgets = <DataRow>[
   //   const DataRow(cells: <DataCell>[
@@ -156,12 +152,12 @@ class ProxiesController extends GetxController {
       aps.save();
       Logger.debug(_getIfAutostart(proxyId));
     }
-    load(uctr.user, uctr.token);
+    load(_uCtr.user, _uCtr.token);
   }
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
     final res =
-        await ProxiesStatus().getProxyStatus(proxy, uctr.frpToken.value);
+        await ProxiesStatus().getProxyStatus(proxy, _uCtr.frpToken.value);
     Logger.debug(proxiesStatus);
     if (res.status) {
       switch (res.data['proxy_status']) {
@@ -199,7 +195,7 @@ class ProxiesController extends GetxController {
           final execPath = await FrpcPathProvider().frpcPath;
           if (execPath != null) {
             FrpcProcessManager().nwprcs(
-              frpToken: uctr.frpToken.value,
+              frpToken: _uCtr.frpToken.value,
               proxyId: element.id,
               frpcPath: execPath,
             );
@@ -256,7 +252,7 @@ class ProxiesController extends GetxController {
                   'Context not mounted while executing a async function!');
             }
             final res = await ProxiesConfiguration()
-                .get(uctr.frpToken.value, element.id);
+                .get(_uCtr.frpToken.value, element.id);
             if (res is String) {
               Logger.info('Successfully get config ini');
               text = res;
@@ -304,16 +300,16 @@ class ProxiesController extends GetxController {
       ));
     }
 
-    final fcsp = await ProxiesConfigurationStorage.getConfigPath(element.id);
+    final pcs = await ProxiesConfigurationStorage.getConfigPath(element.id);
 
-    if (fcsp != null) {
+    if (pcs != null) {
       list.add(
         IconButton(
           icon: const Icon(Icons.remove),
           tooltip: '移除自定义配置文件',
           onPressed: () async {
-            File(fcsp).delete();
-            load(uctr.user, uctr.token);
+            File(pcs).delete();
+            load(_uCtr.user, _uCtr.token);
           },
         ),
       );

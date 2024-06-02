@@ -9,8 +9,8 @@ class FrpcDownloadDialogX {
   FrpcDownloadDialogX({required this.context});
 
   final BuildContext context;
-  final fcs = FrpcConfigurationStorage();
-  final FrpcSettingController dsctr = Get.find();
+  final _fcs = FrpcConfigurationStorage();
+  final FrpcSettingController _dsCtr = Get.find();
 
   Widget build() {
     return SimpleDialog(
@@ -21,34 +21,34 @@ class FrpcDownloadDialogX {
               left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
           child: Column(
             children: <Widget>[
-              Text('猫猫翻遍了系统变量，识别到 CPU 架构为：${dsctr.cpuArch}'),
+              Text('猫猫翻遍了系统变量，识别到 CPU 架构为：${_dsCtr.cpuArch}'),
               Obx(() => DropdownButton(
-                    value: dsctr.frpcDownloadArch.value,
-                    items: dsctr.frpcDownloadArchList,
+                    value: _dsCtr.frpcDownloadArch.value,
+                    items: _dsCtr.frpcDownloadArchList,
                     onChanged: (value) {
-                      Logger.debug(dsctr.arch);
+                      Logger.debug(_dsCtr.arch);
                       Logger.info(
-                          'Selected arch: ${dsctr.arch[value]['arch']}');
-                      dsctr.frpcDownloadArch.value = value;
+                          'Selected arch: ${_dsCtr.arch[value]['arch']}');
+                      _dsCtr.frpcDownloadArch.value = value;
                     },
                   )),
               ElevatedButton(
                 onPressed: () async {
                   /// 刷新UI，下载frpc
-                  dsctr.refreshDownloadShow();
+                  _dsCtr.refreshDownloadShow();
 
                   /// 开始下载
                   Get.dialog(_downloading(), barrierDismissible: false);
                   final res = await DownloadFrpc().download(
-                    arch: dsctr.arch[dsctr.frpcDownloadArch.value]['arch'],
-                    platform: dsctr.platform,
+                    arch: _dsCtr.arch[_dsCtr.frpcDownloadArch.value]['arch'],
+                    platform: _dsCtr.platform,
                     version: '0.51.3-3',
-                    progressCallback: dsctr.downloadFrpcCallback,
-                    cancelToken: dsctr.downloadCancelToken,
-                    useMirror: fcs.getSettingsGitHubMirror(),
+                    progressCallback: _dsCtr.downloadFrpcCallback,
+                    cancelToken: _dsCtr.downloadCancelToken,
+                    useMirror: _fcs.getSettingsGitHubMirror(),
                   );
-                  dsctr.frpcDownloadCancel = res;
-                  dsctr.refreshDownloadShow();
+                  _dsCtr.frpcDownloadCancel = res;
+                  _dsCtr.refreshDownloadShow();
                 },
                 child: const Text('开始下载'),
               ),
@@ -69,13 +69,13 @@ class FrpcDownloadDialogX {
           child: Column(
             children: <Widget>[
               // ignore: invalid_use_of_protected_member
-              Obx(() => Column(children: dsctr.frpcDownloadShow.value)),
+              Obx(() => Column(children: _dsCtr.frpcDownloadShow.value)),
               Obx(() => Text(
-                  '进度：${(dsctr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),
+                  '进度：${(_dsCtr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),
               ElevatedButton(
                 onPressed: () async {
-                  dsctr.downloadCancelToken.cancel();
-                  dsctr.refreshDownloadShow();
+                  _dsCtr.downloadCancelToken.cancel();
+                  _dsCtr.refreshDownloadShow();
                   Get.close(0);
                 },
                 child: const Text('取消'),

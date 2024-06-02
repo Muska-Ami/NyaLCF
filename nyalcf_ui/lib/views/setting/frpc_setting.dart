@@ -7,16 +7,16 @@ class FrpcSetting {
   FrpcSetting({required this.context});
 
   final BuildContext context;
-  final fcs = FrpcConfigurationStorage();
-  final FrpcSettingController dsctr = Get.find();
+  final _fcs = FrpcConfigurationStorage();
+  final FrpcSettingController _dsCtr = Get.find();
 
   Widget widget() {
-    dsctr.context = context;
+    _dsCtr.context = context;
     return Container(
       margin: const EdgeInsets.all(15.0),
       child: ListView(
         children: <Widget>[
-          Obx(() => dsctr.frpcDownloadTip.value),
+          Obx(() => _dsCtr.frpcDownloadTip.value),
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,10 +41,10 @@ class FrpcSetting {
                               ),
                             ),
                             Switch(
-                              value: dsctr.frpcDownloadUseMirror.value,
+                              value: _dsCtr.frpcDownloadUseMirror.value,
                               onChanged: (value) async {
-                                fcs.setSettingsGitHubMirror(value);
-                                dsctr.frpcDownloadUseMirror.value = value;
+                                _fcs.setSettingsGitHubMirror(value);
+                                _dsCtr.frpcDownloadUseMirror.value = value;
                               },
                             ),
                           ],

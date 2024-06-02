@@ -15,13 +15,13 @@ import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSetting {
-  final DSettingLauncherController dsctr = Get.find();
-  final lcs = LauncherConfigurationStorage();
+  final DSettingLauncherController _dsCtr = Get.find();
+  final _lcs = LauncherConfigurationStorage();
 
   static final String? _supportPath = PathProvider.appSupportPath;
 
   TextEditingController get _textEditingController =>
-      TextEditingController(text: lcs.getThemeLightSeedValue());
+      TextEditingController(text: _lcs.getThemeLightSeedValue());
 
   Widget widget() {
     return Container(
@@ -53,10 +53,10 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: dsctr.autostart.value,
+                              value: _dsCtr.autostart.value,
                               onChanged: (value) async {
                                 if (Platform.isWindows) {
-                                  dsctr.setAutostart(value);
+                                  _dsCtr.setAutostart(value);
                                 } else {
                                   Get.snackbar(
                                     '呜哇！',
@@ -108,22 +108,22 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: dsctr.themeAuto.value,
+                              value: _dsCtr.themeAuto.value,
                               onChanged: (value) async {
-                                lcs.setThemeAuto(value);
-                                lcs.save();
-                                dsctr.themeAuto.value = value;
-                                dsctr.loadx();
+                                _lcs.setThemeAuto(value);
+                                _lcs.save();
+                                _dsCtr.themeAuto.value = value;
+                                _dsCtr.loadx();
                                 if (value) {
                                   ThemeControl.autoSet();
-                                } else if (lcs.getThemeDarkEnable()) {
+                                } else if (_lcs.getThemeDarkEnable()) {
                                   // 暗色
                                   Get.changeThemeMode(ThemeMode.dark);
                                   Get.forceAppUpdate();
                                 } else {
                                   // 亮色
                                   Get.changeThemeMode(ThemeMode.light);
-                                  if (lcs.getThemeLightSeedEnable()) {
+                                  if (_lcs.getThemeLightSeedEnable()) {
                                     // 自定义
                                     Get.changeTheme(ThemeControl.custom);
                                   } else {
@@ -135,7 +135,7 @@ class LauncherSetting {
                             ),
                           ],
                         ),
-                        dsctr.switchThemeDark.value,
+                        _dsCtr.switchThemeDark.value,
                         Row(
                           children: <Widget>[
                             const Expanded(
@@ -174,18 +174,18 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: dsctr.themeLightSeedEnable.value,
+                              value: _dsCtr.themeLightSeedEnable.value,
                               onChanged: (value) async {
-                                lcs.setThemeLightSeedEnable(value);
-                                Logger.debug(lcs.getThemeLightSeedEnable());
-                                lcs.save();
+                                _lcs.setThemeLightSeedEnable(value);
+                                Logger.debug(_lcs.getThemeLightSeedEnable());
+                                _lcs.save();
                                 // 必须要手动模式才执行操作
-                                if (!lcs.getThemeAuto()) {
+                                if (!_lcs.getThemeAuto()) {
                                   if (value) {
                                     // 自定义
                                     Get.changeThemeMode(ThemeMode.light);
                                     Get.changeTheme(ThemeControl.custom);
-                                  } else if (lcs.getThemeDarkEnable()) {
+                                  } else if (_lcs.getThemeDarkEnable()) {
                                     // 暗色
                                     Get.changeThemeMode(ThemeMode.dark);
                                   } else {
@@ -195,6 +195,56 @@ class LauncherSetting {
                                   }
                                 }
                                 Get.forceAppUpdate();
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const ListTile(
+                  leading: Icon(Icons.bug_report),
+                  title: Text('杂项'),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 50.0),
+                  child: Obx(
+                        () => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.auto_awesome),
+                                title: Text('自动签到'),
+                              ),
+                            ),
+                            Switch(
+                              value: _dsCtr.autoSign.value,
+                              onChanged: (value) async {
+                                _lcs.setAutoSign(value);
+                                // if (Platform.isWindows) {
+                                //   _dsCtr.setAutostart(value);
+                                // } else {
+                                //   Get.snackbar(
+                                //     '呜哇！',
+                                //     '这个功能貌似只能在Windows系统上使用，其他平台尚在开发喵~',
+                                //     snackPosition: SnackPosition.BOTTOM,
+                                //     animationDuration:
+                                //     const Duration(milliseconds: 300),
+                                //   );
+                                // }
                               },
                             ),
                           ],
@@ -237,11 +287,11 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: dsctr.debugMode.value,
+                              value: _dsCtr.debugMode.value,
                               onChanged: (value) async {
-                                lcs.setDebug(value);
-                                lcs.save();
-                                dsctr.debugMode.value = value;
+                                _lcs.setDebug(value);
+                                _lcs.save();
+                                _dsCtr.debugMode.value = value;
                               },
                             ),
                           ],
@@ -441,12 +491,12 @@ class LauncherSetting {
       code = code;
     }
     if (code.length == 6 || code.length == 8) {
-      lcs.setThemeLightSeedValue(code);
-      lcs.save();
+      _lcs.setThemeLightSeedValue(code);
+      _lcs.save();
       Logger.debug(code);
       // 检查是否启用
       // 必须要手动模式才执行操作
-      if (lcs.getThemeLightSeedEnable() && !lcs.getThemeAuto()) {
+      if (_lcs.getThemeLightSeedEnable() && !_lcs.getThemeAuto()) {
         Get.changeThemeMode(ThemeMode.light);
         Get.changeTheme(ThemeControl.custom);
         Get.forceAppUpdate();

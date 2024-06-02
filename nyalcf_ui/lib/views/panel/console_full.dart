@@ -11,8 +11,8 @@ import 'package:nyalcf_ui/models/drawer.dart';
 class PanelConsoleFull extends StatelessWidget {
   PanelConsoleFull({super.key});
 
-  final UserController uctr = Get.find();
-  final FrpcController fctr = Get.find();
+  final UserController _uCtr = Get.find();
+  final FrpcController _fCtr = Get.find();
   final ConsoleController cctr = Get.find();
 
   @override
@@ -32,7 +32,7 @@ class PanelConsoleFull extends StatelessWidget {
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
                   child: Image.network(
-                    '${uctr.avatar}',
+                    '${_uCtr.avatar}',
                     width: 35,
                   ),
                 )),
@@ -52,7 +52,7 @@ class PanelConsoleFull extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   physics: const AlwaysScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  children: fctr.processOut,
+                  children: _fCtr.processOut,
                 ),
               )
             ),

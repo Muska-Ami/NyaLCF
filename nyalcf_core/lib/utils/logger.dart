@@ -8,7 +8,7 @@ import 'package:nyalcf_core/utils/path_provider.dart';
 
 class Logger {
   static final String? _supportPath = PathProvider.appSupportPath;
-  static final lcs = LauncherConfigurationStorage();
+  static final _lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>
       FileOutput(file: File('$_supportPath/run.log'));
@@ -46,7 +46,7 @@ class Logger {
   }
 
   static Future<void> debug(s) async {
-    if (lcs.getDebug()) {
+    if (_lcs.getDebug()) {
       (await _logger).d(s);
     }
   }
