@@ -33,7 +33,7 @@ class LauncherSetting {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.bug_report),
+                  leading: Icon(Icons.assistant_navigation_round),
                   title: Text('启动'),
                 ),
                 Container(
@@ -211,7 +211,7 @@ class LauncherSetting {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const ListTile(
-                  leading: Icon(Icons.bug_report),
+                  leading: Icon(Icons.donut_large),
                   title: Text('杂项'),
                 ),
                 Container(

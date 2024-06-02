@@ -6,5 +6,6 @@
 
 - 支持自动签到
 - 更新到 Flutter 3.22.1
+- 修复设置中三个一样的 Icon 问题
 - 其他代码细节优化
 <!-- Some change log here -->
