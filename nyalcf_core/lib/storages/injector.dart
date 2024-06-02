@@ -4,12 +4,12 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 
 class StoragesInjector {
   static init() async {
-    final _lcs = LauncherConfigurationStorage();
-    final _fcs = FrpcConfigurationStorage();
+    final lcs = LauncherConfigurationStorage();
+    final fcs = FrpcConfigurationStorage();
     final aps = AutostartProxiesStorage();
 
-    await _lcs.initCfg();
-    await _fcs.initCfg();
+    await lcs.initCfg();
+    await fcs.initCfg();
     await aps.initCfg();
 
     /// Deprecated config load will remove in future.
