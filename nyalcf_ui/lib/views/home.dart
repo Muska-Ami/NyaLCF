@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/controllers/console_controller.dart';
+import 'package:nyalcf_core/controllers/frpc_controller.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
@@ -20,6 +21,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FrpcController());
     Get.put(ConsoleController());
     Get.put(UserController());
     // 加载hc控制器
