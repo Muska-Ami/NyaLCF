@@ -309,9 +309,7 @@ class LauncherSetting {
                             children: <Widget>[
                               ElevatedButton(
                                 onPressed: () async {
-                                  OpenFilex.open(
-                                    '$_supportPath/run.log',
-                                  );
+                                  OpenFilex.open('$_supportPath/run.log');
                                 },
                                 child: const Text('打开日志文件'),
                               ),
@@ -319,13 +317,15 @@ class LauncherSetting {
                                 onPressed: () async {
                                   File('$_supportPath/run.log')
                                       .delete()
-                                      .then((value) => Get.snackbar(
-                                            '好耶！',
-                                            '已清除日志文件喵',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration: const Duration(
-                                                milliseconds: 300),
-                                          ))
+                                      .then(
+                                        (value) => Get.snackbar(
+                                          '好耶！',
+                                          '已清除日志文件喵',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          animationDuration:
+                                              const Duration(milliseconds: 300),
+                                        ),
+                                      )
                                       .onError((error, stackTrace) {
                                     Logger.error(error, t: stackTrace);
                                     return Get.snackbar(
