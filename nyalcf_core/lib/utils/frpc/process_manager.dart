@@ -75,7 +75,8 @@ class FrpcProcessManager {
         _fCtr.appendInfoLog(fmtStr);
       }
       if (fmtStr.contains('403')) {
-        _fCtr.appendSystemInfoLog('提示：403 Forbidden - 当前错误可能由于未完成实名/实人认证，或后端服务器无法连接到验证服务器导致');
+        _fCtr.appendSystemInfoLog(
+            '提示：403 Forbidden - 当前错误可能由于未完成实名/实人认证，或后端服务器无法连接到验证服务器导致');
       } else if (fmtStr.contains('404')) {
         _fCtr.appendSystemInfoLog('提示：404 Not Found - 当前节点可能已经下架');
       }
@@ -102,9 +103,9 @@ class FrpcProcessManager {
         kill(element);
       }
       cctr.clearProcess();
-    } catch (e) {
+    } catch (e, st) {
       _fCtr.appendSystemErrorLog('Killing all process error: $e');
-      Logger.error(e);
+      Logger.error(e, t: st);
     }
     Logger.info('All process killed');
     _fCtr.appendSystemInfoLog('All process killed');

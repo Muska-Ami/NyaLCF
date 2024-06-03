@@ -57,8 +57,8 @@ class ProxiesGet {
           'origin_response': resData,
         },
       );
-    } catch (e) {
-      Logger.error(e);
+    } catch (e, st) {
+      Logger.error(e, t: st);
       return Response(
         status: false,
         message: e.toString(),

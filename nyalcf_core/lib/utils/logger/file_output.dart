@@ -7,7 +7,7 @@ class FileOutput extends LogOutput {
   final File file;
   final bool overrideExisting;
   final Encoding encoding;
-  IOSink? _sink;
+  // IOSink? _sink;
 
   static final defaultLevelColors = [
     AnsiColor.ansiDefault,
@@ -29,27 +29,36 @@ class FileOutput extends LogOutput {
 
   @override
   Future<void> init() async {
-    _sink = file.openWrite(
-      mode: overrideExisting ? FileMode.writeOnly : FileMode.writeOnlyAppend,
-      encoding: encoding,
-    );
+    // 使用openWrite在大量日志的情况下会导致日志输出混乱
+    // _sink = file.openWrite(
+    //   mode: overrideExisting ? FileMode.writeOnly : FileMode.writeOnlyAppend,
+    //   encoding: encoding,
+    // );
   }
 
   @override
   void output(OutputEvent event) {
-    _sink?.write('${_removeAnsiEscapeCodes(event.lines)}\n');
-    _sink?.writeln();
+    final input = _removeAnsiEscapeCodes(event.lines);
+    for (var i = 0; i < input.length; i++) {
+      file.writeAsStringSync(
+        '${input[i]}\n',
+        mode: overrideExisting ? FileMode.writeOnly : FileMode.writeOnlyAppend,
+      );
+      // _sink?.write(input[i]);
+      // _sink?.writeln();
+    }
   }
 
   @override
   Future<void> destroy() async {
-    await _sink?.flush();
-    await _sink?.close();
+    // await _sink?.flush();
+    // await _sink?.close();
   }
 
   List<String> _removeAnsiEscapeCodes(List<String> input) {
     List<String> output = [];
-    for (var log in input) {
+    for (var i = 0; i < input.length; i++) {
+      String log = input[i];
       String str = log;
       for (var color in defaultLevelColors) {
         str = str.replaceAll(color.toString(), '');

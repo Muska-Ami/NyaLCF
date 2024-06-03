@@ -21,7 +21,7 @@ class Logger {
   }
 
   static get _logger async {
-    List<log_u.LogOutput> multiOutput = [await _fileOutPut, _consoleOutput];
+    List<log_u.LogOutput> multiOutput = [_consoleOutput, await _fileOutPut];
     return log_u.Logger(
       filter: LogFilter(),
       printer: LogPrinter(),
@@ -37,8 +37,18 @@ class Logger {
     (await _logger).w(s);
   }
 
-  static Future<void> error(s) async {
-    (await _logger).e(s);
+  static Future<void> error(s, {StackTrace? t}) async {
+    final sb = StringBuffer();
+    if (s is Exception) {
+      sb.write('${s.toString()}\n');
+      if (t != null) {
+        sb.write('Trace:\n');
+        sb.write(t);
+      }
+    } else {
+      sb.write(s);
+    }
+    (await _logger).e(sb.toString());
   }
 
   static Future<void> verbose(s) async {

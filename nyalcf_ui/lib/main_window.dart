@@ -68,8 +68,8 @@ class MainWindow {
               onPressed: () {
                 try {
                   FrpcProcessManager().killAll();
-                } catch (e) {
-                  Logger.error('Failed to close all process: $e');
+                } catch (e, st) {
+                  Logger.error('Failed to close all process: $e', t: st);
                 }
                 appWindow.close();
                 windowManager.destroy();

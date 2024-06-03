@@ -44,8 +44,8 @@ class LoginAuth {
           },
         );
       }
-    } catch (ex) {
-      Logger.error(ex);
+    } catch (ex, st) {
+      Logger.error(ex, t: st);
       return Response(
         status: false,
         message: ex.toString(),

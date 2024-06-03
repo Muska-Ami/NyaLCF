@@ -219,7 +219,7 @@ class LauncherSetting {
                       left: 20.0, right: 20.0, bottom: 20.0),
                   padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
-                        () => Column(
+                    () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
@@ -327,7 +327,7 @@ class LauncherSetting {
                                                 milliseconds: 300),
                                           ))
                                       .onError((error, stackTrace) {
-                                    Logger.error(error);
+                                    Logger.error(error, t: stackTrace);
                                     return Get.snackbar(
                                       '坏！',
                                       '发生了一点小问题QAQ $error}',

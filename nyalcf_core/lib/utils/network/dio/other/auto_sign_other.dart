@@ -59,9 +59,8 @@ class OtherAutoSign {
           'origin_response': resData,
         },
       );
-
-    } catch (e) {
-      Logger.error(e);
+    } catch (e, st) {
+      Logger.error(e, t: st);
       return Response(
         status: false,
         message: e.toString(),
@@ -85,7 +84,8 @@ class OtherAutoSign {
       Map<String, dynamic> resJson = resData.data;
       final String msg = resJson['message'];
       if (msg.contains('签到成功')) {
-        int getTraffic = int.parse(msg.replaceAll(RegExp(r'[^0-9]'),'')) * 1024;
+        int getTraffic =
+            int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
         return Response(
           status: true,
           message: 'OK',
@@ -110,8 +110,8 @@ class OtherAutoSign {
           'origin_response': resData,
         },
       );
-    } catch (e) {
-      Logger.error(e);
+    } catch (e, st) {
+      Logger.error(e, t: st);
       return Response(
         status: false,
         message: e.toString(),
