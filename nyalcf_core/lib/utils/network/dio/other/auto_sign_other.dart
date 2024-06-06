@@ -8,58 +8,72 @@ class OtherAutoSign {
   final instance = dio.Dio(options);
 
   /// 检查签到状态
-  Future<Response> checkSign(String token) async {
+  Future<Response> checkSign(String username, String token) async {
     // Logger.debug(token);
     try {
-      dio.FormData data = dio.FormData.fromMap({
-        'token': token,
-      });
-      final resData = await instance.post(
-        'https://api.locyanfrp.cn/User/CheckSign',
-        data: data,
+      // dio.FormData data = dio.FormData.fromMap({
+      //   'token': token,
+      // });
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['username'] = username;
+
+      dio.Options options = dio.Options();
+      Map<String, dynamic> optionsMap = {};
+      optionsMap['Content-Type'] =
+      'application/x-www-form-urlencoded;charset=UTF-8';
+      optionsMap['Authorization'] = 'Bearer $token';
+      options = options.copyWith(headers: optionsMap);
+
+      final resData = await instance.get(
+        '$apiV2Url/sign/check',
+        options: options,
+        queryParameters: paramsMap,
+        // data: data,
       );
 
       Logger.debug(resData);
 
       Map<String, dynamic> resJson = resData.data;
-      final String msg = resJson['message'];
-
-      if (msg.contains("尚未签到")) {
+      // final String msg = resJson['message'];
+      if (resData.statusCode == 200 || resData.statusCode == 403) {
+        if (resJson['data']['status']) {
+          return Response(
+            status: true,
+            message: 'OK',
+            data: {
+              'signed': true,
+              'origin_response': resData,
+            },
+          );
+          // final postSign =
+          //     await instance.post('https://api.locyanfrp.cn/User/DoSign');
+          // final postSignJson = jsonDecode(postSign.data);
+          //
+          // if (postSignJson['message'] == "成功") {
+          //   //提示签到成功
+          // } else if (postSignJson['message'] == "已经签到") {
+          //   //提示已经签到过了
+          // } else {
+          // }
+        } else {
+          return Response(
+            status: true,
+            message: 'OK',
+            data: {
+              'signed': false,
+              'origin_response': resData,
+            },
+          );
+        }
+      } else {
         return Response(
-          status: true,
-          message: 'OK',
+          status: false,
+          message: 'Server error',
           data: {
-            'signed': false,
-            'origin_response': resData,
-          },
-        );
-        // final postSign =
-        //     await instance.post('https://api.locyanfrp.cn/User/DoSign');
-        // final postSignJson = jsonDecode(postSign.data);
-        //
-        // if (postSignJson['message'] == "成功") {
-        //   //提示签到成功
-        // } else if (postSignJson['message'] == "已经签到") {
-        //   //提示已经签到过了
-        // } else {
-        // }
-      } else if (msg.contains("已签到")) {
-        return Response(
-          status: true,
-          message: 'OK',
-          data: {
-            'signed': true,
-            'origin_response': resData,
+            'error': 'Unknown',
           },
         );
       }
-      return Response(
-        status: false,
-        message: msg,
-        data: {
-          'origin_response': resData,
-        },
-      );
     } catch (e, st) {
       Logger.error(e, t: st);
       return Response(
@@ -73,29 +87,41 @@ class OtherAutoSign {
   }
 
   /// 执行签到
-  Future<Response> doSign(String token) async {
+  Future<Response> doSign(String username, String token) async {
     try {
-      dio.FormData data = dio.FormData.fromMap({
-        'token': token,
-      });
-      final resData = await instance.post(
-        'https://api.locyanfrp.cn/User/DoSign',
-        data: data,
+      Map<String, dynamic> paramsMap = {};
+      paramsMap['username'] = username;
+
+      dio.Options options = dio.Options();
+      Map<String, dynamic> optionsMap = {};
+      optionsMap['Content-Type'] =
+          'application/x-www-form-urlencoded;charset=UTF-8';
+      optionsMap['Authorization'] = 'Bearer $token';
+      options = options.copyWith(headers: optionsMap);
+
+      final resData = await instance.get(
+        '$apiV2Url/sign/sign',
+        options: options,
+        queryParameters: paramsMap,
       );
+
       Map<String, dynamic> resJson = resData.data;
-      final String msg = resJson['message'];
-      if (msg.contains('签到成功')) {
-        int getTraffic =
-            int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
+      // final String msg = resJson['message'];
+      if (resJson['status'] == 200) {
+        // int getTraffic =
+        // int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
         return Response(
           status: true,
           message: 'OK',
           data: {
-            'get_traffic': getTraffic,
+            'get_traffic': resJson['data']['signTraffic'] * 1024,
+            'first_sign': resJson['data']['firstSign'],
+            'total_sign_count': resJson['data']['totalSignCount'],
+            'total_get_traffic': resJson['data']['totalSignTraffic'] * 1024,
             'origin_response': resData,
           },
         );
-      } else if (msg.contains('已经签到过')) {
+      } else if (resJson['status'] == 403) {
         return Response(
           status: false,
           message: 'Signed',
@@ -106,7 +132,7 @@ class OtherAutoSign {
       }
       return Response(
         status: false,
-        message: msg,
+        message: resJson['data']['msg'],
         data: {
           'origin_response': resData,
         },
