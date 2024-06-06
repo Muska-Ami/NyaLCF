@@ -21,10 +21,9 @@ class TaskScheduler {
   static _taskAutoSign() async {
     if (_lcs.getAutoSign()) {
       TaskAutoSign().startUp(
-        callback: () =>
-            Future.delayed(const Duration(hours: 12), () {
-              TaskAutoSign().startUp();
-            }),
+        callback: () => Future.delayed(const Duration(hours: 12), () {
+          TaskAutoSign().startUp();
+        }),
       );
     }
   }

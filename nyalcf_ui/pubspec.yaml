@@ -1,6 +1,6 @@
 name: nyalcf_ui
 description: "Nya LoCyanFrp! user interface."
-version: 0.0.1
+version: 0.0.2
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 
@@ -21,7 +21,7 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   bitsdojo_window: ^0.1.5
   get: ^4.6.6
-  flutter_markdown: ^0.6.23
+  flutter_markdown: ^0.7.1
   flutter_code_editor: ^0.3.1
   flutter_highlight: ^0.7.0
   open_filex: ^4.4.0
@@ -32,7 +32,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

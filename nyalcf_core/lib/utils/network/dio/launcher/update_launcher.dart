@@ -34,8 +34,8 @@ class UpdateLauncher {
           'origin_response': res,
         },
       );
-    } catch (e) {
-      Logger.error(e);
+    } catch (e, st) {
+      Logger.error(e, t: st);
       return Response(
         status: false,
         message: e.toString(),

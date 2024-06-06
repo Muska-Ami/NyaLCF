@@ -13,7 +13,8 @@ class Universe {
     appName = packageInfo.appName;
     appPackageName = packageInfo.packageName;
     appVersion = packageInfo.version;
-    appBuildNumber = packageInfo.buildNumber.isNotEmpty? packageInfo.buildNumber : "0";
+    appBuildNumber =
+        packageInfo.buildNumber.isNotEmpty ? packageInfo.buildNumber : "0";
     // appFullVersion = "$appVersion+${appBuildNumber.isNotEmpty ? appBuildNumber : "0"}";
   }
 }

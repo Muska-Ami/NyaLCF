@@ -219,7 +219,7 @@ class LauncherSetting {
                       left: 20.0, right: 20.0, bottom: 20.0),
                   padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
-                        () => Column(
+                    () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
@@ -309,9 +309,7 @@ class LauncherSetting {
                             children: <Widget>[
                               ElevatedButton(
                                 onPressed: () async {
-                                  OpenFilex.open(
-                                    '$_supportPath/run.log',
-                                  );
+                                  OpenFilex.open('$_supportPath/run.log');
                                 },
                                 child: const Text('打开日志文件'),
                               ),
@@ -319,15 +317,17 @@ class LauncherSetting {
                                 onPressed: () async {
                                   File('$_supportPath/run.log')
                                       .delete()
-                                      .then((value) => Get.snackbar(
-                                            '好耶！',
-                                            '已清除日志文件喵',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration: const Duration(
-                                                milliseconds: 300),
-                                          ))
+                                      .then(
+                                        (value) => Get.snackbar(
+                                          '好耶！',
+                                          '已清除日志文件喵',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          animationDuration:
+                                              const Duration(milliseconds: 300),
+                                        ),
+                                      )
                                       .onError((error, stackTrace) {
-                                    Logger.error(error);
+                                    Logger.error(error, t: stackTrace);
                                     return Get.snackbar(
                                       '坏！',
                                       '发生了一点小问题QAQ $error}',

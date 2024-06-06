@@ -33,9 +33,9 @@ class FrpcArchive {
         PathProvider.moveDirectory(
             dir, Directory('$_supportPath/frpc/$version'));
         await f.delete();
-      } catch (e) {
+      } catch (e, st) {
         await f.delete();
-        Logger.error(e);
+        Logger.error(e, t: st);
         return false;
       }
       return true;

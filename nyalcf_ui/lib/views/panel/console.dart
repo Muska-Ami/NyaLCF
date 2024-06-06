@@ -56,7 +56,7 @@ class PanelConsole extends StatelessWidget {
                   children: [
                     SizedBox(
                       width: 180.0,
-                      height: MediaQuery.of(context).size.height-160,
+                      height: MediaQuery.of(context).size.height - 160,
                       child: Card(
                         child: Obx(
                           () => Column(
@@ -83,7 +83,7 @@ class PanelConsole extends StatelessWidget {
                     ),
                     Expanded(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height-160,
+                        height: MediaQuery.of(context).size.height - 160,
                         child: Card(
                           color: Colors.grey.shade900,
                           child: Container(
@@ -112,8 +112,7 @@ class PanelConsole extends StatelessWidget {
                       // ),
                       ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor:
-                              WidgetStateProperty.all(Colors.red),
+                          backgroundColor: WidgetStateProperty.all(Colors.red),
                         ),
                         child: const Text(
                           '关闭所有进程',

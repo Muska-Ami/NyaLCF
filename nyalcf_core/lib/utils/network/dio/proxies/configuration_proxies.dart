@@ -24,8 +24,8 @@ class ProxiesConfiguration {
         } else {
           return null;
         }
-      } catch (ie) {
-        Logger.error(ie);
+      } catch (ie, st) {
+        Logger.error(ie, t: st);
         return null;
       }
     } catch (e) {

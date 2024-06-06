@@ -1,6 +1,6 @@
 name: nyalcf_inject
 description: "Nya LoCyanFrp! communication injector."
-version: 0.0.1
+version: 0.0.2
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 
@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

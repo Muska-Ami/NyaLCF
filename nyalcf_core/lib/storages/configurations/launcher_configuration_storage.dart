@@ -55,8 +55,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
 
   bool getAutoSign() => cfg.getBool('auto_sign');
 
-  void setAutoSign(bool value) =>
-      cfg.setBool('auto_sign', value);
+  void setAutoSign(bool value) => cfg.setBool('auto_sign', value);
 
   ThemeData getTheme() {
     if (getThemeAuto()) {

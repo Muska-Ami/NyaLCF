@@ -192,7 +192,7 @@ class FrpcSettingController extends GetxController {
     /// 遍历构建
     for (var i = 0; i <= this.arch.length - 1; i++) {
       dmil.add(_buildDMIWidget(version: this.arch[i]['name'], value: i));
-      Logger.info(this.arch[i]);
+      Logger.debug(this.arch[i]);
     }
     return dmil;
   }

@@ -44,7 +44,7 @@ class LogPrinter extends log_u.LogPrinter {
     return [output.toString()];
   }
 
-  Object _toEncodableFallback(dynamic object) {
+  Object _toEncodeAbleFallback(dynamic object) {
     return object.toString();
   }
 
@@ -54,8 +54,8 @@ class LogPrinter extends log_u.LogPrinter {
         finalMessage is Response ||
         finalMessage is Iterable) {
       if (finalMessage is Response) finalMessage = finalMessage.data;
-      var encoder = JsonEncoder.withIndent('  ', _toEncodableFallback);
-      return '=== [${dataColor}DATA$rstColor] ===\n$dataColor${encoder.convert(finalMessage)}';
+      var encoder = JsonEncoder.withIndent('  ', _toEncodeAbleFallback);
+      return '\n=== [${dataColor}DATA START$rstColor] ===\n$dataColor${encoder.convert(finalMessage)}\n$rstColor=== [${dataColor}DATA END$rstColor] ===';
     } else {
       return finalMessage.toString();
     }

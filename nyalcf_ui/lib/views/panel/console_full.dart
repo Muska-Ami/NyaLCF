@@ -45,17 +45,15 @@ class PanelConsoleFull extends StatelessWidget {
         child: SingleChildScrollView(
           child: Container(
             color: Colors.grey.shade900,
-            child: Obx(
-              () => SizedBox(
-                height: MediaQuery.of(context).size.height-56,
-                child: ListView(
-                  padding: const EdgeInsets.all(10),
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  children: _fCtr.processOut,
-                ),
-              )
-            ),
+            child: Obx(() => SizedBox(
+                  height: MediaQuery.of(context).size.height - 56,
+                  child: ListView(
+                    padding: const EdgeInsets.all(10),
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: _fCtr.processOut,
+                  ),
+                )),
           ),
         ),
       ),
