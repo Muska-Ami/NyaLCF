@@ -66,10 +66,14 @@ class ProxiesController extends GetxController {
         ),
       )
     ];
-    List<Widget> list = [];
-    proxies.forEach((element) async {
+    // List<Widget> list = [];
+    proxiesWidgets.clear();
+    for (var i = 0; i < proxies.length; i++) {
+      final element = proxies[i];
+      // proxies.forEach((element) async {
       // 新UI
-      list.add(
+      // list.add(
+      proxiesWidgets.add(
         SizedBox(
           width: 380,
           height: 230,
@@ -129,8 +133,10 @@ class ProxiesController extends GetxController {
         ),
       );
       _getProxiesStatus(element);
-      proxiesWidgets.value = list;
-    });
+      // });
+      proxiesWidgets.refresh();
+    }
+    // proxiesWidgets.value = list;
     // proxiesListWidgets.refresh();
   }
 
