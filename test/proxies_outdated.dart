@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:nyalcf_core/controllers/proxies_controller.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';

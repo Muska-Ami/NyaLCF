@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:nyalcf_core/controllers/proxies_controller.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';

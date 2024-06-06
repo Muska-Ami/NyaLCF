@@ -4,11 +4,12 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_ui/main_tray.dart';
-import 'package:nyalcf_core/utils/frpc/process_manager.dart';
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
+
+import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_ui/main_tray.dart';
 
 class MainWindow {
   static bool shouldCloseWindowShow = true;

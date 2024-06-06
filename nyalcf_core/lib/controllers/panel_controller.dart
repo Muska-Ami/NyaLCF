@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+
 import 'package:nyalcf_core/utils/network/dio/other/other.dart';
 
 class DPanelController extends GetxController {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:nyalcf_core/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';

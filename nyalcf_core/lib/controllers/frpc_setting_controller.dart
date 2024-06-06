@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
+
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
-import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
+import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 
 class FrpcSettingController extends GetxController {
   FrpcSettingController({required this.context});

@@ -1,10 +1,17 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_ui/main_tray.dart';
-import 'package:nyalcf_ui/main_window.dart';
+import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
+
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_core/utils/universe.dart';
+import 'package:nyalcf_core/utils/task_scheduler.dart';
+import 'package:nyalcf_ui/main_tray.dart';
+import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
 import 'package:nyalcf_ui/views/auth/register.dart';
 import 'package:nyalcf_ui/views/auth/tokenmode.dart';
@@ -15,12 +22,6 @@ import 'package:nyalcf_ui/views/panel/home.dart';
 import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
-import 'package:nyalcf_core/utils/universe.dart';
-import 'package:nyalcf_core/utils/task_scheduler.dart';
-import 'package:tray_manager/tray_manager.dart';
-import 'package:window_manager/window_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

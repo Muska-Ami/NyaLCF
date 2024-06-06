@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:nyalcf_core/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -11,8 +14,6 @@ import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:nyalcf_core/tasks/updater.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
-import 'package:open_filex/open_filex.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSetting {
   final DSettingLauncherController _dsCtr = Get.find();
