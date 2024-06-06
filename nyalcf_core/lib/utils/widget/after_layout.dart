@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 
 typedef AfterLayoutCallback = Function(RenderAfterLayout ral);
 
+/// Copy & modify from Flukit.
+
 /// A widget can retrieve its render object after layout.
 ///
 /// Sometimes we need to do something after the build phase is complete,

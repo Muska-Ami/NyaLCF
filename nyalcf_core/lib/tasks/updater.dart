@@ -48,10 +48,11 @@ class TaskUpdater extends TaskBasic {
     // 先判断大版本号，大版本号不一致就不检查构建号了
     // 大版本号一致再检查构建号
     if ('v${Universe.appVersion}' != uIf.version) {
-      Logger.info('New version: ${uIf.version}');
+      Logger.info('New version: ${uIf.version}, ${Universe.appBuildNumber}');
       return true;
     } else if (uIf.buildNumber != Universe.appBuildNumber) {
-      Logger.info('New version: ${uIf.version}');
+      // 这里的逻辑不能和上面的用一个if
+      Logger.info('New version: ${uIf.version}, ${Universe.appBuildNumber}');
       return true;
     } else {
       return false;
