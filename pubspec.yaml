@@ -75,6 +75,8 @@ flutter:
   assets:
     - icon.png
     - icon.ico
+    - runtime/VC_redist.x64.exe
+    - runtime/VC_redist.x86.exe
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
