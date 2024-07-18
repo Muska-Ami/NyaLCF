@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +13,8 @@ import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:nyalcf_core/utils/task_scheduler.dart';
+import 'package:nyalcf_core/utils/deep_link_register.dart';
+import 'package:nyalcf_core/utils/deep_link_executor.dart';
 import 'package:nyalcf_ui/main_tray.dart';
 import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
@@ -23,6 +28,8 @@ import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 
+final _appLinks = AppLinks();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
@@ -33,6 +40,13 @@ void main() async {
   await PathProvider.loadSyncPath();
   await StoragesInjector.init();
   await Logger.init();
+
+  /// 注册并监听深度链接
+  if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
+  _appLinks.uriLinkStream.listen((uri) {
+    Logger.debug('Received uri scheme: $uri');
+    DeepLinkExecutor(uri: uri.toString()).execute();
+  });
 
   /// 启动定时任务
   TaskScheduler.start();
