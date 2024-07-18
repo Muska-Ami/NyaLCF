@@ -1,10 +1,11 @@
 import 'package:get/get.dart';
+
 import 'package:nyalcf_core/controllers/proxies_controller.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/proxies.dart';
+import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class ProxiesGetter {

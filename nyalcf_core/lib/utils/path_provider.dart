@@ -1,7 +1,8 @@
 import 'dart:io';
 
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:nyalcf_core/utils/logger.dart';
 
 class PathProvider {
   static final _supportPathAsync = getApplicationSupportDirectory();

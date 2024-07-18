@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_ui/views/panel/console.dart';
+
 import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'package:nyalcf_ui/views/panel/console.dart';
 
 /// 控制台 GetX 状态控制器
 class ConsoleController extends GetxController {

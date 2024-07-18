@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
+
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/basic_config.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 
 class DownloadFrpc {

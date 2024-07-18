@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:nyalcf_core/controllers/console_controller.dart';
 import 'package:nyalcf_core/controllers/panel_controller.dart';
 import 'package:nyalcf_core/controllers/proxies_controller.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
-import 'package:nyalcf_ui/views/home.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:nyalcf_ui/views/home.dart';
 
 class AccountDialogX {
   const AccountDialogX({required this.context});

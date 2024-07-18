@@ -2,17 +2,18 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:open_filex/open_filex.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:nyalcf_core/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/launcher/launcher.dart';
+import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core/utils/theme_control.dart';
 import 'package:nyalcf_core/utils/universe.dart';
 import 'package:nyalcf_core/tasks/updater.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
-import 'package:open_filex/open_filex.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class LauncherSetting {
   final DSettingLauncherController _dsCtr = Get.find();
@@ -305,39 +306,51 @@ class LauncherSetting {
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 10.0),
-                          child: Row(
-                            children: <Widget>[
-                              ElevatedButton(
-                                onPressed: () async {
-                                  OpenFilex.open('$_supportPath/run.log');
-                                },
-                                child: const Text('打开日志文件'),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(bottom: 10),
+                                child: SelectableText(
+                                    '日志保存路径：$_supportPath${Platform.isWindows ? '\\' : '/'}logs'),
                               ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  File('$_supportPath/run.log')
-                                      .delete()
-                                      .then(
-                                        (value) => Get.snackbar(
-                                          '好耶！',
-                                          '已清除日志文件喵',
+                              Row(
+                                children: <Widget>[
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      OpenFilex.open(
+                                          '$_supportPath/logs/run.log');
+                                    },
+                                    child: const Text('打开日志文件'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      File('$_supportPath/logs/run.log')
+                                          .delete()
+                                          .then(
+                                            (value) => Get.snackbar(
+                                              '好耶！',
+                                              '已清除日志文件喵',
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                              animationDuration: const Duration(
+                                                  milliseconds: 300),
+                                            ),
+                                          )
+                                          .onError((error, stackTrace) {
+                                        Logger.error(error, t: stackTrace);
+                                        return Get.snackbar(
+                                          '坏！',
+                                          '发生了一点小问题QAQ $error}',
                                           snackPosition: SnackPosition.BOTTOM,
                                           animationDuration:
                                               const Duration(milliseconds: 300),
-                                        ),
-                                      )
-                                      .onError((error, stackTrace) {
-                                    Logger.error(error, t: stackTrace);
-                                    return Get.snackbar(
-                                      '坏！',
-                                      '发生了一点小问题QAQ $error}',
-                                      snackPosition: SnackPosition.BOTTOM,
-                                      animationDuration:
-                                          const Duration(milliseconds: 300),
-                                    );
-                                  });
-                                },
-                                child: const Text('清除日志'),
+                                        );
+                                      });
+                                    },
+                                    child: const Text('清除日志'),
+                                  ),
+                                ],
                               ),
                             ],
                           ),

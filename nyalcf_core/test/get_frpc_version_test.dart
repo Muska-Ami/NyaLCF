@@ -1,4 +1,4 @@
-import 'package:nyalcf_core/utils/network/dio/frpc/frpc.dart';
+import 'package:nyalcf_core/network/dio/frpc/frpc.dart';
 
 void main() async {
   final res = await VersionFrpc().getLatestVersion();

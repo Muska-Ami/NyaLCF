@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_window.dart';
 

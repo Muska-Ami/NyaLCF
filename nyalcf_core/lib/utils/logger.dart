@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:logger/logger.dart' as log_u;
+
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger/file_output.dart';
 import 'package:nyalcf_core/utils/logger/log_printer.dart';
+import 'package:nyalcf_core/utils/logger/frpc_printer.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
 
 class Logger {
@@ -11,13 +13,21 @@ class Logger {
   static final _lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>
-      FileOutput(file: File('$_supportPath/run.log'));
+      FileOutput(file: File('$_supportPath/logs/run.log'));
+  static get _frpcOutPut async =>
+      FileOutput(file: File('$_supportPath/logs/frpc.log'));
   static final log_u.ConsoleOutput _consoleOutput = log_u.ConsoleOutput();
+
+  /// 初始化
+  static init() {
+    final dir = Directory("$_supportPath/logs");
+    if (!dir.existsSync()) dir.createSync();
+  }
 
   /// 重置日志文件
   static clear() async {
-    final file = File(('$_supportPath/run.log'));
-    if (await file.exists()) await file.delete();
+    final dir = Directory(('$_supportPath/logs'));
+    if (await dir.exists()) await dir.delete();
   }
 
   static get _logger async {
@@ -25,6 +35,15 @@ class Logger {
     return log_u.Logger(
       filter: LogFilter(),
       printer: LogPrinter(),
+      output: log_u.MultiOutput(multiOutput),
+    );
+  }
+
+  static get _frpcLogger async {
+    List<log_u.LogOutput> multiOutput = [_consoleOutput, await _frpcOutPut];
+    return log_u.Logger(
+      filter: LogFilter(),
+      printer: FrpcPrinter(),
       output: log_u.MultiOutput(multiOutput),
     );
   }
@@ -61,16 +80,16 @@ class Logger {
     }
   }
 
-  static Future<void> frpcInfo(s) async {
-    await info('[FRPC][INFO]$s');
+  static Future<void> frpcInfo(pxid, s) async {
+    (await _frpcLogger).i('[$pxid] $s');
   }
 
-  static Future<void> frpcWarn(s) async {
-    await warn('[FRPC][WARN]$s');
+  static Future<void> frpcWarn(pxid, s) async {
+    (await _frpcLogger).w('[$pxid] $s');
   }
 
-  static Future<void> frpcError(s) async {
-    await error('[FRPC][ERROR]$s');
+  static Future<void> frpcError(pxid, s) async {
+    (await _frpcLogger).e('[$pxid] $s');
   }
 
   static Future<void> getxLogWriter(String text, {bool isError = false}) async {

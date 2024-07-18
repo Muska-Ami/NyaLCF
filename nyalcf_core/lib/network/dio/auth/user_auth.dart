@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart' as dio;
+
 import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/basic_config.dart';
-import 'package:nyalcf_core/utils/network/response_type.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/network/response_type.dart';
 
 class UserAuth {
   final instance = dio.Dio(options);
@@ -61,7 +62,7 @@ class UserAuth {
 
       // Logger.debug(resData['traffic']);
       // Logger.debug(int.parse(resData['traffic']));
-      UserInfoPrefs.setTraffic(int.parse(resData['traffic']));
+      UserInfoPrefs.setTraffic(resData['traffic']);
       // UserInfoPrefs.setFrpToken(resData['frp_token']);
       UserInfoPrefs.setInbound(resData['inbound']);
       UserInfoPrefs.setOutbound(resData['outbound']);

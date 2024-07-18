@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:nyalcf_core/controllers/console_controller.dart';
 import 'package:nyalcf_core/controllers/panel_controller.dart';
 import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_core/network/dio/other/sign_other.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PanelHome extends StatelessWidget {
   PanelHome({super.key});
@@ -87,7 +89,72 @@ class PanelHome extends StatelessWidget {
                                     Text('剩余流量：${_uCtr.traffic / 1024}GiB'))
                               ],
                             ),
-                          )
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 15.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                loading.value = true;
+                                final checkSignRes = await OtherSign()
+                                    .checkSign(
+                                        _uCtr.user.value, _uCtr.token.value);
+                                if (checkSignRes.status) {
+                                  if (!checkSignRes.data['signed']) {
+                                    final doSignRes = await OtherSign().doSign(
+                                        _uCtr.user.value, _uCtr.token.value);
+                                    if (doSignRes.status) {
+                                      Get.snackbar(
+                                        '签到成功',
+                                        doSignRes.data['first_sign']
+                                            ? '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，这是您的第一次签到呐~'
+                                            : '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，您已签到 ${doSignRes.data['total_sign_count']} 次，总计获得 ${doSignRes.data['total_get_traffic'] / 1024} GiB 流量',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        animationDuration:
+                                            const Duration(milliseconds: 300),
+                                      );
+                                    } else {
+                                      if (doSignRes.message == "Signed") {
+                                        Get.snackbar(
+                                          '签到失败',
+                                          '已签到，无法重复签到',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          animationDuration:
+                                              const Duration(milliseconds: 300),
+                                        );
+                                      } else {
+                                        Get.snackbar(
+                                          '签到失败',
+                                          '无法请求签到： ${doSignRes.data['error']}',
+                                          snackPosition: SnackPosition.BOTTOM,
+                                          animationDuration:
+                                              const Duration(milliseconds: 300),
+                                        );
+                                      }
+                                    }
+                                  } else {
+                                    Get.snackbar(
+                                      '签到失败',
+                                      '已签到，无法重复签到',
+                                      snackPosition: SnackPosition.BOTTOM,
+                                      animationDuration:
+                                          const Duration(milliseconds: 300),
+                                    );
+                                  }
+                                } else {
+                                  Get.snackbar(
+                                    '签到失败',
+                                    '无法检查当前签到状态： ${checkSignRes.data['error']}',
+                                    snackPosition: SnackPosition.BOTTOM,
+                                    animationDuration:
+                                        const Duration(milliseconds: 300),
+                                  );
+                                }
+                                loading.value = false;
+                              },
+                              child: const Text('签到'),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -109,39 +176,49 @@ class PanelHome extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Card(
-                                    child: Column(children: <Widget>[
-                                  const Text('Frp Token'),
-                                  ElevatedButton(
-                                      onPressed: () async {
-                                        Clipboard.setData(
-                                          ClipboardData(
-                                            text: _uCtr.frpToken.value,
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text('已复制'),
-                                        ));
-                                      },
-                                      child: const Text('点击复制'))
-                                ])),
+                                  child: Column(
+                                    children: <Widget>[
+                                      const Text('Frp Token'),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                              text: _uCtr.frpToken.value,
+                                            ),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            const SnackBar(
+                                              content: Text('已复制'),
+                                            ),
+                                          );
+                                        },
+                                        child: const Text('点击复制'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Card(
-                                    child: Column(children: <Widget>[
-                                  const Text('Token'),
-                                  ElevatedButton(
-                                      onPressed: () async {
-                                        Clipboard.setData(
-                                          ClipboardData(
-                                            text: _uCtr.token.value,
-                                          ),
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                          content: Text('已复制'),
-                                        ));
-                                      },
-                                      child: const Text('点击复制'))
-                                ]))
+                                  child: Column(
+                                    children: <Widget>[
+                                      const Text('Token'),
+                                      ElevatedButton(
+                                        onPressed: () async {
+                                          Clipboard.setData(
+                                            ClipboardData(
+                                              text: _uCtr.token.value,
+                                            ),
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(const SnackBar(
+                                            content: Text('已复制'),
+                                          ));
+                                        },
+                                        child: const Text('点击复制'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           )
