@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
-import 'package:nyalcf_core/storages/prefs/token_mode_prefs.dart';
+import 'package:nyalcf_core_ui/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core_ui/utils/frpc/process_manager.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';

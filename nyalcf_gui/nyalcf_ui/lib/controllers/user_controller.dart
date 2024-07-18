@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
+import 'package:nyalcf_core_ui/storages/prefs/user_info_prefs.dart';
 
 // 用户控制器
 class UserController extends GetxController {

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart' as dio;
 
-import 'package:nyalcf_core/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
@@ -39,7 +38,7 @@ class UserAuth {
     }
   }
 
-  Future<Response> refresh(token, username) async {
+  Future<Response> getInfo(token, username) async {
     try {
       Logger.info('Refresh user info');
       Map<String, dynamic> paramsMap = {};
@@ -62,15 +61,14 @@ class UserAuth {
 
       // Logger.debug(resData['traffic']);
       // Logger.debug(int.parse(resData['traffic']));
-      UserInfoPrefs.setTraffic(resData['traffic']);
-      // UserInfoPrefs.setFrpToken(resData['frp_token']);
-      UserInfoPrefs.setInbound(resData['inbound']);
-      UserInfoPrefs.setOutbound(resData['outbound']);
 
       return Response(
         status: true,
         message: 'OK',
         data: {
+          'traffic': resData['traffic'],
+          'inbound': resData['inbound'],
+          'outbound': resData['outbound'],
           'origin_response': res,
         },
       );

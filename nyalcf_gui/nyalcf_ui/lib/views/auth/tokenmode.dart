@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/storages/prefs/token_mode_prefs.dart';
+import 'package:nyalcf_core_ui/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
