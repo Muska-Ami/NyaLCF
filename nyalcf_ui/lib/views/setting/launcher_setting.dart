@@ -432,15 +432,15 @@ class LauncherSetting {
                         style: const ButtonStyle(
                           padding: WidgetStatePropertyAll(EdgeInsets.all(20)),
                         ),
-                        onPressed: () => Get.to(
-                          () => LicensePage(
-                            applicationVersion: Universe.appVersion,
-                            applicationIcon: SizedBox(
-                              width: 48,
-                              child: Image.asset('icon.ico'),
+                        onPressed: () => Get.toNamed('/license'
+                            // () => LicensePage(
+                            //   applicationVersion: Universe.appVersion,
+                            //   applicationIcon: SizedBox(
+                            //     width: 48,
+                            //     child: Image.asset('icon.ico'),
+                            //   ),
+                            // ),
                             ),
-                          ),
-                        ),
                         child: const Text('开源许可证'),
                       ),
                     ),

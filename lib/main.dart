@@ -27,6 +27,7 @@ import 'package:nyalcf_ui/views/panel/home.dart';
 import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
+import 'package:nyalcf_ui/views/license.dart';
 
 final _appLinks = AppLinks();
 
@@ -83,6 +84,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/panel/console': (context) => PanelConsole(),
         '/panel/console/full': (context) => PanelConsoleFull(),
         '/setting': (context) => const SettingInjector(),
+        '/license': (context) => const License(),
       },
       theme: themeData,
     );
