@@ -112,6 +112,10 @@ class FrpcProcessManager {
         'info': 'i/o timed out - 当前节点状态异常，或当前网络无法连接节点导致'
       },
       {
+        'key': 'already exists',
+        'info': 'already exists - 当前隧道已在线，无法重复启动'
+      },
+      {
         'key': 'cannot connect to local service',
         'info': 'cannot connect to local service - Frpc 无法连接到本地服务，请检查本地服务状态及本地服务端口'
       },
