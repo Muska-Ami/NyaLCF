@@ -4,9 +4,9 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:nyalcf_core/controllers/console_controller.dart';
-import 'package:nyalcf_core/controllers/panel_controller.dart';
-import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_ui/controllers/console_controller.dart';
+import 'package:nyalcf_ui/controllers/panel_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/network/dio/other/sign_other.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';

@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
-import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'package:nyalcf_core_ui/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';

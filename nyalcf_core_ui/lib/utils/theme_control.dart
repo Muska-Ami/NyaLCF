@@ -9,6 +9,27 @@ import 'package:nyalcf_core/utils/logger.dart';
 class ThemeControl {
   static final _lcs = LauncherConfigurationStorage();
 
+  /// 获取主题
+  ThemeData getTheme() {
+    if (_lcs.getThemeAuto()) {
+      final bool systemThemeDarkMode =
+          SchedulerBinding.instance.platformDispatcher.platformBrightness ==
+              Brightness.dark;
+      if (systemThemeDarkMode) {
+        return ThemeControl.dark;
+      } else if (_lcs.getThemeLightSeedEnable()) {
+        return ThemeControl.custom;
+      } else {
+        return ThemeControl.light;
+      }
+    } else if (_lcs.getThemeDarkEnable()) {
+      return ThemeControl.dark;
+    } else if (_lcs.getThemeLightSeedEnable()) {
+      return ThemeControl.custom;
+    }
+    return ThemeControl.light;
+  }
+
   /// 设置主题为自动模式
   static void autoSet() {
     final bool isDarkMode =

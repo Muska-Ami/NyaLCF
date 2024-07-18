@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/controllers/console_controller.dart';
-import 'package:nyalcf_core/controllers/frpc_controller.dart';
+import 'package:nyalcf_ui/controllers/console_controller.dart';
+import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';

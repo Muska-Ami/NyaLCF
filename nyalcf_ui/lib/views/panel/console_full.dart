@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/controllers/console_controller.dart';
-import 'package:nyalcf_core/controllers/frpc_controller.dart';
-import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_ui/controllers/console_controller.dart';
+import 'package:nyalcf_ui/controllers/frpc_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';

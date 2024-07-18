@@ -3,10 +3,10 @@ import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/controllers/proxies_controller.dart';
-import 'package:nyalcf_core/controllers/user_controller.dart';
+import 'package:nyalcf_ui/controllers/proxies_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
-import 'package:nyalcf_core/utils/highlight/ini_fix.dart';
+import 'package:nyalcf_core_ui/utils/highlight/ini_fix.dart';
 
 class FrpcConfigEditorDialogX {
   FrpcConfigEditorDialogX({

@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
-import 'package:nyalcf_core/tasks/basic.dart';
+import 'package:nyalcf_core_ui/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/other/other.dart';
 

@@ -1,6 +1,6 @@
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf_core/tasks/auto_sign.dart';
-import 'package:nyalcf_core/tasks/updater.dart';
+import 'package:nyalcf_core_ui/tasks/auto_sign.dart';
+import 'package:nyalcf_core_ui/tasks/updater.dart';
 
 class TaskScheduler {
   static final _lcs = LauncherConfigurationStorage();

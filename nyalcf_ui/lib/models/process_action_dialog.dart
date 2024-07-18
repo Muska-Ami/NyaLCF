@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_core/controllers/console_controller.dart';
-import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'package:nyalcf_ui/controllers/console_controller.dart';
+import 'package:nyalcf_core_ui/utils/frpc/process_manager.dart';
 
 class ProcessActionDialogX {
   ProcessActionDialogX({

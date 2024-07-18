@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:nyalcf_core/models/update_info_model.dart';
-import 'package:nyalcf_core/tasks/basic.dart';
+import 'package:nyalcf_core_ui/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/utils/universe.dart';

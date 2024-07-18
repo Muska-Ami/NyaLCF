@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
-import 'package:nyalcf_core/utils/theme_control.dart';
+import 'package:nyalcf_core_ui/utils/theme_control.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class DSettingLauncherController extends GetxController {

@@ -1,5 +1,5 @@
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
-import 'package:nyalcf_core/utils/frpc/process_manager.dart';
+import 'frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class DeepLinkExecutor {

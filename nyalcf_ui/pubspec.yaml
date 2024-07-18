@@ -16,6 +16,8 @@ dependencies:
     path: ../nyalcf_inject
   nyalcf_core:
     path: ../nyalcf_core
+  nyalcf_core_ui:
+    path: ../nyalcf_core_ui
 
   url_launcher: ^6.2.6
   flutter_launcher_icons: ^0.13.1
