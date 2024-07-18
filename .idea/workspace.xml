@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="08c71380-47c8-482a-8282-996976d17524" name="Changes" comment="更新版本信息">
+    <list default="true" id="08c71380-47c8-482a-8282-996976d17524" name="Changes" comment="Breaking changes: 重新排列目录树">
       <change afterPath="$PROJECT_DIR$/.github/workflows/build-cli.yml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/NyaLCF.iml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
@@ -18,8 +18,8 @@
       <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/.gitmodules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.metadata" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/.metadata" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/LICENSE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RELEASE_CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/RELEASE_CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/RELEASE_CHANGELOG.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/analysis_options.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/distribute_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/distribute_options.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/fonts/Droid_Sans_Mono.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/nyalcf_gui/fonts/Droid_Sans_Mono.ttf" afterDir="false" />
@@ -302,14 +302,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1708889372774</updated>
-    </task>
-    <task id="LOCAL-00060" summary="修复一个Bug">
-      <option name="closed" value="true" />
-      <created>1713435881180</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1713435881180</updated>
     </task>
     <task id="LOCAL-00061" summary="Fk u rpm">
       <option name="closed" value="true" />
@@ -695,7 +687,15 @@
       <option name="project" value="LOCAL" />
       <updated>1721328711590</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary="Breaking changes: 重新排列目录树">
+      <option name="closed" value="true" />
+      <created>1721330706026</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1721330706026</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -725,7 +725,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/nyalcf_gui" />
     </ignored-roots>
-    <MESSAGE value="Merge" />
     <MESSAGE value="Delete CHANGELOG.md" />
     <MESSAGE value="Fix API reference" />
     <MESSAGE value="Feat:Use library export and add save button for custom light theme seed color" />
@@ -750,6 +749,7 @@
     <MESSAGE value="Add nyalcf_cli package" />
     <MESSAGE value="进一步分离 Core" />
     <MESSAGE value="更新版本信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新版本信息" />
+    <MESSAGE value="Breaking changes: 重新排列目录树" />
+    <option name="LAST_COMMIT_MESSAGE" value="Breaking changes: 重新排列目录树" />
   </component>
 </project>
