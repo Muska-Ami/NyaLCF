@@ -1,13 +1,12 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-
-import 'package:nyalcf_core/utils/universe.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 BaseOptions options = BaseOptions(
   headers: {
     'User-Agent':
-        'Nya/LoCyanFrp v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName} host=${Platform.operatingSystem}/${Platform.operatingSystemVersion}',
+        'Nya/LoCyanFrp $appendInfo host=${Platform.operatingSystem}/${Platform.operatingSystemVersion}',
   },
 );
 const apiV1Url = 'https://api.locyanfrp.cn';

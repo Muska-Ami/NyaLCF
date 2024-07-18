@@ -6,8 +6,8 @@ import 'package:nyalcf_core/models/update_info_model.dart';
 import 'package:nyalcf_core_ui/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
-import 'package:nyalcf_core/utils/universe.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_core_ui/utils/universe.dart';
+import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
 
 class TaskUpdater extends TaskBasic {
   static UpdateInfoModel uIf = UpdateInfoModel(

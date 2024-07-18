@@ -11,7 +11,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/utils/path_provider.dart';
-import 'package:nyalcf_core/utils/universe.dart';
+import 'package:nyalcf_core_ui/utils/universe.dart';
 import 'package:nyalcf_core_ui/utils/task_scheduler.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
 import 'package:nyalcf_core_ui/utils/deep_link_executor.dart';
@@ -28,6 +28,7 @@ import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 import 'package:nyalcf_ui/views/license.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 final _appLinks = AppLinks();
 
@@ -36,11 +37,14 @@ void main() async {
   await windowManager.ensureInitialized();
 
   await Universe.loadUniverse();
+  setAppendInfo('v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
   await StoragesInjector.init();
   await Logger.init();
+
+  Logger.debug('Append info has been set: $appendInfo');
 
   /// 注册并监听深度链接
   if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');

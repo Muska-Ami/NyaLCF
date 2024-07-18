@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_core_ui/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 

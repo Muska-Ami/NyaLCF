@@ -1,7 +1,6 @@
-name: nyalcf_core
+name: nyalcf_inject
 description: A starting point for Dart libraries or applications.
-version: 1.0.3
-publish_to: none
+version: 1.0.0
 # repository: https://github.com/my_org/my_repo
 
 environment:
@@ -9,14 +8,6 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  nyalcf_inject:
-    path: ../nyalcf_inject
-  dio: ^5.4.1
-  path_provider: ^2.1.3
-  archive: ^3.4.9
-  logger: ^2.1.0
-  crypto: ^3.0.3
-  win32_registry: ^1.1.3
   # path: ^1.8.0
 
 dev_dependencies:

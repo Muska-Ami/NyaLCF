@@ -6,7 +6,7 @@ import 'package:nyalcf_core_ui/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
 
 class ProxiesGetter {
   static void startUp() async {

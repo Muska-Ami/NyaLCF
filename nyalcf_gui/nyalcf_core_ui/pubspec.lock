@@ -400,9 +400,16 @@ packages:
     source: path
     version: "1.0.3"
   nyalcf_inject:
+    dependency: transitive
+    description:
+      path: "../../nyalcf_inject"
+      relative: true
+    source: path
+    version: "1.0.0"
+  nyalcf_inject_ui:
     dependency: "direct main"
     description:
-      path: "../nyalcf_inject"
+      path: "../nyalcf_inject_ui"
       relative: true
     source: path
     version: "1.0.3"
@@ -422,7 +429,7 @@ packages:
     source: hosted
     version: "4.4.0"
   package_info_plus:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: package_info_plus
       sha256: "2c582551839386fa7ddbc7770658be7c0f87f388a4bff72066478f597c34d17f"

@@ -66,6 +66,12 @@ The next generation of LoCyanFrp launcher.
 
 请 Fork `dev` 分支，并在此分支基础上修改。在 `Pull request` 之前，请先测试是否能够正常运行。请不要 `Pull request` 到 `main` 分支。
 
+#### 安装依赖
+
+```shell
+bash install-dependecy.sh
+```
+
 ### 感谢我们的开发者！是他们使NyaLCF变的更好！
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px"  alt="Contributors"/>

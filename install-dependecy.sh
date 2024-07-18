@@ -1,7 +1,11 @@
 # CORE
 cd nyalcf_core
 dart pub get
+cd ..
 
+# Inject
+cd nyalcf_inject
+flutter pub get
 cd ..
 
 # GUI
@@ -11,7 +15,7 @@ flutter pub get
 
 cd nyalcf_core_ui
 flutter pub get
-cd ../nyalcf_inject
+cd ../nyalcf_inject_ui
 flutter pub get
 cd ../nyalcf_ui
 flutter pub get

@@ -449,7 +449,14 @@ packages:
   nyalcf_inject:
     dependency: "direct main"
     description:
-      path: nyalcf_inject
+      path: "../nyalcf_inject"
+      relative: true
+    source: path
+    version: "1.0.0"
+  nyalcf_inject_ui:
+    dependency: transitive
+    description:
+      path: nyalcf_inject_ui
       relative: true
     source: path
     version: "1.0.3"
