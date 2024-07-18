@@ -20,8 +20,9 @@ class MainWindow {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
 
     // 设置主窗体参数
-    const initialSize = Size(800, 500);
-    appWindow.minSize = initialSize;
+    const minSize = Size(600, 400);
+    const initialSize = Size(840, 500);
+    appWindow.minSize = minSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;
     appWindow.title = 'Nya LoCyanFrp! - 乐青映射启动器';

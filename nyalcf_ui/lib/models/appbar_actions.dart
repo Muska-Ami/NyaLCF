@@ -15,21 +15,16 @@ class AppbarActionsX {
 
   List<Widget> get _afterList => <Widget>[
         /// 移动窗口
-        WindowTitleBarBox(
-          child: MoveWindow(
-            child: Transform.translate(
-              offset: const Offset(0, -5.0),
-              child: IconButton(
-                onPressed: () => {},
-                icon: const Icon(Icons.select_all),
-                tooltip: '按住移动',
-                splashColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                color: Colors.white,
-              ),
-            ),
+        MoveWindow(
+          child: IconButton(
+            onPressed: () => {},
+            icon: const Icon(Icons.select_all),
+            tooltip: '按住移动',
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            color: Colors.white,
           ),
         ),
 
