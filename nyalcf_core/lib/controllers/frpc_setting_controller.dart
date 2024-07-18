@@ -127,6 +127,8 @@ class FrpcSettingController extends GetxController {
                   Get.close(0);
                 }
 
+                _loadTip();
+
                 /// 关闭对话框
                 Get.close(0);
                 Get.close(0);

@@ -12,7 +12,7 @@ import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/proxies/proxies.dart';
+import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
 

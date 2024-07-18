@@ -25,8 +25,6 @@ class FrpcDownloadTip {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   const Text('无法启动隧道了...呜呜...'),
-                  Text(
-                      'Frpc 文件路径：${await FrpcPathProvider().frpcPath ?? '未找到'}'),
                   Container(
                     margin: const EdgeInsets.only(top: 10.0),
                     child: Row(
@@ -68,7 +66,7 @@ class FrpcDownloadTip {
                 children: <Widget>[
                   const Text('已安装版本列表：'),
                   Text(_fcs.getInstalledVersions().toString()),
-                  Text(
+                  SelectableText(
                       'Frpc 文件路径：${await FrpcPathProvider().frpcPath ?? '未找到'}'),
                 ],
               ),

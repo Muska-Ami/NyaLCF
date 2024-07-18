@@ -29,11 +29,10 @@ void main() async {
 
   await Universe.loadUniverse();
 
-  /// 初始化配置文件
+  /// 初始化配置文件等
   await PathProvider.loadSyncPath();
   await StoragesInjector.init();
-
-  await Logger.clear();
+  await Logger.init();
 
   /// 启动定时任务
   TaskScheduler.start();

@@ -4,7 +4,7 @@ import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/other/other.dart';
+import 'package:nyalcf_core/network/dio/other/other.dart';
 
 class TaskAutoSign extends TaskBasic {
   @override
@@ -14,7 +14,7 @@ class TaskAutoSign extends TaskBasic {
     if (userinfo != null) {
       String user = userinfo.user;
       String token = userinfo.token;
-      final checkSignRes = await OtherAutoSign().checkSign(user, token);
+      final checkSignRes = await OtherSign().checkSign(user, token);
       if (checkSignRes.status) {
         if (!checkSignRes.data['signed']) {
           // 执行签到
@@ -31,7 +31,7 @@ class TaskAutoSign extends TaskBasic {
   }
 
   sign(username, token) async {
-    final doSignRes = await OtherAutoSign().doSign(username, token);
+    final doSignRes = await OtherSign().doSign(username, token);
     if (doSignRes.status) {
       Get.snackbar(
         '自动签到成功',

@@ -8,7 +8,7 @@ import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/frpc/startup_loader.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/network/dio/auth/auth.dart';
+import 'package:nyalcf_core/network/dio/auth/auth.dart';
 import 'package:nyalcf_core/utils/proxies_getter.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
