@@ -117,7 +117,7 @@ class PanelHome extends StatelessWidget {
                                       if (doSignRes.message == "Signed") {
                                         Get.snackbar(
                                           '签到失败',
-                                          '已签到，无法重复签到',
+                                          '已签到，无法重复签到QwQ',
                                           snackPosition: SnackPosition.BOTTOM,
                                           animationDuration:
                                               const Duration(milliseconds: 300),

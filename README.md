@@ -6,7 +6,7 @@
 
 The next generation of LoCyanFrp launcher.
 
-## NyaLCF 特色
+## 为什么选择 Nya LoCyanFrp？
 
 - [x] 质感，美观，基于 Material Design 3 设计
 - [x] 跨平台可用
@@ -20,12 +20,13 @@ The next generation of LoCyanFrp launcher.
 
 标识\*的代表未完全实现，或未达到预期效果仍需测试。
 
+- [ ] CLI 版本
 - [x] 登录
 - [x] 注册
 - [x] 自动登录
-- [ ] Frpc管理
+- [ ] Frpc 管理
 - [x] 进程管理器
-- [x] Token复制
+- [x] Token 复制
 - [x] 隧道信息展示
 - [x] 隧道启动
 - [x] 高级启动
@@ -34,9 +35,9 @@ The next generation of LoCyanFrp launcher.
 - [x] 公告
 - [x] 通知
 - [x] 暗色主题
-- [x] 仅Frp Token模式
+- [x] 仅 Frp Token 模式
 
-本软件运行需要Microsoft Visual C++ Redistributable运行时，如无法打开请尝试从此处下载安装运行时再使用。
+本软件运行需要 Microsoft Visual C++ Redistributable 运行时，如无法打开请尝试从此处下载安装运行时再使用。
 [https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
 
 ## 软件测试
