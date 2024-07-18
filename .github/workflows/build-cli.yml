@@ -25,7 +25,10 @@ jobs:
 
       - name: Install Dependencies
         shell: pwsh
-        run: dart pub get
+        run: |-
+          cd nyalcf_cli
+          dart pub get
+          cd ..
 
       - name: Compile CLI
         run: |-
@@ -51,7 +54,10 @@ jobs:
 
       - name: Install Dependencies
         shell: pwsh
-        run: dart pub get
+        run: |-
+          cd nyalcf_cli
+          dart pub get
+          cd ..
 
       - name: Compile CLI
         run: |-
@@ -72,7 +78,10 @@ jobs:
 
       - name: Install Dependencies
         shell: pwsh
-        run: dart pub get
+        run: |-
+          cd nyalcf_cli
+          dart pub get
+          cd ..
 
       - name: Compile CLI
         run: |-
