@@ -28,7 +28,7 @@ dependencies:
   nyalcf_inject:
     path: ../nyalcf_inject
   nyalcf_core:
-    path: ../nyalcf_core
+    path: ../../nyalcf_core
   nyalcf_ui:
     path: ../nyalcf_ui
   get: ^4.6.6

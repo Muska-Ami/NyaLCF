@@ -1,0 +1,81 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build CLI
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        shell: pwsh
+        run: dart pub get
+
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: Windows Artifact(Dist)
+#          path: nyalcf_cli/
+
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        shell: pwsh
+        run: dart pub get
+
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..
+
+  macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: Install Dependencies
+        shell: pwsh
+        run: dart pub get
+
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..

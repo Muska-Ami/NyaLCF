@@ -395,24 +395,24 @@ packages:
   nyalcf_core:
     dependency: "direct main"
     description:
-      path: "../nyalcf_core"
+      path: "../../nyalcf_core"
       relative: true
     source: path
-    version: "1.0.0"
+    version: "1.0.3"
   nyalcf_inject:
     dependency: "direct main"
     description:
       path: "../nyalcf_inject"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "1.0.3"
   nyalcf_ui:
     dependency: "direct main"
     description:
       path: "../nyalcf_ui"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "1.0.3"
   open_filex:
     dependency: transitive
     description:
