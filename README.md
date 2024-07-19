@@ -6,7 +6,7 @@
 
 The next generation of LoCyanFrp launcher.
 
-## 为什么选择 Nya LoCyanFrp？
+## 为什么选择 Nya LoCyanFrp! (GUI)？
 
 - [x] 质感，美观，基于 Material Design 3 设计
 - [x] 跨平台可用
@@ -34,34 +34,24 @@ The next generation of LoCyanFrp launcher.
 - [x] 登录
 - [x] 注册
 - [x] 自动登录
-- [ ] Frpc 管理
+- [x] Frpc 管理\*
 - [x] 进程管理器
 - [x] Token 复制
 - [x] 隧道信息展示
 - [x] 隧道启动
 - [x] 高级启动
 - [x] 控制台
-- [ ] 隧道编辑
 - [x] 公告
 - [x] 通知
 - [x] 暗色主题
 - [x] 仅 Frp Token 模式
 
-本软件运行需要 Microsoft Visual C++ Redistributable 运行时，如无法打开请尝试从此处下载安装运行时再使用。
-[https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
-
 ## 软件测试
 
-以下是本软件测试运行状况，若您发现无法正常运作，请提交Issues。
+以下是本软件测试运行状况，若您发现无法正常运作，请提交Issue。
 
-| 打包类型          | 系统类型    | 状态 | 已测试通过环境                                                       |
-|---------------|---------|----|---------------------------------------------------------------|
-| EXE Installer | Windows | ✅  | Windows 11 (Home&Student, Pro)                                |
-| Portable ZIP  | Windows | ✅  | Windows 11 (Pro)                                              |
-| AppImage      | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Manjaro Linux(Linux 6.1)      |
-| DEB           | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Debian 12(Linux5.9, Linux6.1) |
-| RPM           | Linux   | ❓  | -                                                             |
-| DMG           | MacOS   | 💠 | Tested by Community                                           |
+GUI版本: [GUI Test Status](./nyalcf_gui/README.md#运行测试)
+CLI版本: [CLI Test Status](./nyalcf_gui/README.md#运行测试)
 
 ## Repo stats
 
