@@ -20,6 +20,12 @@ class Arguments {
       help: 'Logout to LoCyanFrp.',
     )
     ..addFlag(
+      'start',
+      abbr: 's',
+      negatable: false,
+      help: 'Start frpc. usage: ..<proxy_id>',
+    )
+    ..addFlag(
       'config',
       abbr: 'c',
       negatable: false,

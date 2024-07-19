@@ -1,4 +1,4 @@
-import 'package:nyalcf/utils/template/command_implement.dart';
+import 'package:nyalcf/utils/templates/command_implement.dart';
 import 'package:nyalcf/utils/text_encrypt.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
@@ -6,13 +6,6 @@ import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class Login implements CommandImplement {
-  @override
-  bool result = false;
-
-  @override
-  bool end() {
-    return result;
-  }
 
   @override
   Future<void> main(List<String> args) async {
@@ -30,10 +23,10 @@ class Login implements CommandImplement {
         Logger.info('- traffic left: ${userInfo.traffic / 1024}GiB');
         await UserInfoStorage.save(userInfo);
         Logger.info('Session saved.');
-        result = true;
       }
     } else {
       Logger.error('No valid arguments provided.');
     }
   }
+
 }

@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:nyalcf/actions/config.dart';
-import 'package:nyalcf/actions/login.dart';
+import 'package:nyalcf/commands/config.dart';
+import 'package:nyalcf/commands/login.dart';
 import 'package:nyalcf/arguments.dart';
+import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf_core/storages/injector.dart';
@@ -31,10 +32,6 @@ void main(List<String> arguments) async {
   await StoragesInjector.init();
   await Logger.init();
 
-  if (await File('$appSupportPath/session.json').exists()) {
-    await UserInfoStorage.read();
-  }
-
   Logger.debug('Append info has been set: $appendInfo');
 
   final ArgParser argParser = buildParser();
@@ -48,6 +45,7 @@ void main(List<String> arguments) async {
       return;
     }
 
+    // 登录登出
     if (results.wasParsed('login')) {
       await Login().main(results.rest);
     }
@@ -56,10 +54,18 @@ void main(List<String> arguments) async {
       Logger.info('Session data removed.');
     }
 
+    // 启动 Frpc
+    if (results.wasParsed('start')) {
+      await Start().main(results.rest);
+    }
+
+    // 版本信息
     if (results.wasParsed('version')) {
       Logger.info('Nya LoCyanFrp! CLI version: $version');
       return;
     }
+
+    // 配置修改
     if (results.wasParsed('config')) {
       Config().main(results.rest);
     }

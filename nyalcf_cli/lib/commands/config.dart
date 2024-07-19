@@ -1,17 +1,9 @@
-import 'package:nyalcf/utils/template/command_implement.dart';
+import 'package:nyalcf/utils/templates/command_implement.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf/utils/state.dart';
 
 class Config implements CommandImplement {
-  @override
-  bool result = false;
-
-  @override
-  bool end() {
-    return result;
-  }
-
   final _lcs = LauncherConfigurationStorage();
 
   @override
@@ -28,7 +20,6 @@ class Config implements CommandImplement {
             _lcs.cfg.set(args[1], convertedValue);
             _lcs.save();
             Logger.info('Node "${args[1]}" has been set to: "${args[2]}"');
-            result = true;
           } else {
             Logger.error(
                 'Could not set ${args[1]} to ${args[2]}: could not automatic convert type to origin type, please edit the configuration manually.');
@@ -57,4 +48,5 @@ class Config implements CommandImplement {
         return null;
     }
   }
+
 }
