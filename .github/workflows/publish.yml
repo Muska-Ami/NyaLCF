@@ -28,7 +28,7 @@ jobs:
 
       - name: Install Dependencies
         shell: pwsh
-        # run: dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+        #        run: dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
         run: dart pub global activate flutter_distributor
 
       - name: Setup Inno Setup 6
