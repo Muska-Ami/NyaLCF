@@ -99,7 +99,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           mkdir build -p
-          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-${{ if matrix.os == 'macos-latest' && 'arm64' || if matrix.os == 'macos-13' && 'x64' || matrix.os }}
+          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..    
 
       - name: Upload Artifact
