@@ -236,6 +236,7 @@ class LauncherSetting {
                               onChanged: (value) async {
                                 _dsCtr.autoSign.value = value;
                                 _lcs.setAutoSign(value);
+                                _lcs.save();
                                 // if (Platform.isWindows) {
                                 //   _dsCtr.setAutostart(value);
                                 // } else {
