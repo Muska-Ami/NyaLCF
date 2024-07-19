@@ -5,7 +5,7 @@ cd ..
 
 # Inject
 cd nyalcf_inject
-flutter pub get
+dart pub get
 cd ..
 
 # GUI
