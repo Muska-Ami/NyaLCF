@@ -1,7 +1,6 @@
 import 'package:nyalcf/utils/template/command_implement.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-
 import 'package:nyalcf/utils/state.dart';
 
 class Config implements CommandImplement {
@@ -20,9 +19,9 @@ class Config implements CommandImplement {
     if (verbose) {
       Logger.verbose(args);
     }
-    switch (args[0]) {
-      case 'launcher':
-        if (args.length == 3) {
+    if (args.length == 3) {
+      switch (args[0]) {
+        case 'launcher':
           final originValue = _lcs.cfg.get(args[1]);
           final convertedValue = _convert(originValue, args[2]);
           if (convertedValue != null) {
@@ -31,13 +30,15 @@ class Config implements CommandImplement {
             Logger.info('Node "${args[1]}" has been set to: "${args[2]}"');
           } else {
             Logger.error(
-                'Could not set ${args[1]} to ${args[2]}: could not automatic convert type to origin type, please edit the configuration manually');
+                'Could not set ${args[1]} to ${args[2]}: could not automatic convert type to origin type, please edit the configuration manually.');
           }
-        }
-        break;
-      default:
-        Logger.error('Invalid configuration provided!');
-        Logger.error('Expected: launcher');
+          break;
+        default:
+          Logger.error('Invalid configuration provided!');
+          Logger.error('Expected: launcher');
+      }
+    } else {
+      Logger.error('No valid arguments provided.');
     }
   }
 

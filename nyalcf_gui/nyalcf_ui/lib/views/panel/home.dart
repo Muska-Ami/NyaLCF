@@ -8,7 +8,7 @@ import 'package:nyalcf_ui/controllers/panel_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/network/dio/other/sign_other.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';

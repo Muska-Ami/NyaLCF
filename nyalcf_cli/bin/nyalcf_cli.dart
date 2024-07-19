@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
 import 'package:nyalcf/actions/config.dart';
 import 'package:nyalcf/actions/login.dart';
@@ -16,12 +18,12 @@ ArgParser buildParser() {
 
 void printUsage(ArgParser argParser) {
   Logger.info('Usage: dart nyalcf_cli.dart <flags> [arguments]');
-  Logger.info(argParser.usage);
+  Logger.info(argParser.usage.split('\n'));
 }
 
 void main(List<String> arguments) async {
   /// 加载环境
-  setAppendInfo('CLI v$version an=nya_cli');
+  setAppendInfo('CLI v$version an=${Platform.executable}');
 
   /// 初始化配置文件等
   await PathProvider.loadPath();

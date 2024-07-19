@@ -2,7 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/main_window.dart';
 
 class AppbarActionsX {

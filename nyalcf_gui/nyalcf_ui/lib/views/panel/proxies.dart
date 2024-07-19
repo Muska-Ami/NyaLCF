@@ -5,7 +5,7 @@ import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';

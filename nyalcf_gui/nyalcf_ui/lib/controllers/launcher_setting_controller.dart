@@ -7,7 +7,7 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 class DSettingLauncherController extends GetxController {
   final _lcs = LauncherConfigurationStorage();

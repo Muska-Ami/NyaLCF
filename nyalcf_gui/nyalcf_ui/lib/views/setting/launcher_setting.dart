@@ -13,7 +13,7 @@ import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_core_extend/tasks/updater.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 class LauncherSetting {
   final DSettingLauncherController _dsCtr = Get.find();

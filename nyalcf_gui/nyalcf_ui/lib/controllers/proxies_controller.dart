@@ -13,7 +13,7 @@ import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
 
 /// 代理 GetX 状态控制器

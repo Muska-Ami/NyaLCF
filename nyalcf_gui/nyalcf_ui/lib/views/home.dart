@@ -11,7 +11,7 @@ import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
 import 'package:nyalcf_core_extend/utils/proxies_getter.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 
