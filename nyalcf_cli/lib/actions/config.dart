@@ -28,6 +28,7 @@ class Config implements CommandImplement {
             _lcs.cfg.set(args[1], convertedValue);
             _lcs.save();
             Logger.info('Node "${args[1]}" has been set to: "${args[2]}"');
+            result = true;
           } else {
             Logger.error(
                 'Could not set ${args[1]} to ${args[2]}: could not automatic convert type to origin type, please edit the configuration manually.');

@@ -12,13 +12,19 @@ class Arguments {
       'login',
       abbr: 'l',
       negatable: false,
-      help: 'Login to LoCyanFrp.',
+      help: 'Login to LoCyanFrp. usage: <username> <password>',
+    )
+    ..addFlag(
+      'logout',
+      negatable: false,
+      help: 'Logout to LoCyanFrp.',
     )
     ..addFlag(
       'config',
       abbr: 'c',
       negatable: false,
-      help: 'Modify Nya LoCyanFrp! CLI configuration.',
+      help:
+          'Modify Nya LoCyanFrp! CLI configuration. usage: <configuration> <node> <value>',
     )
     ..addFlag(
       'verbose',

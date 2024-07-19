@@ -7,6 +7,7 @@ import 'package:nyalcf/arguments.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf_core/storages/injector.dart';
+import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
@@ -18,7 +19,7 @@ ArgParser buildParser() {
 
 void printUsage(ArgParser argParser) {
   Logger.info('Usage: dart nyalcf_cli.dart <flags> [arguments]');
-  Logger.info(argParser.usage.split('\n'));
+  argParser.usage.split('\n').forEach((val) => Logger.info(val));
 }
 
 void main(List<String> arguments) async {
@@ -29,6 +30,10 @@ void main(List<String> arguments) async {
   await PathProvider.loadPath();
   await StoragesInjector.init();
   await Logger.init();
+
+  if (await File('$appSupportPath/session.json').exists()) {
+    await UserInfoStorage.read();
+  }
 
   Logger.debug('Append info has been set: $appendInfo');
 
@@ -44,7 +49,11 @@ void main(List<String> arguments) async {
     }
 
     if (results.wasParsed('login')) {
-      Login().main(results.rest);
+      await Login().main(results.rest);
+    }
+    if (results.wasParsed('logout')) {
+      await UserInfoStorage.sigo();
+      Logger.info('Session data removed.');
     }
 
     if (results.wasParsed('version')) {
