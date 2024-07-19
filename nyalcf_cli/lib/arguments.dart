@@ -15,6 +15,12 @@ class Arguments {
       help: 'Login to LoCyanFrp.',
     )
     ..addFlag(
+      'config',
+      abbr: 'c',
+      negatable: false,
+      help: 'Modify Nya LoCyanFrp! CLI configuration.',
+    )
+    ..addFlag(
       'verbose',
       abbr: 'v',
       negatable: false,

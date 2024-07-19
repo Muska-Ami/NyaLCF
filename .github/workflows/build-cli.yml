@@ -35,7 +35,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           mkdir build
-          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-x64.exe
+          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-windows-x64.exe
           cd ..
 
       - name: Upload Artifact
@@ -65,7 +65,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           mkdir build -p
-          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-x64
+          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-linux-x64
           cd ..
 
       - name: Upload Artifact
@@ -99,7 +99,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           mkdir build -p
-          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
+          dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..    
 
       - name: Upload Artifact
