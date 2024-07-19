@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
-import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';

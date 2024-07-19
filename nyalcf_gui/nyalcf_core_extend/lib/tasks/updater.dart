@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:nyalcf_core/models/update_info_model.dart';
-import 'package:nyalcf_core_ui/tasks/basic.dart';
+import 'package:nyalcf_core_extend/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
-import 'package:nyalcf_core_ui/utils/universe.dart';
-import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
+import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
 
 class TaskUpdater extends TaskBasic {
   static UpdateInfoModel uIf = UpdateInfoModel(

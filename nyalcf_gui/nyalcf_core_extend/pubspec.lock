@@ -405,11 +405,11 @@ packages:
       path: "../../nyalcf_inject"
       relative: true
     source: path
-    version: "1.0.0"
-  nyalcf_inject_ui:
+    version: "0.1.3"
+  nyalcf_inject_extend:
     dependency: "direct main"
     description:
-      path: "../nyalcf_inject_ui"
+      path: "../nyalcf_inject_extend"
       relative: true
     source: path
     version: "1.0.3"
@@ -576,10 +576,10 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_platform_interface
-      sha256: "22e2ecac9419b4246d7c22bfbbda589e3acf5c0351137d87dd2939d984d37c3b"
+      sha256: "034650b71e73629ca08a0bd789fd1d83cc63c2d1e405946f7cef7bc37432f93a"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.2"
+    version: "2.4.0"
   shared_preferences_web:
     dependency: transitive
     description:
@@ -693,10 +693,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_android
-      sha256: eac82dc8e5f48818054f46021e9e5f34c239f8d301e7e29165b977c8d1189fed
+      sha256: "95d8027db36a0e52caf55680f91e33ea6aa12a3ce608c90b06f4e429a21067ac"
       url: "https://pub.dev"
     source: hosted
-    version: "6.3.4"
+    version: "6.3.5"
   url_launcher_ios:
     dependency: transitive
     description:

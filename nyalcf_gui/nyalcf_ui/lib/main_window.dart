@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'package:nyalcf_core_ui/utils/frpc/process_manager.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_ui/main_tray.dart';
 

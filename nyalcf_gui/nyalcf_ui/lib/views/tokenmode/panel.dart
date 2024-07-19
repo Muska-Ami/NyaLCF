@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
-import 'package:nyalcf_core_ui/storages/prefs/token_mode_prefs.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
-import 'package:nyalcf_core_ui/utils/frpc/process_manager.dart';
-import 'package:nyalcf_inject_ui/nyalcf_inject_ui.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 import 'package:nyalcf_ui/models/process_list_dialog.dart';

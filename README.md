@@ -16,6 +16,16 @@ The next generation of LoCyanFrp launcher.
 - [x] 可爱喵！にゃ~
 - [x] HarmonyOS Sans 字体，可读性强
 
+## 项目结构
+
+- [nyalcf_core](./nyalcf_core) - 核心模块
+- [nyalcf_inject](./nyalcf_inject) - 通讯模块
+- [nyalcf_gui](./nyalcf_gui) - 图形化版本
+  - [nyalcf_ui](./nyalcf_gui/nyalcf_ui) - 用户界面模块
+  - [nyalcf_core_extend](./nyalcf_gui/nyalcf_core_extend) - 核心扩展模块
+  - [nyalcf_inject_extend](./nyalcf_gui/nyalcf_inject_extend) - 通讯扩展模块
+- [nyalcf_cli](nyalcf_cli) - 命令行版本
+
 ## 设计功能
 
 标识\*的代表未完全实现，或未达到预期效果仍需测试。

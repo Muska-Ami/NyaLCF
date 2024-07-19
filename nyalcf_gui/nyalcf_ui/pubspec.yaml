@@ -1,5 +1,5 @@
 name: nyalcf_ui
-description: "Nya LoCyanFrp! user interface."
+description: "Nya LoCyanFrp! user interface module."
 version: 1.0.3
 homepage: https://nyalcf.1l1.icu
 publish_to: none
@@ -14,10 +14,10 @@ dependencies:
 
   nyalcf_core:
     path: ../../nyalcf_core
-  nyalcf_inject_ui:
-    path: ../nyalcf_inject_ui
-  nyalcf_core_ui:
-    path: ../nyalcf_core_ui
+  nyalcf_inject_extend:
+    path: ../nyalcf_inject_extend
+  nyalcf_core_extend:
+    path: ../nyalcf_core_extend
 
   url_launcher: ^6.2.6
   flutter_launcher_icons: ^0.13.1

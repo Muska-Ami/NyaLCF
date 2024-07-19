@@ -13,9 +13,9 @@ cd nyalcf_gui
 
 flutter pub get
 
-cd nyalcf_core_ui
+cd nyalcf_core_extend
 flutter pub get
-cd ../nyalcf_inject_ui
+cd ../nyalcf_inject_extend
 flutter pub get
 cd ../nyalcf_ui
 flutter pub get

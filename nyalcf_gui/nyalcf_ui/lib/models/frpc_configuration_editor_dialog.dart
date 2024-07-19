@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
-import 'package:nyalcf_core_ui/utils/highlight/ini_fix.dart';
+import 'package:nyalcf_core_extend/utils/highlight/ini_fix.dart';
 
 class FrpcConfigEditorDialogX {
   FrpcConfigEditorDialogX({

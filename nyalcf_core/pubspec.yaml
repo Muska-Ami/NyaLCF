@@ -1,6 +1,7 @@
 name: nyalcf_core
-description: A starting point for Dart libraries or applications.
+description: 'Nya LoCyanFrp! core module.'
 version: 1.0.3
+homepage: https://nyalcf.1l1.icu
 publish_to: none
 # repository: https://github.com/my_org/my_repo
 
