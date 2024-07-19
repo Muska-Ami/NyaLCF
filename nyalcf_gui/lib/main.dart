@@ -4,13 +4,14 @@ import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'package:nyalcf_core_extend/utils/path_provider.dart';
+import 'package:nyalcf_core_extend/utils/theme_control.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
@@ -28,7 +29,6 @@ import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 import 'package:nyalcf_ui/views/license.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 final _appLinks = AppLinks();
 

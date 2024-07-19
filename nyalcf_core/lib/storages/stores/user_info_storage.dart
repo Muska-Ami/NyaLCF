@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class UserInfoStorage {
-  static final _path = PathProvider.appSupportPath;
+  static final _path = appSupportPath;
 
   /// 保存数据
   static Future<void> save(UserInfoModel data) async {

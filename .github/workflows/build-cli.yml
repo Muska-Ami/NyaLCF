@@ -33,13 +33,14 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          dart compile exe bin/nyalcf_cli.dart
+          dart compile exe bin/nyalcf_cli.dart -o build
           cd ..
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: Windows Artifact(Dist)
-#          path: nyalcf_cli/
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Artifact
+          path: nyalcf_cli/build
 
   linux:
     runs-on: ubuntu-latest
@@ -62,8 +63,14 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          dart compile exe bin/nyalcf_cli.dart
+          dart compile exe bin/nyalcf_cli.dart -o build
           cd ..
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux Artifact
+          path: nyalcf_cli/build
 
   macos:
     runs-on: macos-latest
@@ -86,5 +93,11 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          dart compile exe bin/nyalcf_cli.dart
-          cd ..
+          dart compile exe bin/nyalcf_cli.dart -o build
+          cd ..    
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOS Artifact
+          path: nyalcf_cli/build

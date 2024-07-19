@@ -9,7 +9,7 @@ import 'package:nyalcf_ui/controllers/launcher_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_core_extend/tasks/updater.dart';
@@ -19,7 +19,7 @@ class LauncherSetting {
   final DSettingLauncherController _dsCtr = Get.find();
   final _lcs = LauncherConfigurationStorage();
 
-  static final String? _supportPath = PathProvider.appSupportPath;
+  static final String? _supportPath = appSupportPath;
 
   TextEditingController get _textEditingController =>
       TextEditingController(text: _lcs.getThemeLightSeedValue());

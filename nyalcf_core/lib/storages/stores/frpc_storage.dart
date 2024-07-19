@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class FrpcStorage {
-  static final _supportPath = PathProvider.appSupportPath;
+  static final _supportPath = appSupportPath;
   static final _fcs = FrpcConfigurationStorage();
 
   static Future<String> get _path async {

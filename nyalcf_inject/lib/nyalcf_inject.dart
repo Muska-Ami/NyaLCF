@@ -1,5 +1,5 @@
-String appendInfo = "Unknown";
+library nyalcf_inject;
 
-void setAppendInfo(value) {
-  appendInfo = value;
-}
+export 'app_info_provider.dart';
+export 'path_provider.dart';
+export 'io_util.dart';

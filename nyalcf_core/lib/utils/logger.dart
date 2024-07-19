@@ -6,10 +6,10 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger/file_output.dart';
 import 'package:nyalcf_core/utils/logger/log_printer.dart';
 import 'package:nyalcf_core/utils/logger/frpc_printer.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class Logger {
-  static final String? _supportPath = PathProvider.appSupportPath;
+  static final String? _supportPath = appSupportPath;
   static final _lcs = LauncherConfigurationStorage();
 
   static get _fileOutPut async =>

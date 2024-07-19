@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:crypto/crypto.dart';
 
 import 'package:nyalcf_core/utils/file_configuration.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 abstract class JsonConfiguration {
-  var path = PathProvider.appSupportPath;
+  var path = appSupportPath;
 
   /// 配置文件和默认ConfigMap
   File? file;

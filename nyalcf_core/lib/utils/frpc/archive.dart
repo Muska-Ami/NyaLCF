@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:archive/archive_io.dart';
 
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class FrpcArchive {
-  static final _cachePath = PathProvider.appCachePath;
-  static final _supportPath = PathProvider.appSupportPath;
+  static final _cachePath = appCachePath;
+  static final _supportPath = appSupportPath;
 
   static Future<bool> unarchive({
     required platform,
@@ -31,8 +31,7 @@ class FrpcArchive {
             '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
         final iniDir = Directory('${dir.path}/ini');
         if (await iniDir.exists()) await iniDir.delete();
-        PathProvider.moveDirectory(
-            dir, Directory('$_supportPath/frpc/$version'));
+        moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
         await f.delete();
       } catch (e, st) {
         await f.delete();

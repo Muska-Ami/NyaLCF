@@ -13,6 +13,8 @@ dependencies:
 
   nyalcf_core:
     path: ../../nyalcf_core
+  nyalcf_inject:
+    path: ../../nyalcf_inject
   nyalcf_ui:
     path: ../nyalcf_ui
   nyalcf_inject_extend:
@@ -23,6 +25,7 @@ dependencies:
   dio: ^5.5.0+1
   shared_preferences: ^2.2.3
   package_info_plus: ^7.0.0
+  path_provider: ^2.1.3
 
 dev_dependencies:
   flutter_test:

@@ -9,6 +9,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  nyalcf_core:
+    path: ../nyalcf_core
   # path: ^1.8.0
 
 dev_dependencies:

@@ -1,8 +1,8 @@
 import 'package:args/args.dart';
-import 'package:nyalcf_cli/arguments.dart';
+import 'package:nyalcf/arguments.dart';
+import 'package:nyalcf/path_provider.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 final version = '0.1.0';
@@ -19,10 +19,11 @@ void printUsage(ArgParser argParser) {
 void main(List<String> arguments) async {
   /// 加载环境
   // await Universe.loadUniverse();
-  setAppendInfo('CLI v$version');
+  setAppendInfo('CLI v$version an=nya_cli');
 
   /// 初始化配置文件等
-  await PathProvider.loadSyncPath();
+  // await PathProvider.loadSyncPath();
+  await PathProvider.loadPath();
   await StoragesInjector.init();
   await Logger.init();
 
@@ -44,7 +45,7 @@ void main(List<String> arguments) async {
     }
 
     if (results.wasParsed('version')) {
-      TODO: print('Nya LoCyanFrp! CLI version: $version');
+      print('Nya LoCyanFrp! CLI version: $version');
       return;
     }
     if (results.wasParsed('verbose')) {

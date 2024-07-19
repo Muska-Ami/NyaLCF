@@ -5,13 +5,13 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_ui.dart';
 
 class DSettingLauncherController extends GetxController {
   final _lcs = LauncherConfigurationStorage();
-  final _supportPath = PathProvider.appSupportPath;
+  final _supportPath = appSupportPath;
 
   var autostart = false.obs;
 
