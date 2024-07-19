@@ -34,7 +34,7 @@ jobs:
         shell: pwsh
         run: |-
           cd nyalcf_cli
-          mkdir build -p
+          mkdir build
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli.exe
           cd ..
 
