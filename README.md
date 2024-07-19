@@ -50,8 +50,8 @@ The next generation of LoCyanFrp launcher.
 
 以下是本软件测试运行状况，若您发现无法正常运作，请提交Issue。
 
-GUI版本: [GUI Test Status](./nyalcf_gui/README.md#运行测试)
-CLI版本: [CLI Test Status](./nyalcf_gui/README.md#运行测试)
+- GUI版本: [GUI Test Status](./nyalcf_gui/README.md#运行测试)
+- CLI版本: [CLI Test Status](./nyalcf_gui/README.md#运行测试)
 
 ## Repo stats
 
