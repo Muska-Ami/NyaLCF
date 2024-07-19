@@ -31,8 +31,10 @@ jobs:
           cd ..
 
       - name: Compile CLI
+        shell: pwsh
         run: |-
           cd nyalcf_cli
+          mkdir build -p
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli.exe
           cd ..
 
@@ -54,7 +56,6 @@ jobs:
         uses: dart-lang/setup-dart@v1
 
       - name: Install Dependencies
-        shell: pwsh
         run: |-
           cd nyalcf_cli
           dart pub get
@@ -63,6 +64,7 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
+          mkdir build -p
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli
           cd ..
 
@@ -84,7 +86,6 @@ jobs:
         uses: dart-lang/setup-dart@v1
 
       - name: Install Dependencies
-        shell: pwsh
         run: |-
           cd nyalcf_cli
           dart pub get
@@ -93,6 +94,7 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
+          mkdir build -p
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli
           cd ..    
 
