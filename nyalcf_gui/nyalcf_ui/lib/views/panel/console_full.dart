@@ -14,11 +14,11 @@ class PanelConsoleFull extends StatelessWidget {
 
   final UserController _uCtr = Get.find();
   final FrpcController _fCtr = Get.find();
-  final ConsoleController cctr = Get.find();
+  final ConsoleController _cCtr = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    cctr.load();
+    _cCtr.load();
     return Scaffold(
       appBar: AppBar(
         title:

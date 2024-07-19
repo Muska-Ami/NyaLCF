@@ -4,7 +4,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/panel_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/network/dio/other/sign_other.dart';
@@ -19,13 +18,12 @@ class PanelHome extends StatelessWidget {
   PanelHome({super.key});
 
   final UserController _uCtr = Get.find();
-  final DPanelController dpctr = Get.put(DPanelController());
-  final ConsoleController cctr = Get.find();
+  final DPanelController _dpCtr = Get.put(DPanelController());
 
   @override
   Widget build(BuildContext context) {
     _uCtr.load();
-    dpctr.load();
+    _dpCtr.load();
 
     return Scaffold(
       appBar: AppBar(
@@ -135,7 +133,7 @@ class PanelHome extends StatelessWidget {
                                   } else {
                                     Get.snackbar(
                                       '签到失败',
-                                      '已签到，无法重复签到',
+                                      '已签到，无法重复签到 Baka!',
                                       snackPosition: SnackPosition.BOTTOM,
                                       animationDuration:
                                           const Duration(milliseconds: 300),
@@ -247,7 +245,7 @@ class PanelHome extends StatelessWidget {
                                           launchUrl(Uri.parse(url));
                                         }
                                       },
-                                      data: '${dpctr.announcementCommon}'))))
+                                      data: '${_dpCtr.announcementCommon}'))))
                         ],
                       ),
                     ),
@@ -275,7 +273,7 @@ class PanelHome extends StatelessWidget {
                                         launchUrl(Uri.parse(url));
                                       }
                                     },
-                                    data: '${dpctr.announcement}'))))
+                                    data: '${_dpCtr.announcement}'))))
                       ],
                     ),
                   )),

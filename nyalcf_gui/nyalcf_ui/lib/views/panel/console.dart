@@ -17,11 +17,11 @@ class PanelConsole extends StatelessWidget {
 
   final UserController _uCtr = Get.find();
   final FrpcController _fCtr = Get.find();
-  final ConsoleController cctr = Get.find();
+  final ConsoleController _cCtr = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    cctr.load();
+    _cCtr.load();
     return Scaffold(
       appBar: AppBar(
         title:
@@ -123,7 +123,7 @@ class PanelConsole extends StatelessWidget {
                         ),
                         onPressed: () async {
                           FrpcProcessManager().killAll();
-                          cctr.widgets.refresh();
+                          _cCtr.widgets.refresh();
                         },
                       ),
                       IconButton(
