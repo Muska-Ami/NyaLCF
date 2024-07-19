@@ -75,8 +75,12 @@ jobs:
           path: nyalcf_cli/build
 
   macos:
-    runs-on: macos-latest
-
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - macos-13
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
