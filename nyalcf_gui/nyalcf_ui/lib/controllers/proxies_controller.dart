@@ -163,23 +163,24 @@ class ProxiesController extends GetxController {
   }
 
   _getProxiesStatus(ProxyInfoModel proxy) async {
-    final res =
-        await ProxiesStatus().getProxyStatus(proxy, _uCtr.frpToken.value);
-    Logger.debug(proxiesStatus);
-    if (res.status) {
-      switch (res.data['proxy_status']) {
-        case 'online':
-          proxiesStatus[proxy.id] = true;
-          break;
-        case 'offline':
-          proxiesStatus[proxy.id] = false;
-        // break;
-        // case null:
-        //   proxiesStatus[proxy.id] = null;
-      }
-    } else {
-      proxiesStatus[proxy.id] = null;
-    }
+    proxiesStatus[proxy.id] = null;
+    // final res =
+    //     await ProxiesStatus().getProxyStatus(proxy, _uCtr.frpToken.value);
+    // Logger.debug(proxiesStatus);
+    // if (res.status) {
+    //   switch (res.data['proxy_status']) {
+    //     case 'online':
+    //       proxiesStatus[proxy.id] = true;
+    //       break;
+    //     case 'offline':
+    //       proxiesStatus[proxy.id] = false;
+    //     // break;
+    //     // case null:
+    //     //   proxiesStatus[proxy.id] = null;
+    //   }
+    // } else {
+    //   proxiesStatus[proxy.id] = null;
+    // }
   }
 
   Color _getProxyStatusColor(bool? input) {

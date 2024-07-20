@@ -81,9 +81,22 @@ class _TokenModePanelState extends State {
                         if (proxyController.text != '') {
                           final execPath = await FrpcPathProvider().frpcPath;
                           if (execPath != null) {
+                            int proxyId;
+                            try {
+                              proxyId = int.parse(proxyController.text);
+                            } on FormatException {
+                              Get.snackbar(
+                                '无效隧道ID',
+                                '请填写隧道数字ID',
+                                snackPosition: SnackPosition.BOTTOM,
+                                animationDuration:
+                                const Duration(milliseconds: 300),
+                              );
+                              return;
+                            }
                             FrpcProcessManager().nwprcs(
                               frpToken: frpToken,
-                              proxyId: int.parse(proxyController.text),
+                              proxyId: proxyId,
                               frpcPath: execPath,
                             );
                             Get.snackbar(

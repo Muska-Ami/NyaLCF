@@ -167,8 +167,8 @@ class PanelConsole extends StatelessWidget {
           elevation: 0,
           child: InkWell(
             child: ListTile(
-              title: Text('隧道 ${element['proxy_id']}'),
-              subtitle: Text('进程PID: ${element['process'].pid}'),
+              title: Text('隧道 ${element.proxyId}'),
+              subtitle: Text('进程PID: ${element.process.pid}'),
             ),
             onTap: () async {
               Get.dialog(ProcessActionDialogX(process: element).build());

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/process_model.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
@@ -9,12 +10,12 @@ class ProcessActionDialogX {
     required this.process,
   });
 
-  final Map<String, dynamic> process;
+  final ProcessModel process;
   final ConsoleController cctr = Get.find();
 
   Widget build() {
     return SimpleDialog(
-      title: Text('隧道 ${process['proxy_id']}'),
+      title: Text('隧道 ${process.proxyId}'),
       children: <Widget>[
         SimpleDialogOption(
           child: const ListTile(

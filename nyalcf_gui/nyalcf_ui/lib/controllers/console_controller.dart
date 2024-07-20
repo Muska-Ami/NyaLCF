@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_ui/views/panel/console.dart';
+import 'package:nyalcf_core/models/process_model.dart';
 
 /// 控制台 GetX 状态控制器
 class ConsoleController extends GetxController {
@@ -13,18 +14,18 @@ class ConsoleController extends GetxController {
   static var processListWidget = <Widget>[].obs;
 
   /// 进程管理列表
-  static var processList = <Map<String, dynamic>>[].obs;
+  static var processList = <ProcessModel>[].obs;
 
   /// 添加进程
-  addProcess(Map<String, dynamic> pMap) {
-    processList.add(pMap);
+  addProcess(ProcessModel process) {
+    processList.add(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
 
   /// 移除进程
-  removeProcess(Map<String, dynamic> pMap) {
-    processList.remove(pMap);
+  removeProcess(ProcessModel process) {
+    processList.remove(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
@@ -40,9 +41,9 @@ class ConsoleController extends GetxController {
   /// 加载进程管理信息
   load() {
     widgets.value = <DataRow>[];
-    for (Map<String, dynamic> element in processList) {
-      final Process process = element['process'];
-      final int proxyId = element['proxy_id'];
+    for (ProcessModel element in processList) {
+      final Process process = element.process;
+      final int proxyId = element.proxyId;
 
       /// 添加进程管理信息至UI组件列表
       widgets.add(DataRow(cells: <DataCell>[
