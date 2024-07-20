@@ -51,7 +51,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           dart pub get
-          mkdir dist -p
+          mkdir dist
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-windows-x64.exe
           cd ..
 
@@ -103,7 +103,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           dart pub get
-          mkdir dist -p
+          mkdir -p dist
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-linux-x64
           cd ..      
 
