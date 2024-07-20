@@ -32,8 +32,10 @@ class Start implements CommandImplement {
 
         int n = 0;
         ProcessSignal.sigint.watch().listen((signal) {
-          Logger.verbose('Caught ${++n} of 2');
-          Logger.info('Press again to close frpc and exit.');
+          if (verbose) {
+            Logger.verbose('Caught ${++n} of 2');
+            Logger.info('Press again to close frpc and exit.');
+          }
 
           if (n == 2) {
             for (var process in ProcessManager.processList) {
