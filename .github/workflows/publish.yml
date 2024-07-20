@@ -51,7 +51,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           dart pub get
-          mkdir dist -p
+          mkdir dist
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-windows-x64.exe
           cd ..
 
@@ -103,7 +103,7 @@ jobs:
         run: |-
           cd nyalcf_cli
           dart pub get
-          mkdir dist -p
+          mkdir -p dist
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-linux-x64
           cd ..      
 
@@ -176,7 +176,7 @@ jobs:
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
+          name: MacOS Artifact(Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
           path: dist
 
   publish_releases:
