@@ -23,7 +23,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Install Dependencies
@@ -42,13 +42,23 @@ jobs:
           ./tools/7z2405-x64.exe /S
 
       - name: Pack EXE Installer & Portable Archive
-        run: flutter_distributor package --platform windows --target exe,zip
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform windows --target exe,zip
+          cd ..
+      - name: Compile CLI
+        shell: pwsh
+        run: |-
+          cd nyalcf_cli
+          mkdir build
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-windows-x64.exe
+          cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Windows Artifact(Dist)
-          path: dist
+          path: nyalcf_gui/dist
 
   linux:
     runs-on: ubuntu-latest
@@ -62,7 +72,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Install Dependencies
@@ -70,7 +80,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm libayatana-appindicator3-dev patchelf locate libfuse2
           dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
-          flutter pub get
 
       - name: Setup AppImageTool
         run: |-
@@ -78,16 +87,30 @@ jobs:
           sudo chmod a+x /usr/local/bin/appimagetool
 
       - name: Pack Installers
-        run: flutter_distributor package --platform linux --targets appimage,deb,rpm
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform linux --targets appimage,deb,rpm
+          cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          mkdir build -p
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-linux-x64
+          cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Linux Artifact(Dist)
-          path: dist
+          path: nyalcf_gui/dist
 
   macos:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - macos-13
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -98,7 +121,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Setup Node.js
@@ -108,18 +131,27 @@ jobs:
 
       - name: Install Dependencies
         run: |-
-          flutter pub get
           npm install -g appdmg
           dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
 
       - name: Pack DMG Installer
-        run: flutter_distributor package --platform macos --target dmg
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform macos --target dmg
+          cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          mkdir build -p
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
+          cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS Artifact(Dist)
-          path: dist
+          name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
+          path: nyalcf_gui/dist
 
   publish_releases:
     name: publish
@@ -147,10 +179,15 @@ jobs:
         with:
           name: "Linux Artifact(Dist)"
           path: dist/
-      - name: Download Build Artifact(MacOS)
+      - name: Download Build Artifact(MacOS arm64)
         uses: actions/download-artifact@v4
         with:
-          name: "MacOS Artifact(Dist)"
+          name: "MacOS Artifact(Dist arm64)"
+          path: dist/
+      - name: Download Build Artifact(MacOS x64)
+        uses: actions/download-artifact@v4
+        with:
+          name: "MacOS Artifact(Dist x64)"
           path: dist/
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -174,3 +211,7 @@ jobs:
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.rpm
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.AppImage
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-macos.dmg
+            ./dist/nyalcf_cli-windows-x64.exe
+            ./dist/nyalcf_cli-linux-x64
+            ./dist/nyalcf_cli-macos-arm64
+            ./dist/nyalcf_cli-macos-x64

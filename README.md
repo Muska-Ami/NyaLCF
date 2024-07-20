@@ -6,7 +6,7 @@
 
 The next generation of LoCyanFrp launcher.
 
-## NyaLCF 特色
+## 为什么选择 Nya LoCyanFrp! (GUI)？
 
 - [x] 质感，美观，基于 Material Design 3 设计
 - [x] 跨平台可用
@@ -16,41 +16,44 @@ The next generation of LoCyanFrp launcher.
 - [x] 可爱喵！にゃ~
 - [x] HarmonyOS Sans 字体，可读性强
 
-## 设计功能
+## 项目结构
 
-标识\*的代表未完全实现，或未达到预期效果仍需测试。
+- [nyalcf_core](./nyalcf_core) - 核心模块
+- [nyalcf_inject](./nyalcf_inject) - 通讯模块
+- [nyalcf_gui](./nyalcf_gui) - 图形化版本
+  - [nyalcf_ui](./nyalcf_gui/nyalcf_ui) - 用户界面模块
+  - [nyalcf_core_extend](./nyalcf_gui/nyalcf_core_extend) - 核心扩展模块
+  - [nyalcf_inject_extend](./nyalcf_gui/nyalcf_inject_extend) - 通讯扩展模块
+- [nyalcf_cli](nyalcf_cli) - 命令行版本
 
-- [x] 登录
-- [x] 注册
-- [x] 自动登录
-- [ ] Frpc管理
-- [x] 进程管理器
-- [x] Token复制
-- [x] 隧道信息展示
-- [x] 隧道启动
-- [x] 高级启动
-- [x] 控制台
-- [ ] 隧道编辑
-- [x] 公告
-- [x] 通知
-- [x] 暗色主题
-- [x] 仅Frp Token模式
+## 开发计划
 
-本软件运行需要Microsoft Visual C++ Redistributable运行时，如无法打开请尝试从此处下载安装运行时再使用。
-[https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+- 开发进度
+  - [x] GUI 版本
+    - [GUI Features Design](./nyalcf_gui/README.md#设计功能)
+  - [ ] CLI 版本
+    - [x] 登录
+    - [x] 隧道启动
+    - [ ] 进程管理
+    - [ ] 用户信息展示
+    - [CLI Features Design](./nyalcf_cli/README.md#设计功能)
+- CI/CD
+  - GUI 版本
+    - [x] 自动构建
+    - [x] 自动发布
+  - CLI 版本
+    - [x] 自动构建
+    - [ ] 自动发布
+  - [x] Pull Request 自动检查
+  - [x] 开源协议/许可证兼容性检查
+  - [x] 代码质量检查
 
 ## 软件测试
 
-以下是本软件测试运行状况，若您发现无法正常运作，请提交Issues。
+以下是本软件测试运行状况，若您发现无法正常运作，请提交Issue。
 
-| 打包类型          | 系统类型    | 状态 | 已测试通过环境                                                       |
-|---------------|---------|----|---------------------------------------------------------------|
-| EXE Installer | Windows | ✅  | Windows 11 (Home&Student, Pro)                                |
-| Portable ZIP  | Windows | ✅  | Windows 11 (Pro)                                              |
-| AppImage      | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Manjaro Linux(Linux 6.1)      |
-| DEB           | Linux   | ✅  | Kali Linux(With WSL, Linux5.9), Debian 12(Linux5.9, Linux6.1) |
-| RPM           | Linux   | ❓  | -                                                             |
-| DMG           | MacOS   | 💠 | Tested by Community                                           |
+- GUI版本: [GUI Test Status](./nyalcf_gui/README.md#运行测试)
+- CLI版本: [CLI Test Status](./nyalcf_gui/README.md#运行测试)
 
 ## Repo stats
 
@@ -65,6 +68,12 @@ The next generation of LoCyanFrp launcher.
 ### How to contribute
 
 请 Fork `dev` 分支，并在此分支基础上修改。在 `Pull request` 之前，请先测试是否能够正常运行。请不要 `Pull request` 到 `main` 分支。
+
+#### 安装依赖
+
+```shell
+bash install-dependecy.sh
+```
 
 ### 感谢我们的开发者！是他们使NyaLCF变的更好！
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">

@@ -1,4 +1,5 @@
-import 'package:get/get.dart';
+library nyalcf_inject;
 
-const title = 'Nya LoCyanFrp!';
-var loading = false.obs;
+export 'app_info_provider.dart';
+export 'path_provider.dart';
+export 'io_util.dart';

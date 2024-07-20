@@ -22,11 +22,19 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: |-
+          # GUI
+          cd nyalcf_gui
+          flutter pub get
+          cd ..
+          # CLI
+          cd nyalcf_cli
+          dart pub get
+          cd ..
       - name: Build Application
         run: flutter build windows --release
 
@@ -41,12 +49,19 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Install Dependencies
         run: |-
+          # GUI
+          cd nyalcf_gui
           flutter pub get
+          cd ..
+          # CLI
+          cd nyalcf_cli
+          dart pub get
+          cd ..
           sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libayatana-appindicator3-dev libstdc++-12-dev
       - name: Build Application
@@ -63,10 +78,18 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.22.1
+          version: 3.22.3
           cache-sdk: true
 
       - name: Install Dependencies
-        run: flutter pub get
+        run: |-
+          # GUI
+          cd nyalcf_gui
+          flutter pub get
+          cd ..
+          # CLI
+          cd nyalcf_cli
+          dart pub get
+          cd ..
       - name: Build Application
         run: flutter build macos --release

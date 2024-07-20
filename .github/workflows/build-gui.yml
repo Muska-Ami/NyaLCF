@@ -1,0 +1,144 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Build GUI
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Flutter
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: 'stable'
+          version: 3.22.3
+          cache-sdk: true
+
+      - name: Install Dependencies
+        shell: pwsh
+#        run: dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+        run: dart pub global activate flutter_distributor
+
+      - name: Setup Inno Setup 6
+        shell: pwsh
+        run: |-
+          ./tools/is_setup.exe /VERYSLIENT
+          Copy-Item "./tools/ChineseSimplified.isl" -Destination "C:\Program Files (x86)\Inno Setup 6\Languages"
+      - name: Setup 7ZIP
+        shell: pwsh
+        run: |-
+          ./tools/7z2405-x64.exe /S
+
+      - name: Pack EXE Installer & Portable Archive
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform windows --target exe,zip
+          cd ..
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Artifact(Build)
+          path: nyalcf_gui/build
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Windows Artifact(Dist)
+          path: nyalcf_gui/dist
+
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Flutter
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: 'stable'
+          version: 3.22.3
+          cache-sdk: true
+
+      - name: Install Dependencies
+        run: |-
+          sudo apt-get update
+          sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm libayatana-appindicator3-dev patchelf locate libfuse2
+          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+
+      - name: Setup AppImageTool
+        run: |-
+          sudo mv tools/appimagetool-x86_64.AppImage /usr/local/bin/appimagetool
+          sudo chmod a+x /usr/local/bin/appimagetool
+
+      - name: Pack Installers
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform linux --targets appimage,deb,rpm
+          cd ..
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux Artifact(Build)
+          path: nyalcf_gui/build
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Linux Artifact(Dist)
+          path: nyalcf_gui/dist
+
+  macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+      - name: Setup Flutter
+        uses: flutter-actions/setup-flutter@v3
+        with:
+          channel: 'stable'
+          version: 3.22.3
+          cache-sdk: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - name: Install Dependencies
+        run: |-
+          npm install -g appdmg
+          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+
+      - name: Pack DMG Installer
+        run: |-
+          cd nyalcf_gui
+          flutter_distributor package --platform macos --target dmg
+          cd ..
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOS Artifact(Build)
+          path: nyalcf_gui/build
+      - name: Upload Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacOS Artifact(Dist)
+          path: nyalcf_gui/dist

@@ -1,10 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
 import 'package:nyalcf_core/storages/json_configuration.dart';
-import 'package:nyalcf_core/utils/theme_control.dart';
 
 class LauncherConfigurationStorage extends JsonConfiguration {
   @override
@@ -57,24 +53,4 @@ class LauncherConfigurationStorage extends JsonConfiguration {
   bool getAutoSign() => cfg.getBool('auto_sign');
 
   void setAutoSign(bool value) => cfg.setBool('auto_sign', value);
-
-  ThemeData getTheme() {
-    if (getThemeAuto()) {
-      final bool systemThemeDarkMode =
-          SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-              Brightness.dark;
-      if (systemThemeDarkMode) {
-        return ThemeControl.dark;
-      } else if (getThemeLightSeedEnable()) {
-        return ThemeControl.custom;
-      } else {
-        return ThemeControl.light;
-      }
-    } else if (getThemeDarkEnable()) {
-      return ThemeControl.dark;
-    } else if (getThemeLightSeedEnable()) {
-      return ThemeControl.custom;
-    }
-    return ThemeControl.light;
-  }
 }

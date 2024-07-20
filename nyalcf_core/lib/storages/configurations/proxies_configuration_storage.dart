@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:nyalcf_core/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class ProxiesConfigurationStorage {
-  static final _path = PathProvider.appSupportPath;
+  static final _path = appSupportPath;
 
   /// 配置文件目录路径
   static get _configDir async {
