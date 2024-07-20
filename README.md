@@ -26,25 +26,26 @@ The next generation of LoCyanFrp launcher.
   - [nyalcf_inject_extend](./nyalcf_gui/nyalcf_inject_extend) - 通讯扩展模块
 - [nyalcf_cli](nyalcf_cli) - 命令行版本
 
-## 设计功能
-
-标识\*的代表未完全实现，或未达到预期效果仍需测试。
+## 开发计划
 
 - [ ] CLI 版本
-- [x] 登录
-- [x] 注册
-- [x] 自动登录
-- [x] Frpc 管理\*
-- [x] 进程管理器
-- [x] Token 复制
-- [x] 隧道信息展示
-- [x] 隧道启动
-- [x] 高级启动
-- [x] 控制台
-- [x] 公告
-- [x] 通知
-- [x] 暗色主题
-- [x] 仅 Frp Token 模式
+  - [x] 登录
+  - [x] 隧道启动
+  - [ ] 进程管理
+  - [ ] 用户信息展示
+  - [CLI Features Design](./nyalcf_cli/README.md#设计功能)
+- [x] GUI 版本
+  - [GUI Features Design](./nyalcf_gui/README.md#设计功能)
+- CI/CD
+  - GUI 版本
+    - [x] 自动构建
+    - [x] 自动发布
+  - CLI 版本
+    - [x] 自动构建
+    - [ ] 自动发布
+  - [x] Pull Request 自动检查
+  - [x] 开源协议/许可证兼容性检查
+  - [x] 代码质量检查
 
 ## 软件测试
 
