@@ -58,7 +58,7 @@ jobs:
       - name: Move Build Files
         shell: pwsh
         run: |-
-          mkdir dist -p
+          mkdir dist
           mv nyalcf_gui/dist/* dist
           mv nyalcf_cli/dist/* dist
 
@@ -163,11 +163,15 @@ jobs:
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..
 
-      - name: Move Build Files
+      - name: Move CLI Build Files
+        run: |-
+          mkdir dist -p
+          mv nyalcf_cli/dist/* dist
+      - name: Move GUI Build Files
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |-
           mkdir dist -p
           mv nyalcf_gui/dist/* dist
-          mv nyalcf_cli/dist/* dist
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
@@ -189,8 +193,10 @@ jobs:
       - name: Fetch Version
         run: |
           sudo snap install yq
+          cd nyalcf_gui
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
           echo "NYA_VERSION=$nyalcf_version" >> $GITHUB_ENV
+          cd ..
       - name: Download Build Artifact(Windows)
         uses: actions/download-artifact@v4
         with:
