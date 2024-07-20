@@ -50,15 +50,23 @@ jobs:
         shell: pwsh
         run: |-
           cd nyalcf_cli
-          mkdir build
+          dart pub get
+          mkdir dist -p
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-windows-x64.exe
           cd ..
+
+      - name: Move Build Files
+        shell: pwsh
+        run: |-
+          mkdir dist -p
+          mv nyalcf_gui/dist/* dist
+          mv nyalcf_cli/dist/* dist
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Windows Artifact(Dist)
-          path: nyalcf_gui/dist
+          path: dist
 
   linux:
     runs-on: ubuntu-latest
@@ -94,15 +102,22 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          mkdir build -p
+          dart pub get
+          mkdir dist -p
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-linux-x64
-          cd ..
+          cd ..      
+
+      - name: Move Build Files
+        run: |-
+          mkdir dist -p
+          mv nyalcf_gui/dist/* dist
+          mv nyalcf_cli/dist/* dist
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: Linux Artifact(Dist)
-          path: nyalcf_gui/dist
+          path: dist
 
   macos:
     strategy:
@@ -143,15 +158,22 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          mkdir build -p
+          dart pub get
+          mkdir dist -p
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..
+
+      - name: Move Build Files
+        run: |-
+          mkdir dist -p
+          mv nyalcf_gui/dist/* dist
+          mv nyalcf_cli/dist/* dist
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
           name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
-          path: nyalcf_gui/dist
+          path: dist
 
   publish_releases:
     name: publish
