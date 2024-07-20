@@ -105,5 +105,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
+          name: MacOS Artifact (${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
           path: nyalcf_cli/build
