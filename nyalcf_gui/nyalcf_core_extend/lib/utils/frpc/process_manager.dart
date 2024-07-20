@@ -14,9 +14,9 @@ import 'package:nyalcf_ui/models/defender_dialog.dart';
 class FrpcProcessManager {
   final _fss = FrpcStorage();
   final FrpcController _fCtr = Get.find();
-  final ConsoleController cctr = Get.find();
+  final ConsoleController _cCtr = Get.find();
 
-  void nwprcs({
+  void newProcess({
     required String frpToken,
     required int proxyId,
     required String frpcPath,
@@ -52,7 +52,7 @@ class FrpcProcessManager {
       // procesList.add();
       // pMap['process'] = process;
       // pMap['proxy_id'] = proxyId;
-      cctr.addProcess(process);
+      _cCtr.addProcess(process);
     } catch (e, st) {
       // 检测是否被拦截
       if (e.toString().contains('包含病毒或潜在的垃圾软件')) {
@@ -73,7 +73,7 @@ class FrpcProcessManager {
         Logger.frpcError(proxyId, fmtStr);
         _fCtr.appendErrorLog(fmtStr);
         process!.process.kill();
-        cctr.removeProcess(process);
+        _cCtr.removeProcess(process);
       });
     }
 
@@ -90,7 +90,7 @@ class FrpcProcessManager {
       Logger.frpcWarn(process.proxyId, str);
       _fCtr.appendWarnLog(str);
       process.process.kill();
-      cctr.removeProcess(process);
+      _cCtr.removeProcess(process);
     } else if (str.contains('[E]') || str.contains('failed')) {
       // Frpc 错误
       Logger.frpcError(process.proxyId, str);
@@ -99,7 +99,7 @@ class FrpcProcessManager {
       if (!str.contains(
           'No connection could be made because the target machine actively refused it')) {
         process.process.kill();
-        cctr.removeProcess(process);
+        _cCtr.removeProcess(process);
       }
     } else {
       Logger.frpcInfo(process.proxyId, str);
@@ -145,7 +145,7 @@ class FrpcProcessManager {
       for (var element in allList) {
         kill(element);
       }
-      cctr.clearProcess();
+      _cCtr.clearProcess();
     } catch (e, st) {
       _fCtr.appendSystemErrorLog('Killing all process error: $e');
       Logger.error(e, t: st);
@@ -158,7 +158,7 @@ class FrpcProcessManager {
     Logger.info('Killing frpc process, pid: ${prs.process.pid}');
     _fCtr.appendSystemInfoLog('Killing process, pid: ${prs.process.pid}');
     prs.process.kill();
-    cctr.removeProcess(prs);
+    _cCtr.removeProcess(prs);
 
     Logger.debug('Process length: ${ConsoleController.processList.length}');
   }

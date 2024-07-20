@@ -202,7 +202,7 @@ class ProxiesController extends GetxController {
         onPressed: () async {
           final execPath = await FrpcPathProvider().frpcPath;
           if (execPath != null) {
-            FrpcProcessManager().nwprcs(
+            FrpcProcessManager().newProcess(
               frpToken: _uCtr.frpToken.value,
               proxyId: element.id,
               frpcPath: execPath,

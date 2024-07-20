@@ -17,21 +17,22 @@ class ConsoleController extends GetxController {
   static var processList = <ProcessModel>[].obs;
 
   /// 添加进程
-  addProcess(ProcessModel process) {
+  void addProcess(ProcessModel process) {
     processList.add(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
 
-  /// 移除进程
-  removeProcess(ProcessModel process) {
+  /// 添加进程
+  void removeProcess(ProcessModel process) {
     processList.remove(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
 
   /// 清空进程
-  clearProcess() {
+  /// 请将进程全部结束后再运行此方法，此方法不会结束进程
+  void clearProcess() {
     processList.clear();
     processList.refresh();
     load();

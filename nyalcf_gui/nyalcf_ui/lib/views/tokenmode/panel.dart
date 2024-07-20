@@ -94,7 +94,7 @@ class _TokenModePanelState extends State {
                               );
                               return;
                             }
-                            FrpcProcessManager().nwprcs(
+                            FrpcProcessManager().newProcess(
                               frpToken: frpToken,
                               proxyId: proxyId,
                               frpcPath: execPath,

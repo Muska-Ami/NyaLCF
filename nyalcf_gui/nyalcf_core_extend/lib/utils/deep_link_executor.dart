@@ -15,7 +15,7 @@ class DeepLinkExecutor {
     final frpToken = data[0], proxyId = int.parse(data[1]);
     final frpcPath = await FrpcPathProvider().frpcPath;
     if (frpcPath != null) {
-      FrpcProcessManager().nwprcs(
+      FrpcProcessManager().newProcess(
         frpToken: frpToken,
         proxyId: proxyId,
         frpcPath: frpcPath,
