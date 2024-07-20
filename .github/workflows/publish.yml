@@ -193,8 +193,10 @@ jobs:
       - name: Fetch Version
         run: |
           sudo snap install yq
+          cd nyalcf_gui
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
           echo "NYA_VERSION=$nyalcf_version" >> $GITHUB_ENV
+          cd ..
       - name: Download Build Artifact(Windows)
         uses: actions/download-artifact@v4
         with:
