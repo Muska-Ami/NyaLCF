@@ -46,6 +46,13 @@ jobs:
           cd nyalcf_gui
           flutter_distributor package --platform windows --target exe,zip
           cd ..
+      - name: Compile CLI
+        shell: pwsh
+        run: |-
+          cd nyalcf_cli
+          mkdir build
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-windows-x64.exe
+          cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
@@ -84,6 +91,12 @@ jobs:
           cd nyalcf_gui
           flutter_distributor package --platform linux --targets appimage,deb,rpm
           cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          mkdir build -p
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-linux-x64
+          cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
@@ -92,7 +105,12 @@ jobs:
           path: nyalcf_gui/dist
 
   macos:
-    runs-on: macos-latest
+    strategy:
+      matrix:
+        os:
+          - macos-latest
+          - macos-13
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -117,15 +135,22 @@ jobs:
           dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
 
       - name: Pack DMG Installer
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |-
           cd nyalcf_gui
           flutter_distributor package --platform macos --target dmg
+          cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          mkdir build -p
+          dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..
 
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS Artifact(Dist)
+          name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
           path: nyalcf_gui/dist
 
   publish_releases:
@@ -154,10 +179,15 @@ jobs:
         with:
           name: "Linux Artifact(Dist)"
           path: dist/
-      - name: Download Build Artifact(MacOS)
+      - name: Download Build Artifact(MacOS arm64)
         uses: actions/download-artifact@v4
         with:
-          name: "MacOS Artifact(Dist)"
+          name: "MacOS Artifact(Dist arm64)"
+          path: dist/
+      - name: Download Build Artifact(MacOS x64)
+        uses: actions/download-artifact@v4
+        with:
+          name: "MacOS Artifact(Dist x64)"
           path: dist/
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -181,3 +211,7 @@ jobs:
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.rpm
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.AppImage
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-macos.dmg
+            ./dist/nyalcf_cli-windows-x64.exe
+            ./dist/nyalcf_cli-linux-x64
+            ./dist/nyalcf_cli-macos-arm64
+            ./dist/nyalcf_cli-macos-x64

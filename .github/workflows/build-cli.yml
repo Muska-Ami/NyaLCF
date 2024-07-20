@@ -8,7 +8,6 @@ name: Build CLI
 on:
   push:
     branches:
-      - main
       - dev
 
 jobs:
@@ -81,6 +80,7 @@ jobs:
           - macos-latest
           - macos-13
     runs-on: ${{ matrix.os }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -100,10 +100,10 @@ jobs:
           cd nyalcf_cli
           mkdir build -p
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
-          cd ..    
+          cd ..
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: MacOS Artifact (${{ matrix.os }})
+          name: MacOS Artifact (Dist ${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }})
           path: nyalcf_cli/build

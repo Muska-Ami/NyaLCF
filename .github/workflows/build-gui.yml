@@ -8,7 +8,6 @@ name: Build GUI
 on:
   push:
     branches:
-      - main
       - dev
 
 jobs:
