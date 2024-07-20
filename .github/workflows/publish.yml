@@ -109,7 +109,7 @@ jobs:
 
       - name: Move Build Files
         run: |-
-          mkdir dist -p
+          mkdir -p dist
           mv nyalcf_gui/dist/* dist
           mv nyalcf_cli/dist/* dist
 
@@ -159,18 +159,18 @@ jobs:
         run: |-
           cd nyalcf_cli
           dart pub get
-          mkdir dist -p
+          mkdir -p dist
           dart compile exe bin/nyalcf_cli.dart -o dist/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..
 
       - name: Move CLI Build Files
         run: |-
-          mkdir dist -p
+          mkdir -p dist
           mv nyalcf_cli/dist/* dist
       - name: Move GUI Build Files
         if: ${{ matrix.os == 'macos-latest' }}
         run: |-
-          mkdir dist -p
+          mkdir -p dist
           mv nyalcf_gui/dist/* dist
 
       - name: Upload Dist Artifact
