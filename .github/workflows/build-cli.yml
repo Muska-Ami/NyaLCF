@@ -63,7 +63,7 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          mkdir build -p
+          mkdir -p build
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-linux-x64
           cd ..
 
@@ -98,7 +98,7 @@ jobs:
       - name: Compile CLI
         run: |-
           cd nyalcf_cli
-          mkdir build -p
+          mkdir -p build
           dart compile exe bin/nyalcf_cli.dart -o build/nyalcf_cli-macos-${{ matrix.os == 'macos-latest' && 'arm64' || matrix.os == 'macos-13' && 'x64' || matrix.os }}
           cd ..
 
