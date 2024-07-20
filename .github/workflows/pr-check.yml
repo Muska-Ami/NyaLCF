@@ -13,7 +13,6 @@ on:
 jobs:
   build-windows:
     runs-on: windows-latest
-    if: github.event.pull_request.base.ref != 'main'
 
     steps:
       - name: Checkout
@@ -26,6 +25,7 @@ jobs:
           cache-sdk: true
 
       - name: Install Dependencies
+        shell: pwsh
         run: |-
           # GUI
           cd nyalcf_gui
@@ -35,12 +35,22 @@ jobs:
           cd nyalcf_cli
           dart pub get
           cd ..
-      - name: Build Application
-        run: flutter build windows --release
+
+      - name: Build GUI Application
+        shell: pwsh
+        run: |-
+          cd nyalcf_gui
+          flutter build windows --release
+          cd ..
+      - name: Compile CLI
+        shell: pwsh
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..
 
   build-linux:
     runs-on: ubuntu-latest
-    if: github.event.pull_request.base.ref != 'main'
 
     steps:
       - name: Checkout
@@ -64,12 +74,20 @@ jobs:
           cd ..
           sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libayatana-appindicator3-dev libstdc++-12-dev
-      - name: Build Application
-        run: flutter build linux --release
+
+      - name: Build GUI Application
+        run: |-
+          cd nyalcf_gui
+          flutter build linux --release
+          cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..
 
   build-macos:
     runs-on: macos-latest
-    if: github.event.pull_request.base.ref != 'main'
 
     steps:
       - name: Checkout
@@ -91,5 +109,14 @@ jobs:
           cd nyalcf_cli
           dart pub get
           cd ..
-      - name: Build Application
-        run: flutter build macos --release
+
+      - name: Build GUI Application
+        run: |-
+          cd nyalcf_gui
+          flutter build macos --release
+          cd ..
+      - name: Compile CLI
+        run: |-
+          cd nyalcf_cli
+          dart compile exe bin/nyalcf_cli.dart
+          cd ..
