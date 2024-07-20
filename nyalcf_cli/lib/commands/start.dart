@@ -1,6 +1,6 @@
-import 'dart:convert';
 import 'dart:io';
 
+import 'package:nyalcf/utils/frpc/process_manager.dart';
 import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf/utils/templates/command_implement.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -17,31 +17,31 @@ class Start implements CommandImplement {
           final runPath = await FrpcStorage().getRunPath();
 
           if (frpcPath != null) {
-            final process = await Process.start(
-              frpcPath,
-              [
-                '-u',
-                user.frpToken,
-                '-p',
-                proxyId,
-              ],
-              workingDirectory: runPath,
+            final process =await ProcessManager.newProcess(
+              frpcPath: frpcPath,
+              runPath: runPath,
+              frpToken: user.frpToken,
+              proxyId: int.parse(proxyId),
             );
-            process.stdout.forEach((List<int> element) {
-              final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
-              final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
-              Logger.frpcInfo(proxyId, fmtStr);
-            });
-            process.stderr.forEach((List<int> element) {
-              final RegExp regex = RegExp(r'\x1B\[[0-9;]*[mK]');
-              final String fmtStr = utf8.decode(element).trim().replaceAll(regex, '');
-              Logger.frpcError(proxyId, fmtStr);
-            });
+            ProcessManager.addProcess(process);
             Logger.info('Started proxy: $proxyId');
           } else {
             Logger.error('You have no frpc installed yet!');
           }
         }
+
+        int n = 0;
+        ProcessSignal.sigint.watch().listen((signal) {
+          Logger.verbose('Caught ${++n} of 2');
+          Logger.info('Press again to close frpc and exit.');
+
+          if (n == 2) {
+            for (var process in ProcessManager.processList) {
+                process.process.kill();
+            }
+            exit(0);
+          }
+        });
       } else {
         Logger.error('You have no login session yet!');
       }
