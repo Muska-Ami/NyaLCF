@@ -7,6 +7,7 @@ import 'package:nyalcf/arguments.dart';
 import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/state.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -31,6 +32,11 @@ void main(List<String> arguments) async {
   await PathProvider.loadPath();
   await StoragesInjector.init();
   await Logger.init();
+
+  final lcs = LauncherConfigurationStorage();
+  if (lcs.getDebug()) {
+    verbose = true;
+  }
 
   Logger.debug('Append info has been set: $appendInfo');
 
