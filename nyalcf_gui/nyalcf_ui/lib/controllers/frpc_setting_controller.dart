@@ -40,6 +40,7 @@ class FrpcSettingController extends GetxController {
   var cpuArch = ''.obs;
 
   load() async {
+    // TODO: 需要修改
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
     // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
@@ -47,7 +48,7 @@ class FrpcSettingController extends GetxController {
 
     frpcVersion.value = _fcs.getSettingsFrpcVersion();
     _loadTip();
-    _loadFrpcDropdownitem();
+    _loadFrpcDropdownItem();
   }
 
   void _loadTip() async {
@@ -68,7 +69,7 @@ class FrpcSettingController extends GetxController {
   }
 
   /// 加载Frpc下载列表
-  void _loadFrpcDropdownitem() {
+  void _loadFrpcDropdownItem() {
     frpcDownloadArchList.value = _buildArchDMIWidgetList();
     Logger.debug(frpcDownloadArchList);
   }
@@ -97,8 +98,12 @@ class FrpcSettingController extends GetxController {
           builder: (context) {
             return FrpcDownloadDialogX(context: context).unarchiving();
           });*/
-      Get.dialog(FrpcDownloadDialogX(context: context).unarchiving(),
-          barrierDismissible: false);
+      Get.dialog(
+        Builder(builder: (BuildContext context) {
+          return FrpcDownloadDialogX(context: context).unarchiving();
+        }),
+        barrierDismissible: false,
+      );
       //延时执行
       Future.delayed(
           const Duration(seconds: 2),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 import 'package:nyalcf_core/utils/logger.dart';
@@ -21,10 +23,17 @@ class DownloadFrpc {
     try {
       final String downloadBasicUrl;
       if (useMirror) {
-        downloadBasicUrl = githubMirrorsUrl;
+        final envUrl = Platform.environment['NYA_LCF_FRPC_DOWNLOAD_MIRROR_URL'];
+        downloadBasicUrl =
+            (envUrl?.substring(envUrl.length - 1, envUrl.length) == '/'
+                    ? envUrl?.substring(envUrl.length - 2, envUrl.length - 1)
+                    : envUrl) ??
+                githubMirrorsUrl;
       } else {
         downloadBasicUrl = githubMainUrl;
       }
+
+      Logger.info('Download frpc using: $downloadBasicUrl');
 
       final String suffix;
       if (platform == 'windows') {
