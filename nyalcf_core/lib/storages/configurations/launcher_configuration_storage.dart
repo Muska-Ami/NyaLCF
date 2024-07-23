@@ -27,7 +27,9 @@ class LauncherConfigurationStorage extends JsonConfiguration {
         'auto_sign': false,
       };
 
-  bool getDebug() => cfg.getBool('debug');
+  bool getDebug() =>
+      (Platform.environment['NYA_LCF_DEBUG'] == 'true' ? true : null) ??
+      cfg.getBool('debug');
 
   void setDebug(bool value) => cfg.setBool('debug', value);
 

@@ -26,12 +26,15 @@ class FrpcArchive {
     /// 确认 Frpc 是否存在
     if (await f.exists()) {
       try {
+        Logger.debug('Extract frpc into cache: $_cachePath');
         await extractFileToDisk(f.path, _cachePath!);
         final dir = Directory(
             '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
         final iniDir = Directory('${dir.path}/ini');
         if (await iniDir.exists()) await iniDir.delete();
+        Logger.debug('Move frpc into: $_supportPath/frpc/$version');
         moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
+        Logger.debug('Unarchive frpc package done.');
         await f.delete();
       } catch (e, st) {
         await f.delete();

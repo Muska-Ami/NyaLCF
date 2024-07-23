@@ -20,7 +20,7 @@ class PathProvider {
 
   /// 初始化路径信息
   static Future<void> loadSyncPath() async {
-    setAppSupportPath(await _cachePath);
+    setAppCachePath(await _cachePath);
     setAppSupportPath(await _supportPath);
   }
 }
