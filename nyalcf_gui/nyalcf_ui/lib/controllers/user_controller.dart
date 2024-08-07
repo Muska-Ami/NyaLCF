@@ -27,7 +27,7 @@ class UserController extends GetxController {
   var frpToken = ''.obs;
 
   /// 总流量
-  var traffic = 0.obs;
+  Rx<num> traffic = 0.obs;
 
   /// 欢迎文字
   var welcomeText = '好'.obs;

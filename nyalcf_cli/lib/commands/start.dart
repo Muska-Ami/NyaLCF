@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:nyalcf/utils/frpc/process_manager.dart';
 import 'package:nyalcf/utils/state.dart';
-import 'package:nyalcf/utils/templates/command_implement.dart';
+import 'package:nyalcf/templates/command_implement.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 

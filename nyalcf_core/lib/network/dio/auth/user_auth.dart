@@ -66,7 +66,7 @@ class UserAuth {
         status: true,
         message: 'OK',
         data: {
-          'traffic': resData['traffic'],
+          'traffic': num.parse(resData['traffic']),
           'inbound': resData['inbound'],
           'outbound': resData['outbound'],
           'origin_response': res,

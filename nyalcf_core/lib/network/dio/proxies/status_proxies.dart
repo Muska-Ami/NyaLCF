@@ -18,7 +18,7 @@ class ProxiesStatus {
     //Logger.debug(paramsMap);
 
     try {
-      final res = await instance.get('$apiV2Url/proxies/getStatus',
+      final res = await instance.get('$apiV2Url/proxies/status',
           queryParameters: paramsMap);
       Logger.debug(res);
       final Map<String, dynamic> data = res.data['data'];

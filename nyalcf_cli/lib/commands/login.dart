@@ -1,4 +1,4 @@
-import 'package:nyalcf/utils/templates/command_implement.dart';
+import 'package:nyalcf/templates/command_implement.dart';
 import 'package:nyalcf/utils/text_encrypt.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
