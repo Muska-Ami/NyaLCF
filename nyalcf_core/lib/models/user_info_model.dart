@@ -17,7 +17,7 @@ class UserInfoModel {
   final int inbound;
   final int outbound;
   final String frpToken;
-  final int traffic;
+  final num traffic;
 
   UserInfoModel.fromJson(Map<String, dynamic> json)
       : user = json['username'],
