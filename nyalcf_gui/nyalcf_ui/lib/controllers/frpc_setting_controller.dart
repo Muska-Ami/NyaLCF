@@ -33,10 +33,9 @@ class FrpcSettingController extends GetxController {
   var frpcDownloadShow = <Widget>[].obs;
   dynamic frpcDownloadCancel = false;
   var frpcDownloadUseMirror = false.obs;
+  var frpcDownloadMirror = ''.obs;
 
   var frpcVersion = ''.obs;
-
-  var githubProxy = ''.obs;
 
   var cpuArch = ''.obs;
 
