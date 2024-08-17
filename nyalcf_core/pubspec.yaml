@@ -13,7 +13,7 @@ dependencies:
   nyalcf_inject:
     path: ../nyalcf_inject
   dio: ^5.4.1
-  archive: ^3.4.9
+  archive: ^3.6.1
   logger: ^2.1.0
   crypto: ^3.0.3
   win32_registry: ^1.1.3
