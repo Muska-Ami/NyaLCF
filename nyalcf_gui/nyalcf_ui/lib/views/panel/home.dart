@@ -84,7 +84,7 @@ class PanelHome extends StatelessWidget {
                                 Obx(() => Text(
                                     '限制速率：${_uCtr.inbound / 1024 * 8}Mbps/${_uCtr.outbound / 1024 * 8}Mbps')),
                                 Obx(() =>
-                                    Text('剩余流量：${_uCtr.traffic / 1024}GiB'))
+                                    Text('剩余流量：${_uCtr.trafficRx} GiB'))
                               ],
                             ),
                           ),

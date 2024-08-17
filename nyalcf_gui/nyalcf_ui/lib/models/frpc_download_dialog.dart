@@ -44,6 +44,7 @@ class FrpcDownloadDialogX {
                     arch: _dsCtr.arch[_dsCtr.frpcDownloadArch.value]['arch'],
                     platform: _dsCtr.platform,
                     version: '0.51.3-3',
+                    releaseName: 'LoCyanFrp-0.51.3-3 #2024050701',
                     progressCallback: _dsCtr.downloadFrpcCallback,
                     cancelToken: _dsCtr.downloadCancelToken,
                     useMirror: _fcs.getSettingsGitHubMirror(),

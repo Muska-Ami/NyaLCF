@@ -50,16 +50,24 @@ class FrpcSetting {
                             ),
                           ],
                         ),
-                        /*/// TODO: 镜像选择
-                      /// 纵向
-                      Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Row(
+                        Row(
                           children: <Widget>[
-                            /// 横向Container#1
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.auto_awesome),
+                                title: Text('启用下载镜像源'),
+                              ),
+                            ),
+                            Switch(
+                              value: _dsCtr.frpcDownloadUseMirror.value,
+                              onChanged: (value) async {
+                                _fcs.setSettingsGitHubMirror(value);
+                                _dsCtr.frpcDownloadUseMirror.value = value;
+                              },
+                            ),
                           ],
                         ),
-                      ),*/
+                        /// TODO: 镜像选择
                       ],
                     ),
                   ),

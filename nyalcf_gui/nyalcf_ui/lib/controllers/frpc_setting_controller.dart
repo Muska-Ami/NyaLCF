@@ -9,6 +9,7 @@ import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 
@@ -155,47 +156,30 @@ class FrpcSettingController extends GetxController {
 
   /// 构建Arch列表
   List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
-    dynamic arch = <Map<String, dynamic>>{};
+    List<Map<String, String>> arch = [];
     final List<DropdownMenuItem<dynamic>> dmil = <DropdownMenuItem<dynamic>>[];
 
     /// Platform = Windows
     if (Platform.isWindows) {
       platform = 'windows';
       Logger.info('Build windows platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': '386', 'name': 'x86/i386/amd32'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-      ]);
+      arch.addAll(Arch.windows);
     }
 
     /// Platform = Linux
     if (Platform.isLinux) {
       platform = 'linux';
       Logger.info('Build linux platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': '386', 'name': 'x86/i386/amd32'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-        {'arch': 'arm', 'name': 'arm/armv7/armv6/armv5'},
-        {'arch': 'mips64', 'name': 'mips64'},
-        {'arch': 'mips', 'name': 'mips'},
-        {'arch': 'mips64le', 'name': 'mips64le'},
-        {'arch': 'mipsle', 'name': 'mipsle'},
-        {'arch': 'riscv64', 'name': 'riscv64'},
-      ]);
+      arch.addAll(Arch.linux);
     }
 
     /// Platform = MacOS
     if (Platform.isMacOS) {
       platform = 'darwin';
       Logger.info('Build macos platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-      ]);
+      arch.addAll(Arch.macos);
     }
-    this.arch = arch.toList();
+    this.arch = arch;
 
     /// 遍历构建
     for (var i = 0; i <= this.arch.length - 1; i++) {

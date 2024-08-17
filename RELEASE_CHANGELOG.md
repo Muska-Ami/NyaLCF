@@ -4,11 +4,18 @@
 
 ## 更新日志
 
-# GUI
+### GUI
 
-- 修复由于上游API修改导致的数值溢出
+- 更新 Flutter
+- 添加 LCM Frpc 下载镜像
 
-# CLI
+### CLI
+
+- 添加 Frpc 下载功能
+
+### 其他
+
+- 重写了一些 Frpc 下载核心逻辑
 
 -/-
 <!-- Some change log here -->
