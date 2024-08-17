@@ -32,10 +32,7 @@ The next generation of LoCyanFrp launcher.
   - [x] GUI 版本
     - [GUI Features Design](./nyalcf_gui/README.md#设计功能)
   - [ ] CLI 版本
-    - [x] 登录
-    - [x] 隧道启动
     - [ ] 进程管理
-    - [ ] 用户信息展示
     - [CLI Features Design](./nyalcf_cli/README.md#设计功能)
 - CI/CD
   - GUI 版本
@@ -43,7 +40,7 @@ The next generation of LoCyanFrp launcher.
     - [x] 自动发布
   - CLI 版本
     - [x] 自动构建
-    - [ ] 自动发布
+    - [x] 自动发布
   - [x] Pull Request 自动检查
   - [x] 开源协议/许可证兼容性检查
   - [x] 代码质量检查
