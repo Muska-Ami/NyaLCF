@@ -20,6 +20,8 @@
 
 - 重写了下载 Frpc 核心逻辑
 - 现在登出会调用请求吊销 Token
+- 将网络请求方法改为静态方法
+- Typo `install-dependecy.sh` -> `install-dependency.sh`
 
 ## 版本信息
 
