@@ -6,9 +6,13 @@ class Logout implements CommandImplement {
   @override
   Future<void> main(List<String> args) async {
     final userInfo = await UserInfoStorage.read();
-    await UserInfoStorage.sigo(userInfo?.user, userInfo?.token);
+    final res = await UserInfoStorage.sigo(userInfo?.user, userInfo?.token);
 
-    Logger.info('Session data removed.');
+    if (res) {
+        Logger.info('Session data removed.');
+    } else {
+        Logger.error('Logout failed, please check your network connection and retry.');
+    }
   }
 
 }
