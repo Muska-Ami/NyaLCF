@@ -220,7 +220,7 @@ class _RegisterState extends State<Register> {
       snackPosition: SnackPosition.BOTTOM,
       animationDuration: const Duration(milliseconds: 300),
     );
-    final res = await RegisterAuth().requestRegister(
+    final res = await RegisterAuth.requestRegister(
       userController.text,
       passwordController.text,
       confirmPasswordController.text,
@@ -236,7 +236,7 @@ class _RegisterState extends State<Register> {
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );
-      final resLogin = await LoginAuth().requestLogin(
+      final resLogin = await LoginAuth.requestLogin(
         userController.text,
         passwordController.text,
       );

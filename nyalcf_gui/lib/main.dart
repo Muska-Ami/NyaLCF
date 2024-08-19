@@ -37,7 +37,8 @@ void main() async {
   await windowManager.ensureInitialized();
 
   await Universe.loadUniverse();
-  setAppendInfo('v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
+  setAppendInfo(
+      'v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();

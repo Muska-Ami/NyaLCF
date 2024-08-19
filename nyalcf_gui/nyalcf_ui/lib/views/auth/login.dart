@@ -103,8 +103,8 @@ class _LoginState extends State<Login> {
       snackPosition: SnackPosition.BOTTOM,
       animationDuration: const Duration(milliseconds: 300),
     );
-    final res = await LoginAuth()
-        .requestLogin(userController.text, passwordController.text);
+    final res = await LoginAuth.requestLogin(
+        userController.text, passwordController.text);
     if (res.status) {
       await UserInfoPrefs.setInfo(res.data['user_info']);
       UserInfoPrefs.saveToFile();

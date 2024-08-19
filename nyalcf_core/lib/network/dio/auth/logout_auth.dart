@@ -1,38 +1,33 @@
 import 'package:dio/dio.dart' as dio;
 
-import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
-class LoginAuth {
+class LogoutAuth {
   static final instance = dio.Dio(options);
 
-  static Future<Response> requestLogin(user, password) async {
-    dio.FormData data =
-        dio.FormData.fromMap({'username': user, 'password': password});
+  static Future<Response> requestLogout(user, token) async {
+    Map<String, dynamic> paramsMap = {};
+    paramsMap['username'] = user;
+
+    Map<String, dynamic> optionsMap = {};
+    optionsMap['Content-Type'] =
+    'application/x-www-form-urlencoded;charset=UTF-8';
+    optionsMap['Authorization'] = 'Bearer $token';
+    options = options.copyWith(headers: optionsMap);
+
     try {
-      Logger.debug('Post login: $user / $password');
-      final response = await instance.post('$apiV2Url/users/login', data: data);
+      Logger.debug('Logout: $user / $token');
+      final response = await instance.delete('$apiV2Url/users/reset/token/single', queryParameters: paramsMap);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
       if (responseJson['status'] == 200) {
-        final userInfo = UserInfoModel(
-          user: resData['username'],
-          email: resData['email'],
-          token: resData['token'],
-          avatar: resData['avatar'],
-          inbound: resData['inbound'],
-          outbound: resData['outbound'],
-          frpToken: resData['frp_token'],
-          traffic: num.parse(resData['traffic']),
-        );
         return Response(
           status: true,
           message: 'OK',
           data: {
-            'user_info': userInfo,
             'origin_response': resData,
           },
         );

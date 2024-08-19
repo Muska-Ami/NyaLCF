@@ -83,8 +83,7 @@ class PanelHome extends StatelessWidget {
                                 Obx(() => Text('邮箱：${_uCtr.email}')),
                                 Obx(() => Text(
                                     '限制速率：${_uCtr.inbound / 1024 * 8}Mbps/${_uCtr.outbound / 1024 * 8}Mbps')),
-                                Obx(() =>
-                                    Text('剩余流量：${_uCtr.trafficRx} GiB'))
+                                Obx(() => Text('剩余流量：${_uCtr.trafficRx} GiB'))
                               ],
                             ),
                           ),
@@ -94,9 +93,8 @@ class PanelHome extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 loading.value = true;
-                                final checkSignRes = await OtherSign()
-                                    .checkSign(
-                                        _uCtr.user.value, _uCtr.token.value);
+                                final checkSignRes = await OtherSign.checkSign(
+                                    _uCtr.user.value, _uCtr.token.value);
                                 if (checkSignRes.status) {
                                   if (!checkSignRes.data['signed']) {
                                     final doSignRes = await OtherSign().doSign(

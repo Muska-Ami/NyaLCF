@@ -5,10 +5,10 @@ import 'package:nyalcf_core/network/response_type.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
 
 class OtherSign {
-  final instance = dio.Dio(options);
+  static final instance = dio.Dio(options);
 
   /// 检查签到状态
-  Future<Response> checkSign(String username, String token) async {
+  static Future<Response> checkSign(String username, String token) async {
     // Logger.debug(token);
     try {
       // dio.FormData data = dio.FormData.fromMap({

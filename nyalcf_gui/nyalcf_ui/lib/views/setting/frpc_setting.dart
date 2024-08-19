@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
@@ -11,10 +12,6 @@ class FrpcSetting {
   final _fcs = FrpcConfigurationStorage();
   final FrpcSettingController _dsCtr = Get.find();
 
-  final List<String> mirrorOptions = ['GitHub代理', 'LoCyan Mirror'];
-  final RxString selectedMirror = 'GitHub代理'.obs;
-
-  @override
   Widget widget() {
     _dsCtr.context = context;
     return Container(
@@ -49,8 +46,9 @@ class FrpcSetting {
                             Switch(
                               value: _dsCtr.frpcDownloadUseMirror.value,
                               onChanged: (value) async {
-                                _fcs.setSettingsGitHubMirror(value);
+                                _fcs.setSettingsFrpcDownloadMirror(value);
                                 _dsCtr.frpcDownloadUseMirror.value = value;
+                                _fcs.save();
                               },
                             ),
                           ],
@@ -65,30 +63,24 @@ class FrpcSetting {
                             ),
                             Obx(
                               () => DropdownButton<String>(
-                                value: selectedMirror.value,
-                                onChanged: (String? newValue) {
-                                  if (newValue != null) {
-                                    selectedMirror.value = newValue;
-                                    if (mirrorOptions == 'GitHub代理') {
-                                      onChanged:
-                                          (value) async {
-                                        _fcs.setSettingsGitHubMirror(value);
-                                        _dsCtr.frpcDownloadUseMirror.value =
-                                            value;
-                                      };
-                                    }else {
-                                      /// TODO: LoCyanMirror下载选择
-                                    }
+                                value: _dsCtr.selectedMirror.value,
+                                onChanged: (value) {
+                                  Logger.debug('Selected mirror id: $value');
+                                  if (value != null) {
+                                    _fcs.setSettingsFrpcDownloadMirrorId(value);
+                                    _dsCtr.selectedMirror.value = value;
+                                    _fcs.save();
                                   }
                                 },
-                                items: mirrorOptions
+                                items: _dsCtr.downloadMirrors
                                     .map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(value),
-                                  );
-                                }).toList(),
+                                  (value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value['id'],
+                                      child: Text(value['name']),
+                                    );
+                                  },
+                                ).toList(),
                               ),
                             ),
                           ],

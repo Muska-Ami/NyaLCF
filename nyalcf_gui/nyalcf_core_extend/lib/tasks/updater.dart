@@ -24,7 +24,7 @@ class TaskUpdater extends TaskBasic {
     Logger.info('Checking update...');
 
     // 获取远程源版本
-    final remote = await UpdateLauncher().getUpdate();
+    final remote = await UpdateLauncher.getUpdate();
     if (remote.status) {
       // 远程源版本获取到的时候才检测
       uIf = remote.data['update_info'];

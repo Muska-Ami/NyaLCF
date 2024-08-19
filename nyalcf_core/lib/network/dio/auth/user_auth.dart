@@ -5,9 +5,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
 
 class UserAuth {
-  final instance = dio.Dio(options);
+  static final instance = dio.Dio(options);
 
-  Future<Response> checkToken(token) async {
+  static Future<Response> checkToken(token) async {
     try {
       Logger.info('Check token if is valid');
       Map<String, dynamic> paramsMap = {};

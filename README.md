@@ -69,7 +69,7 @@ The next generation of LoCyanFrp launcher.
 #### 安装依赖
 
 ```shell
-bash install-dependecy.sh
+bash install-dependency.sh
 ```
 
 ### 感谢我们的开发者！是他们使NyaLCF变的更好！

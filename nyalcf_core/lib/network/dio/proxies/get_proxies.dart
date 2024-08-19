@@ -6,9 +6,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
 
 class ProxiesGet {
-  final instance = dio.Dio(options);
+  static final instance = dio.Dio(options);
 
-  Future<Response> get(username, token) async {
+  static Future<Response> get(username, token) async {
     try {
       Map<String, dynamic> paramsMap = {};
       paramsMap['username'] = username;

@@ -17,7 +17,7 @@ class Start implements CommandImplement {
           final runPath = await FrpcStorage().getRunPath();
 
           if (frpcPath != null) {
-            final process =await ProcessManager.newProcess(
+            final process = await ProcessManager.newProcess(
               frpcPath: frpcPath,
               runPath: runPath,
               frpToken: user.frpToken,
@@ -39,7 +39,7 @@ class Start implements CommandImplement {
 
           if (n == 2) {
             for (var process in ProcessManager.processList) {
-                process.process.kill();
+              process.process.kill();
             }
             exit(0);
           }

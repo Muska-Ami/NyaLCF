@@ -14,7 +14,7 @@ class TaskAutoSign extends TaskBasic {
     if (userinfo != null) {
       String user = userinfo.user;
       String token = userinfo.token;
-      final checkSignRes = await OtherSign().checkSign(user, token);
+      final checkSignRes = await OtherSign.checkSign(user, token);
       if (checkSignRes.status) {
         if (!checkSignRes.data['signed']) {
           // 执行签到

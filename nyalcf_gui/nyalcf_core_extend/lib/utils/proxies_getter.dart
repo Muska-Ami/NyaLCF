@@ -13,7 +13,7 @@ class ProxiesGetter {
     loading.value = true;
     Logger.info('Auto updating proxies list...');
     final UserInfoModel user = await UserInfoPrefs.getInfo();
-    final result = await ProxiesGet().get(user.user, user.token);
+    final result = await ProxiesGet.get(user.user, user.token);
 
     if (result.status) {
       ProxiesStorage.clear();

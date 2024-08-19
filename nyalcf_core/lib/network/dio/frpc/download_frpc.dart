@@ -1,25 +1,28 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class DownloadFrpc {
-  final dio = Dio(options);
-  final _cachePath = appCachePath;
+  static final dio = Dio(options);
+  static final _cachePath = appCachePath;
 
-  late final _version;
-  late final _platform;
-  late final _architecture;
-  late final _owner;
-  late final _repo;
-  late final _releaseName;
-  late final _suffix;
+  static late final _version;
+  static late final _platform;
+  static late final _architecture;
+  static late final _owner;
+  static late final _repo;
+  static late final _releaseName;
+  static late final _suffix;
+
+  static final _fcs = FrpcConfigurationStorage();
 
   /// 下载Frpc
-  Future<dynamic> download({
+  static Future<dynamic> download({
     required String arch,
     required String platform,
     required String version,
@@ -27,7 +30,7 @@ class DownloadFrpc {
     required ProgressCallback progressCallback,
     required CancelToken cancelToken,
     required bool useMirror,
-    String? mirrorFormat = null,
+    String? mirrorId = null,
     // version 版本 | owner 仓库所有者 | release_name 发行版本名称 | repo 仓库名 | arch 架构 | suffix 后缀名 | platform 平台
   }) async {
     Logger.info('Start download: $platform | $version | $arch');
@@ -45,7 +48,7 @@ class DownloadFrpc {
       // final String downloadBasicUrl;
 
       final envUrl = Platform.environment['NYA_LCF_FRPC_DOWNLOAD_MIRROR_URL'];
-      final downloadUrl;
+      String downloadUrl = '';
       // '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch.$suffix';
 
       // if (useMirror) {
@@ -64,17 +67,29 @@ class DownloadFrpc {
       if (envUrl != null) {
         downloadUrl = _replacePlaceholder(envUrl);
       } else if (useMirror) {
-        downloadUrl = mirrorFormat != null
-            ? _replacePlaceholder(mirrorFormat)
-            : '$githubMirrorsUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download' +
-                '/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_' +
-                '${_platform}_$_architecture.$_suffix';
+        if (mirrorId == null)
+          throw UnimplementedError(
+              'No mirrors format input! Please check your arguments.');
+
+        final mirrorList = _fcs.getDownloadMirrors();
+        for (var mirror in mirrorList) {
+          if (mirror['id'] == mirrorId)
+            downloadUrl = _replacePlaceholder(mirror['format']);
+        }
+        if (downloadUrl.isEmpty)
+          throw UnimplementedError(
+              'No valid mirror found. Please check your input.');
+        // : '$githubMirrorsUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download' +
+        //     '/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_' +
+        //     '${_platform}_$_architecture.$_suffix';
       } else {
         downloadUrl =
             '$githubMainUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download' +
                 '/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_' +
                 '${_platform}_$_architecture.$_suffix';
       }
+
+      Logger.debug('Downloading file: $downloadUrl');
 
       return await dio.download(
         downloadUrl,
@@ -93,15 +108,16 @@ class DownloadFrpc {
     }
   }
 
-  _replacePlaceholder(String str) {
+  static _replacePlaceholder(String str) {
     return str
-        .replaceAll('{version}', _version)
-        .replaceAll('{version_pure}', _version.split('-')[0])
-        .replaceAll('{arch}', _architecture)
-        .replaceAll('{owner}', _owner)
-        .replaceAll('{repo}', _repo)
-        .replaceAll('{release_name}', _releaseName)
-        .replaceAll('{suffix}', _suffix)
-        .replaceAll('{platform}', _platform);
+        .replaceAll('{version}', Uri.encodeComponent(_version))
+        .replaceAll(
+            '{version_pure}', Uri.encodeComponent(_version.split('-')[0]))
+        .replaceAll('{arch}', Uri.encodeComponent(_architecture))
+        .replaceAll('{owner}', Uri.encodeComponent(_owner))
+        .replaceAll('{repo}', Uri.encodeComponent(_repo))
+        .replaceAll('{release_name}', Uri.encodeComponent(_releaseName))
+        .replaceAll('{suffix}', Uri.encodeComponent(_suffix))
+        .replaceAll('{platform}', Uri.encodeComponent(_platform));
   }
 }

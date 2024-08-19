@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf/templates/command_implement.dart';
 import 'package:nyalcf_core/network/dio/frpc/download_frpc.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
@@ -57,7 +56,7 @@ class Download implements CommandImplement {
           _cancelToken = CancelToken();
           Logger.info('Starting frpc download...');
 
-          await DownloadFrpc().download(
+          await DownloadFrpc.download(
             arch: _selectedArch,
             platform: platform,
             version: '0.51.3-3',
@@ -67,7 +66,8 @@ class Download implements CommandImplement {
             useMirror: false,
           );
           stdout.write('\rPlease wait, extracting frpc...\n');
-          await FrpcArchive.unarchive(platform: platform, arch: _selectedArch, version: '0.51.3-3');
+          await FrpcArchive.unarchive(
+              platform: platform, arch: _selectedArch, version: '0.51.3-3');
         } else {
           Logger.error(
               'Unsupported system! If you believe this is wrong, please provide arch manually in command.');

@@ -39,14 +39,19 @@ class FrpcSettingController extends GetxController {
 
   var cpuArch = ''.obs;
 
+  var downloadMirrors = [];
+  var selectedMirror = 'muska-github-mirror'.obs;
+
   load() async {
     // TODO: 需要修改
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
     // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-    frpcDownloadUseMirror.value = _fcs.getSettingsGitHubMirror();
+    frpcDownloadUseMirror.value = _fcs.getSettingsFrpcDownloadMirror();
 
     frpcVersion.value = _fcs.getSettingsFrpcVersion();
+    downloadMirrors = _fcs.getDownloadMirrors();
+    selectedMirror.value = _fcs.getSettingsFrpcDownloadMirrorId();
     _loadTip();
     _loadFrpcDropdownItem();
   }

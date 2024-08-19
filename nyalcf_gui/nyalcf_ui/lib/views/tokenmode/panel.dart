@@ -90,7 +90,7 @@ class _TokenModePanelState extends State {
                                 '请填写隧道数字ID',
                                 snackPosition: SnackPosition.BOTTOM,
                                 animationDuration:
-                                const Duration(milliseconds: 300),
+                                    const Duration(milliseconds: 300),
                               );
                               return;
                             }

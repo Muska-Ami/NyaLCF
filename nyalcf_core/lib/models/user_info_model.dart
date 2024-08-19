@@ -27,7 +27,7 @@ class UserInfoModel {
         inbound = json['inbound'],
         outbound = json['outbound'],
         frpToken = json['frp_token'],
-        traffic = json['traffic'];
+        traffic = num.parse(json['traffic']);
 
   Map<String, dynamic> toJson() => {
         'username': user,
@@ -37,6 +37,6 @@ class UserInfoModel {
         'inbound': inbound,
         'outbound': outbound,
         'frp_token': frpToken,
-        'traffic': traffic
+        'traffic': traffic.toString()
       };
 }
