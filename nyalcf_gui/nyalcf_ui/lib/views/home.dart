@@ -95,7 +95,7 @@ class HC extends GetxController {
     UserInfoModel? userinfo = await UserInfoStorage.read();
     if (userinfo != null) {
       // 检查用户令牌是否有效
-      final checkTokenRes = await UserAuth().checkToken(userinfo.token);
+      final checkTokenRes = await UserAuth.checkToken(userinfo.token);
       if (checkTokenRes.status) {
         // 刷新用户信息
         await UserAuth().getInfo(userinfo.token, userinfo.user).then((value) {

@@ -8,7 +8,7 @@ class DPanelController extends GetxController {
   var announcementCommon = '喵喵喵？正在请求捏'.obs;
 
   load() async {
-    final broadcast = await OtherAnnouncement().getBroadcast();
+    final broadcast = await OtherAnnouncement.getBroadcast();
     final ads = await OtherAnnouncement().getAds();
     if (broadcast.status) {
       announcement.value = broadcast.data['broadcast'];

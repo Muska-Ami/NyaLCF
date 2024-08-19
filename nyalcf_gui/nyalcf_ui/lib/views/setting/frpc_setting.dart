@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
@@ -29,6 +30,7 @@ class FrpcSetting {
                 Container(
                   margin: const EdgeInsets.only(
                       left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
                     () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,26 +46,49 @@ class FrpcSetting {
                             Switch(
                               value: _dsCtr.frpcDownloadUseMirror.value,
                               onChanged: (value) async {
-                                _fcs.setSettingsGitHubMirror(value);
+                                _fcs.setSettingsFrpcDownloadMirror(value);
                                 _dsCtr.frpcDownloadUseMirror.value = value;
+                                _fcs.save();
                               },
                             ),
                           ],
                         ),
-                        /*/// TODO: 镜像选择
-                      /// 纵向
-                      Container(
-                        margin: EdgeInsets.only(top: 10.0),
-                        child: Row(
+                        Row(
                           children: <Widget>[
-                            /// 横向Container#1
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.pie_chart),
+                                title: Text('选择镜像源'),
+                              ),
+                            ),
+                            Obx(
+                              () => DropdownButton<String>(
+                                value: _dsCtr.selectedMirror.value,
+                                onChanged: (value) {
+                                  Logger.debug('Selected mirror id: $value');
+                                  if (value != null) {
+                                    _fcs.setSettingsFrpcDownloadMirrorId(value);
+                                    _dsCtr.selectedMirror.value = value;
+                                    _fcs.save();
+                                  }
+                                },
+                                items: _dsCtr.downloadMirrors
+                                    .map<DropdownMenuItem<String>>(
+                                  (value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value['id'],
+                                      child: Text(value['name']),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
+                            ),
                           ],
                         ),
-                      ),*/
                       ],
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

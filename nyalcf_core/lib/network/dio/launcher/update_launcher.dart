@@ -6,9 +6,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
 
 class UpdateLauncher {
-  final instance = dio.Dio(options);
+  static final instance = dio.Dio(options);
 
-  Future<Response> getUpdate() async {
+  static Future<Response> getUpdate() async {
     try {
       final res = await instance
           .get('$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest');

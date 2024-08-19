@@ -5,9 +5,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
 
 class OtherAnnouncement {
-  final instance = dio.Dio(options);
+  static final instance = dio.Dio(options);
 
-  Future<Response> getBroadcast() async {
+  static Future<Response> getBroadcast() async {
     try {
       Logger.info('Get broadcast announcement');
       final response = await instance.get('$apiV1Url/App/GetBroadCast');

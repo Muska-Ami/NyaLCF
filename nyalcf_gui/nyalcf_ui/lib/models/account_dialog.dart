@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
@@ -15,6 +17,8 @@ class AccountDialogX {
   final BuildContext context;
 
   Widget build() {
+    final UserController uCtr = Get.find();
+
     return SimpleDialog(
       title: const Text('小可爱，喵呜？'),
       children: <Widget>[
@@ -24,10 +28,41 @@ class AccountDialogX {
               title: Text('退出登录'),
             ),
             onPressed: () async {
+              loading.value = true;
               try {
-                await UserInfoStorage.sigo();
-                final HC hc = Get.put(HC());
-                hc.load(force: true);
+                final logout =
+                    await UserInfoStorage.sigo(uCtr.user, uCtr.token);
+                if (logout) {
+                  final HC hc = Get.put(HC());
+                  hc.load(force: true);
+                  Get.toNamed('/');
+                  Logger.info('Dispose controllers');
+                  try {
+                    final DPanelController dpctr = Get.find();
+                    dpctr.dispose();
+                  } catch (ignore) {
+                    //
+                  }
+                  try {
+                    final ProxiesController pctr = Get.find();
+                    pctr.dispose();
+                  } catch (ignore) {
+                    //
+                  }
+                  try {
+                    final ConsoleController cctr = Get.find();
+                    cctr.dispose();
+                  } catch (ignore) {
+                    //
+                  }
+                } else {
+                  Get.snackbar(
+                    '发生错误',
+                    '请求登出失败，请重试 oxo',
+                    snackPosition: SnackPosition.BOTTOM,
+                    animationDuration: const Duration(milliseconds: 300),
+                  );
+                }
               } catch (e) {
                 Get.snackbar(
                   '发生错误',
@@ -36,26 +71,7 @@ class AccountDialogX {
                   animationDuration: const Duration(milliseconds: 300),
                 );
               }
-              Logger.info('Dispose controllers');
-              try {
-                final DPanelController dpctr = Get.find();
-                dpctr.dispose();
-              } catch (ignore) {
-                //
-              }
-              try {
-                final ProxiesController pctr = Get.find();
-                pctr.dispose();
-              } catch (ignore) {
-                //
-              }
-              try {
-                final ConsoleController cctr = Get.find();
-                cctr.dispose();
-              } catch (ignore) {
-                //
-              }
-              Get.toNamed('/');
+              loading.value = false;
             }),
         SimpleDialogOption(
             child: const ListTile(

@@ -4,11 +4,30 @@
 
 ## 更新日志
 
-# GUI
+### GUI
 
-- 修复由于上游API修改导致的数值溢出
+- 更新 Flutter
+- 修改了欢迎语判定
+- 下载 Frpc 添加了镜像选择
+- 适配了核心登出会吊销 Token
 
-# CLI
+### CLI
+
+- 添加 Frpc 下载功能
+- 适配了核心登出会吊销 Token
+
+### 其他
+
+- 重写了下载 Frpc 核心逻辑
+- 现在登出会调用请求吊销 Token
+- 将网络请求方法改为静态方法
+- Typo `install-dependecy.sh` -> `install-dependency.sh`
+
+## 版本信息
+
+- nyalcf_gui: 0.2.1
+- nyalcf_cli: 0.0.1
+- nyalcf_core,nyalcf_inject: 0.1.6
 
 -/-
 <!-- Some change log here -->

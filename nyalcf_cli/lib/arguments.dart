@@ -26,6 +26,12 @@ class Arguments {
       help: 'Start frpc. usage: ..<proxy_id>',
     )
     ..addFlag(
+      'download',
+      abbr: 'd',
+      negatable: false,
+      help: 'Download frpc. usage: [<arch> [<platform>]]',
+    )
+    ..addFlag(
       'config',
       abbr: 'c',
       negatable: false,

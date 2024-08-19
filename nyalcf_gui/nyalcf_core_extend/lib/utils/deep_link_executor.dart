@@ -21,7 +21,8 @@ class DeepLinkExecutor {
         frpcPath: frpcPath,
       );
     } else {
-      Logger.error('Could not implement proxy fast startup, no frpc has installed!');
+      Logger.error(
+          'Could not implement proxy fast startup, no frpc has installed!');
     }
   }
 }

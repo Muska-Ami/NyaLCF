@@ -9,6 +9,7 @@ import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 
@@ -32,21 +33,25 @@ class FrpcSettingController extends GetxController {
   var frpcDownloadShow = <Widget>[].obs;
   dynamic frpcDownloadCancel = false;
   var frpcDownloadUseMirror = false.obs;
+  var frpcDownloadMirror = ''.obs;
 
   var frpcVersion = ''.obs;
 
-  var githubProxy = ''.obs;
-
   var cpuArch = ''.obs;
+
+  var downloadMirrors = [];
+  var selectedMirror = 'muska-github-mirror'.obs;
 
   load() async {
     // TODO: 需要修改
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
     // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
-    frpcDownloadUseMirror.value = _fcs.getSettingsGitHubMirror();
+    frpcDownloadUseMirror.value = _fcs.getSettingsFrpcDownloadMirror();
 
     frpcVersion.value = _fcs.getSettingsFrpcVersion();
+    downloadMirrors = _fcs.getDownloadMirrors();
+    selectedMirror.value = _fcs.getSettingsFrpcDownloadMirrorId();
     _loadTip();
     _loadFrpcDropdownItem();
   }
@@ -155,47 +160,30 @@ class FrpcSettingController extends GetxController {
 
   /// 构建Arch列表
   List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
-    dynamic arch = <Map<String, dynamic>>{};
+    List<Map<String, String>> arch = [];
     final List<DropdownMenuItem<dynamic>> dmil = <DropdownMenuItem<dynamic>>[];
 
     /// Platform = Windows
     if (Platform.isWindows) {
       platform = 'windows';
       Logger.info('Build windows platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': '386', 'name': 'x86/i386/amd32'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-      ]);
+      arch.addAll(Arch.windows);
     }
 
     /// Platform = Linux
     if (Platform.isLinux) {
       platform = 'linux';
       Logger.info('Build linux platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': '386', 'name': 'x86/i386/amd32'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-        {'arch': 'arm', 'name': 'arm/armv7/armv6/armv5'},
-        {'arch': 'mips64', 'name': 'mips64'},
-        {'arch': 'mips', 'name': 'mips'},
-        {'arch': 'mips64le', 'name': 'mips64le'},
-        {'arch': 'mipsle', 'name': 'mipsle'},
-        {'arch': 'riscv64', 'name': 'riscv64'},
-      ]);
+      arch.addAll(Arch.linux);
     }
 
     /// Platform = MacOS
     if (Platform.isMacOS) {
       platform = 'darwin';
       Logger.info('Build macos platform arch list');
-      arch.addAll([
-        {'arch': 'amd64', 'name': 'x86_64/amd64'},
-        {'arch': 'arm64', 'name': 'arm64/armv8'},
-      ]);
+      arch.addAll(Arch.macos);
     }
-    this.arch = arch.toList();
+    this.arch = arch;
 
     /// 遍历构建
     for (var i = 0; i <= this.arch.length - 1; i++) {

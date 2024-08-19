@@ -259,8 +259,8 @@ class ProxiesController extends GetxController {
               Logger.error(
                   'Context not mounted while executing a async function!');
             }
-            final res = await ProxiesConfiguration()
-                .get(_uCtr.frpToken.value, element.id);
+            final res = await ProxiesConfiguration.get(
+                _uCtr.frpToken.value, element.id);
             if (res is String) {
               Logger.info('Successfully get config ini');
               text = res;
@@ -330,7 +330,7 @@ class ProxiesController extends GetxController {
   load(username, token, {bool request = false}) async {
     loading.value = true;
     if (request) {
-      final list = await ProxiesGet().get(username, token);
+      final list = await ProxiesGet.get(username, token);
       if (list.status) {
         ProxiesStorage.clear();
         ProxiesStorage.addAll(list.data['proxies_list']);

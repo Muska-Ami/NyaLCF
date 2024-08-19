@@ -382,7 +382,8 @@ class LauncherSetting {
                       SelectableText('内部软件包名：${Universe.appPackageName}'),
                       SelectableText(
                           '软件版本：${Universe.appVersion} (+${Universe.appBuildNumber})'),
-                      const SelectableText('著作权信息：登记中'),
+                      const SelectableText(
+                          'Copyright 2023 © 夏沫花火zzz🌙，以及感谢社区贡献者的无私奉献。'),
                     ],
                   ),
                 ),
@@ -391,7 +392,7 @@ class LauncherSetting {
                   child: ElevatedButton(
                     onPressed: () async {
                       loading.value = true;
-                      final remote = await UpdateLauncher().getUpdate();
+                      final remote = await UpdateLauncher.getUpdate();
                       if (remote.status) {
                         TaskUpdater.uIf = remote.data['update_info'];
                         if (TaskUpdater.check()) TaskUpdater.showDialog();

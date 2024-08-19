@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/network/dio/auth/auth.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class UserInfoStorage {
@@ -25,8 +26,12 @@ class UserInfoStorage {
   }
 
   /// 退出登录
-  /// 只是删除session.json
-  static sigo() async {
-    await File('$_path/session.json').delete();
+  static sigo(user, token) async {
+    final res = await LogoutAuth.requestLogout(user, token);
+    if (res.status) {
+      await File('$_path/session.json').delete();
+      return true;
+    } else
+      return false;
   }
 }

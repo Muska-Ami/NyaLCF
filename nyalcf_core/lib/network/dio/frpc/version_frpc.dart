@@ -5,9 +5,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/network/response_type.dart';
 
 class VersionFrpc {
-  final instance = dio.Dio();
+  static final instance = dio.Dio();
 
-  Future<Response> getLatestVersion() async {
+  static Future<Response> getLatestVersion() async {
     try {
       final resData = await instance.get(
           '$githubApiUrl/repos/LoCyan-Team/LoCyanFrpPureApp/releases/latest');

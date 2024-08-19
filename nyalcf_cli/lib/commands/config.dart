@@ -48,5 +48,4 @@ class Config implements CommandImplement {
         return null;
     }
   }
-
 }
