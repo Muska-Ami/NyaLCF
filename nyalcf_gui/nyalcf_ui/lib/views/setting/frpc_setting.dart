@@ -29,6 +29,7 @@ class FrpcSetting {
                 Container(
                   margin: const EdgeInsets.only(
                       left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
                     () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,10 +55,11 @@ class FrpcSetting {
                           children: <Widget>[
                             const Expanded(
                               child: ListTile(
-                                leading: Icon(Icons.auto_awesome),
+                                leading: Icon(Icons.pie_chart),
                                 title: Text('选择镜像源'),
                               ),
                             ),
+                            Text('🔧WIP'),
                             // Switch(
                             //   value: _dsCtr.frpcDownloadUseMirror.value,
                             //   onChanged: (value) async {

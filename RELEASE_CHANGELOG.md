@@ -7,7 +7,9 @@
 ### GUI
 
 - 更新 Flutter
-- 添加 LCM Frpc 下载镜像
+- 修改了欢迎语判定
+
+[//]: # (- 添加 LCM Frpc 下载镜像)
 
 ### CLI
 
@@ -15,7 +17,13 @@
 
 ### 其他
 
-- 重写了一些 Frpc 下载核心逻辑
+- 重写了下载 Frpc 核心逻辑
+
+## 版本信息
+
+- nyalcf_gui: 0.2.1
+- nyalcf_cli: 0.0.1
+- nyalcf_core,nyalcf_inject: 0.1.6
 
 -/-
 <!-- Some change log here -->
