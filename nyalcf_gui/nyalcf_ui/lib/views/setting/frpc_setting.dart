@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
 
 class FrpcSetting {
   FrpcSetting({required this.context});
@@ -36,7 +35,7 @@ class FrpcSetting {
                       left: 20.0, right: 20.0, bottom: 20.0),
                   padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
-                        () => Column(
+                    () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
@@ -65,22 +64,31 @@ class FrpcSetting {
                               ),
                             ),
                             Obx(
-                                  () => DropdownButton<String>(
+                              () => DropdownButton<String>(
                                 value: selectedMirror.value,
                                 onChanged: (String? newValue) {
                                   if (newValue != null) {
                                     selectedMirror.value = newValue;
-                                  /// TODO: 下载选择
+                                    if (mirrorOptions == 'GitHub代理') {
+                                      onChanged:
+                                          (value) async {
+                                        _fcs.setSettingsGitHubMirror(value);
+                                        _dsCtr.frpcDownloadUseMirror.value =
+                                            value;
+                                      };
+                                    }else {
+                                      /// TODO: LoCyanMirror下载选择
+                                    }
                                   }
                                 },
                                 items: mirrorOptions
                                     .map<DropdownMenuItem<String>>(
                                         (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
                               ),
                             ),
                           ],
