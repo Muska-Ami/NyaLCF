@@ -9,9 +9,9 @@ class Logout implements CommandImplement {
     final res = await UserInfoStorage.sigo(userInfo?.user, userInfo?.token);
 
     if (res) {
-        Logger.info('Session data removed.');
+      Logger.info('Session data removed.');
     } else {
-        Logger.error('Logout failed, please check your network connection and retry.');
+      Logger.error('Logout failed, please check your network connection and retry.');
     }
   }
 
