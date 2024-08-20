@@ -7,6 +7,13 @@ import 'package:nyalcf_core/network/response_type.dart';
 class RegisterAuth {
   static final instance = dio.Dio(options);
 
+  /// 请求注册
+  /// [user] 用户名
+  /// [password] 密码
+  /// [confirmPassword] 确认密码
+  /// [email] 邮箱
+  /// [verify] 邮件验证代码
+  /// [qq] QQ号
   static Future<Response> requestRegister(
       user, password, confirmPassword, email, verify, qq) async {
     dio.FormData data = dio.FormData.fromMap({

@@ -8,6 +8,9 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 class ProxiesConfiguration {
   static final dio = Dio(options);
 
+  /// 获取隧道启动配置
+  /// [frpToken] Frp 令牌
+  /// [proxyId] 隧道ID
   static Future<dynamic> get(String frpToken, int proxyId) async {
     try {
       Map<String, dynamic> paramsMap = {};

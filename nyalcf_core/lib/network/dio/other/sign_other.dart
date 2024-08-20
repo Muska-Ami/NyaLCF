@@ -8,6 +8,8 @@ class OtherSign {
   static final instance = dio.Dio(options);
 
   /// 检查签到状态
+  /// [username] 用户名
+  /// [token] 登录令牌
   static Future<Response> checkSign(String username, String token) async {
     // Logger.debug(token);
     try {

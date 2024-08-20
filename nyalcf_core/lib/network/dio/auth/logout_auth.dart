@@ -7,6 +7,9 @@ import 'package:nyalcf_core/utils/logger.dart';
 class LogoutAuth {
   static final instance = dio.Dio(options);
 
+  /// 请求登出
+  /// [user] 用户名
+  /// [token] 登录令牌
   static Future<Response> requestLogout(user, token) async {
     Map<String, dynamic> paramsMap = {};
     paramsMap['username'] = user;

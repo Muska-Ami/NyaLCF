@@ -8,6 +8,7 @@ import 'package:nyalcf_core/network/response_type.dart';
 class UpdateLauncher {
   static final instance = dio.Dio(options);
 
+  /// 获取启动器更新信息
   static Future<Response> getUpdate() async {
     try {
       final res = await instance

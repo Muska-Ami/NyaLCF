@@ -8,6 +8,9 @@ import 'package:nyalcf_core/network/response_type.dart';
 class ProxiesStatus {
   static final instance = dio.Dio(options);
 
+  /// 获取单个隧道状态
+  /// [proxy] 隧道ID
+  /// [token] 登录令牌
   static Future<Response> getProxyStatus(
       ProxyInfoModel proxy, String token) async {
     Map<String, dynamic> paramsMap = {};

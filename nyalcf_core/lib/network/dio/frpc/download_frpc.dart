@@ -21,7 +21,15 @@ class DownloadFrpc {
 
   static final _fcs = FrpcConfigurationStorage();
 
-  /// 下载Frpc
+  /// 下载 Frpc
+  /// [arch] 架构
+  /// [platform] 平台
+  /// [version] 版本
+  /// [releaseName] 发行名称
+  /// [progressCallback] 进度回调函数
+  /// [cancelToken] 取消下载令牌
+  /// [useMirror] 镜像源设置
+  /// [mirrorId] 镜像源位于配置中的ID
   static Future<dynamic> download({
     required String arch,
     required String platform,
