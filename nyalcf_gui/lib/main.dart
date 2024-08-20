@@ -42,8 +42,19 @@ void main() async {
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
+
   await StoragesInjector.init();
   await Logger.init();
+
+  final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
+  if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
+    if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync())
+      Directory('$appSupportParentPath/moe.muska.ami').createSync();
+    await moveDirectory(
+      Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
+      Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
+    );
+  }
 
   Logger.debug('Append info has been set: $appendInfo');
 

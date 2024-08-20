@@ -93,11 +93,11 @@ BEGIN
 "040904e4"
 BEGIN
         VALUE
-"CompanyName", "moe.xmcn.nyanana" "\0"
+"CompanyName", "moe.muska.ami" "\0"
 VALUE "FileDescription", "nyanana" "\0"
 VALUE "FileVersion", VERSION_AS_STRING "\0"
 VALUE "InternalName", "nyanana" "\0"
-VALUE "LegalCopyright", "Copyright (C) 2023 moe.xmcn.nyanana. All rights reserved." "\0"
+VALUE "LegalCopyright", "Copyright (C) 2023 moe.muska.ami. All rights reserved." "\0"
 VALUE "OriginalFilename", "nyanana.exe" "\0"
 VALUE "ProductName", "nyanana" "\0"
 VALUE "ProductVersion", VERSION_AS_STRING "\0"

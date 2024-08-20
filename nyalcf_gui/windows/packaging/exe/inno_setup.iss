@@ -62,5 +62,5 @@ Filename: "{app}\\{{EXECUTABLE_NAME}}"; Description: "{cm:LaunchProgram,{{DISPLA
 
 [UninstallDelete]
 Type: filesandordirs; Name: "{app}";
-Type: filesandordirs; Name: "{userappdata}/moe.xmcn.nyanana";
-Type: filesandordirs; Name: "{commonappdata}/moe.xmcn.nyanana";
+Type: filesandordirs; Name: "{userappdata}/moe.muska.ami";
+Type: filesandordirs; Name: "{commonappdata}/moe.muska.ami";

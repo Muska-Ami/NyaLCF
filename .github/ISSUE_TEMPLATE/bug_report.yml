@@ -44,7 +44,7 @@ body:
     id: logs
     attributes:
       label: 运行日志
-      description: 请提供您的运行日志，以便分析原因。日志位于 `${SupportPath}/moe.xmcn.nyanana/nyanana/run.log`
+      description: 请提供您的运行日志，以便分析原因。日志位于 `${SupportPath}/moe.muska.ami/nyanana/logs/run.log`
       render: sh
     validations:
       required: true

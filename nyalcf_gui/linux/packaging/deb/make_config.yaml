@@ -14,7 +14,7 @@ icon: icon.png
 
 postinstall_scripts: []
 postuninstall_scripts:
-  - 'rm -rf ~/.share/moe.xmcn.nyanana'
+  - 'rm -rf ~/.share/moe.muska.ami'
 
 keywords:
   - NyaLCF
