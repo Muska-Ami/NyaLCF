@@ -29,7 +29,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
               'name': 'LoCyan Mirrors',
               'id': 'locyan-mirror',
               'format':
-                  'https://mirrors.locyan.cn/github-releases/{owner}/{repo}/{release_name}/frp_LoCyanFrp-{version_pure}_{platform}_{arch}.{suffix}',
+                  'https://mirrors.locyan.cn/github-release/{owner}/{repo}/{release_name}/frp_LoCyanFrp-{version_pure}_{platform}_{arch}.{suffix}',
             },
           ],
         },
