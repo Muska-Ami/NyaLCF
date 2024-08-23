@@ -1,3 +1,4 @@
+/// 用户信息模型
 class UserInfoModel {
   UserInfoModel({
     required this.user,
@@ -10,13 +11,21 @@ class UserInfoModel {
     required this.traffic,
   });
 
+  /// 用户名
   final String user;
+  /// 邮箱
   final String email;
+  /// 登录令牌
   final String token;
+  /// 头像链接
   final String avatar;
+  /// 下行限速
   final int inbound;
+  /// 上行限速
   final int outbound;
+  /// Frp 令牌
   final String frpToken;
+  /// 剩余流量
   final num traffic;
 
   UserInfoModel.fromJson(Map<String, dynamic> json)

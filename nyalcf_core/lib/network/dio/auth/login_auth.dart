@@ -8,6 +8,9 @@ import 'package:nyalcf_core/network/response_type.dart';
 class LoginAuth {
   static final instance = dio.Dio(options);
 
+  /// 发起登录请求
+  /// [user] 用户名
+  /// [password] 密码
   static Future<Response> requestLogin(user, password) async {
     dio.FormData data =
         dio.FormData.fromMap({'username': user, 'password': password});

@@ -7,6 +7,7 @@ import 'package:nyalcf_core/network/response_type.dart';
 class OtherAnnouncement {
   static final instance = dio.Dio(options);
 
+  /// 获取网站 Broadcast
   static Future<Response> getBroadcast() async {
     try {
       Logger.info('Get broadcast announcement');
@@ -33,6 +34,7 @@ class OtherAnnouncement {
     }
   }
 
+  /// 获取网站 Ads
   Future<Response> getAds() async {
     try {
       Logger.info('Get common announcement');

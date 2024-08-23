@@ -7,6 +7,8 @@ import 'package:nyalcf_core/network/response_type.dart';
 class UserAuth {
   static final instance = dio.Dio(options);
 
+  /// 检查 Token 有效性
+  /// [token] 登录令牌
   static Future<Response> checkToken(token) async {
     try {
       Logger.info('Check token if is valid');

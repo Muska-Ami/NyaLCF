@@ -8,6 +8,9 @@ import 'package:nyalcf_core/network/response_type.dart';
 class ProxiesGet {
   static final instance = dio.Dio(options);
 
+  /// 获取隧道列表
+  /// [username] 用户名
+  /// [token] 登录令牌
   static Future<Response> get(username, token) async {
     try {
       Map<String, dynamic> paramsMap = {};

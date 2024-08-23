@@ -7,6 +7,7 @@ import 'package:nyalcf_core/network/response_type.dart';
 class VersionFrpc {
   static final instance = dio.Dio();
 
+  /// 获取最新 Frpc 版本信息
   static Future<Response> getLatestVersion() async {
     try {
       final resData = await instance.get(

@@ -1,3 +1,4 @@
+/// 隧道信息模型
 class ProxyInfoModel {
   ProxyInfoModel({
     required this.proxyName,
