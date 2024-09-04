@@ -16,22 +16,30 @@ class PanelConsole extends StatelessWidget {
   PanelConsole({super.key});
 
   final UserController _uCtr = Get.find();
-  final FrpcController _fCtr = Get.find();
   final ConsoleController _cCtr = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     _cCtr.load();
+    _cCtr.processOut.listen((data) {
+      if (_cCtr.autoScroll.value && scrollController.hasClients) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          scrollController.jumpTo(scrollController.position.maxScrollExtent);
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title:
             const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
-        actions: AppbarActionsX(append: <Widget>[
+        actions: AppbarActions(append: <Widget>[
           IconButton(
             onPressed: () {
-              Get.dialog(AccountDialogX(context: context).build());
+              Get.dialog(accountDialog(context));
             },
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
@@ -44,7 +52,7 @@ class PanelConsole extends StatelessWidget {
         ], context: context)
             .actions(),
       ),
-      drawer: DrawerX(context: context).drawer(),
+      drawer: drawer(context),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -91,7 +99,8 @@ class PanelConsole extends StatelessWidget {
                             margin: const EdgeInsets.all(10.0),
                             child: Obx(
                               () => ListView(
-                                children: _fCtr.processOut,
+                                controller: scrollController,
+                                children: _cCtr.processOut,
                               ),
                             ),
                           ),
@@ -130,7 +139,7 @@ class PanelConsole extends StatelessWidget {
                         icon: const Icon(Icons.delete),
                         tooltip: '清空日志',
                         onPressed: () async {
-                          _fCtr.processOut.clear();
+                          _cCtr.processOut.clear();
                         },
                       ),
                       IconButton(
@@ -140,6 +149,18 @@ class PanelConsole extends StatelessWidget {
                           Get.toNamed('/panel/console/full');
                         },
                       ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => Checkbox(
+                              value: _cCtr.autoScroll.value,
+                              onChanged: (value) =>
+                                  _cCtr.autoScroll.value = value ?? false,
+                            ),
+                          ),
+                          const Text('自动滚动'),
+                        ],
+                      ),
                     ],
                   ),
                 ),
@@ -148,12 +169,12 @@ class PanelConsole extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 
   static buildProcessListWidget() {
-    var processList = ConsoleController.processList;
+    var processList = FrpcController.processList;
     var widgets = <Widget>[];
 
     for (var element in processList) {
@@ -171,7 +192,7 @@ class PanelConsole extends StatelessWidget {
               subtitle: Text('进程PID: ${element.process.pid}'),
             ),
             onTap: () async {
-              Get.dialog(ProcessActionDialogX(process: element).build());
+              Get.dialog(processActionDialog(element));
             },
           ),
         ),

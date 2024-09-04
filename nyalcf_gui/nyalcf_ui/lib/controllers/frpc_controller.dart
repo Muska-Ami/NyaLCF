@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/process_model.dart';
 
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
+import 'package:nyalcf_ui/views/panel/console.dart';
 
 class FrpcController extends GetxController {
   final _fss = FrpcStorage();
@@ -11,26 +13,17 @@ class FrpcController extends GetxController {
   /// 是否存在的标志
   RxBool exist = false.obs;
 
-  /// 过滤后的输出文本
-  RxList<SelectableText> processOut = <SelectableText>[
-    const SelectableText(
-      '[SYSTEM] Welcome to frpc console.',
-      style: TextStyle(
-        color: Colors.green,
-        fontWeight: FontWeight.w200,
-        fontFamily: 'Droid Sans Mono',
-      ),
-    )
-  ].obs;
-
   /// 版本号
   RxString version = ''.obs;
+
+  /// 进程列表
+  static var processList = <ProcessModel>[].obs;
 
   // String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
   /// 加载方法
   load() async {
-    exist.value = await file.exists();
+    exist.value = await ((await file).exists());
   }
 
   /// 获取Frpc文件对象
@@ -41,126 +34,26 @@ class FrpcController extends GetxController {
     return _fcs.getSettingsFrpcVersion();
   }
 
-  /// 追加信息日志
-  void appendInfoLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加信息日志文本
-    processOut.add(
-      SelectableText(
-        '[FRPC][INFO] $element',
-        style: const TextStyle(
-          color: Colors.teal,
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
+  /// 添加进程
+  void addProcess(ProcessModel process) {
+    processList.add(process);
+    processList.refresh();
+    PanelConsole.buildProcessListWidget();
   }
 
-  /// 追加警告日志
-  void appendWarnLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加警告日志文本
-    processOut.add(
-      SelectableText(
-        '[FRPC][WARN] $element',
-        style: const TextStyle(
-          color: Colors.orange,
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
+  /// 添加进程
+  void removeProcess(ProcessModel process) {
+    processList.remove(process);
+    processList.refresh();
+    PanelConsole.buildProcessListWidget();
   }
 
-  /// 追加错误日志
-  void appendErrorLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加错误日志文本
-    processOut.add(
-      SelectableText(
-        '[FRPC][ERROR] $element',
-        style: const TextStyle(
-          color: Colors.red,
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
-  }
-
-  void appendSystemInfoLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加警告日志文本
-    processOut.add(
-      SelectableText(
-        '[SYSTEM][INFO] $element',
-        style: TextStyle(
-          color: Colors.tealAccent[400],
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
-  }
-
-  void appendSystemWarnLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加信息日志文本
-    processOut.add(
-      SelectableText(
-        '[SYSTEM][WARN] $element',
-        style: TextStyle(
-          color: Colors.orangeAccent[400],
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
-  }
-
-  void appendSystemErrorLog(String element) {
-    /// 如果输出文本长度超过500，则移除第一条文本
-    if (processOut.length >= 500) processOut.remove(processOut.first);
-
-    /// 添加错误日志文本
-    processOut.add(
-      SelectableText(
-        '[SYSTEM][ERROR] $element',
-        style: TextStyle(
-          color: Colors.redAccent[400],
-          fontWeight: FontWeight.w200,
-          fontFamily: 'Droid Sans Mono',
-        ),
-      ),
-    );
-
-    /// 刷新输出文本
-    processOut.refresh();
+  /// 清空进程
+  /// 请将进程全部结束后再运行此方法，此方法不会结束进程
+  void clearProcess() {
+    processList.clear();
+    processList.refresh();
+    load();
+    PanelConsole.buildProcessListWidget();
   }
 }

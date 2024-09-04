@@ -17,7 +17,7 @@ class License extends StatelessWidget {
         title: const Text('$title - License',
             style: TextStyle(color: Colors.white)),
         // 设置应用栏操作按钮
-        actions: AppbarActionsX(setting: false, context: context).actions(),
+        actions: AppbarActions(setting: false, context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
       // 构建首页内容区域
@@ -32,7 +32,7 @@ class License extends StatelessWidget {
         ),
       ),
       // 构建底部浮动生成按钮
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 }

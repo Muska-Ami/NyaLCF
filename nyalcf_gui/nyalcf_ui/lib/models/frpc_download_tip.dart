@@ -8,7 +8,7 @@ import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 
 class FrpcDownloadTip {
   static final _fcs = FrpcConfigurationStorage();
-  static final FrpcSettingController fsctr = Get.find();
+  static final FrpcSettingController _fSCtr = Get.find();
 
   static Future<Card> tip({required context}) async => Card(
         child: Column(
@@ -34,8 +34,7 @@ class FrpcDownloadTip {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return FrpcDownloadDialogX(context: context)
-                                      .build();
+                                  return frpcDownloadDialog(context);
                                 });
                           },
                           child: const Text('下载'),
@@ -80,8 +79,7 @@ class FrpcDownloadTip {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            return FrpcDownloadDialogX(context: context)
-                                .build();
+                            return frpcDownloadDialog(context);
                           });
                     },
                     child: const Text('重新下载'),

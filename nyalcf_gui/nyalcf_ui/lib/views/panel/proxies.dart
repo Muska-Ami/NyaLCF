@@ -33,10 +33,10 @@ class PanelProxies extends StatelessWidget {
               const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
           //automaticallyImplyLeading: false,
-          actions: AppbarActionsX(append: <Widget>[
+          actions: AppbarActions(append: <Widget>[
             IconButton(
               onPressed: () {
-                Get.dialog(AccountDialogX(context: context).build());
+                Get.dialog(accountDialog(context));
               },
               icon: Obx(() => ClipRRect(
                     borderRadius: BorderRadius.circular(500),
@@ -49,7 +49,7 @@ class PanelProxies extends StatelessWidget {
           ], context: context)
               .actions(),
         ),
-        drawer: DrawerX(context: context).drawer(),
+        drawer: drawer(context),
         body: Container(
           margin: const EdgeInsets.all(15.0),
           child: ListView(
@@ -88,7 +88,7 @@ class PanelProxies extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButtonX().button(),
+        floatingActionButton: floatingActionButton(),
       ),
     );
   }

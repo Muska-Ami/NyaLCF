@@ -28,7 +28,7 @@ class _TokenModeAuthState extends State {
       appBar: AppBar(
         title: const Text('$title - TokenMode',
             style: TextStyle(color: Colors.white)),
-        actions: AppbarActionsX(context: context).actions(),
+        actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
@@ -91,7 +91,7 @@ class _TokenModeAuthState extends State {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 }

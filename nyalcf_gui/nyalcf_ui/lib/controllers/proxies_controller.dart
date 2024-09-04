@@ -230,7 +230,8 @@ class ProxiesController extends GetxController {
           /// 展示编辑框
           void showDialogX(text) {
             Get.dialog(
-              FrpcConfigEditorDialogX(context: context).dialog(
+              frpcConfigurationEditorDialog(
+                context,
                 text,
                 proxyId: element.id,
               ),
@@ -252,7 +253,7 @@ class ProxiesController extends GetxController {
             /// 配置不存在，获取写入
             if (context.mounted) {
               Get.dialog(
-                FrpcConfigEditorDialogX(context: context).loading(),
+                frpcConfigurationEditorLoadingDialog(),
                 barrierDismissible: false,
               );
             } else {

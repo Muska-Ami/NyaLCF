@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/main_window.dart';
 
-class AppbarActionsX {
-  AppbarActionsX(
+class AppbarActions {
+  AppbarActions(
       {this.context, this.append = const <Widget>[], this.setting = true});
 
   final BuildContext? context;

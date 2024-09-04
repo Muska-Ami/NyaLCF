@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
-import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
@@ -13,22 +12,30 @@ class PanelConsoleFull extends StatelessWidget {
   PanelConsoleFull({super.key});
 
   final UserController _uCtr = Get.find();
-  final FrpcController _fCtr = Get.find();
   final ConsoleController _cCtr = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final ScrollController scrollController = ScrollController();
+
     _cCtr.load();
+    _cCtr.processOut.listen((data) {
+      if (_cCtr.autoScroll.value && scrollController.hasClients) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          scrollController.jumpTo(scrollController.position.maxScrollExtent);
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title:
             const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
-        actions: AppbarActionsX(append: <Widget>[
+        actions: AppbarActions(append: <Widget>[
           IconButton(
             onPressed: () {
-              Get.dialog(AccountDialogX(context: context).build());
+              Get.dialog(accountDialog(context));
             },
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
@@ -41,7 +48,7 @@ class PanelConsoleFull extends StatelessWidget {
         ], context: context)
             .actions(),
       ),
-      drawer: DrawerX(context: context).drawer(),
+      drawer: drawer(context),
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -49,10 +56,11 @@ class PanelConsoleFull extends StatelessWidget {
             child: Obx(() => SizedBox(
                   height: MediaQuery.of(context).size.height - 56,
                   child: ListView(
+                    controller: scrollController,
                     padding: const EdgeInsets.all(10),
                     physics: const AlwaysScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    children: _fCtr.processOut,
+                    children: _cCtr.processOut,
                   ),
                 )),
           ),

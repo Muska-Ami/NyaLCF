@@ -38,7 +38,7 @@ class _RegisterState extends State<Register> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('$title - 注册', style: TextStyle(color: Colors.white)),
-        actions: AppbarActionsX(context: context).actions(),
+        actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
@@ -160,7 +160,7 @@ class _RegisterState extends State<Register> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 
