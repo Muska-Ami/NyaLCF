@@ -105,7 +105,7 @@ class FrpcSettingController extends GetxController {
           });*/
       Get.dialog(
         Builder(builder: (BuildContext context) {
-          return FrpcDownloadDialogX(context: context).unarchiving();
+          return frpcUnarchiveDialog();
         }),
         barrierDismissible: false,
       );

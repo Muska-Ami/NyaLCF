@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 
 class FrpcDownloadTip {
   static final _fcs = FrpcConfigurationStorage();
-  static final FrpcSettingController fsctr = Get.find();
 
   static Future<Card> tip({required context}) async => Card(
         child: Column(
@@ -34,8 +31,7 @@ class FrpcDownloadTip {
                             showDialog(
                                 context: context,
                                 builder: (context) {
-                                  return FrpcDownloadDialogX(context: context)
-                                      .build();
+                                  return frpcDownloadDialog(context);
                                 });
                           },
                           child: const Text('下载'),
@@ -80,8 +76,7 @@ class FrpcDownloadTip {
                       showDialog(
                           context: context,
                           builder: (context) {
-                            return FrpcDownloadDialogX(context: context)
-                                .build();
+                            return frpcDownloadDialog(context);
                           });
                     },
                     child: const Text('重新下载'),

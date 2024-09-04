@@ -22,38 +22,39 @@ class SettingInjector extends StatelessWidget {
     dslCtr.load();
 
     return DefaultTabController(
-        length: 2,
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text('$title - 设置',
-                  style: TextStyle(color: Colors.white)),
-              actions:
-                  AppbarActionsX(context: context, setting: false).actions(),
-              bottom: const TabBar(
-                tabs: <Widget>[
-                  Tab(
-                    icon: Icon(Icons.launch, color: Colors.white),
-                    child: Text(
-                      '启动器',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                  Tab(
-                    icon: Icon(Icons.support, color: Colors.white),
-                    child: Text(
-                      'FRPC',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title:
+              const Text('$title - 设置', style: TextStyle(color: Colors.white)),
+          actions: AppbarActions(context: context, setting: false).actions(),
+          bottom: const TabBar(
+            tabs: <Widget>[
+              Tab(
+                icon: Icon(Icons.launch, color: Colors.white),
+                child: Text(
+                  '启动器',
+                  style: TextStyle(color: Colors.white),
+                ),
               ),
-            ),
-            body: TabBarView(
-              children: <Widget>[
-                LauncherSetting().widget(),
-                FrpcSetting(context: context).widget()
-              ],
-            ),
-            floatingActionButton: FloatingActionButtonX().button()));
+              Tab(
+                icon: Icon(Icons.support, color: Colors.white),
+                child: Text(
+                  'FRPC',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )
+            ],
+          ),
+        ),
+        body: TabBarView(
+          children: <Widget>[
+            LauncherSetting().widget(),
+            FrpcSetting(context: context).widget()
+          ],
+        ),
+        floatingActionButton: floatingActionButton(),
+      ),
+    );
   }
 }

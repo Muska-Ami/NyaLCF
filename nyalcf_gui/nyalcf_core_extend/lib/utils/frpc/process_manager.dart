@@ -52,11 +52,11 @@ class FrpcProcessManager {
       // procesList.add();
       // pMap['process'] = process;
       // pMap['proxy_id'] = proxyId;
-      _cCtr.addProcess(process);
+      _fCtr.addProcess(process);
     } catch (e, st) {
       // 检测是否被拦截
       if (e.toString().contains('包含病毒或潜在的垃圾软件')) {
-        Get.dialog(DefenderDialogX().build());
+        Get.dialog(defenderDialog());
       }
       Logger.error(e, t: st);
     }
@@ -71,9 +71,9 @@ class FrpcProcessManager {
       processInstance.stderr.forEach((List<int> element) {
         final String fmtStr = utf8.decode(element).trim();
         Logger.frpcError(proxyId, fmtStr);
-        _fCtr.appendErrorLog(fmtStr);
+        _cCtr.appendErrorLog(fmtStr);
         process!.process.kill();
-        _cCtr.removeProcess(process);
+        _fCtr.removeProcess(process);
       });
     }
 
@@ -88,22 +88,22 @@ class FrpcProcessManager {
         !str.contains('重连失败')) {
       // 启动失败
       Logger.frpcWarn(process.proxyId, str);
-      _fCtr.appendWarnLog(str);
+      _cCtr.appendWarnLog(str);
       process.process.kill();
-      _cCtr.removeProcess(process);
+      _fCtr.removeProcess(process);
     } else if (str.contains('[E]') || str.contains('failed')) {
       // Frpc 错误
       Logger.frpcError(process.proxyId, str);
-      _fCtr.appendErrorLog(str);
+      _cCtr.appendErrorLog(str);
       // 例外
       if (!str.contains(
           'No connection could be made because the target machine actively refused it')) {
         process.process.kill();
-        _cCtr.removeProcess(process);
+        _fCtr.removeProcess(process);
       }
     } else {
       Logger.frpcInfo(process.proxyId, str);
-      _fCtr.appendInfoLog(str);
+      _cCtr.appendInfoLog(str);
     }
     final List<Map<String, String>> errorList = [
       {
@@ -130,36 +130,36 @@ class FrpcProcessManager {
     ];
     for (Map<String, String> error in errorList) {
       if (str.contains(error['key']!)) {
-        _fCtr.appendSystemInfoLog('提示：${error['info']}');
+        _cCtr.appendSystemInfoLog('提示：${error['info']}');
       }
     }
   }
 
   void killAll() {
     Logger.info('Killing all process');
-    Logger.debug('Process length: ${ConsoleController.processList.length}');
-    _fCtr.appendSystemInfoLog('Killing all process...');
+    Logger.debug('Process length: ${FrpcController.processList.length}');
+    _cCtr.appendSystemInfoLog('Killing all process...');
     try {
       var allList = [];
-      allList.addAll(ConsoleController.processList);
+      allList.addAll(FrpcController.processList);
       for (var element in allList) {
         kill(element);
       }
-      _cCtr.clearProcess();
+      _fCtr.clearProcess();
     } catch (e, st) {
-      _fCtr.appendSystemErrorLog('Killing all process error: $e');
+      _cCtr.appendSystemErrorLog('Killing all process error: $e');
       Logger.error(e, t: st);
     }
     Logger.info('All process killed');
-    _fCtr.appendSystemInfoLog('All process killed');
+    _cCtr.appendSystemInfoLog('All process killed');
   }
 
   void kill(ProcessModel prs) {
     Logger.info('Killing frpc process, pid: ${prs.process.pid}');
-    _fCtr.appendSystemInfoLog('Killing process, pid: ${prs.process.pid}');
+    _cCtr.appendSystemInfoLog('Killing process, pid: ${prs.process.pid}');
     prs.process.kill();
-    _cCtr.removeProcess(prs);
+    _fCtr.removeProcess(prs);
 
-    Logger.debug('Process length: ${ConsoleController.processList.length}');
+    Logger.debug('Process length: ${FrpcController.processList.length}');
   }
 }

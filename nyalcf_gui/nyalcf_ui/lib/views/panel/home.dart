@@ -31,10 +31,10 @@ class PanelHome extends StatelessWidget {
             const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
 
         //automaticallyImplyLeading: false,
-        actions: AppbarActionsX(append: <Widget>[
+        actions: AppbarActions(append: <Widget>[
           IconButton(
             onPressed: () {
-              Get.dialog(AccountDialogX(context: context).build());
+              Get.dialog(accountDialog(context));
             },
             icon: Obx(() => ClipRRect(
                   borderRadius: BorderRadius.circular(500),
@@ -47,7 +47,7 @@ class PanelHome extends StatelessWidget {
         ], context: context)
             .actions(),
       ),
-      drawer: DrawerX(context: context).drawer(),
+      drawer: drawer(context),
       body: ListView(
         padding: const EdgeInsets.all(20.0),
         children: <Widget>[
@@ -281,7 +281,7 @@ class PanelHome extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 }

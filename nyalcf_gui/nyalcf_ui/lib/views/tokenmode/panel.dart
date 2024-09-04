@@ -1,8 +1,8 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
-import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
@@ -21,22 +21,39 @@ class TokenModePanel extends StatefulWidget {
 class _TokenModePanelState extends State {
   final proxyController = TextEditingController();
 
-  final FrpcController _fCtr = Get.find();
-  final ConsoleController cctr = Get.put(ConsoleController());
+  final ConsoleController _cCtr = Get.put(ConsoleController());
 
   @override
   void dispose() {
+    // 改回原始最小大小
+    const appMinSize = Size(600, 400);
+    appWindow.minSize = appMinSize;
     proxyController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    // 太小会溢出
+    const appMinSize = Size(775, 400);
+    const appSize = Size(775, 400);
+    if (appWindow.size < appSize) appWindow.size = appSize;
+    appWindow.minSize = appMinSize;
+    final ScrollController scrollController = ScrollController();
+
+    _cCtr.load();
+    _cCtr.processOut.listen((data) {
+      if (_cCtr.autoScroll.value && scrollController.hasClients) {
+        Future.delayed(const Duration(milliseconds: 500), () {
+          scrollController.jumpTo(scrollController.position.maxScrollExtent);
+        });
+      }
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('$title - TokenMode',
             style: TextStyle(color: Colors.white)),
-        actions: AppbarActionsX(context: context).actions(),
+        actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: ListView(
@@ -62,7 +79,7 @@ class _TokenModePanelState extends State {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Container(
-                    width: 300,
+                    width: 200,
                     margin: const EdgeInsets.all(10.0),
                     child: TextField(
                       decoration: const InputDecoration(
@@ -128,8 +145,7 @@ class _TokenModePanelState extends State {
                         ElevatedButton(
                           child: const Text('查看进程列表'),
                           onPressed: () async {
-                            Get.dialog(
-                                ProcessListDialogX(context: context).build());
+                            Get.dialog(processListDialog(context));
                           },
                         ),
                         Container(margin: const EdgeInsets.only(left: 10.0)),
@@ -152,8 +168,20 @@ class _TokenModePanelState extends State {
                           icon: const Icon(Icons.delete),
                           tooltip: '清空日志',
                           onPressed: () async {
-                            _fCtr.processOut.clear();
+                            _cCtr.processOut.clear();
                           },
+                        ),
+                        Row(
+                          children: [
+                            Obx(
+                              () => Checkbox(
+                                value: _cCtr.autoScroll.value,
+                                onChanged: (value) =>
+                                    _cCtr.autoScroll.value = value ?? false,
+                              ),
+                            ),
+                            const Text('自动滚动'),
+                          ],
                         ),
                       ],
                     ),
@@ -168,11 +196,12 @@ class _TokenModePanelState extends State {
               color: Colors.grey.shade900,
               child: SizedBox(
                 width: Checkbox.width,
-                height: 200.0,
+                height: MediaQuery.of(context).size.height - 270,
                 child: Container(
                   margin: const EdgeInsets.all(10.0),
                   child: ListView(
-                    children: _fCtr.processOut,
+                    controller: scrollController,
+                    children: _cCtr.processOut,
                   ),
                 ),
               ),
@@ -180,7 +209,7 @@ class _TokenModePanelState extends State {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 }

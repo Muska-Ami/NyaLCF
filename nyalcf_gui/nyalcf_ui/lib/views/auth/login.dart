@@ -30,7 +30,7 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('$title - 登录', style: TextStyle(color: Colors.white)),
-        actions: AppbarActionsX(context: context).actions(),
+        actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),
       body: Center(
@@ -81,7 +81,7 @@ class _LoginState extends State<Login> {
           ]),
         ),
       ),
-      floatingActionButton: FloatingActionButtonX().button(),
+      floatingActionButton: floatingActionButton(),
     );
   }
 

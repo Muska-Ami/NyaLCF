@@ -104,7 +104,7 @@ class LauncherSetting {
                           children: <Widget>[
                             const Expanded(
                               child: ListTile(
-                                leading: Icon(Icons.auto_awesome),
+                                leading: Icon(Icons.brightness_auto),
                                 title: Text('自动设置主题'),
                               ),
                             ),
