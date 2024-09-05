@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
@@ -98,9 +99,14 @@ class PanelConsole extends StatelessWidget {
                           child: Container(
                             margin: const EdgeInsets.all(10.0),
                             child: Obx(
-                              () => ListView(
-                                controller: scrollController,
-                                children: _cCtr.processOut,
+                              () => AfterLayout(
+                                callback: (RenderAfterLayout ral) =>
+                                    scrollController.jumpTo(scrollController
+                                        .position.maxScrollExtent),
+                                child: ListView(
+                                  controller: scrollController,
+                                  children: _cCtr.processOut,
+                                ),
                               ),
                             ),
                           ),

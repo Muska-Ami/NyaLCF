@@ -98,6 +98,7 @@ class PanelHome extends StatelessWidget {
                                     _uCtr.user.value, _uCtr.token.value);
                                 if (checkSignRes.status) {
                                   checkSignRes as SignResponse;
+                                  Logger.debug(checkSignRes.signed);
                                   if (!checkSignRes.signed) {
                                     final doSignRes = await OtherSign().doSign(
                                         _uCtr.user.value, _uCtr.token.value);

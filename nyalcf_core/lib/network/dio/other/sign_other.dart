@@ -94,6 +94,7 @@ class OtherSign {
       );
 
       Map<String, dynamic> resJson = resData.data;
+      Logger.debug(resJson);
       // final String msg = resJson['message'];
       if (resJson['status'] == 200) {
         // int getTraffic =
