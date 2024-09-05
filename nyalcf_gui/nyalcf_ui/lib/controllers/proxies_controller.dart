@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
@@ -333,8 +334,9 @@ class ProxiesController extends GetxController {
     if (request) {
       final list = await ProxiesGet.get(username, token);
       if (list.status) {
+        list as ProxiesResponse;
         ProxiesStorage.clear();
-        ProxiesStorage.addAll(list.data['proxies_list']);
+        ProxiesStorage.addAll(list.proxies);
       } else {
         // 我草我之前怎么没写这个
         Get.snackbar(

@@ -31,7 +31,7 @@ class UserInfoStorage {
     if (res.status) {
       await File('$_path/session.json').delete();
       return true;
-    } else
-      return false;
+    }
+    return false;
   }
 }

@@ -21,7 +21,7 @@ class PanelConsoleFull extends StatelessWidget {
     _cCtr.load();
     _cCtr.processOut.listen((data) {
       if (_cCtr.autoScroll.value && scrollController.hasClients) {
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
         });
       }

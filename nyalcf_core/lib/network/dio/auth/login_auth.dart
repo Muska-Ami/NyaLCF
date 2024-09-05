@@ -3,7 +3,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 class LoginAuth {
   static final instance = dio.Dio(options);
@@ -31,31 +31,21 @@ class LoginAuth {
           frpToken: resData['frp_token'],
           traffic: num.parse(resData['traffic']),
         );
-        return Response(
-          status: true,
+        return LoginSuccessResponse(
           message: 'OK',
-          data: {
-            'user_info': userInfo,
-            'origin_response': resData,
-          },
+          userInfo: userInfo,
         );
       } else {
-        return Response(
-          status: false,
+        return ErrorResponse(
           message: resData['msg'] ?? responseJson['status'],
-          data: {
-            'origin_response': resData,
-          },
         );
       }
-    } catch (ex, st) {
-      Logger.error(ex, t: st);
-      return Response(
-        status: false,
-        message: ex.toString(),
-        data: {
-          'error': ex,
-        },
+    } catch (e, st) {
+      Logger.error(e, t: st);
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
+        message: e.toString(),
       );
     }
   }

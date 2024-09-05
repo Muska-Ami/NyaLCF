@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart' as dio;
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
 
 class UpdateLauncher {
   static final instance = dio.Dio(options);
@@ -23,27 +23,20 @@ class UpdateLauncher {
         name = info[0];
         buildNumber = info[1];
       }
-      return Response(
-        status: true,
+      return LauncherVersionResponse(
         message: 'OK',
-        data: {
-          'update_info': UpdateInfoModel(
+        updateInfo: UpdateInfoModel(
             version: name,
             tag: resData['tag_name'],
             buildNumber: buildNumber,
             downloadUrl: resData['assets'],
           ),
-          'origin_response': res,
-        },
       );
     } catch (e, st) {
       Logger.error(e, t: st);
-      return Response(
-        status: false,
+      return ErrorResponse(
+        exception: e,
         message: e.toString(),
-        data: {
-          'error': e,
-        },
       );
     }
   }

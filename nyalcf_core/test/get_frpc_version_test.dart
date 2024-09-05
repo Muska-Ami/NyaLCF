@@ -1,10 +1,13 @@
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/network/dio/frpc/frpc.dart';
 
 void main() async {
   final res = await VersionFrpc.getLatestVersion();
   if (res.status) {
-    print(res.data['latest_version']);
+    res as FrpcSingleVersionResponse;
+    print(res.version.tagName);
   } else {
-    throw res.data['error'];
+    res as ErrorResponse;
+    res.exception != null ? throw res.exception! : throw Exception(res.message);
   }
 }

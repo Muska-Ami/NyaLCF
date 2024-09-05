@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart' as dio;
 
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class LogoutAuth {
@@ -27,30 +27,20 @@ class LogoutAuth {
       Logger.debug(responseJson);
       final resData = responseJson['data'];
       if (responseJson['status'] == 200) {
-        return Response(
-          status: true,
+        return LogoutSuccessResponse(
           message: 'OK',
-          data: {
-            'origin_response': resData,
-          },
         );
       } else {
-        return Response(
-          status: false,
+        return ErrorResponse(
           message: resData['msg'] ?? responseJson['status'],
-          data: {
-            'origin_response': resData,
-          },
         );
       }
-    } catch (ex, st) {
-      Logger.error(ex, t: st);
-      return Response(
-        status: false,
-        message: ex.toString(),
-        data: {
-          'error': ex,
-        },
+    } catch (e, st) {
+      Logger.error(e, t: st);
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
+        message: e.toString(),
       );
     }
   }

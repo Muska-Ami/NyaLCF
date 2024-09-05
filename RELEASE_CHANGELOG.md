@@ -6,7 +6,7 @@
 
 ### GUI
 
--/-
+- 修改了 Frpc 下载的处理逻辑
 
 ### CLI
 
@@ -14,6 +14,9 @@
 
 ### 其他
 
+#### NyaLCF Core
+
+- 修改了网络请求的返回数据类型
 - 升级 Frpc 到 `LoCyanFrp-0.51.3-4 #2024082401` ([See here](https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/tag/v0.51.3-4))
 
 ## 版本信息

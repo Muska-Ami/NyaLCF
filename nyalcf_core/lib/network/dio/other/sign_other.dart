@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart' as dio;
 
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
 
 class OtherSign {
@@ -39,13 +39,9 @@ class OtherSign {
       // final String msg = resJson['message'];
       if (resData.statusCode == 200 || resData.statusCode == 403) {
         if (resJson['data']['status']) {
-          return Response(
-            status: true,
+          return SignResponse(
             message: 'OK',
-            data: {
-              'signed': true,
-              'origin_response': resData,
-            },
+            signed: true,
           );
           // final postSign =
           //     await instance.post('https://api.locyanfrp.cn/User/DoSign');
@@ -58,32 +54,22 @@ class OtherSign {
           // } else {
           // }
         } else {
-          return Response(
-            status: true,
+          return SignResponse(
             message: 'OK',
-            data: {
-              'signed': false,
-              'origin_response': resData,
-            },
+            signed: false,
           );
         }
       } else {
-        return Response(
-          status: false,
+        return ErrorResponse(
           message: 'Server error',
-          data: {
-            'error': 'Unknown',
-          },
         );
       }
     } catch (e, st) {
       Logger.error(e, t: st);
-      return Response(
-        status: false,
+      return ErrorResponse(
         message: e.toString(),
-        data: {
-          'error': e,
-        },
+        exception: e,
+        stackTrace: st,
       );
     }
   }
@@ -112,41 +98,28 @@ class OtherSign {
       if (resJson['status'] == 200) {
         // int getTraffic =
         // int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
-        return Response(
+        return SignDataResponse(
           status: true,
-          message: 'OK',
-          data: {
-            'get_traffic': resJson['data']['signTraffic'] * 1024,
-            'first_sign': resJson['data']['firstSign'],
-            'total_sign_count': resJson['data']['totalSignCount'],
-            'total_get_traffic': resJson['data']['totalSignTraffic'] * 1024,
-            'origin_response': resData,
-          },
+          message: 'OK', 
+          getTraffic: resJson['data']['signTraffic'] * 1024,
+          firstSign: resJson['data']['firstSign'],
+          totalSignCount: resJson['data']['totalSignCount'],
+          totalGetTraffic: resJson['data']['totalSignTraffic'] * 1024,
         );
       } else if (resJson['status'] == 403) {
-        return Response(
-          status: false,
+        return ErrorResponse(
           message: 'Signed',
-          data: {
-            'origin_response': resData,
-          },
         );
       }
-      return Response(
-        status: false,
+      return ErrorResponse(
         message: resJson['data']['msg'],
-        data: {
-          'origin_response': resData,
-        },
       );
     } catch (e, st) {
       Logger.error(e, t: st);
-      return Response(
-        status: false,
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
         message: e.toString(),
-        data: {
-          'error': e,
-        },
       );
     }
   }

@@ -9,7 +9,7 @@ class FrpcArchive {
   static final _cachePath = appCachePath;
   static final _supportPath = appSupportPath;
 
-  static Future<bool> unarchive({
+  static Future<bool> extract({
     required platform,
     required arch,
     required version,
@@ -30,11 +30,9 @@ class FrpcArchive {
         await extractFileToDisk(f.path, _cachePath!);
         final dir = Directory(
             '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
-        final iniDir = Directory('${dir.path}/ini');
-        if (await iniDir.exists()) await iniDir.delete();
         Logger.debug('Move frpc into: $_supportPath/frpc/$version');
-        moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
-        Logger.debug('Unarchive frpc package done.');
+        await moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
+        Logger.debug('Extract frpc package done.');
         await f.delete();
       } catch (e, st) {
         await f.delete();

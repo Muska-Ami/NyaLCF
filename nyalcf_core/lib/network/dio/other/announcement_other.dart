@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 class OtherAnnouncement {
   static final instance = dio.Dio(options);
@@ -14,22 +14,15 @@ class OtherAnnouncement {
       final response = await instance.get('$apiV1Url/App/GetBroadCast');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
-      return Response(
-        status: true,
+      return BroadcastResponse(
         message: 'OK',
-        data: {
-          'broadcast': resData['broadcast'],
-          'origin_response': resData,
-        },
+        broadcast: resData['broadcast'],
       );
-    } catch (ex, st) {
-      Logger.error(ex, t: st);
-      return Response(
-        status: false,
-        message: ex.toString(),
-        data: {
-          'error': ex,
-        },
+    } catch (e, st) {
+      Logger.error(e, t: st);
+      return ErrorResponse(
+        exception: e,
+        message: e.toString(),
       );
     }
   }
@@ -41,22 +34,17 @@ class OtherAnnouncement {
       final response = await instance.get('$apiV1Url/App');
       Logger.debug(response);
       final Map<String, dynamic> resData = response.data;
-      return Response(
+      return AdsResponse(
         status: true,
         message: 'OK',
-        data: {
-          'ads': resData['ads'],
-          'origin_response': resData,
-        },
+        ads: resData['ads'],
       );
-    } catch (ex, st) {
-      Logger.error(ex, t: st);
-      return Response(
-        status: false,
-        message: ex.toString(),
-        data: {
-          'error': ex,
-        },
+    } catch (e, st) {
+      Logger.error(e, t: st);
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
+        message: e.toString(),
       );
     }
   }

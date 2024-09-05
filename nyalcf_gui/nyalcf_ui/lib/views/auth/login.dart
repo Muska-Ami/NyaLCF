@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
@@ -106,11 +107,12 @@ class _LoginState extends State<Login> {
     final res = await LoginAuth.requestLogin(
         userController.text, passwordController.text);
     if (res.status) {
-      await UserInfoPrefs.setInfo(res.data['user_info']);
+      res as LoginSuccessResponse;
+      await UserInfoPrefs.setInfo(res.userInfo);
       UserInfoPrefs.saveToFile();
       Get.snackbar(
         '登录成功',
-        '欢迎您，指挥官 ${res.data['user_info'].user}',
+        '欢迎您，指挥官 ${res.userInfo.user}',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );

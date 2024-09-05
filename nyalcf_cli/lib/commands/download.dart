@@ -30,9 +30,9 @@ class Download implements CommandImplement {
           _providePlatform = args[1];
           _provide = true;
         }
-        Logger.verbose('Provide info: ${_provideArch}, ${_providePlatform}');
+        Logger.verbose('Provide info: $_provideArch, $_providePlatform');
         final systemArch = await CPUArch.getCPUArchitecture();
-        Logger.verbose('CPU arch: ${systemArch}');
+        Logger.verbose('CPU arch: $systemArch');
 
         bool supportedSystem = false;
 
@@ -45,11 +45,11 @@ class Download implements CommandImplement {
               _selectedArch = val['arch']!;
             }
           }
-          Logger.info('Automatic selected arch: ${_selectedArch}');
+          Logger.info('Automatic selected arch: $_selectedArch');
         } else {
           _selectedArch = _provideArch!;
           platform = _providePlatform!;
-          Logger.info('Selected: ${_selectedArch} ${_providePlatform}');
+          Logger.info('Selected: $_selectedArch $_providePlatform');
         }
 
         if (supportedSystem || _provide) {
@@ -66,7 +66,7 @@ class Download implements CommandImplement {
             useMirror: false,
           );
           stdout.write('\rPlease wait, extracting frpc...\n');
-          await FrpcArchive.unarchive(
+          await FrpcArchive.extract(
               platform: platform, arch: _selectedArch, version: '0.51.3-4');
         } else {
           Logger.error(
@@ -80,20 +80,20 @@ class Download implements CommandImplement {
   void getPlatformFrpcArchList() {
     if (Platform.isWindows) {
       platform = 'windows';
-      this.arch = Arch.windows;
+      arch = Arch.windows;
     }
     if (Platform.isLinux) {
       platform = 'linux';
-      this.arch = Arch.linux;
+      arch = Arch.linux;
     }
     if (Platform.isMacOS) {
       platform = 'darwin';
-      this.arch = Arch.macos;
+      arch = Arch.macos;
     }
   }
 
   void callback(downloaded, all) {
-    stdout.write('\r' + ' ' * 30);
+    stdout.write('\r${' ' * 30}');
     stdout.write('\rProgress: ${(downloaded / all * 100).toStringAsFixed(2)}%');
   }
 }
