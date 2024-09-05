@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 class UserAuth {
   static final instance = dio.Dio(options);
@@ -24,18 +24,13 @@ class UserAuth {
       return Response(
         status: true,
         message: 'OK',
-        data: {
-          'origin_response': res,
-        },
       );
     } catch (e, st) {
       Logger.error(e, t: st);
-      return Response(
-        status: false,
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
         message: e.toString(),
-        data: {
-          'error': e,
-        },
       );
     }
   }
@@ -64,24 +59,18 @@ class UserAuth {
       // Logger.debug(resData['traffic']);
       // Logger.debug(int.parse(resData['traffic']));
 
-      return Response(
-        status: true,
+      return UserInfoResponse(
         message: 'OK',
-        data: {
-          'traffic': num.parse(resData['traffic']),
-          'inbound': resData['inbound'],
-          'outbound': resData['outbound'],
-          'origin_response': res,
-        },
+        traffic: num.parse(resData['traffic']),
+        inbound: resData['inbound'],
+        outbound: resData['outbound'],
       );
     } catch (e, st) {
       Logger.error(e, t: st);
-      return Response(
-        status: false,
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
         message: e.toString(),
-        data: {
-          'error': e,
-        },
       );
     }
   }

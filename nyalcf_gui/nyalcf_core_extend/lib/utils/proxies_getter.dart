@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
@@ -16,8 +17,9 @@ class ProxiesGetter {
     final result = await ProxiesGet.get(user.user, user.token);
 
     if (result.status) {
+      result as ProxiesResponse;
       ProxiesStorage.clear();
-      ProxiesStorage.addAll(result.data['proxies_list']);
+      ProxiesStorage.addAll(result.proxies);
       try {
         final ProxiesController pctr = Get.find();
         pctr.load(user.user, user.token, request: true);
@@ -26,8 +28,9 @@ class ProxiesGetter {
             'Can not update proxies list widgets, maybe it is not serialized yet.');
       }
     } else {
+      result as ErrorResponse;
       Logger.warn('Can not update proxies list widgets, request failed.');
-      Logger.warn(result.data['error'].toString());
+      Logger.warn(result.exception);
     }
     loading.value = false;
 

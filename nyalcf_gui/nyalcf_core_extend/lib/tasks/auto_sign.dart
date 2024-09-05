@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core_extend/tasks/basic.dart';
@@ -16,7 +17,8 @@ class TaskAutoSign extends TaskBasic {
       String token = userinfo.token;
       final checkSignRes = await OtherSign.checkSign(user, token);
       if (checkSignRes.status) {
-        if (!checkSignRes.data['signed']) {
+        checkSignRes as SignResponse;
+        if (!checkSignRes.signed) {
           // 执行签到
           await sign(user, token);
         } else {
@@ -33,11 +35,12 @@ class TaskAutoSign extends TaskBasic {
   sign(username, token) async {
     final doSignRes = await OtherSign().doSign(username, token);
     if (doSignRes.status) {
+      doSignRes as SignDataResponse;
       Get.snackbar(
         '自动签到成功',
-        doSignRes.data['first_sign']
-            ? '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，这是您的第一次签到呐~'
-            : '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，您已签到 ${doSignRes.data['total_sign_count']} 次，总计获得 ${doSignRes.data['total_get_traffic'] / 1024} GiB 流量',
+        doSignRes.firstSign
+            ? '获得 ${doSignRes.getTraffic / 1024}GiB 流量，这是您的第一次签到呐~'
+            : '获得 ${doSignRes.getTraffic / 1024}GiB 流量，您已签到 ${doSignRes.totalSignCount} 次，总计获得 ${doSignRes.totalGetTraffic / 1024} GiB 流量',
         snackPosition: SnackPosition.BOTTOM,
         animationDuration: const Duration(milliseconds: 300),
       );

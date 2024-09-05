@@ -48,8 +48,9 @@ void main() async {
 
   final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
   if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
-    if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync())
+    if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
       Directory('$appSupportParentPath/moe.muska.ami').createSync();
+    }
     await moveDirectory(
       Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
       Directory('$appSupportParentPath/moe.muska.ami/nyanana'),

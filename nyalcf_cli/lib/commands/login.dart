@@ -1,5 +1,6 @@
 import 'package:nyalcf/templates/command_implement.dart';
 import 'package:nyalcf/utils/text_encrypt.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
@@ -11,7 +12,8 @@ class Login implements CommandImplement {
     if (args.length == 2) {
       final res = await LoginAuth.requestLogin(args[0], args[1]);
       if (res.status) {
-        final UserInfoModel userInfo = res.data['user_info'];
+        res as LoginSuccessResponse;
+        final UserInfoModel userInfo = res.userInfo;
         Logger.info('Login successfully.');
         Logger.info('Info:');
         Logger.info('- name: ${userInfo.user}');

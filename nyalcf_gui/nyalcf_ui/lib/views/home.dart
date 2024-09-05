@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 
 import 'package:nyalcf_ui/controllers/console_controller.dart';
@@ -100,9 +101,10 @@ class HC extends GetxController {
         // 刷新用户信息
         await UserAuth().getInfo(userinfo.token, userinfo.user).then((value) {
           if (value.status) {
-            UserInfoPrefs.setTraffic(value.data['traffic']);
-            UserInfoPrefs.setInbound(value.data['inbound']);
-            UserInfoPrefs.setOutbound(value.data['outbound']);
+            value as UserInfoResponse;
+            UserInfoPrefs.setTraffic(value.traffic);
+            UserInfoPrefs.setInbound(value.inbound);
+            UserInfoPrefs.setOutbound(value.outbound);
           } else {
             Logger.warn(
                 'Check user token success but refresh user info failed. User info may not the latest!');

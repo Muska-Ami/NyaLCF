@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
 import 'package:nyalcf_core_extend/tasks/basic.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -26,8 +27,9 @@ class TaskUpdater extends TaskBasic {
     // 获取远程源版本
     final remote = await UpdateLauncher.getUpdate();
     if (remote.status) {
+      remote as LauncherVersionResponse;
       // 远程源版本获取到的时候才检测
-      uIf = remote.data['update_info'];
+      uIf = remote.updateInfo;
       if (check()) {
         showDialog();
       } else {

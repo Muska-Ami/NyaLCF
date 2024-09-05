@@ -4,6 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_ui/controllers/panel_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/network/dio/other/sign_other.dart';
@@ -96,15 +97,18 @@ class PanelHome extends StatelessWidget {
                                 final checkSignRes = await OtherSign.checkSign(
                                     _uCtr.user.value, _uCtr.token.value);
                                 if (checkSignRes.status) {
-                                  if (!checkSignRes.data['signed']) {
+                                  checkSignRes as SignResponse;
+                                  Logger.debug(checkSignRes.signed);
+                                  if (!checkSignRes.signed) {
                                     final doSignRes = await OtherSign().doSign(
                                         _uCtr.user.value, _uCtr.token.value);
                                     if (doSignRes.status) {
+                                      doSignRes as SignDataResponse;
                                       Get.snackbar(
                                         '签到成功',
-                                        doSignRes.data['first_sign']
-                                            ? '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，这是您的第一次签到呐~'
-                                            : '获得 ${doSignRes.data['get_traffic'] / 1024}GiB 流量，您已签到 ${doSignRes.data['total_sign_count']} 次，总计获得 ${doSignRes.data['total_get_traffic'] / 1024} GiB 流量',
+                                        doSignRes.firstSign
+                                            ? '获得 ${doSignRes.getTraffic / 1024}GiB 流量，这是您的第一次签到呐~'
+                                            : '获得 ${doSignRes.getTraffic / 1024}GiB 流量，您已签到 ${doSignRes.totalSignCount} 次，总计获得 ${doSignRes.totalGetTraffic / 1024} GiB 流量',
                                         snackPosition: SnackPosition.BOTTOM,
                                         animationDuration:
                                             const Duration(milliseconds: 300),
@@ -121,7 +125,7 @@ class PanelHome extends StatelessWidget {
                                       } else {
                                         Get.snackbar(
                                           '签到失败',
-                                          '无法请求签到： ${doSignRes.data['error']}',
+                                          '无法请求签到： ${doSignRes.message}',
                                           snackPosition: SnackPosition.BOTTOM,
                                           animationDuration:
                                               const Duration(milliseconds: 300),
@@ -140,7 +144,7 @@ class PanelHome extends StatelessWidget {
                                 } else {
                                   Get.snackbar(
                                     '签到失败',
-                                    '无法检查当前签到状态： ${checkSignRes.data['error']}',
+                                    '无法检查当前签到状态： ${checkSignRes.message}',
                                     snackPosition: SnackPosition.BOTTOM,
                                     animationDuration:
                                         const Duration(milliseconds: 300),

@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
@@ -44,7 +45,7 @@ class _TokenModePanelState extends State {
     _cCtr.load();
     _cCtr.processOut.listen((data) {
       if (_cCtr.autoScroll.value && scrollController.hasClients) {
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
         });
       }
@@ -199,9 +200,13 @@ class _TokenModePanelState extends State {
                 height: MediaQuery.of(context).size.height - 270,
                 child: Container(
                   margin: const EdgeInsets.all(10.0),
-                  child: ListView(
-                    controller: scrollController,
-                    children: _cCtr.processOut,
+                  child: AfterLayout(
+                    callback: (RenderAfterLayout ral) => scrollController
+                        .jumpTo(scrollController.position.maxScrollExtent),
+                    child: ListView(
+                      controller: scrollController,
+                      children: _cCtr.processOut,
+                    ),
                   ),
                 ),
               ),

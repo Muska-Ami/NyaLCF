@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
@@ -243,13 +244,14 @@ class _RegisterState extends State<Register> {
 
       /// 从登录页面抄过来的
       if (resLogin.status) {
+        resLogin as LoginSuccessResponse;
         //UserInfoCache.info = res;
         //print(UserInfoCache.info);
-        await UserInfoPrefs.setInfo(resLogin.data['user_info']);
+        await UserInfoPrefs.setInfo(resLogin.userInfo);
         UserInfoPrefs.saveToFile();
         Get.snackbar(
           '登录成功',
-          '欢迎您，指挥官 ${resLogin.data['user_info'].user}',
+          '欢迎您，指挥官 ${resLogin.userInfo.user}',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: const Duration(milliseconds: 300),
         );

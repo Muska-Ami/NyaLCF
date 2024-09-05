@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
@@ -21,7 +22,7 @@ class PanelConsoleFull extends StatelessWidget {
     _cCtr.load();
     _cCtr.processOut.listen((data) {
       if (_cCtr.autoScroll.value && scrollController.hasClients) {
-        Future.delayed(const Duration(milliseconds: 500), () {
+        Future.delayed(const Duration(milliseconds: 200), () {
           scrollController.jumpTo(scrollController.position.maxScrollExtent);
         });
       }
@@ -55,12 +56,16 @@ class PanelConsoleFull extends StatelessWidget {
             color: Colors.grey.shade900,
             child: Obx(() => SizedBox(
                   height: MediaQuery.of(context).size.height - 56,
-                  child: ListView(
-                    controller: scrollController,
-                    padding: const EdgeInsets.all(10),
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    children: _cCtr.processOut,
+                  child: AfterLayout(
+                    callback: (RenderAfterLayout ral) => scrollController
+                        .jumpTo(scrollController.position.maxScrollExtent),
+                    child: ListView(
+                      controller: scrollController,
+                      padding: const EdgeInsets.all(10),
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children: _cCtr.processOut,
+                    ),
                   ),
                 )),
           ),

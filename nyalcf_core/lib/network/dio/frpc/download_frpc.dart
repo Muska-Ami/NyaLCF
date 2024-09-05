@@ -1,23 +1,24 @@
 import 'dart:io';
 
-import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class DownloadFrpc {
-  static final dio = Dio(options);
+  static final _instance = dio.Dio(options);
   static final _cachePath = appCachePath;
 
-  static late final _version;
-  static late final _platform;
-  static late final _architecture;
-  static late final _owner;
-  static late final _repo;
-  static late final _releaseName;
-  static late final _suffix;
+  static late String _version;
+  static late String _platform;
+  static late String _architecture;
+  static late String _owner;
+  static late String _repo;
+  static late String _releaseName;
+  static late String _suffix;
 
   static final _fcs = FrpcConfigurationStorage();
 
@@ -30,15 +31,15 @@ class DownloadFrpc {
   /// [cancelToken] 取消下载令牌
   /// [useMirror] 镜像源设置
   /// [mirrorId] 镜像源位于配置中的ID
-  static Future<dynamic> download({
+  static Future<Response> download({
     required String arch,
     required String platform,
     required String version,
     required String releaseName,
-    required ProgressCallback progressCallback,
-    required CancelToken cancelToken,
+    required dio.ProgressCallback progressCallback,
+    required dio.CancelToken cancelToken,
     required bool useMirror,
-    String? mirrorId = null,
+    String? mirrorId,
     // version 版本 | owner 仓库所有者 | release_name 发行版本名称 | repo 仓库名 | arch 架构 | suffix 后缀名 | platform 平台
   }) async {
     Logger.info('Start download: $platform | $version | $arch');
@@ -75,44 +76,64 @@ class DownloadFrpc {
       if (envUrl != null) {
         downloadUrl = _replacePlaceholder(envUrl);
       } else if (useMirror) {
-        if (mirrorId == null)
+        if (mirrorId == null) {
           throw UnimplementedError(
               'No mirrors format input! Please check your arguments.');
+        }
 
         final mirrorList = _fcs.getDownloadMirrors();
         for (var mirror in mirrorList) {
-          if (mirror['id'] == mirrorId)
+          if (mirror['id'] == mirrorId) {
             downloadUrl = _replacePlaceholder(mirror['format']);
+          }
         }
-        if (downloadUrl.isEmpty)
+        if (downloadUrl.isEmpty) {
           throw UnimplementedError(
               'No valid mirror found. Please check your input.');
+        }
         // : '$githubMirrorsUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download' +
         //     '/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_' +
         //     '${_platform}_$_architecture.$_suffix';
       } else {
         downloadUrl =
-            '$githubMainUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download' +
-                '/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_' +
-                '${_platform}_$_architecture.$_suffix';
+            '$githubMainUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$_version/frp_LoCyanFrp-${_version.split('-')[0]}_${_platform}_$_architecture.$_suffix';
       }
 
       Logger.debug('Downloading file: $downloadUrl');
 
-      return await dio.download(
+      final instance = await _instance.download(
         downloadUrl,
         '$_cachePath/frpc.$_suffix',
         cancelToken: cancelToken,
         onReceiveProgress: progressCallback,
       );
-    } on DioException catch (e) {
+      return FrpcDownloadResponse(
+        cancelled: false,
+        instance: instance,
+        message: 'Downloaded',
+      );
+    } on dio.DioException catch (e, st) {
       if (cancelToken.isCancelled) {
-        return true;
+        return FrpcDownloadResponse(
+          status: false,
+          cancelled: true,
+          message: 'Cancelled',
+        );
       } else {
-        return e;
+        Logger.error(e, t: st);
+        return ErrorResponse(
+          exception: e,
+          stackTrace: st,
+          message: e.toString(),
+        );
       }
-    } catch (e) {
-      return e;
+    } catch (e, st) {
+      Logger.error(e, t: st);
+      return ErrorResponse(
+        exception: e,
+        stackTrace: st,
+        message: e.toString(),
+      );
     }
   }
 

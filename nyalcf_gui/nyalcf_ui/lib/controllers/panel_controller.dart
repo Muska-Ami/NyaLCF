@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 import 'package:nyalcf_core/network/dio/other/other.dart';
 
@@ -11,7 +12,8 @@ class DPanelController extends GetxController {
     final broadcast = await OtherAnnouncement.getBroadcast();
     final ads = await OtherAnnouncement().getAds();
     if (broadcast.status) {
-      announcement.value = broadcast.data['broadcast'];
+      broadcast as BroadcastResponse;
+      announcement.value = broadcast.broadcast;
     } else if (!loaded) {
       announcement.value = '获取失败了啊呜，可能是猫猫把网线偷走了~';
       Get.snackbar(
@@ -29,7 +31,8 @@ class DPanelController extends GetxController {
       );
     }
     if (ads.status) {
-      announcementCommon.value = ads.data['ads'];
+      ads as AdsResponse;
+      announcementCommon.value = ads.ads;
     } else if (!loaded) {
       announcementCommon.value = '获取失败了啊呜，可能是猫猫把网线偷走了~';
       Get.snackbar(

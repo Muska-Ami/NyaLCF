@@ -3,7 +3,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:nyalcf_core/models/proxy_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/network/response_type.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 
 class ProxiesStatus {
   static final instance = dio.Dio(options);
@@ -26,22 +26,15 @@ class ProxiesStatus {
           queryParameters: paramsMap);
       Logger.debug(res);
       final Map<String, dynamic> data = res.data['data'];
-      return Response(
-        status: true,
+      return ProxyStatusResponse(
         message: 'OK',
-        data: {
-          'proxy_status': data['status'],
-          'origin_response': res,
-        },
+        online: data['status'],
       );
     } catch (e) {
       Logger.debug(e);
-      return Response(
-        status: true,
+      return ErrorResponse(
+        exception: e,
         message: e.toString(),
-        data: {
-          'error': e,
-        },
       );
     }
   }

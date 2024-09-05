@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/models/response/response.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -394,7 +395,8 @@ class LauncherSetting {
                       loading.value = true;
                       final remote = await UpdateLauncher.getUpdate();
                       if (remote.status) {
-                        TaskUpdater.uIf = remote.data['update_info'];
+                        remote as LauncherVersionResponse;
+                        TaskUpdater.uIf = remote.updateInfo;
                         if (TaskUpdater.check()) TaskUpdater.showDialog();
                       } else {
                         Get.snackbar(
