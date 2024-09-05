@@ -59,15 +59,15 @@ class Download implements CommandImplement {
           await DownloadFrpc.download(
             arch: _selectedArch,
             platform: platform,
-            version: '0.51.3-3',
-            releaseName: 'LoCyanFrp-0.51.3-3 #2024050701',
+            version: '0.51.3-4',
+            releaseName: 'LoCyanFrp-0.51.3-4 #2024082401',
             progressCallback: callback,
             cancelToken: _cancelToken,
             useMirror: false,
           );
           stdout.write('\rPlease wait, extracting frpc...\n');
           await FrpcArchive.unarchive(
-              platform: platform, arch: _selectedArch, version: '0.51.3-3');
+              platform: platform, arch: _selectedArch, version: '0.51.3-4');
         } else {
           Logger.error(
               'Unsupported system! If you believe this is wrong, please provide arch manually in command.');

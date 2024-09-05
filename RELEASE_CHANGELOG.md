@@ -6,9 +6,7 @@
 
 ### GUI
 
-- 添加了自动滚动
-- 修改了一些放错了位置的逻辑
-- 移除多余的类定义
+-/-
 
 ### CLI
 
@@ -16,12 +14,12 @@
 
 ### 其他
 
--/-
+- 升级 Frpc 到 `LoCyanFrp-0.51.3-4 #2024082401` ([See here](https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/tag/v0.51.3-4))
 
 ## 版本信息
 
 - nyalcf_gui: 0.2.1
-- nyalcf_cli: 0.0.1
-- nyalcf_core,nyalcf_inject: 0.1.6
+- nyalcf_cli: 0.0.2
+- nyalcf_core,nyalcf_inject: 1.0.7
 
 <!-- Some change log here -->
