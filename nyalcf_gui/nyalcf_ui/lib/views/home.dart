@@ -124,6 +124,11 @@ class HC extends GetxController {
         // 跳转到面板首页
         Get.toNamed('/panel/home');
       } else {
+        UserInfoStorage.sigo(
+          userinfo.user,
+          userinfo.token,
+          deleteSessionFileOnly: true,
+        );
         // 显示令牌校验失败的SnackBar
         Get.snackbar(
           '令牌校验失败',

@@ -4,6 +4,7 @@ import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -31,6 +32,7 @@ import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 import 'package:nyalcf_ui/views/license.dart';
 
 final _appLinks = AppLinks();
+bool _appInit = false;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -61,9 +63,26 @@ void main() async {
 
   /// 注册并监听深度链接
   if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
-  _appLinks.uriLinkStream.listen((uri) {
+  _appLinks.uriLinkStream.listen((uri) async {
     Logger.debug('Received uri scheme: $uri');
-    DeepLinkExecutor(uri: uri.toString()).execute();
+    final res = await DeepLinkExecutor(uri: uri.toString()).execute();
+
+    Logger.debug(res);
+    if (res[0]) {
+      Logger.debug('Started as token-only mode as deeplink executed success');
+      await TokenModePrefs.setToken(res[1]);
+      await Future.doWhile(() async {
+        if (_appInit) {
+          Get.toNamed('/token_mode/panel');
+          return false; // 结束循环
+        }
+        Logger.debug('Waiting for app init...');
+        await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
+        return true; // 继续循环
+      });
+    } else {
+      Logger.debug('Skip for enter token-only mode');
+    }
   });
 
   /// 启动定时任务
@@ -87,7 +106,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
   Widget build(BuildContext context) {
     ThemeData themeData = ThemeControl().getTheme();
 
-    return GetMaterialApp(
+    final app = GetMaterialApp(
       logWriterCallback: Logger.getxLogWriter,
       title: 'Nya LoCyanFrp!',
       routes: {
@@ -105,6 +124,8 @@ class _AppState extends State<App> with WindowListener, TrayListener {
       },
       theme: themeData,
     );
+    _appInit = true;
+    return app;
   }
 
   /// 组件初始化时操作

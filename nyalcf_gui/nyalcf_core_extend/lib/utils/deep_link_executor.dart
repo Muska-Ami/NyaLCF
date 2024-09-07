@@ -9,7 +9,7 @@ class DeepLinkExecutor {
 
   final String uri;
 
-  void execute() async {
+  Future<List<dynamic>> execute() async {
     final content = uri.replaceFirst('locyanfrp://', '');
     final data = content.split('/');
     final frpToken = data[0], proxyId = int.parse(data[1]);
@@ -20,9 +20,11 @@ class DeepLinkExecutor {
         proxyId: proxyId,
         frpcPath: frpcPath,
       );
+      return [true, frpToken];
     } else {
       Logger.error(
           'Could not implement proxy fast startup, no frpc has installed!');
     }
+    return [false];
   }
 }
