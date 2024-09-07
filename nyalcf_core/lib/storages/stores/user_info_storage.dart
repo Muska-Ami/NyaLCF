@@ -26,10 +26,19 @@ class UserInfoStorage {
   }
 
   /// 退出登录
-  static sigo(user, token) async {
-    final res = await LogoutAuth.requestLogout(user, token);
-    if (res.status) {
+  static Future<bool> sigo(user, token, {deleteSessionFileOnly = false}) async {
+    deleteFile() async {
       await File('$_path/session.json').delete();
+      return true;
+    }
+    if (!deleteSessionFileOnly) {
+      final res = await LogoutAuth.requestLogout(user, token);
+      if (res.status) {
+        await deleteFile();
+        return true;
+      }
+    } else {
+      await deleteFile();
       return true;
     }
     return false;

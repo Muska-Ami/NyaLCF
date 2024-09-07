@@ -6,24 +6,16 @@
 
 ### GUI
 
-- 修改了 Frpc 下载的处理逻辑
-- 打开终端默认自动滚动到底部
+- 针对 `深度链接` 调用启动进行了优化，现在若隧道执行启动成功会自动进入 `仅 Frp Token 模式`
 
 ### CLI
 
 -/-
 
-### 其他
-
-#### NyaLCF Core
-
-- 修改了网络请求的返回数据类型
-- 升级 Frpc 到 `LoCyanFrp-0.51.3-4 #2024082401` ([See here](https://github.com/LoCyan-Team/LoCyanFrpPureApp/releases/tag/v0.51.3-4))
-
 ## 版本信息
 
-- nyalcf_gui: 0.2.1
+- nyalcf_gui: 0.2.2
 - nyalcf_cli: 0.0.2
-- nyalcf_core,nyalcf_inject: 1.0.7
+- nyalcf_core,nyalcf_inject: 1.0.8
 
 <!-- Some change log here -->
