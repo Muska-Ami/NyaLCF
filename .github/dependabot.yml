@@ -6,7 +6,17 @@
 version: 2
 updates:
   - package-ecosystem: "pub" # See documentation for possible values
-    directory: "/" # Location of package manifests
+    directory: "/nyalcf_gui" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_cli"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_core"
     schedule:
       interval: "daily"
     target-branch: "dev"
