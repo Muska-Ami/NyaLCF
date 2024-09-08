@@ -3,6 +3,7 @@ import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.d
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 
 class StoragesInjector {
+  /// 初始化数据存储
   static init() async {
     final lcs = LauncherConfigurationStorage();
     final fcs = FrpcConfigurationStorage();

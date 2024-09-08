@@ -13,14 +13,14 @@ class FrpcStorage {
     return '$_supportPath/frpc';
   }
 
-  /// 获取Frpc文件
+  /// 获取 Frpc 文件
   Future<File?> getFile() async {
     final String? path = await getFilePath();
     if (path != null) return File(path);
     return null;
   }
 
-  /// 获取Frpc文件
+  /// 获取 Frpc 文件路径
   Future<String?> getFilePath() async {
     final String name;
     if (Platform.isWindows) {
@@ -38,13 +38,14 @@ class FrpcStorage {
     }
   }
 
-  /// 获取Frpc运行路径
+  /// 获取 Frpc 运行路径
   Future<String> getRunPath() async {
     var path = '${await _path}/${_fcs.getSettingsFrpcVersion()}/';
     if (Platform.isWindows) path = path.replaceAll('/', '\\');
     return path;
   }
 
+  /// 设置 Frpc 可执行权限
   Future<void> setRunPermission() async {
     Logger.info('Set run permission: ${await getFilePath()}');
     final execPath = await FrpcPathProvider().frpcPath;

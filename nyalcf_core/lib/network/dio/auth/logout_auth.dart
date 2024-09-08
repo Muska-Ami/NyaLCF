@@ -10,7 +10,7 @@ class LogoutAuth {
   /// 请求登出
   /// [user] 用户名
   /// [token] 登录令牌
-  static Future<Response> requestLogout(user, token) async {
+  static Future<Response> requestLogout(String user, String token) async {
     Map<String, dynamic> paramsMap = {};
     paramsMap['username'] = user;
 

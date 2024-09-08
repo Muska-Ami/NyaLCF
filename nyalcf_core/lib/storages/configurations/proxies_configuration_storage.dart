@@ -13,10 +13,13 @@ class ProxiesConfigurationStorage {
   }
 
   /// 配置文件路径
+  /// [proxyId] 隧道 ID
   static _startConfigPath(int proxyId) async =>
       '${await _configDir}/$proxyId.nya';
 
-  /// 设置配置文件
+  /// 设置配置文件内容
+  /// [proxyId] 隧道 ID
+  /// [ini] 配置文件内容
   static setConfig(int proxyId, String ini) async {
     final String cp = await _startConfigPath(proxyId);
     final f = File(cp);
@@ -25,6 +28,7 @@ class ProxiesConfigurationStorage {
   }
 
   /// 获取配置文件路径
+  /// [proxyId] 隧道 ID
   static Future<String?> getConfigPath(int proxyId) async {
     final String cp = await _startConfigPath(proxyId);
     if (await File(cp).exists()) {

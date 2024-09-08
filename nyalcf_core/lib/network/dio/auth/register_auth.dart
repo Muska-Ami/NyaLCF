@@ -15,7 +15,13 @@ class RegisterAuth {
   /// [verify] 邮件验证代码
   /// [qq] QQ号
   static Future<Response> requestRegister(
-      user, password, confirmPassword, email, verify, qq) async {
+    String user,
+    String password,
+    String confirmPassword,
+    String email,
+    verify,
+    qq,
+  ) async {
     dio.FormData data = dio.FormData.fromMap({
       'username': user,
       'password': password,

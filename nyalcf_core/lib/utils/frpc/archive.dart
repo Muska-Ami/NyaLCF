@@ -9,6 +9,10 @@ class FrpcArchive {
   static final _cachePath = appCachePath;
   static final _supportPath = appSupportPath;
 
+  /// 解压下载的 Frpc
+  /// [platform] 平台
+  /// [arch] 架构
+  /// [version] Frpc 版本
   static Future<bool> extract({
     required platform,
     required arch,

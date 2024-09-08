@@ -1,4 +1,17 @@
 /// 隧道信息模型
+/// [proxyName] 隧道名
+/// [useCompression] 是否使用压缩
+/// [localIP] 本地 IP
+/// [node] 节点 ID
+/// [localPort] 本地端口
+/// [remotePort] 远程端口
+/// [domain] 绑定域名
+/// [icp] 备案状态
+/// [sk]
+/// [id] 隧道 ID
+/// [proxyType] 隧道类型
+/// [useEncryption] 是否使用加密
+/// [status] 隧道状态
 class ProxyInfoModel {
   ProxyInfoModel({
     required this.proxyName,

@@ -1,4 +1,8 @@
 /// 启动器更新信息模型
+/// [version] 版本号
+/// [tag] 版本标签
+/// [buildNumber] 版本构建号
+/// [downloadUrl] 资源列表
 class UpdateInfoModel {
   UpdateInfoModel({
     required this.version,
@@ -7,12 +11,8 @@ class UpdateInfoModel {
     required this.downloadUrl,
   });
 
-  /// 版本号
   final String version;
-  /// 版本标签
   final String tag;
-  /// 版本构建号
   final String buildNumber;
-  /// 资源列表
   final List<dynamic> downloadUrl;
 }

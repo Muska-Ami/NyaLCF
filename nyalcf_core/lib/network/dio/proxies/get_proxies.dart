@@ -11,7 +11,7 @@ class ProxiesGet {
   /// 获取隧道列表
   /// [username] 用户名
   /// [token] 登录令牌
-  static Future<Response> get(username, token) async {
+  static Future<Response> get(String username, String token) async {
     try {
       Map<String, dynamic> paramsMap = {};
       paramsMap['username'] = username;

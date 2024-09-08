@@ -11,7 +11,7 @@ class LoginAuth {
   /// 发起登录请求
   /// [user] 用户名
   /// [password] 密码
-  static Future<Response> requestLogin(user, password) async {
+  static Future<Response> requestLogin(String user, String password) async {
     dio.FormData data =
         dio.FormData.fromMap({'username': user, 'password': password});
     try {
