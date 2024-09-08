@@ -26,11 +26,11 @@ class UpdateLauncher {
       return LauncherVersionResponse(
         message: 'OK',
         updateInfo: UpdateInfoModel(
-            version: name,
-            tag: resData['tag_name'],
-            buildNumber: buildNumber,
-            downloadUrl: resData['assets'],
-          ),
+          version: name,
+          tag: resData['tag_name'],
+          buildNumber: buildNumber,
+          downloadUrl: resData['assets'],
+        ),
       );
     } catch (e, st) {
       Logger.error(e, t: st);

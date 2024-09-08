@@ -101,7 +101,7 @@ class OtherSign {
         // int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
         return SignDataResponse(
           status: true,
-          message: 'OK', 
+          message: 'OK',
           getTraffic: resJson['data']['signTraffic'] * 1024,
           firstSign: resJson['data']['firstSign'],
           totalSignCount: resJson['data']['totalSignCount'],

@@ -13,19 +13,31 @@ class DSettingLauncherController extends GetxController {
   final _lcs = LauncherConfigurationStorage();
   final _supportPath = appSupportPath;
 
+  /// <Rx>是否自动启动
   var autostart = false.obs;
 
+  /// <Rx>是否自动签到
   var autoSign = false.obs;
 
+  /// <Rx>是否自动设置主题
   var themeAuto = false.obs;
+
+  /// <Rx>是否启用暗色模式
   var themeDark = false.obs;
+
+  /// <Rx>浅色模式自定义颜色种子
   var themeLightSeed = ''.obs;
+
+  /// <Rx>是否启用浅色模式自定义颜色种子
   var themeLightSeedEnable = false.obs;
 
+  /// <Rx>切换是否启用深色模式的组件
   var switchThemeDark = const Row().obs;
 
+  /// <Rx>是否启用 DEBUG 模式
   var debugMode = false.obs;
 
+  /// 加载控制器
   load() async {
     autostart.value = _getAutostartInkExist();
 
@@ -40,6 +52,7 @@ class DSettingLauncherController extends GetxController {
     loadx();
   }
 
+  /// 这也是加载，不过有其他调用独立出来复用的
   void loadx() {
     if (!(themeAuto.value)) {
       Logger.debug('Auto theme is disabled, add button to switch theme');
@@ -62,6 +75,7 @@ class DSettingLauncherController extends GetxController {
     }
   }
 
+  /// 切换是否使用暗色主题
   void switchDarkTheme(value) async {
     _lcs.setThemeDarkEnable(value);
     _lcs.save();
@@ -77,6 +91,7 @@ class DSettingLauncherController extends GetxController {
     // ThemeControl.switchDarkTheme(value);
   }
 
+  /// 设置是否自动启动启动器
   void setAutostart(bool value) async {
     loading.value = true;
     final userProgramPath = Directory(_supportPath!).parent.parent.path;
@@ -96,6 +111,7 @@ class DSettingLauncherController extends GetxController {
     loading.value = false;
   }
 
+  /// 获取自动启动项的 .ink 文件是否存在
   bool _getAutostartInkExist() {
     final userProgramPath = Directory(_supportPath!).parent.parent.path;
     final startUpPath =
@@ -104,6 +120,7 @@ class DSettingLauncherController extends GetxController {
     return File(lnkFile).existsSync();
   }
 
+  /// 创建自动启动项的 .ink 文件
   Future<void> _createShortcut(String targetPath, String shortcutPath) async {
     // 构建 PowerShell 脚本内容
     var powerShellScript = '''

@@ -236,7 +236,7 @@ packages:
       path: "../nyalcf_core"
       relative: true
     source: path
-    version: "1.0.7"
+    version: "1.0.8"
   nyalcf_inject:
     dependency: "direct main"
     description:

@@ -35,19 +35,27 @@ final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
+  /// 确保前置内容完成初始化
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
+  /// 读取信息
   await Universe.loadUniverse();
+
+  /// 设置 HTTP 请求附加信息
   setAppendInfo(
       'v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
 
+  /// 初始化数据存储
   await StoragesInjector.init();
+
+  /// 初始化 Logger
   await Logger.init();
 
+  /// 自动旧版迁移数据
   final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
   if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
     if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
@@ -88,8 +96,10 @@ void main() async {
   /// 启动定时任务
   TaskScheduler.start();
 
+  /// 运行 App
   runApp(const App());
 
+  /// 当窗口初始化完毕执行
   doWhenWindowReady(MainWindow.doWhenWindowReady);
 }
 
@@ -137,6 +147,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
     _init();
   }
 
+  /// 异步初始化内容
   Future<void> _init() async {
     await windowManager.setPreventClose(true);
     setState(() {});
@@ -150,6 +161,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
     super.dispose();
   }
 
+  // 窗口和托盘图标的事件处理
   @override
   onWindowClose() => MainWindow.onWindowClose();
 

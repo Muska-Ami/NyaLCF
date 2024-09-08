@@ -34,13 +34,15 @@ class FrpcController extends GetxController {
   }
 
   /// 添加进程
+  /// [process] 进程模型
   void addProcess(ProcessModel process) {
     processList.add(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
 
-  /// 添加进程
+  /// 移除进程
+  /// [process] 进程模型
   void removeProcess(ProcessModel process) {
     processList.remove(process);
     processList.refresh();

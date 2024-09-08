@@ -26,8 +26,7 @@ class VersionFrpc {
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(
-        exception:
-            e,
+        exception: e,
         stackTrace: st,
         message: e.toString(),
       );
@@ -60,8 +59,7 @@ class VersionFrpc {
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(
-        exception:
-            e,
+        exception: e,
         stackTrace: st,
         message: e.toString(),
       );

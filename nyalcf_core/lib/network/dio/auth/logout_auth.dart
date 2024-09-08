@@ -16,13 +16,15 @@ class LogoutAuth {
 
     Map<String, dynamic> optionsMap = {};
     optionsMap['Content-Type'] =
-    'application/x-www-form-urlencoded;charset=UTF-8';
+        'application/x-www-form-urlencoded;charset=UTF-8';
     optionsMap['Authorization'] = 'Bearer $token';
     options = options.copyWith(headers: optionsMap);
 
     try {
       Logger.debug('Logout: $user / $token');
-      final response = await instance.delete('$apiV2Url/users/reset/token/single', queryParameters: paramsMap);
+      final response = await instance.delete(
+          '$apiV2Url/users/reset/token/single',
+          queryParameters: paramsMap);
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];

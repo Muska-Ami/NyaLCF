@@ -11,8 +11,8 @@ class Logout implements CommandImplement {
     if (res) {
       Logger.info('Session data removed.');
     } else {
-      Logger.error('Logout failed, please check your network connection and retry.');
+      Logger.error(
+          'Logout failed, please check your network connection and retry.');
     }
   }
-
 }

@@ -11,8 +11,11 @@ import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 class ConsoleController extends GetxController {
   /// UI组件列表
   var widgets = <DataRow>[].obs;
+
+  /// {Rx}进程列表
   static var processListWidget = <Widget>[].obs;
 
+  /// {Rx}控制台自动滚动
   var autoScroll = true.obs;
 
   /// 过滤后的输出文本
@@ -28,6 +31,7 @@ class ConsoleController extends GetxController {
   ].obs;
 
   /// 追加信息日志
+  /// [element] 日志内容
   void appendInfoLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);
@@ -49,6 +53,7 @@ class ConsoleController extends GetxController {
   }
 
   /// 追加警告日志
+  /// [element] 日志内容
   void appendWarnLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);
@@ -70,6 +75,7 @@ class ConsoleController extends GetxController {
   }
 
   /// 追加错误日志
+  /// [element] 日志内容
   void appendErrorLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);
@@ -90,6 +96,8 @@ class ConsoleController extends GetxController {
     processOut.refresh();
   }
 
+  /// 追加系统信息日志
+  /// [element] 日志内容
   void appendSystemInfoLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);
@@ -110,6 +118,8 @@ class ConsoleController extends GetxController {
     processOut.refresh();
   }
 
+  /// 追加系统警告日志
+  /// [element] 日志内容
   void appendSystemWarnLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);
@@ -130,6 +140,8 @@ class ConsoleController extends GetxController {
     processOut.refresh();
   }
 
+  /// 追加系统错误日志
+  /// [element] 日志内容
   void appendSystemErrorLog(String element) {
     /// 如果输出文本长度超过500，则移除第一条文本
     if (processOut.length >= 500) processOut.remove(processOut.first);

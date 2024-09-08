@@ -35,6 +35,7 @@ class UserInfoStorage {
       await File('$_path/session.json').delete();
       return true;
     }
+
     if (!deleteSessionFileOnly) {
       final res = await LogoutAuth.requestLogout(user, token);
       if (res.status) {

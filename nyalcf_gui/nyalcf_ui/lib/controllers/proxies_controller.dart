@@ -44,8 +44,10 @@ class ProxiesController extends GetxController {
   //   ])
   // ].obs;
 
+  /// 隧道状态列表
   static final proxiesStatus = <int, bool?>{};
 
+  /// <Rx>隧道列表组件
   var proxiesWidgets = <Widget>[
     const SizedBox(
       height: 22.0,
@@ -56,7 +58,9 @@ class ProxiesController extends GetxController {
     ),
   ].obs;
 
-  /// 加载代理列表
+  /// 构建隧道列表
+  /// [username] 用户名
+  /// [token] 登录令牌
   build(username, token) async {
     var proxies = ProxiesStorage.get();
     proxiesWidgets.value = [
@@ -142,11 +146,16 @@ class ProxiesController extends GetxController {
     // proxiesListWidgets.refresh();
   }
 
+  /// 获取隧道是否自动启动
+  /// [proxyId] 隧道 ID
   _getIfAutostart(int proxyId) {
     final list = aps.getList();
     return list.contains(proxyId);
   }
 
+  /// 改变隧道是否自动启动
+  /// [proxyId] 隧道 ID
+  /// [value] 是否自动启动
   _changeAutostart(int proxyId, bool? value) async {
     Logger.debug(value);
     if (value == false) {
@@ -163,6 +172,9 @@ class ProxiesController extends GetxController {
     load(_uCtr.user, _uCtr.token);
   }
 
+  /// 获取速度状态
+  /// [proxy] 隧道模型
+  @Deprecated('Low performance')
   _getProxiesStatus(ProxyInfoModel proxy) async {
     proxiesStatus[proxy.id] = null;
     // final res =
@@ -184,6 +196,8 @@ class ProxiesController extends GetxController {
     // }
   }
 
+  /// 获取隧道状态对应颜色
+  /// [input] 隧道在线状态
   Color _getProxyStatusColor(bool? input) {
     Logger.debug(input);
     if (input == null) {
@@ -195,6 +209,8 @@ class ProxiesController extends GetxController {
     }
   }
 
+  /// 构建操作列表
+  /// [element] 隧道模型
   _buildActions(element) async {
     final List<Widget> list = <Widget>[
       IconButton(
@@ -329,6 +345,9 @@ class ProxiesController extends GetxController {
   }
 
   /// 重新加载代理列表
+  /// [username] 用户名
+  /// [token] 登录令牌
+  /// [request] 是否重新请求
   load(username, token, {bool request = false}) async {
     loading.value = true;
     if (request) {
