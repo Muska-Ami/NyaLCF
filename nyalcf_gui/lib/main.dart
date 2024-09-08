@@ -1,35 +1,39 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
-import 'package:tray_manager/tray_manager.dart';
-import 'package:window_manager/window_manager.dart';
-
-import 'package:nyalcf_core_extend/utils/path_provider.dart';
-import 'package:nyalcf_core_extend/utils/theme_control.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/storages/injector.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/utils/universe.dart';
-import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core_extend/utils/deep_link_executor.dart';
+import 'package:nyalcf_core_extend/utils/path_provider.dart';
+import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
+import 'package:nyalcf_core_extend/utils/theme_control.dart';
+import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_tray.dart';
 import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
 import 'package:nyalcf_ui/views/auth/register.dart';
 import 'package:nyalcf_ui/views/auth/tokenmode.dart';
 import 'package:nyalcf_ui/views/home.dart';
+import 'package:nyalcf_ui/views/license.dart';
 import 'package:nyalcf_ui/views/panel/console.dart';
 import 'package:nyalcf_ui/views/panel/console_full.dart';
 import 'package:nyalcf_ui/views/panel/home.dart';
 import 'package:nyalcf_ui/views/panel/proxies.dart';
+import 'package:nyalcf_ui/views/panel/proxies_configuration.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
-import 'package:nyalcf_ui/views/license.dart';
+import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 final _appLinks = AppLinks();
 bool _appInit = false;
@@ -127,6 +131,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/token_mode/panel': (context) => const TokenModePanel(),
         '/panel/home': (context) => PanelHome(),
         '/panel/proxies': (context) => PanelProxies(),
+        '/panel/proxies/configuration': (context) => PanelProxiesConfiguration(),
         '/panel/console': (context) => PanelConsole(),
         '/panel/console/full': (context) => PanelConsoleFull(),
         '/setting': (context) => const SettingInjector(),

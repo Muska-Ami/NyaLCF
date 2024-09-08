@@ -1,13 +1,17 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
-import 'package:nyalcf_ui/controllers/console_controller.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
+// Package imports:
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 import 'package:nyalcf_ui/models/process_list_dialog.dart';

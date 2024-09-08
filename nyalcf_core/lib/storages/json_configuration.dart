@@ -1,10 +1,13 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
+// Package imports:
 import 'package:crypto/crypto.dart';
-
-import 'package:nyalcf_core/utils/file_configuration.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf_core/utils/file_configuration.dart';
 
 abstract class JsonConfiguration {
   var path = appSupportPath;

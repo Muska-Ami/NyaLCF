@@ -1,6 +1,9 @@
-import 'package:nyalcf/templates/command_implement.dart';
+// Package imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
+import 'package:nyalcf/templates/command_implement.dart';
 import 'package:nyalcf/utils/state.dart';
 
 class Config implements CommandImplement {

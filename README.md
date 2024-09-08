@@ -72,6 +72,12 @@ The next generation of LoCyanFrp launcher.
 bash install-dependency.sh
 ```
 
+#### 格式化导入
+
+```shell
+bash sort-import.sh
+```
+
 ### 感谢我们的开发者！是他们使NyaLCF变的更好！
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px"  alt="Contributors"/>

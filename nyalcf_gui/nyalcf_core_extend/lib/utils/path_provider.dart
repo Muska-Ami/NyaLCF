@@ -1,6 +1,6 @@
-import 'package:path_provider/path_provider.dart';
-
+// Package imports:
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:path_provider/path_provider.dart';
 
 class PathProvider {
   static final _supportPathAsync = getApplicationSupportDirectory();

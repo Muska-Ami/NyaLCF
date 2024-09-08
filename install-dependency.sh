@@ -10,7 +10,6 @@ cd ..
 
 # GUI
 cd nyalcf_gui
-
 flutter pub get
 
 cd nyalcf_core_extend

@@ -1,9 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
-
-import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/console_controller.dart';
 
 final ConsoleController _cCtr = Get.find();
 

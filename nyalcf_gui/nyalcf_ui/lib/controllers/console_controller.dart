@@ -1,10 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+// Package imports:
+import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 
 /// 控制台 GetX 状态控制器

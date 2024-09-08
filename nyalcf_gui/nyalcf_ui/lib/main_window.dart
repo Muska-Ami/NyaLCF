@@ -1,14 +1,19 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+// Project imports:
 import 'package:nyalcf_ui/main_tray.dart';
 
 class MainWindow {

@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:archive/archive_io.dart';
-
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf_core/utils/logger.dart';
 
 class FrpcArchive {
   static final _cachePath = appCachePath;

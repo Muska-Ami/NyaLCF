@@ -1,7 +1,7 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
+// Package imports:
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserInfoPrefs {
   static Future<void> setInfo(UserInfoModel userinfo) async {

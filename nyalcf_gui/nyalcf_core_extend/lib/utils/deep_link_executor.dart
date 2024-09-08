@@ -1,6 +1,9 @@
+// Package imports:
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
-import 'frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
+import 'frpc/process_manager.dart';
 
 class DeepLinkExecutor {
   DeepLinkExecutor({

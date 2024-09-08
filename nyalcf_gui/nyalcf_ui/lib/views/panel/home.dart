@@ -1,15 +1,19 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// Package imports:
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_ui/controllers/panel_controller.dart';
-import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/network/dio/other/sign_other.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/panel_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';

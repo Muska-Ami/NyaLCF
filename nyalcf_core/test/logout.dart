@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
 
 void main() async => print(await LogoutAuth.requestLogout(

@@ -1,7 +1,9 @@
+// Package imports:
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:tray_manager/tray_manager.dart';
 
+// Project imports:
 import 'package:nyalcf_ui/main_window.dart';
 
 class MainTray {

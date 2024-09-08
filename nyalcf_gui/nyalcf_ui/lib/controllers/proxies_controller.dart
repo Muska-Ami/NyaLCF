@@ -1,20 +1,25 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 
-import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_ui/controllers/user_controller.dart';
+// Package imports:
+import 'package:get/get.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
+import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
-import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
 
 /// 代理 GetX 状态控制器

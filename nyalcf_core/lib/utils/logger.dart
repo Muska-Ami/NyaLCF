@@ -1,12 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:logger/logger.dart' as log_u;
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
+// Project imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger/file_output.dart';
-import 'package:nyalcf_core/utils/logger/log_printer.dart';
 import 'package:nyalcf_core/utils/logger/frpc_printer.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_core/utils/logger/log_printer.dart';
 
 class Logger {
   static final String? _supportPath = appSupportPath;

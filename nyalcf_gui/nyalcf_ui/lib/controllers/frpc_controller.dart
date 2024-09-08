@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
-
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/views/panel/console.dart';
 
 class FrpcController extends GetxController {

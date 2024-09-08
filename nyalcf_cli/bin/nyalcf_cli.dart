@@ -1,18 +1,22 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:args/args.dart';
-import 'package:nyalcf/commands/config.dart';
-import 'package:nyalcf/commands/download.dart';
-import 'package:nyalcf/commands/login.dart';
-import 'package:nyalcf/arguments.dart';
-import 'package:nyalcf/commands/logout.dart';
-import 'package:nyalcf/commands/start.dart';
-import 'package:nyalcf/utils/path_provider.dart';
-import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf/arguments.dart';
+import 'package:nyalcf/commands/config.dart';
+import 'package:nyalcf/commands/download.dart';
+import 'package:nyalcf/commands/login.dart';
+import 'package:nyalcf/commands/logout.dart';
+import 'package:nyalcf/commands/start.dart';
+import 'package:nyalcf/utils/path_provider.dart';
+import 'package:nyalcf/utils/state.dart';
 
 final version = '0.1.0';
 

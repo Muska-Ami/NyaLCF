@@ -1,12 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+// Package imports:
+import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 class DSettingLauncherController extends GetxController {

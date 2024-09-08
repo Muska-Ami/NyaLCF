@@ -1,6 +1,8 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
+// Package imports:
 import 'package:logger/logger.dart';
 
 class FileOutput extends LogOutput {

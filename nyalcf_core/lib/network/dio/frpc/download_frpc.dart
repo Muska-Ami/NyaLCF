@@ -1,12 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:dio/dio.dart' as dio;
-import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
-import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class DownloadFrpc {
   static final _instance = dio.Dio(options);

@@ -1,10 +1,14 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
-
-import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
+import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 

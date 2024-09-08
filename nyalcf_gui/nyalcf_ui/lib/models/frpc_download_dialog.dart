@@ -1,12 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_core/utils/frpc/archive.dart';
-
-import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
-import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/frpc/frpc.dart';
+import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
+import 'package:nyalcf_core/utils/frpc/archive.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 
 final _fcs = FrpcConfigurationStorage();
 final FrpcSettingController _dsCtr = Get.find();

@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
 
-import 'package:nyalcf_core/utils/logger.dart';
+// Project imports:
 import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class OtherSign {
   static final instance = dio.Dio(options);
