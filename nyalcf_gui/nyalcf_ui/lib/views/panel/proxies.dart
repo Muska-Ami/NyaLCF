@@ -22,9 +22,9 @@ class PanelProxies extends StatelessWidget {
     return AfterLayout(
       callback: (RenderAfterLayout ral) {
         if (ProxiesStorage.get().isEmpty) {
-          pctr.load(_uCtr.user, _uCtr.token, request: true);
+          pctr.load(_uCtr.user.value, _uCtr.token.value, request: true);
         } else {
-          pctr.load(_uCtr.user, _uCtr.token);
+          pctr.load(_uCtr.user.value, _uCtr.token.value);
         }
       },
       child: Scaffold(
@@ -67,7 +67,7 @@ class PanelProxies extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () =>
-                    {pctr.load(_uCtr.user, _uCtr.token, request: true)},
+                    {pctr.load(_uCtr.user.value, _uCtr.token.value, request: true)},
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[Text('刷新'), Icon(Icons.refresh)],

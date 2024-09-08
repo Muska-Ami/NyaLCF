@@ -197,7 +197,7 @@ class _TokenModePanelState extends State {
               color: Colors.grey.shade900,
               child: SizedBox(
                 width: Checkbox.width,
-                height: MediaQuery.of(context).size.height - 270,
+                height: MediaQuery.of(context).size.height - 275,
                 child: Container(
                   margin: const EdgeInsets.all(10.0),
                   child: AfterLayout(

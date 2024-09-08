@@ -25,7 +25,7 @@ Widget accountDialog(BuildContext context) {
           onPressed: () async {
             loading.value = true;
             try {
-              final logout = await UserInfoStorage.sigo(uCtr.user, uCtr.token);
+              final logout = await UserInfoStorage.sigo(uCtr.user.value, uCtr.token.value);
               if (logout) {
                 final HC hc = Get.put(HC());
                 hc.load(force: true);

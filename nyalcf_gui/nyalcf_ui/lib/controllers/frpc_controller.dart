@@ -22,7 +22,7 @@ class FrpcController extends GetxController {
 
   /// 加载方法
   load() async {
-    exist.value = await ((await file).exists());
+    exist.value = await ((await file)?.exists()) ?? false;
   }
 
   /// 获取Frpc文件对象
