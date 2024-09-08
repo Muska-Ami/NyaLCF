@@ -1,15 +1,16 @@
+// Dart imports:
 import 'dart:io';
 
 /// 进程模型
+/// [proxyId] 绑定的隧道 ID
+/// [process] 进程对象
 class ProcessModel {
   ProcessModel({
     required this.proxyId,
     required this.process,
   });
 
-  /// 隧道ID
   final int proxyId;
-  /// 进程对象
   final Process process;
 
   @override

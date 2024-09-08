@@ -1,18 +1,22 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/network/dio/auth/auth.dart';
+import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
+import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
+import 'package:nyalcf_core_extend/utils/proxies_getter.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
+// Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
-import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
-import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/auth/auth.dart';
-import 'package:nyalcf_core_extend/utils/proxies_getter.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 

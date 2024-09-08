@@ -1,47 +1,79 @@
+// Dart imports:
 import 'dart:io';
 
-import 'package:dio/dio.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response;
 import 'package:nyalcf_core/models/response/template/error_model.dart';
-
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
+import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/utils/frpc/arch.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 
 class FrpcSettingController extends GetxController {
   FrpcSettingController({required this.context});
 
-  BuildContext context;
-  List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
   final FrpcConfigurationStorage _fcs = FrpcConfigurationStorage();
 
+  /// BuildContext
+  BuildContext context;
+
+  /// Frpc 架构列表
+  List<Map<String, dynamic>> arch = <Map<String, dynamic>>[];
+
+  /// 目标平台
   String platform = '';
 
   // String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
+  /// <Rx>Frpc 下载提示卡片组件
   Rx<Widget> frpcDownloadTip = const Card().obs;
+
+  /// <Rx>Frpc 下载架构选择组件
   var frpcDownloadArchList = <DropdownMenuItem<dynamic>>[
     const DropdownMenuItem<dynamic>(value: 0, child: Text('加载中')),
   ].obs;
-  var frpcDownloadArch = 0.obs;
-  var frpcDownloadProgress = 0.0.obs;
-  var frpcDownloadShow = <Widget>[].obs;
-  bool frpcDownloadCancel = false;
-  ErrorResponse? frpcDownloadError;
-  var frpcDownloadUseMirror = false.obs;
-  var frpcDownloadMirror = ''.obs;
 
+  /// <Rx>Frpc 下载架构选择组件绑定 ID
+  var frpcDownloadArch = 0.obs;
+
+  /// <Rx>Frpc 下载进度
+  var frpcDownloadProgress = 0.0.obs;
+
+  /// <Rx>Frpc 下载进度条等展示
+  var frpcDownloadShow = <Widget>[].obs;
+
+  /// 是否取消下载 Frpc
+  bool frpcDownloadCancel = false;
+
+  /// Frpc 下载错误响应
+  ErrorResponse? frpcDownloadError;
+
+  /// <Rx>是否使用镜像源
+  var frpcDownloadUseMirror = false.obs;
+
+  // var frpcDownloadMirror = ''.obs;
+
+  /// <Rx>Frpc 版本
   var frpcVersion = ''.obs;
 
+  /// <Rx>CPU架构
   var cpuArch = ''.obs;
 
+  /// 下载镜像源列表
   var downloadMirrors = [];
+
+  /// <Rx>选择的镜像源
   var selectedMirror = 'muska-github-mirror'.obs;
 
+  /// 加载控制器
   load() async {
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
     // await FrpcSettingPrefs.refresh();
@@ -55,6 +87,7 @@ class FrpcSettingController extends GetxController {
     _loadFrpcDropdownItem();
   }
 
+  /// 加载 Frpc 下载提示信息
   void _loadTip() async {
     if (await FrpcPathProvider().frpcPath == null) {
       if (context.mounted) {
@@ -78,6 +111,7 @@ class FrpcSettingController extends GetxController {
     Logger.debug(frpcDownloadArchList);
   }
 
+  /// 刷新 Frpc 下载进度条展示等内容
   void refreshDownloadShow() async {
     if (frpcDownloadCancel) {
       Logger.debug('Download cancelled.');
@@ -100,7 +134,7 @@ class FrpcSettingController extends GetxController {
         value: frpcDownloadProgress.value,
       ));
     }
-    }
+  }
 
   /// 构建Arch列表
   List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
@@ -158,8 +192,10 @@ class FrpcSettingController extends GetxController {
     );
   }
 
+  /// 取消下载的 CancelToken
   CancelToken downloadCancelToken = CancelToken();
 
+  /// 下载 Frpc 回调函数
   void downloadFrpcCallback(received, total) {
     Logger.debug('Download callback: $received');
     if (total != -1) {

@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
 
-import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
+// Project imports:
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class LoginAuth {
   static final instance = dio.Dio(options);
@@ -11,7 +13,7 @@ class LoginAuth {
   /// 发起登录请求
   /// [user] 用户名
   /// [password] 密码
-  static Future<Response> requestLogin(user, password) async {
+  static Future<Response> requestLogin(String user, String password) async {
     dio.FormData data =
         dio.FormData.fromMap({'username': user, 'password': password});
     try {

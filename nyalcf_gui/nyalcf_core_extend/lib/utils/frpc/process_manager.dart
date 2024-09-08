@@ -1,14 +1,15 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
+// Package imports:
 import 'package:get/get.dart';
-
-import 'package:nyalcf_ui/controllers/console_controller.dart';
-import 'package:nyalcf_ui/controllers/frpc_controller.dart';
+import 'package:nyalcf_core/models/process_model.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/models/process_model.dart';
+import 'package:nyalcf_ui/controllers/console_controller.dart';
+import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/models/defender_dialog.dart';
 
 class FrpcProcessManager {

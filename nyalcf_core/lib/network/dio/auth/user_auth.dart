@@ -1,15 +1,17 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
 
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
+// Project imports:
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class UserAuth {
   static final instance = dio.Dio(options);
 
   /// 检查 Token 有效性
   /// [token] 登录令牌
-  static Future<Response> checkToken(token) async {
+  static Future<Response> checkToken(String token) async {
     try {
       Logger.info('Check token if is valid');
       Map<String, dynamic> paramsMap = {};
@@ -35,7 +37,10 @@ class UserAuth {
     }
   }
 
-  Future<Response> getInfo(token, username) async {
+  /// 获取用户信息
+  /// [token] 登录令牌
+  /// [username] 用户名
+  Future<Response> getInfo(String token, String username) async {
     try {
       Logger.info('Refresh user info');
       Map<String, dynamic> paramsMap = {};

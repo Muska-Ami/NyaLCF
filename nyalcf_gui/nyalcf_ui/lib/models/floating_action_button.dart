@@ -1,6 +1,10 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 
+// Project imports:
 import 'package:nyalcf_ui/models/tool_dialog.dart';
 
 Builder floatingActionButton() {

@@ -1,32 +1,39 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
+// Package imports:
 import 'package:crypto/crypto.dart';
-
-import 'package:nyalcf_core/utils/file_configuration.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf_core/utils/file_configuration.dart';
 
 abstract class JsonConfiguration {
   var path = appSupportPath;
 
-  /// 配置文件和默认ConfigMap
+  /// 配置文件和默认 ConfigMap
   File? file;
 
+  /// 指定唯一 handle 用于区分配置
   String get handle;
 
+  /// 配置文件默认内容
   Future<Map<String, dynamic>> get defConfig async => {};
 
-  /// 附加Init方法
+  /// 附加 Init 方法
   void init() => {};
 
+  /// 附加异步 Init 方法
   Future<void> asyncInit() async => {};
 
+  /// 配置文件对象
   FileConfiguration get cfg => FileConfiguration(
         file: file,
         handle: sha1.convert(utf8.encode(handle)).toString(),
       );
 
-  /// 保存
+  /// 保存配置到磁盘
   void save() => cfg.save(replace: true);
 
   /// 从磁盘重载

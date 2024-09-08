@@ -1,10 +1,13 @@
-import 'package:nyalcf/templates/command_implement.dart';
-import 'package:nyalcf/utils/text_encrypt.dart';
+// Package imports:
 import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/dio/auth/auth.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
+import 'package:nyalcf/templates/command_implement.dart';
+import 'package:nyalcf/utils/text_encrypt.dart';
 
 class Login implements CommandImplement {
   @override

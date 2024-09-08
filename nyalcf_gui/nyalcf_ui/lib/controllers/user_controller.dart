@@ -1,5 +1,5 @@
+// Package imports:
 import 'package:get/get.dart';
-
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 
@@ -33,7 +33,7 @@ class UserController extends GetxController {
   /// 欢迎文字
   var welcomeText = '好'.obs;
 
-  /// 加载方法
+  /// 加载控制器
   load() async {
     /// 获取用户信息
     UserInfoModel userinfo = await UserInfoPrefs.getInfo();

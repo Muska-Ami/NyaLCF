@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
-import 'package:nyalcf_core/models/frpc_version_model.dart';
 
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
+// Project imports:
+import 'package:nyalcf_core/models/frpc_version_model.dart';
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class VersionFrpc {
   static final instance = dio.Dio();
@@ -26,8 +28,7 @@ class VersionFrpc {
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(
-        exception:
-            e,
+        exception: e,
         stackTrace: st,
         message: e.toString(),
       );
@@ -60,8 +61,7 @@ class VersionFrpc {
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(
-        exception:
-            e,
+        exception: e,
         stackTrace: st,
         message: e.toString(),
       );

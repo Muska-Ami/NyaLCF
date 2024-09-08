@@ -1,9 +1,13 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+// Package imports:
+import 'package:get/get.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_ui/controllers/launcher_setting_controller.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/floating_action_button.dart';
 import 'package:nyalcf_ui/views/setting/frpc_setting.dart';

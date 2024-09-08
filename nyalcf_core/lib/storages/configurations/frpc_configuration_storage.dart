@@ -1,5 +1,7 @@
+// Dart imports:
 import 'dart:io';
 
+// Project imports:
 import 'package:nyalcf_core/storages/json_configuration.dart';
 
 class FrpcConfigurationStorage extends JsonConfiguration {
@@ -35,37 +37,44 @@ class FrpcConfigurationStorage extends JsonConfiguration {
         },
       };
 
-  /// 使用的 Frpc 版本
+  /// 获取使用的 Frpc 版本
   String getSettingsFrpcVersion() => cfg.getString('settings.frpc_version');
 
+  /// 设置使用的 Frpc 版本
+  /// [value] Frpc 版本
   void setSettingsFrpcVersion(String value) =>
       cfg.setString('settings.frpc_version', value);
 
-  /// 使用镜像源
+  /// 获取是否使用镜像源
   bool getSettingsFrpcDownloadMirror() =>
       cfg.getBool('settings.frpc_download_mirror');
 
+  /// 设置设置使用镜像源
+  /// [value] 是否使用镜像源
   void setSettingsFrpcDownloadMirror(bool value) =>
       cfg.setBool('settings.frpc_download_mirror', value);
 
-  /// 镜像源格式
+  /// 获取使用的镜像源 ID
   String getSettingsFrpcDownloadMirrorId() =>
       cfg.getString('settings.frpc_download_mirror_id');
 
+  /// 设置使用的镜像源 ID
   void setSettingsFrpcDownloadMirrorId(String value) =>
       cfg.setString('settings.frpc_download_mirror_id', value);
 
-  /// 已安装的 Frpc 版本
+  /// 获取已安装的 Frpc 版本
   List<String> getInstalledVersions() =>
       cfg.getStringList('lists.frpc_installed_versions');
 
+  /// 添加已安装的 Frpc 版本
+  /// [value] 版本号
   void addInstalledVersion(String value) {
     final List<String> list = getInstalledVersions();
     list.add(value);
     cfg.setStringList('lists.frpc_installed_versions', list.toSet().toList());
   }
 
-  /// Frpc 下载镜像列表
+  /// 获取 Frpc 下载镜像列表
   List<Map<String, dynamic>> getDownloadMirrors() {
     // 无法 cast，使用 for 转换一下类型
     final list = <Map<String, dynamic>>[];
@@ -75,6 +84,8 @@ class FrpcConfigurationStorage extends JsonConfiguration {
     return list;
   }
 
+  /// 添加 Frpc 下载镜像
+  /// [value] 下载镜像信息
   void addDownloadMirror(Map<String, dynamic> value) {
     final List<Map<String, dynamic>> list = getDownloadMirrors();
     list.add(value);

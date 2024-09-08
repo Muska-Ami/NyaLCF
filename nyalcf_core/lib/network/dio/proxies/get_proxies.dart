@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
 
+// Project imports:
 import 'package:nyalcf_core/models/proxy_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class ProxiesGet {
   static final instance = dio.Dio(options);
@@ -11,7 +13,7 @@ class ProxiesGet {
   /// 获取隧道列表
   /// [username] 用户名
   /// [token] 登录令牌
-  static Future<Response> get(username, token) async {
+  static Future<Response> get(String username, String token) async {
     try {
       Map<String, dynamic> paramsMap = {};
       paramsMap['username'] = username;

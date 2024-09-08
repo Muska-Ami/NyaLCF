@@ -1,8 +1,9 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
+// Package imports:
 import 'package:get/get.dart';
-
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 

@@ -1,14 +1,21 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:archive/archive_io.dart';
-
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+
+// Project imports:
+import 'package:nyalcf_core/utils/logger.dart';
 
 class FrpcArchive {
   static final _cachePath = appCachePath;
   static final _supportPath = appSupportPath;
 
+  /// 解压下载的 Frpc
+  /// [platform] 平台
+  /// [arch] 架构
+  /// [version] Frpc 版本
   static Future<bool> extract({
     required platform,
     required arch,

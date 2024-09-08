@@ -1,12 +1,15 @@
+// Dart imports:
 import 'dart:io';
 
+// Package imports:
 import 'package:logger/logger.dart' as log_u;
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
+// Project imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger/file_output.dart';
-import 'package:nyalcf_core/utils/logger/log_printer.dart';
 import 'package:nyalcf_core/utils/logger/frpc_printer.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_core/utils/logger/log_printer.dart';
 
 class Logger {
   static final String? _supportPath = appSupportPath;
@@ -30,6 +33,7 @@ class Logger {
     if (await dir.exists()) await dir.delete();
   }
 
+  /// 获取 Logger 对象
   static get _logger async {
     List<log_u.LogOutput> multiOutput = [_consoleOutput, await _fileOutPut];
     return log_u.Logger(
@@ -39,6 +43,7 @@ class Logger {
     );
   }
 
+  /// 获取 Frpc Logger 对象
   static get _frpcLogger async {
     List<log_u.LogOutput> multiOutput = [_consoleOutput, await _frpcOutPut];
     return log_u.Logger(
@@ -48,14 +53,17 @@ class Logger {
     );
   }
 
+  /// INFO
   static Future<void> info(s) async {
     (await _logger).i(s);
   }
 
+  /// WARN
   static Future<void> warn(s) async {
     (await _logger).w(s);
   }
 
+  /// ERROR
   static Future<void> error(s, {StackTrace? t}) async {
     final sb = StringBuffer();
     if (s is Exception) {
@@ -70,28 +78,35 @@ class Logger {
     (await _logger).e(sb.toString());
   }
 
+  /// VERBOSE
+  /// 基本上没用，被 DEBUG 替代了
   static Future<void> verbose(s) async {
     (await _logger).v(s);
   }
 
+  /// DEBUG
   static Future<void> debug(s) async {
     if (_lcs.getDebug()) {
       (await _logger).d(s);
     }
   }
 
+  /// FRPC INFO
   static Future<void> frpcInfo(pxid, s) async {
     (await _frpcLogger).i('[$pxid] $s');
   }
 
+  /// FRPC WARN
   static Future<void> frpcWarn(pxid, s) async {
     (await _frpcLogger).w('[$pxid] $s');
   }
 
+  /// FRPC ERROR
   static Future<void> frpcError(pxid, s) async {
     (await _frpcLogger).e('[$pxid] $s');
   }
 
+  /// 覆盖 GetX 默认 Logger
   static Future<void> getxLogWriter(String text, {bool isError = false}) async {
     if (isError) {
       await error(text);

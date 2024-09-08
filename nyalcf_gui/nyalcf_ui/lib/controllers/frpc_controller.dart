@@ -1,8 +1,10 @@
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
-
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/views/panel/console.dart';
 
 class FrpcController extends GetxController {
@@ -22,7 +24,7 @@ class FrpcController extends GetxController {
 
   /// 加载方法
   load() async {
-    exist.value = await ((await file).exists());
+    exist.value = await ((await file)?.exists()) ?? false;
   }
 
   /// 获取Frpc文件对象
@@ -34,13 +36,15 @@ class FrpcController extends GetxController {
   }
 
   /// 添加进程
+  /// [process] 进程模型
   void addProcess(ProcessModel process) {
     processList.add(process);
     processList.refresh();
     PanelConsole.buildProcessListWidget();
   }
 
-  /// 添加进程
+  /// 移除进程
+  /// [process] 进程模型
   void removeProcess(ProcessModel process) {
     processList.remove(process);
     processList.refresh();

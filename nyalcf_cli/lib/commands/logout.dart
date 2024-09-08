@@ -1,6 +1,9 @@
-import 'package:nyalcf/templates/command_implement.dart';
+// Package imports:
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
+import 'package:nyalcf/templates/command_implement.dart';
 
 class Logout implements CommandImplement {
   @override
@@ -11,8 +14,8 @@ class Logout implements CommandImplement {
     if (res) {
       Logger.info('Session data removed.');
     } else {
-      Logger.error('Logout failed, please check your network connection and retry.');
+      Logger.error(
+          'Logout failed, please check your network connection and retry.');
     }
   }
-
 }

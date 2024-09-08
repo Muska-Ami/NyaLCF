@@ -1,20 +1,25 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
+import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/tasks/updater.dart';
+import 'package:nyalcf_core_extend/utils/theme_control.dart';
+import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Project imports:
 import 'package:nyalcf_ui/controllers/launcher_setting_controller.dart';
-import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
-import 'package:nyalcf_core_extend/utils/theme_control.dart';
-import 'package:nyalcf_core_extend/utils/universe.dart';
-import 'package:nyalcf_core_extend/tasks/updater.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 class LauncherSetting {
   final DSettingLauncherController _dsCtr = Get.find();

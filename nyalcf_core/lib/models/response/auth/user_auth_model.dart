@@ -1,5 +1,10 @@
+// Project imports:
 import 'package:nyalcf_core/models/response/response.dart';
 
+/// 用户信息响应
+/// [traffic] 剩余流量
+/// [inbound] 上行带宽
+/// [outbound] 下行带宽
 class UserInfoResponse extends Response {
   UserInfoResponse({
     required this.traffic,

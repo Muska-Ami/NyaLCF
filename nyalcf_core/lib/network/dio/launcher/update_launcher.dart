@@ -1,9 +1,11 @@
+// Package imports:
 import 'package:dio/dio.dart' as dio;
 
+// Project imports:
 import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class UpdateLauncher {
   static final instance = dio.Dio(options);
@@ -26,11 +28,11 @@ class UpdateLauncher {
       return LauncherVersionResponse(
         message: 'OK',
         updateInfo: UpdateInfoModel(
-            version: name,
-            tag: resData['tag_name'],
-            buildNumber: buildNumber,
-            downloadUrl: resData['assets'],
-          ),
+          version: name,
+          tag: resData['tag_name'],
+          buildNumber: buildNumber,
+          downloadUrl: resData['assets'],
+        ),
       );
     } catch (e, st) {
       Logger.error(e, t: st);

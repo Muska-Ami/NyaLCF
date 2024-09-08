@@ -1,8 +1,12 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
 
+// Package imports:
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
 
 class FrpcDownloadTip {
   static final _fcs = FrpcConfigurationStorage();

@@ -1,12 +1,16 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_code_editor/flutter_code_editor.dart';
 import 'package:flutter_highlight/themes/monokai-sublime.dart';
 import 'package:get/get.dart';
-
-import 'package:nyalcf_ui/controllers/proxies_controller.dart';
-import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core_extend/utils/highlight/ini_fix.dart';
+
+// Project imports:
+import 'package:nyalcf_ui/controllers/proxies_controller.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 
 final UserController _uCtr = Get.find();
 final ProxiesController _pCtr = Get.find();

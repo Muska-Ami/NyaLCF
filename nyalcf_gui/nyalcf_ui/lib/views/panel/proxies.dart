@@ -1,11 +1,15 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+// Package imports:
+import 'package:get/get.dart';
+import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
-import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';
@@ -22,9 +26,9 @@ class PanelProxies extends StatelessWidget {
     return AfterLayout(
       callback: (RenderAfterLayout ral) {
         if (ProxiesStorage.get().isEmpty) {
-          pctr.load(_uCtr.user, _uCtr.token, request: true);
+          pctr.load(_uCtr.user.value, _uCtr.token.value, request: true);
         } else {
-          pctr.load(_uCtr.user, _uCtr.token);
+          pctr.load(_uCtr.user.value, _uCtr.token.value);
         }
       },
       child: Scaffold(
@@ -67,7 +71,7 @@ class PanelProxies extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () =>
-                    {pctr.load(_uCtr.user, _uCtr.token, request: true)},
+                    {pctr.load(_uCtr.user.value, _uCtr.token.value, request: true)},
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[Text('刷新'), Icon(Icons.refresh)],

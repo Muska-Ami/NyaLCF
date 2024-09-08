@@ -1,3 +1,4 @@
+// Dart imports:
 import 'dart:convert';
 import 'dart:io';
 
@@ -9,17 +10,21 @@ class FileConfiguration {
     required this.handle,
   });
 
+  /// 配置文件对象
   File? file; // Dart Dart 草你吗，定义File?传Future不报错
+  /// 配置唯一 handle 用于区分配置
   final String handle;
 
+  /// 临时数据，会存储在内存种
   static Map<String, dynamic> tmpData = {};
 
+  /// 初始化内存对象
   void initMap() {
     tmpData[handle] = {};
   }
 
-  /// 一堆B方法
-  /// 气死我里
+  // 一堆B方法
+  // 气死我里
   /// String
   void setString(String node, String value) => set(node, value);
 

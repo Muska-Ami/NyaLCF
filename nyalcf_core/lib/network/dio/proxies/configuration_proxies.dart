@@ -1,9 +1,12 @@
+// Dart imports:
 import 'dart:convert';
 
+// Package imports:
 import 'package:dio/dio.dart';
 
-import 'package:nyalcf_core/utils/logger.dart';
+// Project imports:
 import 'package:nyalcf_core/network/dio/basic_config.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class ProxiesConfiguration {
   static final dio = Dio(options);

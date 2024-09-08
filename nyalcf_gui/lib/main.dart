@@ -1,53 +1,65 @@
+// Dart imports:
 import 'dart:io';
 
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
-import 'package:tray_manager/tray_manager.dart';
-import 'package:window_manager/window_manager.dart';
-
-import 'package:nyalcf_core_extend/utils/path_provider.dart';
-import 'package:nyalcf_core_extend/utils/theme_control.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/storages/injector.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/utils/universe.dart';
-import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
 import 'package:nyalcf_core_extend/utils/deep_link_executor.dart';
+import 'package:nyalcf_core_extend/utils/path_provider.dart';
+import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
+import 'package:nyalcf_core_extend/utils/theme_control.dart';
+import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_tray.dart';
 import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
 import 'package:nyalcf_ui/views/auth/register.dart';
 import 'package:nyalcf_ui/views/auth/tokenmode.dart';
 import 'package:nyalcf_ui/views/home.dart';
+import 'package:nyalcf_ui/views/license.dart';
 import 'package:nyalcf_ui/views/panel/console.dart';
 import 'package:nyalcf_ui/views/panel/console_full.dart';
 import 'package:nyalcf_ui/views/panel/home.dart';
 import 'package:nyalcf_ui/views/panel/proxies.dart';
+import 'package:nyalcf_ui/views/panel/proxies_configuration.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
-import 'package:nyalcf_ui/views/license.dart';
+import 'package:tray_manager/tray_manager.dart';
+import 'package:window_manager/window_manager.dart';
 
 final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
+  /// 确保前置内容完成初始化
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
 
+  /// 读取信息
   await Universe.loadUniverse();
+
+  /// 设置 HTTP 请求附加信息
   setAppendInfo(
       'v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
 
+  /// 初始化数据存储
   await StoragesInjector.init();
+
+  /// 初始化 Logger
   await Logger.init();
 
+  /// 自动旧版迁移数据
   final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
   if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
     if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
@@ -88,8 +100,10 @@ void main() async {
   /// 启动定时任务
   TaskScheduler.start();
 
+  /// 运行 App
   runApp(const App());
 
+  /// 当窗口初始化完毕执行
   doWhenWindowReady(MainWindow.doWhenWindowReady);
 }
 
@@ -117,6 +131,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/token_mode/panel': (context) => const TokenModePanel(),
         '/panel/home': (context) => PanelHome(),
         '/panel/proxies': (context) => PanelProxies(),
+        '/panel/proxies/configuration': (context) => PanelProxiesConfiguration(),
         '/panel/console': (context) => PanelConsole(),
         '/panel/console/full': (context) => PanelConsoleFull(),
         '/setting': (context) => const SettingInjector(),
@@ -137,6 +152,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
     _init();
   }
 
+  /// 异步初始化内容
   Future<void> _init() async {
     await windowManager.setPreventClose(true);
     setState(() {});
@@ -150,6 +166,7 @@ class _AppState extends State<App> with WindowListener, TrayListener {
     super.dispose();
   }
 
+  // 窗口和托盘图标的事件处理
   @override
   onWindowClose() => MainWindow.onWindowClose();
 

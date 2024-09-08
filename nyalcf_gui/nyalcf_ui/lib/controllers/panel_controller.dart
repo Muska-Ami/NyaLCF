@@ -1,13 +1,19 @@
+// Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
-
 import 'package:nyalcf_core/network/dio/other/other.dart';
 
 class DPanelController extends GetxController {
+  /// 是否已加载完毕
   static var loaded = false;
+
+  /// <Rx>公告内容
   var announcement = '喵喵喵？正在请求捏'.obs;
+
+  /// <Rx>通知内容
   var announcementCommon = '喵喵喵？正在请求捏'.obs;
 
+  /// 加载控制器
   load() async {
     final broadcast = await OtherAnnouncement.getBroadcast();
     final ads = await OtherAnnouncement().getAds();

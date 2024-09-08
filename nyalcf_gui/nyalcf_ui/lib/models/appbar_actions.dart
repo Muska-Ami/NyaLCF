@@ -1,8 +1,12 @@
-import 'package:bitsdojo_window/bitsdojo_window.dart';
+// Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
+// Package imports:
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
+// Project imports:
 import 'package:nyalcf_ui/main_window.dart';
 
 class AppbarActions {

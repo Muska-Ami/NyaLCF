@@ -1,3 +1,4 @@
+// Package imports:
 import 'package:highlight/src/common_modes.dart';
 import 'package:highlight/src/mode.dart';
 

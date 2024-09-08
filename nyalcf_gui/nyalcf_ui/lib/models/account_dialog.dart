@@ -1,14 +1,18 @@
+// Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:get/get.dart';
+import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
-import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/panel_controller.dart';
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
-import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/views/home.dart';
 
 Widget accountDialog(BuildContext context) {
@@ -25,7 +29,7 @@ Widget accountDialog(BuildContext context) {
           onPressed: () async {
             loading.value = true;
             try {
-              final logout = await UserInfoStorage.sigo(uCtr.user, uCtr.token);
+              final logout = await UserInfoStorage.sigo(uCtr.user.value, uCtr.token.value);
               if (logout) {
                 final HC hc = Get.put(HC());
                 hc.load(force: true);
