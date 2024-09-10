@@ -1,6 +1,6 @@
 name: nyalcf_inject
 description: "Nya LoCyanFrp! communication injector module."
-version: 0.1.5
+version: 1.0.9
 homepage: https://nyalcf.1l1.icu
 publish_to: 'none'
 

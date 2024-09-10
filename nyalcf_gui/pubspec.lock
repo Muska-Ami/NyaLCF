@@ -446,14 +446,14 @@ packages:
       path: "../nyalcf_core"
       relative: true
     source: path
-    version: "1.0.8"
+    version: "1.0.9"
   nyalcf_core_extend:
     dependency: "direct main"
     description:
       path: nyalcf_core_extend
       relative: true
     source: path
-    version: "1.0.8"
+    version: "1.0.9"
   nyalcf_inject:
     dependency: "direct main"
     description:
@@ -467,14 +467,14 @@ packages:
       path: nyalcf_inject_extend
       relative: true
     source: path
-    version: "1.0.8"
+    version: "1.0.9"
   nyalcf_ui:
     dependency: "direct main"
     description:
       path: nyalcf_ui
       relative: true
     source: path
-    version: "1.0.8"
+    version: "1.0.9"
   open_filex:
     dependency: transitive
     description:

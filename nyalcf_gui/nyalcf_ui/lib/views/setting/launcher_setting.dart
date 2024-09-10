@@ -22,7 +22,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:nyalcf_ui/controllers/launcher_setting_controller.dart';
 
 class LauncherSetting {
-  final DSettingLauncherController _dsCtr = Get.find();
+  final LauncherSettingLauncherController _lsCtr = Get.find();
   final _lcs = LauncherConfigurationStorage();
 
   static final String? _supportPath = appSupportPath;
@@ -60,10 +60,10 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.autostart.value,
+                              value: _lsCtr.autostart.value,
                               onChanged: (value) async {
                                 if (Platform.isWindows) {
-                                  _dsCtr.setAutostart(value);
+                                  _lsCtr.setAutostart(value);
                                 } else {
                                   Get.snackbar(
                                     '呜哇！',
@@ -115,12 +115,12 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.themeAuto.value,
+                              value: _lsCtr.themeAuto.value,
                               onChanged: (value) async {
                                 _lcs.setThemeAuto(value);
                                 _lcs.save();
-                                _dsCtr.themeAuto.value = value;
-                                _dsCtr.loadx();
+                                _lsCtr.themeAuto.value = value;
+                                _lsCtr.loadx();
                                 if (value) {
                                   ThemeControl.autoSet();
                                 } else if (_lcs.getThemeDarkEnable()) {
@@ -142,7 +142,7 @@ class LauncherSetting {
                             ),
                           ],
                         ),
-                        _dsCtr.switchThemeDark.value,
+                        _lsCtr.switchThemeDark.value,
                         Row(
                           children: <Widget>[
                             const Expanded(
@@ -181,7 +181,7 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.themeLightSeedEnable.value,
+                              value: _lsCtr.themeLightSeedEnable.value,
                               onChanged: (value) async {
                                 _lcs.setThemeLightSeedEnable(value);
                                 Logger.debug(_lcs.getThemeLightSeedEnable());
@@ -238,13 +238,13 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.autoSign.value,
+                              value: _lsCtr.autoSign.value,
                               onChanged: (value) async {
-                                _dsCtr.autoSign.value = value;
+                                _lsCtr.autoSign.value = value;
                                 _lcs.setAutoSign(value);
                                 _lcs.save();
                                 // if (Platform.isWindows) {
-                                //   _dsCtr.setAutostart(value);
+                                //   _lsCtr.setAutostart(value);
                                 // } else {
                                 //   Get.snackbar(
                                 //     '呜哇！',
@@ -296,11 +296,11 @@ class LauncherSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.debugMode.value,
+                              value: _lsCtr.debugMode.value,
                               onChanged: (value) async {
                                 _lcs.setDebug(value);
                                 _lcs.save();
-                                _dsCtr.debugMode.value = value;
+                                _lsCtr.debugMode.value = value;
                               },
                             ),
                           ],

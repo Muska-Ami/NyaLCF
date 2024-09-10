@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/network/dio/other/other.dart';
 
-class DPanelController extends GetxController {
+class HomePanelController extends GetxController {
   /// 是否已加载完毕
   static var loaded = false;
 

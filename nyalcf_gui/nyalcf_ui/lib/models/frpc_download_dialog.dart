@@ -13,7 +13,7 @@ import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 
 final _fcs = FrpcConfigurationStorage();
-final FrpcSettingController _dsCtr = Get.find();
+final FrpcSettingController _lsCtr = Get.find();
 
 Widget frpcDownloadDialog(BuildContext context) {
   return SimpleDialog(
@@ -24,56 +24,56 @@ Widget frpcDownloadDialog(BuildContext context) {
             left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
         child: Column(
           children: <Widget>[
-            Text('猫猫翻遍了系统变量，识别到 CPU 架构为：${_dsCtr.cpuArch}'),
+            Text('猫猫翻遍了系统变量，识别到 CPU 架构为：${_lsCtr.cpuArch}'),
             Obx(() => DropdownButton(
-                  value: _dsCtr.frpcDownloadArch.value,
-                  items: _dsCtr.frpcDownloadArchList,
+                  value: _lsCtr.frpcDownloadArch.value,
+                  items: _lsCtr.frpcDownloadArchList,
                   onChanged: (value) {
-                    Logger.debug(_dsCtr.arch);
-                    Logger.info('Selected arch: ${_dsCtr.arch[value]['arch']}');
-                    _dsCtr.frpcDownloadArch.value = value;
+                    Logger.debug(_lsCtr.arch);
+                    Logger.info('Selected arch: ${_lsCtr.arch[value]['arch']}');
+                    _lsCtr.frpcDownloadArch.value = value;
                   },
                 )),
             ElevatedButton(
               onPressed: () async {
                 /// 刷新UI，下载frpc
-                _dsCtr.refreshDownloadShow();
+                _lsCtr.refreshDownloadShow();
 
                 final mirror = _fcs.getSettingsFrpcDownloadMirrorId();
 
                 /// 开始下载
                 Get.dialog(_downloading(), barrierDismissible: false);
-                _dsCtr.frpcDownloadProgress.value = 0.0;
-                _dsCtr.refreshDownloadShow();
+                _lsCtr.frpcDownloadProgress.value = 0.0;
+                _lsCtr.refreshDownloadShow();
                 try {
                   final res = await DownloadFrpc.download(
-                    arch: _dsCtr.arch[_dsCtr.frpcDownloadArch.value]['arch'],
-                    platform: _dsCtr.platform,
+                    arch: _lsCtr.arch[_lsCtr.frpcDownloadArch.value]['arch'],
+                    platform: _lsCtr.platform,
                     version: '0.51.3-4',
                     releaseName: 'LoCyanFrp-0.51.3-4 #2024082401',
-                    progressCallback: _dsCtr.downloadFrpcCallback,
-                    cancelToken: _dsCtr.downloadCancelToken,
+                    progressCallback: _lsCtr.downloadFrpcCallback,
+                    cancelToken: _lsCtr.downloadCancelToken,
                     useMirror: _fcs.getSettingsFrpcDownloadMirror(),
                     mirrorId: mirror.isNotEmpty ? mirror : null,
                   );
                   if (res.status) {
                     res as FrpcDownloadResponse;
                     final resExtract = FrpcArchive.extract(
-                      platform: _dsCtr.platform,
-                      arch: _dsCtr.arch[_dsCtr.frpcDownloadArch.value]['arch'],
+                      platform: _lsCtr.platform,
+                      arch: _lsCtr.arch[_lsCtr.frpcDownloadArch.value]['arch'],
                       version: '0.51.3-4',
                     );
                     if (await resExtract) {
                       Get.close(0);
                       Get.close(0);
-                      _dsCtr.load();
+                      _lsCtr.load();
                     }
-                    _dsCtr.refreshDownloadShow();
+                    _lsCtr.refreshDownloadShow();
                   } else {
                     if (res is FrpcDownloadResponse && res.cancelled) {
-                      _dsCtr.frpcDownloadCancel = true;
+                      _lsCtr.frpcDownloadCancel = true;
                     } else {
-                      _dsCtr.frpcDownloadError = res as ErrorResponse;
+                      _lsCtr.frpcDownloadError = res as ErrorResponse;
                     }
                   }
                 } catch (e, st) {
@@ -106,13 +106,13 @@ Widget _downloading() {
         child: Column(
           children: <Widget>[
             // ignore: invalid_use_of_protected_member
-            Obx(() => Column(children: _dsCtr.frpcDownloadShow.value)),
+            Obx(() => Column(children: _lsCtr.frpcDownloadShow.value)),
             Obx(() => Text(
-                '进度：${(_dsCtr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),
+                '进度：${(_lsCtr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),
             ElevatedButton(
               onPressed: () async {
-                _dsCtr.downloadCancelToken.cancel();
-                _dsCtr.refreshDownloadShow();
+                _lsCtr.downloadCancelToken.cancel();
+                _lsCtr.refreshDownloadShow();
                 Get.close(0);
               },
               child: const Text('取消'),

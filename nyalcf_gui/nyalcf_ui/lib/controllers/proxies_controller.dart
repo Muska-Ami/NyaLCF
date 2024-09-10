@@ -128,12 +128,29 @@ class ProxiesController extends GetxController {
                 Row(children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(left: 5.0),
-                    child: Checkbox(
-                      value: _getIfAutostart(element.id),
-                      onChanged: (value) async {
-                        _changeAutostart(element.id, value);
-                      },
-                    ),
+                    child: Builder(builder: (BuildContext context) {
+                      ValueNotifier<bool> autostartNotifier =
+                          ValueNotifier(_getIfAutostart(element.id));
+                      return ValueListenableBuilder<bool>(
+                        valueListenable: autostartNotifier,
+                        builder: (context, isAutostart, child) {
+                          return Checkbox(
+                            value: isAutostart,
+                            onChanged: (value) async {
+                              _changeAutostart(element.id, value);
+                              autostartNotifier.value =
+                                  value ?? false; // 更新通知器的值
+                            },
+                          );
+                        },
+                      );
+                    }),
+                    // Checkbox(
+                    //   value: _getIfAutostart(element.id),
+                    //   onChanged: (value) async {
+                    //     _changeAutostart(element.id, value);
+                    //   },
+                    // ),
                   ),
                   const Text('跟随程序启动'),
                 ]),
@@ -174,7 +191,7 @@ class ProxiesController extends GetxController {
       aps.save();
       Logger.debug(_getIfAutostart(proxyId));
     }
-    load(_uCtr.user, _uCtr.token);
+    // load(_uCtr.user, _uCtr.token);
   }
 
   /// 获取速度状态
@@ -250,12 +267,13 @@ class ProxiesController extends GetxController {
         tooltip: '编辑配置文件',
         onPressed: () async {
           /// 展示编辑框
-          void showDialogX(text) {
+          void showDialog(text, {firstEdit = false}) {
             Get.dialog(
               frpcConfigurationEditorDialog(
                 context,
                 text,
                 proxyId: element.id,
+                firstEdit: firstEdit,
               ),
               barrierDismissible: false,
             );
@@ -270,7 +288,7 @@ class ProxiesController extends GetxController {
             /// 配置已存在
             final f = File(fp);
             text = await f.readAsString();
-            showDialogX(text);
+            showDialog(text);
           } else {
             /// 配置不存在，获取写入
             if (context.mounted) {
@@ -289,7 +307,7 @@ class ProxiesController extends GetxController {
               text = res;
               ProxiesConfigurationStorage.setConfig(element.id, res);
               Get.close(0);
-              showDialogX(text);
+              showDialog(text, firstEdit: true);
             } else if (res == null) {
               Get.snackbar(
                 '获取配置文件失败',

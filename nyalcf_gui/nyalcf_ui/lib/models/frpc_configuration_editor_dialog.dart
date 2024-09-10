@@ -22,7 +22,7 @@ CodeController _controller(defText) => CodeController(
     );
 
 Widget frpcConfigurationEditorDialog(BuildContext context, text,
-    {required proxyId}) {
+    {required proxyId, firstEdit = false}) {
   final c = _controller(text);
   return AlertDialog(
     title: const Text('编辑配置文件'),
@@ -47,6 +47,7 @@ Widget frpcConfigurationEditorDialog(BuildContext context, text,
       ElevatedButton(
         child: const Text('放弃'),
         onPressed: () {
+          if (firstEdit) ProxiesConfigurationStorage.deleteConfig(proxyId);
           Get.close(0);
         },
       ),

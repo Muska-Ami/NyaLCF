@@ -10,7 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
-import 'package:nyalcf_ui/controllers/panel_controller.dart';
+import 'package:nyalcf_ui/controllers/home_panel_controller.dart';
 import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/views/home.dart';
@@ -29,15 +29,16 @@ Widget accountDialog(BuildContext context) {
           onPressed: () async {
             loading.value = true;
             try {
-              final logout = await UserInfoStorage.sigo(uCtr.user.value, uCtr.token.value);
+              final logout =
+                  await UserInfoStorage.sigo(uCtr.user.value, uCtr.token.value);
               if (logout) {
                 final HC hc = Get.put(HC());
                 hc.load(force: true);
                 Get.toNamed('/');
                 Logger.info('Dispose controllers');
                 try {
-                  final DPanelController dpctr = Get.find();
-                  dpctr.dispose();
+                  final HomePanelController hpCtrtr = Get.find();
+                  hpCtrtr.dispose();
                 } catch (ignore) {
                   //
                 }

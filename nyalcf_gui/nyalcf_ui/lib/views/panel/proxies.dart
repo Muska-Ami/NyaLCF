@@ -22,13 +22,13 @@ class PanelProxies extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pctr = Get.put(ProxiesController(context: context));
+    final pCtr = Get.put(ProxiesController(context: context));
     return AfterLayout(
       callback: (RenderAfterLayout ral) {
         if (ProxiesStorage.get().isEmpty) {
-          pctr.load(_uCtr.user.value, _uCtr.token.value, request: true);
+          pCtr.load(_uCtr.user.value, _uCtr.token.value, request: true);
         } else {
-          pctr.load(_uCtr.user.value, _uCtr.token.value);
+          pCtr.load(_uCtr.user.value, _uCtr.token.value);
         }
       },
       child: Scaffold(
@@ -63,19 +63,46 @@ class PanelProxies extends StatelessWidget {
                 child: const Column(
                   children: <Widget>[
                     Text(
-                      '隧道信息每隔15分钟更新，您也可以点击下方按钮立即更新。',
+                      '隧道信息每隔15分钟更新，您也可以点击刷新立即更新。',
                       style: TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () =>
-                    {pctr.load(_uCtr.user.value, _uCtr.token.value, request: true)},
-                child: const Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[Text('刷新'), Icon(Icons.refresh)],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.only(right: 10),
+                    child: ElevatedButton(
+                      onPressed: () async => pCtr.load(
+                        _uCtr.user.value,
+                        _uCtr.token.value,
+                        request: true,
+                      ),
+                      child: const Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text('刷新'),
+                          Icon(Icons.refresh),
+                        ],
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await Get.toNamed('/panel/proxies/configuration');
+                      pCtr.load(_uCtr.user.value, _uCtr.token.value);
+                    },
+                    child: const Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text('管理高级配置文件'),
+                        Icon(Icons.settings),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               Container(margin: const EdgeInsets.all(4)),
               Column(
@@ -85,7 +112,7 @@ class PanelProxies extends StatelessWidget {
                         spacing: 8.0, // 水平间距
                         runSpacing: 4.0,
                         // ignore: invalid_use_of_protected_member
-                        children: pctr.proxiesWidgets.value,
+                        children: pCtr.proxiesWidgets.value,
                       ))
                 ],
               )
