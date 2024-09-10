@@ -128,12 +128,29 @@ class ProxiesController extends GetxController {
                 Row(children: <Widget>[
                   Container(
                     margin: const EdgeInsets.only(left: 5.0),
-                    child: Checkbox(
-                      value: _getIfAutostart(element.id),
-                      onChanged: (value) async {
-                        _changeAutostart(element.id, value);
-                      },
-                    ),
+                    child: Builder(builder: (BuildContext context) {
+                      ValueNotifier<bool> autostartNotifier =
+                          ValueNotifier(_getIfAutostart(element.id));
+                      return ValueListenableBuilder<bool>(
+                        valueListenable: autostartNotifier,
+                        builder: (context, isAutostart, child) {
+                          return Checkbox(
+                            value: isAutostart,
+                            onChanged: (value) async {
+                              _changeAutostart(element.id, value);
+                              autostartNotifier.value =
+                                  value ?? false; // 更新通知器的值
+                            },
+                          );
+                        },
+                      );
+                    }),
+                    // Checkbox(
+                    //   value: _getIfAutostart(element.id),
+                    //   onChanged: (value) async {
+                    //     _changeAutostart(element.id, value);
+                    //   },
+                    // ),
                   ),
                   const Text('跟随程序启动'),
                 ]),
@@ -174,7 +191,7 @@ class ProxiesController extends GetxController {
       aps.save();
       Logger.debug(_getIfAutostart(proxyId));
     }
-    load(_uCtr.user, _uCtr.token);
+    // load(_uCtr.user, _uCtr.token);
   }
 
   /// 获取速度状态
