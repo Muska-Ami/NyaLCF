@@ -267,12 +267,13 @@ class ProxiesController extends GetxController {
         tooltip: '编辑配置文件',
         onPressed: () async {
           /// 展示编辑框
-          void showDialogX(text) {
+          void showDialog(text, {firstEdit = false}) {
             Get.dialog(
               frpcConfigurationEditorDialog(
                 context,
                 text,
                 proxyId: element.id,
+                firstEdit: firstEdit,
               ),
               barrierDismissible: false,
             );
@@ -287,7 +288,7 @@ class ProxiesController extends GetxController {
             /// 配置已存在
             final f = File(fp);
             text = await f.readAsString();
-            showDialogX(text);
+            showDialog(text);
           } else {
             /// 配置不存在，获取写入
             if (context.mounted) {
@@ -306,7 +307,7 @@ class ProxiesController extends GetxController {
               text = res;
               ProxiesConfigurationStorage.setConfig(element.id, res);
               Get.close(0);
-              showDialogX(text);
+              showDialog(text, firstEdit: true);
             } else if (res == null) {
               Get.snackbar(
                 '获取配置文件失败',

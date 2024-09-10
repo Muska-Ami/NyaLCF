@@ -6,16 +6,24 @@
 
 ### GUI
 
-- 修复 token-only mode 界面溢出可滚动问题
+- 新增隧道高级配置文件管理页面 #179
+- 当配置文件不存在获取后选择放弃时自动删除已获取的配置文件
+- 勾选自动启动时不再刷新整个组件树，而是刷新对应的 Checkbox
 
 ### CLI
 
 -/-
 
+### 其他
+
+#### NyaLCF Core
+
+- 为隧道高级配置文件存储管理类添加了几个方法
+
 ## 版本信息
 
 - nyalcf_gui: 0.2.2
 - nyalcf_cli: 0.0.2
-- nyalcf_core,nyalcf_inject: 1.0.8
+- nyalcf_core,nyalcf_inject: 1.0.9
 
 <!-- Some change log here -->

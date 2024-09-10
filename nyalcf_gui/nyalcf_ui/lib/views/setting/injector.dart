@@ -20,8 +20,8 @@ class SettingInjector extends StatelessWidget {
   Widget build(BuildContext context) {
     final FrpcSettingController fsctr =
         Get.put(FrpcSettingController(context: context));
-    final DSettingLauncherController dslCtr =
-        Get.put(DSettingLauncherController());
+    final LauncherSettingLauncherController dslCtr =
+        Get.put(LauncherSettingLauncherController());
     fsctr.load();
     dslCtr.load();
 

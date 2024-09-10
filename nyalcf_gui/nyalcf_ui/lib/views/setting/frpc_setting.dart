@@ -14,15 +14,15 @@ class FrpcSetting {
 
   final BuildContext context;
   final _fcs = FrpcConfigurationStorage();
-  final FrpcSettingController _dsCtr = Get.find();
+  final FrpcSettingController _lsCtr = Get.find();
 
   Widget widget() {
-    _dsCtr.context = context;
+    _lsCtr.context = context;
     return Container(
       margin: const EdgeInsets.all(15.0),
       child: ListView(
         children: <Widget>[
-          Obx(() => _dsCtr.frpcDownloadTip.value),
+          Obx(() => _lsCtr.frpcDownloadTip.value),
           Card(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,10 +48,10 @@ class FrpcSetting {
                               ),
                             ),
                             Switch(
-                              value: _dsCtr.frpcDownloadUseMirror.value,
+                              value: _lsCtr.frpcDownloadUseMirror.value,
                               onChanged: (value) async {
                                 _fcs.setSettingsFrpcDownloadMirror(value);
-                                _dsCtr.frpcDownloadUseMirror.value = value;
+                                _lsCtr.frpcDownloadUseMirror.value = value;
                                 _fcs.save();
                               },
                             ),
@@ -67,16 +67,16 @@ class FrpcSetting {
                             ),
                             Obx(
                               () => DropdownButton<String>(
-                                value: _dsCtr.selectedMirror.value,
+                                value: _lsCtr.selectedMirror.value,
                                 onChanged: (value) {
                                   Logger.debug('Selected mirror id: $value');
                                   if (value != null) {
                                     _fcs.setSettingsFrpcDownloadMirrorId(value);
-                                    _dsCtr.selectedMirror.value = value;
+                                    _lsCtr.selectedMirror.value = value;
                                     _fcs.save();
                                   }
                                 },
-                                items: _dsCtr.downloadMirrors
+                                items: _lsCtr.downloadMirrors
                                     .map<DropdownMenuItem<String>>(
                                   (value) {
                                     return DropdownMenuItem<String>(

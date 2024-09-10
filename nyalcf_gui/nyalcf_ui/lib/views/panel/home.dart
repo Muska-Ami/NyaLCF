@@ -12,7 +12,7 @@ import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
-import 'package:nyalcf_ui/controllers/panel_controller.dart';
+import 'package:nyalcf_ui/controllers/home_panel_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
@@ -23,12 +23,12 @@ class PanelHome extends StatelessWidget {
   PanelHome({super.key});
 
   final UserController _uCtr = Get.find();
-  final DPanelController _dpCtr = Get.put(DPanelController());
+  final HomePanelController _hpCtrtr = Get.put(HomePanelController());
 
   @override
   Widget build(BuildContext context) {
     _uCtr.load();
-    _dpCtr.load();
+    _hpCtrtr.load();
 
     return Scaffold(
       appBar: AppBar(
@@ -251,7 +251,7 @@ class PanelHome extends StatelessWidget {
                                           launchUrl(Uri.parse(url));
                                         }
                                       },
-                                      data: '${_dpCtr.announcementCommon}'))))
+                                      data: '${_hpCtrtr.announcementCommon}'))))
                         ],
                       ),
                     ),
@@ -279,7 +279,7 @@ class PanelHome extends StatelessWidget {
                                         launchUrl(Uri.parse(url));
                                       }
                                     },
-                                    data: '${_dpCtr.announcement}'))))
+                                    data: '${_hpCtrtr.announcement}'))))
                       ],
                     ),
                   )),

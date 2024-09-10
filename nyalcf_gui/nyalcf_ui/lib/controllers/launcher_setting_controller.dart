@@ -12,7 +12,7 @@ import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
-class DSettingLauncherController extends GetxController {
+class LauncherSettingLauncherController extends GetxController {
   final _lcs = LauncherConfigurationStorage();
   final _supportPath = appSupportPath;
 

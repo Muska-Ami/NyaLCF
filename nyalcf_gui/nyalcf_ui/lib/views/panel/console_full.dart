@@ -76,9 +76,7 @@ class PanelConsoleFull extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          Get.toNamed('/panel/console');
-        },
+        onPressed: () async => Get.back(),
         elevation: 7.0,
         highlightElevation: 14.0,
         mini: false,
