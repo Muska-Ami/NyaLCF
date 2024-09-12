@@ -59,7 +59,12 @@ jobs:
           path: nyalcf_gui/dist
 
   linux:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - ubuntu-22-arm64
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -93,12 +98,12 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Build)
+          name: Linux Artifact(Build ${{ matrix.os }})
           path: nyalcf_gui/build
       - name: Upload Dist Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: Linux Artifact(Dist)
+          name: Linux Artifact(Dist ${{ matrix.os }})
           path: nyalcf_gui/dist
 
   macos:
