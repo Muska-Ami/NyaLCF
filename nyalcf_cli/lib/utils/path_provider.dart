@@ -2,6 +2,7 @@
 import 'dart:io';
 
 // Package imports:
+import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class PathProvider {
@@ -9,8 +10,8 @@ class PathProvider {
       '${Directory(Platform.resolvedExecutable).parent.path}/.nyalcf';
 
   static Future<void> loadPath() async {
-    final cachePath = '$basicPath/cache';
-    final supportPath = '$basicPath/data';
+    final cachePath = ENV_UNIVERSAL_CACHE_DIR ?? '$basicPath/cache';
+    final supportPath = ENV_UNIVERSAL_SUPPORT_DIR ?? '$basicPath/data';
 
     final dirBase = Directory(basicPath);
     final dirCache = Directory(cachePath);

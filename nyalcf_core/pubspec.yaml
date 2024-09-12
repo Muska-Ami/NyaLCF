@@ -1,6 +1,6 @@
 name: nyalcf_core
 description: 'Nya LoCyanFrp! core module.'
-version: 1.0.9
+version: 1.1.0
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 # repository: https://github.com/my_org/my_repo
@@ -10,6 +10,8 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
+  nyalcf_env:
+    path: ../nyalcf_env
   nyalcf_inject:
     path: ../nyalcf_inject
   dio: ^5.4.1

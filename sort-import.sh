@@ -1,3 +1,8 @@
+# ENV
+cd nyalcf_env
+dart run import_sorter:main
+cd ..
+
 # CORE
 cd nyalcf_core
 dart run import_sorter:main

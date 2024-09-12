@@ -1,6 +1,6 @@
 name: nyalcf
 description: "[GUI]The next generation of LoCyanFrp launcher."
-version: 0.2.2+3
+version: 0.2.3
 homepage: https://nyalcf.1l1.icu
 publish_to: 'none'
 
@@ -17,6 +17,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  nyalcf_env:
+    path: ../nyalcf_env
   nyalcf_inject:
     path: ../nyalcf_inject
   nyalcf_core:

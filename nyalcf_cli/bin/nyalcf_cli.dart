@@ -6,6 +6,7 @@ import 'package:args/args.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_env/init.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
@@ -18,7 +19,7 @@ import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/state.dart';
 
-final version = '0.1.0';
+final version = '0.0.3';
 
 ArgParser buildParser() {
   return Arguments.all;
@@ -30,6 +31,7 @@ void printUsage(ArgParser argParser) {
 }
 
 void main(List<String> arguments) async {
+  initEnv();
   /// 加载环境
   setAppendInfo('CLI v$version an=${Platform.executable}');
 

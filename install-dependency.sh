@@ -1,3 +1,8 @@
+# ENV
+cd nyalcf_env
+dart pub get
+cd ..
+
 # CORE
 cd nyalcf_core
 dart pub get
