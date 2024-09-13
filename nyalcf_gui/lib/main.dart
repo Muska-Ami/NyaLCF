@@ -69,10 +69,15 @@ void main() async {
     if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
       Directory('$appSupportParentPath/moe.muska.ami').createSync();
     }
-    await moveDirectory(
-      Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
-      Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
-    );
+    try {
+      await moveDirectory(
+        Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
+        Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
+      );
+    } catch (e, st) {
+      Logger.error('Could not automatic move launcher data to new folder!');
+      Logger.error(e, t: st);
+    }
   }
 
   Logger.debug('Append info has been set: $appendInfo');
