@@ -17,7 +17,6 @@ import 'package:nyalcf_core_extend/utils/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
-import 'package:nyalcf_env/init.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_tray.dart';
@@ -41,7 +40,6 @@ final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
-  initEnv();
 
   /// 确保前置内容完成初始化
   WidgetsFlutterBinding.ensureInitialized();

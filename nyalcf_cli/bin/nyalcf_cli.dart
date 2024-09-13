@@ -6,7 +6,6 @@ import 'package:args/args.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_env/init.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
@@ -31,7 +30,6 @@ void printUsage(ArgParser argParser) {
 }
 
 void main(List<String> arguments) async {
-  initEnv();
   /// 加载环境
   setAppendInfo('CLI v$version an=${Platform.executable}');
 
