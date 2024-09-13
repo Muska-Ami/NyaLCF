@@ -1,5 +1,5 @@
-library nyalcf_inject;
+library;
 
-export 'app_info_provider.dart';
-export 'path_provider.dart';
-export 'io_util.dart';
+export 'src/app_info_provider.dart';
+export 'src/path_provider.dart';
+export 'src/io_util.dart';

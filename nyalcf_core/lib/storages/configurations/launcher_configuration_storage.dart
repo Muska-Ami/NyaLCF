@@ -1,6 +1,9 @@
 // Dart imports:
 import 'dart:io';
 
+// Package imports:
+import 'package:nyalcf_env/nyalcf_env.dart';
+
 // Project imports:
 import 'package:nyalcf_core/storages/json_configuration.dart';
 
@@ -30,9 +33,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
       };
 
   /// 获取是否开启 DEBUG
-  bool getDebug() =>
-      (Platform.environment['NYA_LCF_DEBUG'] == 'true' ? true : null) ??
-      cfg.getBool('debug');
+  bool getDebug() => ENV_UNIVERSAL_DEBUG ?? cfg.getBool('debug');
 
   /// 设置是否开启 DEBUG
   /// [value] 是否开启 DEBUG

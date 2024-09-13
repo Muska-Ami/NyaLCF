@@ -17,6 +17,7 @@ import 'package:nyalcf_core_extend/utils/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_tray.dart';
 import 'package:nyalcf_ui/main_window.dart';
@@ -39,6 +40,7 @@ final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
+
   /// 确保前置内容完成初始化
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();
@@ -65,37 +67,44 @@ void main() async {
     if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
       Directory('$appSupportParentPath/moe.muska.ami').createSync();
     }
-    await moveDirectory(
-      Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
-      Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
-    );
+    try {
+      await moveDirectory(
+        Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
+        Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
+      );
+    } catch (e, st) {
+      Logger.error('Could not automatic move launcher data to new folder!');
+      Logger.error(e, t: st);
+    }
   }
 
   Logger.debug('Append info has been set: $appendInfo');
 
   /// 注册并监听深度链接
-  if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
-  _appLinks.uriLinkStream.listen((uri) async {
-    Logger.debug('Received uri scheme: $uri');
-    final res = await DeepLinkExecutor(uri: uri.toString()).execute();
+  if (!(ENV_GUI_DISABLE_DEEPLINK ?? false)) {
+    if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
+    _appLinks.uriLinkStream.listen((uri) async {
+      Logger.debug('Received uri scheme: $uri');
+      final res = await DeepLinkExecutor(uri: uri.toString()).execute();
 
-    Logger.debug(res);
-    if (res[0]) {
-      Logger.debug('Started as token-only mode as deeplink executed success');
-      await TokenModePrefs.setToken(res[1]);
-      await Future.doWhile(() async {
-        if (_appInit) {
-          Get.toNamed('/token_mode/panel');
-          return false; // 结束循环
-        }
-        Logger.debug('Waiting for app init...');
-        await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
-        return true; // 继续循环
-      });
-    } else {
-      Logger.debug('Skip for enter token-only mode');
-    }
-  });
+      Logger.debug(res);
+      if (res[0]) {
+        Logger.debug('Started as token-only mode as deeplink executed success');
+        await TokenModePrefs.setToken(res[1]);
+        await Future.doWhile(() async {
+          if (_appInit) {
+            Get.toNamed('/token_mode/panel');
+            return false; // 结束循环
+          }
+          Logger.debug('Waiting for app init...');
+          await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
+          return true; // 继续循环
+        });
+      } else {
+        Logger.debug('Skip for enter token-only mode');
+      }
+    });
+  }
 
   /// 启动定时任务
   TaskScheduler.start();
@@ -131,7 +140,8 @@ class _AppState extends State<App> with WindowListener, TrayListener {
         '/token_mode/panel': (context) => const TokenModePanel(),
         '/panel/home': (context) => PanelHome(),
         '/panel/proxies': (context) => PanelProxies(),
-        '/panel/proxies/configuration': (context) => PanelProxiesConfiguration(),
+        '/panel/proxies/configuration': (context) =>
+            PanelProxiesConfiguration(),
         '/panel/console': (context) => PanelConsole(),
         '/panel/console/full': (context) => PanelConsoleFull(),
         '/setting': (context) => const SettingInjector(),

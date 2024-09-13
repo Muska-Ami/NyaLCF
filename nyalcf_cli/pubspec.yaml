@@ -1,6 +1,6 @@
 name: nyalcf
 description: "[CLI]The next generation of LoCyanFrp launcher."
-version: 0.0.2
+version: 0.0.3
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 # repository: https://github.com/my_org/my_repo
@@ -10,12 +10,14 @@ environment:
 
 # Add regular dependencies here.
 dependencies:
-  args: ^2.4.2
-  nyalcf_inject:
-    path: ../nyalcf_inject
   nyalcf_core:
     path: ../nyalcf_core
+  nyalcf_env:
+    path: ../nyalcf_env
+  nyalcf_inject:
+    path: ../nyalcf_inject
   dio: ^5.7.0
+  args: ^2.4.2
 
 dev_dependencies:
   lints: ^3.0.0

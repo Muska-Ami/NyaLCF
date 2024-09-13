@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf_env/nyalcf_env.dart';
 
 // Project imports:
 import 'package:nyalcf_core_extend/tasks/auto_sign.dart';
@@ -9,7 +10,7 @@ class TaskScheduler {
   static final _lcs = LauncherConfigurationStorage();
 
   static Future<void> start() async {
-    _taskUpdater();
+    if (ENV_GUI_DISABLE_AUTO_UPDATE_CHECK ?? false) _taskUpdater();
     _taskAutoSign();
   }
 

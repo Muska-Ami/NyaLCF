@@ -3,6 +3,7 @@ import 'dart:io';
 
 // Package imports:
 import 'package:dio/dio.dart' as dio;
+import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
@@ -59,7 +60,7 @@ class DownloadFrpc {
     try {
       // final String downloadBasicUrl;
 
-      final envUrl = Platform.environment['NYA_LCF_FRPC_DOWNLOAD_MIRROR_URL'];
+      final envUrl = ENV_UNIVERSAL_FRPC_DOWNLOAD_MIRROR_URL;
       String downloadUrl = '';
       // '$downloadBasicUrl/LoCyan-Team/LoCyanFrpPureApp/releases/download/v$version/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch.$suffix';
 

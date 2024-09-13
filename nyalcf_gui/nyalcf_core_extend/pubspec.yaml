@@ -1,6 +1,6 @@
 name: nyalcf_core_extend
 description: "Nya LoCyanFrp! core extend module."
-version: 1.0.9
+version: 1.1.0
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 
@@ -13,6 +13,8 @@ dependencies:
 
   nyalcf_core:
     path: ../../nyalcf_core
+  nyalcf_env:
+    path: ../../nyalcf_env
   nyalcf_inject:
     path: ../../nyalcf_inject
   nyalcf_ui:

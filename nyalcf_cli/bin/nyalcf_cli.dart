@@ -18,7 +18,7 @@ import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/utils/path_provider.dart';
 import 'package:nyalcf/utils/state.dart';
 
-final version = '0.1.0';
+final version = '0.0.3';
 
 ArgParser buildParser() {
   return Arguments.all;

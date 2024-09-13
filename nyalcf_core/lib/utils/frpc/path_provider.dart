@@ -1,6 +1,9 @@
 // Dart imports:
 import 'dart:io';
 
+// Package imports:
+import 'package:nyalcf_env/nyalcf_env.dart';
+
 // Project imports:
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 
@@ -14,7 +17,7 @@ class FrpcPathProvider {
   Future<String?> get frpcPath async {
     final String? path;
     final String? appFrpcPath = await _fss.getFilePath();
-    final String? envFrpcPath = Platform.environment['NYA_LCF_FRPC_PATH'];
+    final String? envFrpcPath = ENV_UNIVERSAL_FRPC_PATH;
     if (envFrpcPath != null) {
       path = envFrpcPath;
     } else {

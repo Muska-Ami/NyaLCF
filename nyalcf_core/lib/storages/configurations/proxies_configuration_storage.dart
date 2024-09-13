@@ -59,7 +59,11 @@ class ProxiesConfigurationStorage {
     final list = <int>[];
     for (var entity in fileList) {
       if ((await entity.stat()).type != FileSystemEntityType.file) break;
-      final name = entity.path.replaceAll('\\', '/').split('/').last.replaceFirst('.nya', '');
+      final name = entity.path
+          .replaceAll('\\', '/')
+          .split('/')
+          .last
+          .replaceFirst('.nya', '');
       try {
         list.add(int.parse(name));
         Logger.debug('Added: $name');
