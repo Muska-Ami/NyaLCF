@@ -5,18 +5,55 @@
 
 version: 2
 updates:
-  - package-ecosystem: "pub" # See documentation for possible values
-    directory: "/nyalcf_gui" # Location of package manifests
+  # Inject
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_inject"
     schedule:
       interval: "daily"
     target-branch: "dev"
+
+  # Core
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_core"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+
+  # GUI
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_gui"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  ## UI
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_gui/nyalcf_ui"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  ## Core Extend
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_gui/nyalcf_inject_extend"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+  ## Inject Extend
+  - package-ecosystem: "pub"
+    directory: "/nyalcf_gui/nyalcf_core_extend"
+    schedule:
+      interval: "daily"
+    target-branch: "dev"
+
+  # CLI
   - package-ecosystem: "pub"
     directory: "/nyalcf_cli"
     schedule:
       interval: "daily"
     target-branch: "dev"
+
+  # ENV
   - package-ecosystem: "pub"
-    directory: "/nyalcf_core"
+    directory: "/nyalcf_env"
     schedule:
       interval: "daily"
     target-branch: "dev"
