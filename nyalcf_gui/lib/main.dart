@@ -40,7 +40,6 @@ final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
-
   /// 确保前置内容完成初始化
   WidgetsFlutterBinding.ensureInitialized();
   await windowManager.ensureInitialized();

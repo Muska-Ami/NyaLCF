@@ -74,6 +74,14 @@ class FrpcConfigurationStorage extends JsonConfiguration {
     cfg.setStringList('lists.frpc_installed_versions', list.toSet().toList());
   }
 
+  /// 移除已安装的 Frpc 版本
+  /// [value] 版本号
+  void removeInstalledVersion(String value) {
+    final List<String> list = getInstalledVersions();
+    list.remove(value);
+    cfg.setStringList('lists.frpc_installed_versions', list.toSet().toList());
+  }
+
   /// 获取 Frpc 下载镜像列表
   List<Map<String, dynamic>> getDownloadMirrors() {
     // 无法 cast，使用 for 转换一下类型

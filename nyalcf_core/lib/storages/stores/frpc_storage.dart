@@ -19,40 +19,42 @@ class FrpcStorage {
 
   /// 获取 Frpc 文件
   Future<File?> getFile() async {
-    final String? path = await getFilePath();
+    final String? path = await getFilePath(skipCheck: false);
     if (path != null) return File(path);
     return null;
   }
 
   /// 获取 Frpc 文件路径
-  Future<String?> getFilePath() async {
+  Future<String?> getFilePath(
+      {String? version, required bool skipCheck}) async {
+    version = version ?? _fcs.getSettingsFrpcVersion();
     final String name;
     if (Platform.isWindows) {
       name = 'frpc.exe';
     } else {
       name = 'frpc';
     }
-    final String path = await getRunPath() + name;
+    final String path = await getRunPath(version) + name;
     Logger.debug('Unchecked frpc file path: $path');
     if (await File(path).exists()) {
       Logger.debug('Path check passed.');
       return path;
     } else {
-      return null;
+      return skipCheck ? path : null;
     }
   }
 
   /// 获取 Frpc 运行路径
-  Future<String> getRunPath() async {
-    var path = '${await _path}/${_fcs.getSettingsFrpcVersion()}/';
+  Future<String> getRunPath(String version) async {
+    var path = '${await _path}/$version/';
     if (Platform.isWindows) path = path.replaceAll('/', '\\');
     return path;
   }
 
   /// 设置 Frpc 可执行权限
   Future<void> setRunPermission() async {
-    Logger.info('Set run permission: ${await getFilePath()}');
-    final execPath = await FrpcPathProvider().frpcPath;
+    Logger.info('Set run permission: ${await getFilePath(skipCheck: false)}');
+    final execPath = await FrpcPathProvider.frpcPath();
     if (execPath != null) {
       final process = await Process.run(
         'chmod',

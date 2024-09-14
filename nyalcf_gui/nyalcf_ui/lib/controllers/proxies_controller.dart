@@ -239,7 +239,7 @@ class ProxiesController extends GetxController {
         icon: const Icon(Icons.play_circle),
         tooltip: '启动',
         onPressed: () async {
-          final execPath = await FrpcPathProvider().frpcPath;
+          final execPath = await FrpcPathProvider.frpcPath();
           if (execPath != null) {
             FrpcProcessManager().newProcess(
               frpToken: _uCtr.frpToken.value,

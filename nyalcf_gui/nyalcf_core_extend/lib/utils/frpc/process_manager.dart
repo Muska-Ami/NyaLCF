@@ -5,6 +5,7 @@ import 'dart:io';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
+import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -14,6 +15,8 @@ import 'package:nyalcf_ui/models/defender_dialog.dart';
 
 class FrpcProcessManager {
   final _fss = FrpcStorage();
+  final _fcs = FrpcConfigurationStorage();
+
   final FrpcController _fCtr = Get.find();
   final ConsoleController _cCtr = Get.find();
 
@@ -47,7 +50,7 @@ class FrpcProcessManager {
       processInstance = await Process.start(
         frpcPath,
         arguments,
-        workingDirectory: await _fss.getRunPath(),
+        workingDirectory: await _fss.getRunPath(_fcs.getSettingsFrpcVersion()),
       );
       process = ProcessModel(proxyId: proxyId, process: processInstance);
       // procesList.add();

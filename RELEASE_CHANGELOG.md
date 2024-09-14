@@ -6,28 +6,24 @@
 
 ### GUI
 
-- 适配新的环境变量获取
-- 修复一个卸载删除目录路径错误的问题（这通常不会影响到其他程序，因为只是把自己包名下的整个文件夹删了）
+- 支持选择 Frpc
+- 修复下载 Frpc 后没有赋值数据的问题
 
 ### CLI
 
-- 适配新的环境变量获取
+- 适配核心更改
 
 ### 其他
 
 #### NyaLCF Core
 
-- 适配新的环境变量获取
-
-#### NyaLCF Inject
-
-- 适配新的环境变量获取
+- 添加一些函数功能
 
 ## 版本信息
 
-- nyalcf_gui: 0.2.2
+- nyalcf_gui: 0.2.3
 - nyalcf_cli: 0.0.3
 - nyalcf_env: 1.0.0
-- nyalcf_core,nyalcf_inject: 1.1.0
+- nyalcf_core,nyalcf_inject: 1.1.1
 
 <!-- Some change log here -->

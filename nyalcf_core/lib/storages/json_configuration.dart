@@ -48,7 +48,6 @@ abstract class JsonConfiguration {
       cfg.fromString(await file!.readAsString());
     } else {
       cfg.fromMap(await defConfig);
-      //Logger.debug(file);
       cfg.save();
     }
     init();

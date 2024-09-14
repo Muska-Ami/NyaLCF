@@ -16,7 +16,7 @@ class DeepLinkExecutor {
     final content = uri.replaceFirst('locyanfrp://', '');
     final data = content.split('/');
     final frpToken = data[0], proxyId = int.parse(data[1]);
-    final frpcPath = await FrpcPathProvider().frpcPath;
+    final frpcPath = await FrpcPathProvider.frpcPath();
     if (frpcPath != null) {
       FrpcProcessManager().newProcess(
         frpToken: frpToken,

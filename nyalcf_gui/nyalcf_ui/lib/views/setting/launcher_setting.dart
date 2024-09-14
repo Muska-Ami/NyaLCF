@@ -330,32 +330,36 @@ class LauncherSetting {
                                     },
                                     child: const Text('打开日志文件'),
                                   ),
-                                  ElevatedButton(
-                                    onPressed: () async {
-                                      File('$_supportPath/logs/run.log')
-                                          .delete()
-                                          .then(
-                                            (value) => Get.snackbar(
-                                              '好耶！',
-                                              '已清除日志文件喵',
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              animationDuration: const Duration(
-                                                  milliseconds: 300),
-                                            ),
-                                          )
-                                          .onError((error, stackTrace) {
-                                        Logger.error(error, t: stackTrace);
-                                        return Get.snackbar(
-                                          '坏！',
-                                          '发生了一点小问题QAQ $error}',
-                                          snackPosition: SnackPosition.BOTTOM,
-                                          animationDuration:
-                                              const Duration(milliseconds: 300),
-                                        );
-                                      });
-                                    },
-                                    child: const Text('清除日志'),
+                                  Container(
+                                    margin: const EdgeInsets.only(left: 10),
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        File('$_supportPath/logs/run.log')
+                                            .delete()
+                                            .then(
+                                              (value) => Get.snackbar(
+                                                '好耶！',
+                                                '已清除日志文件喵',
+                                                snackPosition:
+                                                    SnackPosition.BOTTOM,
+                                                animationDuration:
+                                                    const Duration(
+                                                        milliseconds: 300),
+                                              ),
+                                            )
+                                            .onError((error, stackTrace) {
+                                          Logger.error(error, t: stackTrace);
+                                          return Get.snackbar(
+                                            '坏！',
+                                            '发生了一点小问题QAQ $error',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
+                                          );
+                                        });
+                                      },
+                                      child: const Text('清除日志'),
+                                    ),
                                   ),
                                 ],
                               ),
