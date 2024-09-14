@@ -15,7 +15,7 @@ class FrpcStartUpLoader {
     final proxiesList = aps.getList();
     final pm = FrpcProcessManager();
     final UserController uc = Get.find();
-    final execPath = await FrpcPathProvider().frpcPath;
+    final execPath = await FrpcPathProvider.frpcPath();
 
     if (execPath != null) {
       for (var proxy in proxiesList) {
