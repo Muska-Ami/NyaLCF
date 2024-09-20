@@ -36,7 +36,7 @@ class LogoutAuth {
         );
       } else {
         return ErrorResponse(
-          message: resData['msg'] ?? responseJson['status'],
+          message: resData['message'] ?? responseJson['message'],
         );
       }
     } catch (e, st) {

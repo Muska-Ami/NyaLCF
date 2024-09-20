@@ -28,7 +28,7 @@ class ProxiesGet {
       //print(options.headers?.keys);
 
       var response = await instance.get(
-        '$apiV2Url/proxies/getlist',
+        '$apiV2Url/proxies/list',
         queryParameters: paramsMap,
         options: options,
       );
