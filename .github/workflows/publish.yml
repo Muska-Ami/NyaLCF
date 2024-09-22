@@ -243,3 +243,14 @@ jobs:
             ./dist/nyalcf_cli-linux-x64
             ./dist/nyalcf_cli-macos-arm64
             ./dist/nyalcf_cli-macos-x64
+
+      - name: Update APT Source
+        uses: wlixcc/SFTP-Deploy-Action@v1.0
+        with:
+          username: 'root'
+          server: '${{ secrets.SERVER_IP }}'
+          ssh_private_key: ${{ secrets.SSH_PASSWORD }}
+          local_path: './dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.deb'
+          remote_path: '/root/aptly/'
+        run: |
+          ssh root@${{ secrets.SERVER_IP }} '/root/aptly/publish.sh'
