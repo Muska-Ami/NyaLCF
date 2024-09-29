@@ -73,6 +73,12 @@ class FrpcSettingController extends GetxController {
   /// <Rx>选择的镜像源
   var selectedMirror = 'muska-github-mirror'.obs;
 
+  /// <Rx> 选择使用的 Frpc
+  var installedFrpcVersions = [''];
+
+  /// <Rx> 选择使用的 Frpc
+  var selectedFrpc = ''.obs;
+
   /// 加载控制器
   load() async {
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
@@ -83,25 +89,37 @@ class FrpcSettingController extends GetxController {
     frpcVersion.value = _fcs.getSettingsFrpcVersion();
     downloadMirrors = _fcs.getDownloadMirrors();
     selectedMirror.value = _fcs.getSettingsFrpcDownloadMirrorId();
+    Logger.info(_fcs.getInstalledVersions());
+    installedFrpcVersions = _fcs.getInstalledVersions();
+    if (selectedFrpc.value != '' &&
+        !installedFrpcVersions.contains(selectedFrpc.value)) {
+      installedFrpcVersions.add(selectedFrpc.value);
+    }
+    selectedFrpc.value = _fcs.getSettingsFrpcVersion();
     _loadTip();
     _loadFrpcDropdownItem();
   }
 
   /// 加载 Frpc 下载提示信息
   void _loadTip() async {
-    if (await FrpcPathProvider().frpcPath == null) {
-      if (context.mounted) {
-        frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
+    if (_fcs.getInstalledVersions().isNotEmpty) {
+      if (await FrpcPathProvider.frpcPath() == null) {
+        if (context.mounted) {
+          frpcDownloadTip.value =
+              await FrpcDownloadTip.notFound(context: context);
+        } else {
+          Logger.error('Context not mounted while executing a async function!');
+        }
       } else {
-        Logger.error('Context not mounted while executing a async function!');
+        if (context.mounted) {
+          frpcDownloadTip.value =
+              await FrpcDownloadTip.downloaded(context: context);
+        } else {
+          Logger.error('Context not mounted while executing a async function!');
+        }
       }
     } else {
-      if (context.mounted) {
-        frpcDownloadTip.value =
-            await FrpcDownloadTip.downloaded(context: context);
-      } else {
-        Logger.error('Context not mounted while executing a async function!');
-      }
+      frpcDownloadTip.value = await FrpcDownloadTip.tip(context: context);
     }
   }
 

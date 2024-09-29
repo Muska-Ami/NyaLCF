@@ -2,6 +2,7 @@
 import 'dart:io';
 
 // Package imports:
+import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
@@ -11,14 +12,17 @@ import 'package:nyalcf/utils/frpc/process_manager.dart';
 import 'package:nyalcf/utils/state.dart';
 
 class Start implements CommandImplement {
+  static final _fcs = FrpcConfigurationStorage();
+
   @override
   Future<void> main(List<String> args) async {
     if (args.isNotEmpty) {
       final user = await userInfo;
       if (user != null) {
         for (var proxyId in args) {
-          final frpcPath = await FrpcStorage().getFilePath();
-          final runPath = await FrpcStorage().getRunPath();
+          final frpcPath = await FrpcStorage().getFilePath(skipCheck: false);
+          final runPath =
+              await FrpcStorage().getRunPath(_fcs.getSettingsFrpcVersion());
 
           if (frpcPath != null) {
             final process = await ProcessManager.newProcess(

@@ -414,7 +414,7 @@ packages:
       path: "../../nyalcf_core"
       relative: true
     source: path
-    version: "1.1.0"
+    version: "1.1.1"
   nyalcf_env:
     dependency: "direct main"
     description:
@@ -428,21 +428,21 @@ packages:
       path: "../../nyalcf_inject"
       relative: true
     source: path
-    version: "1.1.0"
+    version: "1.1.1"
   nyalcf_inject_extend:
     dependency: "direct main"
     description:
       path: "../nyalcf_inject_extend"
       relative: true
     source: path
-    version: "1.1.0"
+    version: "1.1.1"
   nyalcf_ui:
     dependency: "direct main"
     description:
       path: "../nyalcf_ui"
       relative: true
     source: path
-    version: "1.1.0"
+    version: "1.1.1"
   open_filex:
     dependency: transitive
     description:
@@ -812,18 +812,18 @@ packages:
     dependency: transitive
     description:
       name: win32_registry
-      sha256: "723b7f851e5724c55409bb3d5a32b203b3afe8587eaf5dafb93a5fed8ecda0d6"
+      sha256: "21ec76dfc731550fd3e2ce7a33a9ea90b828fdf19a5c3bcf556fa992cfa99852"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.1.5"
   window_manager:
     dependency: transitive
     description:
       name: window_manager
-      sha256: "8699323b30da4cdbe2aa2e7c9de567a6abd8a97d9a5c850a3c86dcd0b34bbfbf"
+      sha256: ab8b2a7f97543d3db2b506c9d875e637149d48ee0c6a5cb5f5fd6e0dac463792
       url: "https://pub.dev"
     source: hosted
-    version: "0.3.9"
+    version: "0.4.2"
   xdg_directories:
     dependency: transitive
     description:

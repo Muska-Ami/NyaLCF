@@ -32,7 +32,7 @@ The next generation of LoCyanFrp launcher.
 - 开发进度
   - [x] GUI 版本
     - [GUI Features Design](./nyalcf_gui/README.md#设计功能)
-  - [ ] CLI 版本
+  - [x] CLI 版本
     - [ ] 进程管理
     - [CLI Features Design](./nyalcf_cli/README.md#设计功能)
 - CI/CD

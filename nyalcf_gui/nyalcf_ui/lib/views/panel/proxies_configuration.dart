@@ -11,7 +11,6 @@ import 'package:nyalcf_ui/controllers/proxies_configuration_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
-import 'package:nyalcf_ui/models/drawer.dart';
 
 class PanelProxiesConfiguration extends StatelessWidget {
   PanelProxiesConfiguration({super.key});

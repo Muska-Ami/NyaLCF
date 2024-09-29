@@ -1,6 +1,7 @@
 // Package imports:
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 import 'package:tray_manager/tray_manager.dart';
 
 // Project imports:
@@ -49,6 +50,7 @@ class MainTray {
 
   /// 托盘菜单点击事件
   static void onTrayMenuItemClick(MenuItem menuItem) {
+    Logger.info(menuItem.key);
     switch (menuItem.key) {
       case 'show_window':
         appWindow.show();
