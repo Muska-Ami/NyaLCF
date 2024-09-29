@@ -1,6 +1,6 @@
 # Nya LoCyanFrp! Launcher
 
-<img src="https://apac-cloudflare-r2.img.1l1.icu/2024/05/02/66329275b94be.webp" width="100%" alt="NyaLCF Banner" />
+<img src="https://apac-cloudflare-r2-img.1l1.icu/2024/05/02/66329275b94be.webp" width="100%" alt="NyaLCF Banner" />
 
 下一代 LoCyanFrp 启动器。
 
