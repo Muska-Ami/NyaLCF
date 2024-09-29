@@ -11,8 +11,8 @@ BaseOptions options = BaseOptions(
         'Nya/LoCyanFrp $appendInfo host=${Platform.operatingSystem}/${Platform.operatingSystemVersion}',
   },
 );
-// const apiV2Url = 'https://api-v2.locyanfrp.cn/api/v2';
-const apiV2Url = 'http://localhost:18080/api/v2';
+const apiV2Url = 'https://api-v2-next.locyanfrp.cn/api/v2';
+// const apiV2Url = 'http://localhost:18080/api/v2';
 const frpcConfigUrl = 'https://lcf-frps-api.locyanfrp.cn/api';
 const githubApiUrl = 'https://api-gh.1l1.icu';
 const githubMainUrl = 'https://github.com';
