@@ -13,8 +13,12 @@ class UpdateLauncher {
   /// 获取启动器更新信息
   static Future<Response> getUpdate() async {
     try {
-      final res = await instance
-          .get('$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest');
+      final res = await instance.get(
+        '$githubApiUrl/repos/Muska-Ami/NyaLCF/releases/latest',
+        options: dio.Options(
+          validateStatus: (status) => [200].contains(status),
+        ),
+      );
       final Map<String, dynamic> resData = res.data;
       // print(resData);
       // 解析信息

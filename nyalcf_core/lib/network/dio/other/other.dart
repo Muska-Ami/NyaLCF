@@ -1,4 +1,4 @@
 library other;
 
-export 'announcement_other.dart';
+export 'notice_other.dart';
 export 'sign_other.dart';

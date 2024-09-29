@@ -228,7 +228,6 @@ class _RegisterState extends State<Register> {
     final res = await RegisterAuth.requestRegister(
       userController.text,
       passwordController.text,
-      confirmPasswordController.text,
       emailController.text,
       verifyController.text,
       qqController.text,

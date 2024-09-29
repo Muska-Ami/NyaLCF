@@ -8,21 +8,28 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class LoginAuth {
-  static final instance = dio.Dio(options);
+  static final _instance = dio.Dio(options);
 
   /// 发起登录请求
   /// [user] 用户名
   /// [password] 密码
   static Future<Response> requestLogin(String user, String password) async {
-    dio.FormData data =
-        dio.FormData.fromMap({'username': user, 'password': password});
     try {
-      Logger.debug('Post login: $user / $password');
-      final response = await instance.post('$apiV2Url/users/login', data: data);
+      Logger.debug('Post login: $user');
+      final response = await _instance.post(
+        '$apiV2Url/auth/login',
+        queryParameters: {
+          'username': user,
+          'password': password,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 404, 500].contains(status),
+        ),
+      );
       Map<String, dynamic> responseJson = response.data;
       Logger.debug(responseJson);
       final resData = responseJson['data'];
-      if (responseJson['status'] == 200) {
+      if (response.statusCode == 200) {
         final userInfo = UserInfoModel(
           user: resData['username'],
           email: resData['email'],

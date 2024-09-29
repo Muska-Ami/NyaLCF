@@ -16,11 +16,11 @@
 
 #### NyaLCF Core
 
--/-
+- 适配后端 API 更改
 
 - nyalcf_gui: 0.2.3
 - nyalcf_cli: 0.0.3
 - nyalcf_env: 1.0.0
-- nyalcf_core,nyalcf_inject: 1.1.1
+- nyalcf_core,nyalcf_inject: 1.2.0
 
 <!-- Some change log here -->
