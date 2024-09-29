@@ -191,7 +191,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Fetch Version
-        run: |
+        run: |-
           sudo snap install yq
           cd nyalcf_gui
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
@@ -252,5 +252,6 @@ jobs:
           ssh_private_key: ${{ secrets.SSH_PASSWORD }}
           local_path: './dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.deb'
           remote_path: '/root/aptly/'
-        run: |
+      - name: Run Remote Shell
+        run: |-
           ssh root@${{ secrets.SERVER_IP }} '/root/aptly/publish.sh'
