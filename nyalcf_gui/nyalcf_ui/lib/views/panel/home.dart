@@ -251,7 +251,7 @@ class PanelHome extends StatelessWidget {
                                           launchUrl(Uri.parse(url));
                                         }
                                       },
-                                      data: '${_hpCtrtr.announcementCommon}'))))
+                                      data: '${_hpCtrtr.announcement}'))))
                         ],
                       ),
                     ),
@@ -279,7 +279,7 @@ class PanelHome extends StatelessWidget {
                                         launchUrl(Uri.parse(url));
                                       }
                                     },
-                                    data: '${_hpCtrtr.announcement}'))))
+                                    data: '${_hpCtrtr.broadcast}'))))
                       ],
                     ),
                   )),

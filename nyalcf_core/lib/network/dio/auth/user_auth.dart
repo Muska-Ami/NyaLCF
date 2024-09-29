@@ -7,26 +7,33 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class UserAuth {
-  static final instance = dio.Dio(options);
+  static dio.Dio _getInstance(String token) => dio.Dio(optionsWithToken(token));
 
   /// 检查 Token 有效性
   /// [token] 登录令牌
   static Future<Response> checkToken(String token) async {
+    final instance = _getInstance(token);
     try {
       Logger.info('Check token if is valid');
-      Map<String, dynamic> paramsMap = {};
-      paramsMap['token'] = token;
 
-      final res = await instance.get(
-        '$apiV2Url/check/token',
-        queryParameters: paramsMap,
+      final response = await instance.get(
+        '$apiV2Url/user/token',
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 500].contains(status),
+        ),
       );
-      Logger.debug(res.data);
+      Logger.debug(response.data);
 
-      return Response(
-        status: true,
-        message: 'OK',
-      );
+      if (response.statusCode == 200) {
+        return Response(
+          status: true,
+          message: 'OK',
+        );
+      } else {
+        return ErrorResponse(
+          message: response.data['message'],
+        );
+      }
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(
@@ -41,35 +48,36 @@ class UserAuth {
   /// [token] 登录令牌
   /// [username] 用户名
   Future<Response> getInfo(String token, String username) async {
+    final instance = _getInstance(token);
     try {
       Logger.info('Refresh user info');
-      Map<String, dynamic> paramsMap = {};
-      paramsMap['username'] = username;
 
-      dio.Options options = dio.Options();
-      Map<String, dynamic> optionsMap = {};
-      optionsMap['Content-Type'] =
-          'application/x-www-form-urlencoded;charset=UTF-8';
-      optionsMap['Authorization'] = 'Bearer $token';
-      options = options.copyWith(headers: optionsMap);
-
-      final res = await instance.get(
-        '$apiV2Url/users/info',
-        queryParameters: paramsMap,
-        options: options,
+      final response = await instance.get(
+        '$apiV2Url/user/info',
+        queryParameters: {
+          'username': username,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 404, 500].contains(status),
+        ),
       );
-      final resData = res.data['data'];
-      Logger.debug(res.data);
+      Logger.debug(response.data);
 
       // Logger.debug(resData['traffic']);
       // Logger.debug(int.parse(resData['traffic']));
 
-      return UserInfoResponse(
-        message: 'OK',
-        traffic: num.parse(resData['traffic']),
-        inbound: resData['inbound'],
-        outbound: resData['outbound'],
-      );
+      if (response.statusCode == 200) {
+        return UserInfoResponse(
+          message: 'OK',
+          traffic: num.parse(response.data['data']['traffic']),
+          inbound: response.data['data']['inbound'],
+          outbound: response.data['data']['outbound'],
+        );
+      } else {
+        return ErrorResponse(
+          message: response.data['message'],
+        );
+      }
     } catch (e, st) {
       Logger.error(e, t: st);
       return ErrorResponse(

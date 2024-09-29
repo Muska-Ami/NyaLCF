@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
+import 'package:nyalcf_core/models/response/proxies/configuration_proxies_model.dart';
 import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
@@ -300,27 +301,21 @@ class ProxiesController extends GetxController {
               Logger.error(
                   'Context not mounted while executing a async function!');
             }
-            final res = await ProxiesConfiguration.get(
-                _uCtr.frpToken.value, element.id);
-            if (res is String) {
+            final res =
+                await ProxiesConfiguration.get(_uCtr.user.value, _uCtr.token.value, element.id);
+            if (res.status) {
+              res as ConfigurationResponse;
               Logger.info('Successfully get config ini');
-              text = res;
-              ProxiesConfigurationStorage.setConfig(element.id, res);
+              text = res.config;
+              ProxiesConfigurationStorage.setConfig(element.id, text);
               Get.close(0);
               showDialog(text, firstEdit: true);
-            } else if (res == null) {
-              Get.snackbar(
-                '获取配置文件失败',
-                '返回值无效',
-                snackPosition: SnackPosition.BOTTOM,
-                animationDuration: const Duration(milliseconds: 300),
-              );
-              Get.close(0);
             } else {
+              res as ErrorResponse;
               Logger.debug(res);
               Get.snackbar(
                 '获取配置文件失败',
-                res.toString(),
+                res.message,
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );

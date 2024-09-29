@@ -87,6 +87,7 @@ class FrpcProcessManager {
   void logCommonOut(ProcessModel process, String str) {
     if ((str.contains('[W]') ||
             str.contains('stopped') ||
+            str.contains('服务端强制下线') ||
             str.contains('启动失败') ||
             str.contains('无法连接')) &&
         !str.contains('重连失败')) {

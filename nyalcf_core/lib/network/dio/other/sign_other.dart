@@ -7,54 +7,38 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class OtherSign {
-  static final instance = dio.Dio(options);
+  static dio.Dio getInstance(String token) => dio.Dio(optionsWithToken(token));
 
   /// 检查签到状态
   /// [username] 用户名
   /// [token] 登录令牌
   static Future<Response> checkSign(String username, String token) async {
+    final instance = getInstance(token);
     // Logger.debug(token);
     try {
       // dio.FormData data = dio.FormData.fromMap({
       //   'token': token,
       // });
-      Map<String, dynamic> paramsMap = {};
-      paramsMap['username'] = username;
 
-      dio.Options options = dio.Options();
-      Map<String, dynamic> optionsMap = {};
-      optionsMap['Content-Type'] =
-          'application/x-www-form-urlencoded;charset=UTF-8';
-      optionsMap['Authorization'] = 'Bearer $token';
-      options = options.copyWith(headers: optionsMap);
-
-      final resData = await instance.get(
-        '$apiV2Url/sign/check',
-        options: options,
-        queryParameters: paramsMap,
+      final response = await instance.get(
+        '$apiV2Url/sign',
+        queryParameters: {
+          'username': username,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 500].contains(status),
+        ),
         // data: data,
       );
 
-      Logger.debug(resData);
+      Logger.debug(response.data);
 
-      Map<String, dynamic> resJson = resData.data;
-      // final String msg = resJson['message'];
-      if (resData.statusCode == 200 || resData.statusCode == 403) {
-        if (resJson['data']['status']) {
+      if (response.statusCode == 200) {
+        if (response.data['data']['status']) {
           return SignResponse(
             message: 'OK',
             signed: true,
           );
-          // final postSign =
-          //     await instance.post('https://api.locyanfrp.cn/User/DoSign');
-          // final postSignJson = jsonDecode(postSign.data);
-          //
-          // if (postSignJson['message'] == "成功") {
-          //   //提示签到成功
-          // } else if (postSignJson['message'] == "已经签到") {
-          //   //提示已经签到过了
-          // } else {
-          // }
         } else {
           return SignResponse(
             message: 'OK',
@@ -63,7 +47,7 @@ class OtherSign {
         }
       } else {
         return ErrorResponse(
-          message: 'Server error',
+          message: response.data['message'],
         );
       }
     } catch (e, st) {
@@ -78,44 +62,38 @@ class OtherSign {
 
   /// 执行签到
   Future<Response> doSign(String username, String token) async {
+    final instance = getInstance(token);
     try {
-      Map<String, dynamic> paramsMap = {};
-      paramsMap['username'] = username;
-
-      dio.Options options = dio.Options();
-      Map<String, dynamic> optionsMap = {};
-      optionsMap['Content-Type'] =
-          'application/x-www-form-urlencoded;charset=UTF-8';
-      optionsMap['Authorization'] = 'Bearer $token';
-      options = options.copyWith(headers: optionsMap);
-
-      final resData = await instance.get(
-        '$apiV2Url/sign/sign',
-        options: options,
-        queryParameters: paramsMap,
+      final response = await instance.post(
+        '$apiV2Url/sign',
+        queryParameters: {
+          'username': username,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 500].contains(status),
+        ),
       );
 
-      Map<String, dynamic> resJson = resData.data;
-      Logger.debug(resJson);
+      Logger.debug(response.data);
       // final String msg = resJson['message'];
-      if (resJson['status'] == 200) {
+      if (response.statusCode == 200) {
         // int getTraffic =
         // int.parse(msg.replaceAll(RegExp(r'[^0-9]'), '')) * 1024;
         return SignDataResponse(
           status: true,
           message: 'OK',
-          getTraffic: resJson['data']['signTraffic'] * 1024,
-          firstSign: resJson['data']['firstSign'],
-          totalSignCount: resJson['data']['totalSignCount'],
-          totalGetTraffic: resJson['data']['totalSignTraffic'] * 1024,
+          getTraffic: response.data['data']['get_traffic'] * 1024,
+          firstSign: response.data['data']['first_sign'],
+          totalSignCount: response.data['data']['sign_count'],
+          totalGetTraffic: response.data['data']['total_get_traffic'] * 1024,
         );
-      } else if (resJson['status'] == 403) {
+      } else if (response.statusCode == 403) {
         return ErrorResponse(
           message: 'Signed',
         );
       }
       return ErrorResponse(
-        message: resJson['data']['msg'],
+        message: response.data['message'],
       );
     } catch (e, st) {
       Logger.error(e, t: st);
