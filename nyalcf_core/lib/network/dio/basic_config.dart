@@ -11,11 +11,16 @@ BaseOptions options = BaseOptions(
         'Nya/LoCyanFrp $appendInfo host=${Platform.operatingSystem}/${Platform.operatingSystemVersion}',
   },
 );
-const apiV1Url = 'https://api.locyanfrp.cn';
 const apiV2Url = 'https://api-v2.locyanfrp.cn/api/v2';
-const frpcConfigUrl = 'https://lcf-frps-api.locyanfrp.cn/api';
+// const apiV2Url = 'http://localhost:18080/api/v2';
 const githubApiUrl = 'https://api-gh.1l1.icu';
 const githubMainUrl = 'https://github.com';
+
+BaseOptions optionsWithToken(String token) {
+  Map<String, dynamic> optionsMap = {};
+  optionsMap['Authorization'] = 'Bearer $token';
+  return options.copyWith(headers: optionsMap);
+}
 
 // const githubMirrorsUrl = 'https://proxy-gh.1l1.icu/https://github.com';
 // const locyanMirrorsFrpcFormat = 'https://mirrors.locyan.cn/github-releases/' +

@@ -37,7 +37,7 @@ class ProxyInfoModel {
   final int remotePort;
   final String? domain;
   final String? icp;
-  final String sk;
+  final String? sk;
   final int id;
   final String proxyType;
   final bool useEncryption;

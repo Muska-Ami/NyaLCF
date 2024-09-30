@@ -7,47 +7,45 @@ import 'package:nyalcf_core/network/dio/basic_config.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 class RegisterAuth {
-  static final instance = dio.Dio(options);
+  static final _instance = dio.Dio(options);
 
   /// 请求注册
   /// [user] 用户名
   /// [password] 密码
-  /// [confirmPassword] 确认密码
   /// [email] 邮箱
-  /// [verify] 邮件验证代码
-  /// [qq] QQ号
+  /// [verifyCode] 邮件验证代码
+  /// [qqCode] QQ号
   static Future<Response> requestRegister(
     String user,
     String password,
-    String confirmPassword,
     String email,
-    verify,
-    qq,
+    verifyCode,
+    qqCode,
   ) async {
-    dio.FormData data = dio.FormData.fromMap({
-      'username': user,
-      'password': password,
-      'confirm_password': confirmPassword,
-      'email': email,
-      'verify': verify,
-      'qq': qq,
-    });
     try {
-      Logger.debug(
-          'Post register: $user - $email / $password - $confirmPassword / $verify');
-      final response =
-          await instance.post('$apiV2Url/users/register', data: data);
-      Map<String, dynamic> responseJson = response.data;
-      Logger.debug(responseJson);
-      final resData = responseJson['data'];
-      if (responseJson['status'] == 200) {
+      Logger.debug('Post register: $user - $email / $verifyCode');
+      final response = await _instance.post(
+        '$apiV2Url/auth/register',
+        queryParameters: {
+          'username': user,
+          'password': password,
+          'email': email,
+          'verify_code': verifyCode,
+          'qq_code': qqCode,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 403, 500].contains(status),
+        ),
+      );
+      Logger.debug(response.data);
+      if (response.statusCode == 200) {
         return Response(
           status: true,
           message: 'OK',
         );
       } else {
         return ErrorResponse(
-          message: resData['msg'] ?? responseJson['status'],
+          message: response.data['message'],
         );
       }
     } catch (e, st) {
@@ -63,21 +61,23 @@ class RegisterAuth {
   Future<Response> requestCode(email) async {
     try {
       Logger.debug('Requesting email code, email: $email');
-      Map<String, dynamic> paramsMap = {};
-      paramsMap['email'] = email;
-      final response = await instance.get(
-        '$apiV2Url/users/send',
-        queryParameters: paramsMap,
+      final response = await _instance.get(
+        '$apiV2Url/email/register',
+        queryParameters: {
+          'email': email,
+        },
+        options: dio.Options(
+          validateStatus: (status) => [200, 500].contains(status),
+        ),
       );
-      final resData = response.data;
-      if (resData['msg'] == 'success') {
+      if (response.statusCode == 200) {
         return Response(
           status: true,
           message: 'OK',
         );
       } else {
         return ErrorResponse(
-          message: resData['msg'],
+          message: response.data['message'],
         );
       }
     } catch (e, st) {
