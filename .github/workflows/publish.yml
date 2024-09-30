@@ -191,7 +191,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Fetch Version
-        run: |
+        run: |-
           sudo snap install yq
           cd nyalcf_gui
           nyalcf_version=$(yq eval '.version' pubspec.yaml)
