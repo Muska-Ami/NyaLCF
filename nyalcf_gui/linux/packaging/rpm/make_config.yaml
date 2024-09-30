@@ -1,9 +1,9 @@
 icon: icon.png
 summary: Nya LoCyanFrp! 乐青映射启动器
 group: Application/Network
-vendor: Muska_Ami
-packager: Muska_Ami
-packagerEmail: xmcn@1l1.icu
+vendor: 夏沫花火zzz
+packager: 夏沫花火zzz
+packagerEmail: ami@muska.zip
 license: MIT
 url: https://github.com/Muska-Ami/NyaLCF
 build_arch: x86_64
