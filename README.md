@@ -79,7 +79,7 @@ bash install-dependency.sh
 bash sort-import.sh
 ```
 
-### 感谢我们的开发者！是他们使NyaLCF变的更好！
+### 感谢我们的开发者，是他们使 Nya LoCyanFrp! 变的更好
 <a href="https://github.com/Muska-Ami/NyaLCF/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=Muska-Ami/NyaLCF" height="32px"  alt="Contributors"/>
 </a>
