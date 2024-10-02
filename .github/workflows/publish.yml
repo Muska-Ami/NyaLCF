@@ -233,12 +233,6 @@ jobs:
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.rpm
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.AppImage
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-macos.dmg
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows-setup.exe
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows.zip
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.deb
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.rpm
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.AppImage
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-macos.dmg
             ./dist/nyalcf_cli-windows-x64.exe
             ./dist/nyalcf_cli-linux-x64
             ./dist/nyalcf_cli-macos-arm64
