@@ -254,7 +254,7 @@ jobs:
 
     steps:
       - name: Update APT Source
-        uses: wlixcc/SFTP-Deploy-Action@v1.0
+        uses: wlixcc/SFTP-Deploy-Action@v1
         with:
           username: root
           server: ${{ secrets.APT_PUBLISH_SERVER_IP }}
@@ -262,7 +262,7 @@ jobs:
           local_path: './dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.deb'
           remote_path: '/root/aptly/'
       - name: Run Remote Shell
-        uses: appleboy/ssh-action@v1.0.3
+        uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.APT_PUBLISH_SERVER_IP }}
           username: root
