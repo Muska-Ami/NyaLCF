@@ -256,11 +256,16 @@ jobs:
       - name: Update APT Source
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
-          username: 'root'
-          server: '${{ secrets.SERVER_IP }}'
-          ssh_private_key: ${{ secrets.SSH_PASSWORD }}
+          username: root
+          server: ${{ secrets.APT_PUBLISH_SERVER_IP }}
+          password: ${{ secrets.APT_PUBLISH_SSH_PASSWORD }}
           local_path: './dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.deb'
           remote_path: '/root/aptly/'
       - name: Run Remote Shell
-        run: |-
-          ssh root@${{ secrets.SERVER_IP }} '/root/aptly/publish.sh'
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.APT_PUBLISH_SERVER_IP }}
+          username: root
+          password: ${{ secrets.APT_PUBLISH_SSH_PASSWORD }}
+          port: 22
+          script: bash /root/aptly/publish.sh
