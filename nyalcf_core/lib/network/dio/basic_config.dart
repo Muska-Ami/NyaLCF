@@ -17,9 +17,11 @@ const githubApiUrl = 'https://api-gh.1l1.icu';
 const githubMainUrl = 'https://github.com';
 
 BaseOptions optionsWithToken(String token) {
+  final baseOptions = options;
   Map<String, dynamic> optionsMap = {};
   optionsMap['Authorization'] = 'Bearer $token';
-  return options.copyWith(headers: optionsMap);
+  baseOptions.headers.addAll(optionsMap);
+  return baseOptions;
 }
 
 // const githubMirrorsUrl = 'https://proxy-gh.1l1.icu/https://github.com';
