@@ -25,7 +25,7 @@ ArgParser buildParser() {
 }
 
 void printUsage(ArgParser argParser) {
-  Logger.info('Usage: dart nyalcf_cli.dart <flags> [arguments]');
+  Logger.info('Usage: nyalcf_cli <flags> [arguments]');
   argParser.usage.split('\n').forEach((val) => Logger.info(val));
 }
 
