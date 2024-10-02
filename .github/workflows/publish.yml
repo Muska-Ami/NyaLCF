@@ -261,7 +261,7 @@ jobs:
         with:
           name: "Linux Artifact(Dist)"
           path: dist/
-      - name: Update APT Source
+      - name: Upload DEB Package
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: root
