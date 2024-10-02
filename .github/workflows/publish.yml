@@ -244,6 +244,15 @@ jobs:
             ./dist/nyalcf_cli-macos-arm64
             ./dist/nyalcf_cli-macos-x64
 
+  publish_apt_sources:
+    name: apt sources publish
+    runs-on: ubuntu-latest
+    needs:
+      - windows
+      - linux
+      - macos
+
+    steps:
       - name: Update APT Source
         uses: wlixcc/SFTP-Deploy-Action@v1.0
         with:
