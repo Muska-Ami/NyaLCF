@@ -253,6 +253,11 @@ jobs:
       - macos
 
     steps:
+      - name: Download Build Artifact(Linux)
+        uses: actions/download-artifact@v4
+        with:
+          name: "Linux Artifact(Dist)"
+          path: dist/
       - name: Update APT Source
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
