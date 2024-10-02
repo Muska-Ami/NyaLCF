@@ -233,12 +233,6 @@ jobs:
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.rpm
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-linux.AppImage
             ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}-macos.dmg
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows-setup.exe
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-windows.zip
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.deb
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.rpm
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-linux.AppImage
-            ./dist/${{ env.NYA_VERSION }}/nyalcf-${{ env.NYA_VERSION }}+${{ env.NYA_VERSION }}-macos.dmg
             ./dist/nyalcf_cli-windows-x64.exe
             ./dist/nyalcf_cli-linux-x64
             ./dist/nyalcf_cli-macos-arm64
@@ -253,6 +247,15 @@ jobs:
       - macos
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Fetch Version
+        run: |-
+          sudo snap install yq
+          cd nyalcf_gui
+          nyalcf_version=$(yq eval '.version' pubspec.yaml)
+          echo "NYA_VERSION=$nyalcf_version" >> $GITHUB_ENV
+          cd ..
       - name: Download Build Artifact(Linux)
         uses: actions/download-artifact@v4
         with:
