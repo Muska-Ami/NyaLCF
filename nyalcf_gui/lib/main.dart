@@ -19,7 +19,6 @@ import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
-import 'package:nyalcf_ui/main_tray.dart';
 import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/login.dart';
 import 'package:nyalcf_ui/views/auth/register.dart';
@@ -33,7 +32,6 @@ import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/panel/proxies_configuration.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
 import 'package:nyalcf_ui/views/tokenmode/panel.dart';
-import 'package:tray_manager/tray_manager.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _appLinks = AppLinks();
@@ -122,7 +120,7 @@ class App extends StatefulWidget {
   State<App> createState() => _AppState();
 }
 
-class _AppState extends State<App> with WindowListener, TrayListener {
+class _AppState extends State<App> with WindowListener {
   /// 根组件
   @override
   Widget build(BuildContext context) {
@@ -155,7 +153,6 @@ class _AppState extends State<App> with WindowListener, TrayListener {
   /// 组件初始化时操作
   @override
   void initState() {
-    trayManager.addListener(this);
     windowManager.addListener(this);
     super.initState();
     _init();
@@ -171,21 +168,10 @@ class _AppState extends State<App> with WindowListener, TrayListener {
   @override
   void dispose() {
     windowManager.removeListener(this);
-    trayManager.removeListener(this);
     super.dispose();
   }
 
   // 窗口和托盘图标的事件处理
   @override
   onWindowClose() => MainWindow.onWindowClose();
-
-  @override
-  onTrayIconMouseDown() => MainTray.onTrayIconMouseDown();
-
-  @override
-  onTrayIconRightMouseDown() => MainTray.onTrayIconRightMouseDown();
-
-  @override
-  onTrayMenuItemClick(MenuItem menuItem) =>
-      MainTray.onTrayMenuItemClick(menuItem);
 }
