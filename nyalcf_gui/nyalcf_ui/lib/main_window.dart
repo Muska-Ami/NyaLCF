@@ -1,6 +1,3 @@
-// Dart imports:
-import 'dart:io';
-
 // Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +7,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
-import 'package:tray_manager/tray_manager.dart';
+import 'package:system_tray/system_tray.dart';
 import 'package:window_manager/window_manager.dart';
 
 // Project imports:
@@ -18,6 +15,8 @@ import 'package:nyalcf_ui/main_tray.dart';
 
 class MainWindow {
   static bool shouldCloseWindowShow = true;
+
+  static SystemTray? _systemTray;
 
   /// 启动操作
   static void doWhenWindowReady() async {
@@ -33,11 +32,7 @@ class MainWindow {
     appWindow.title = 'Nya LoCyanFrp! - 乐青映射启动器';
 
     // 设置托盘菜单
-    await trayManager.setToolTip('Nya~');
-    await trayManager.setIcon(
-      Platform.isWindows ? 'icon.ico' : 'icon.png',
-    );
-    trayManager.setContextMenu(MainTray.menu);
+    _systemTray = await MainTray.initSystemTray();
 
     // // Protocol Channel
     // void callback(deepLink) {
@@ -78,8 +73,9 @@ class MainWindow {
                 } catch (e, st) {
                   Logger.error('Failed to close all process: $e', t: st);
                 }
-                appWindow.close();
                 windowManager.destroy();
+                _systemTray?.destroy();
+                appWindow.close();
               },
             ),
           ],
