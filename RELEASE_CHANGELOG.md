@@ -8,17 +8,19 @@
 
 ### CLI
 
-- 修复一个日志输出
+-/-
 
 ### 其他
 
 #### NyaLCF Core
 
-- 修复请求不携带自定义 UA 问题
+- 更新 Frpc 版本
+
+## 版本信息
 
 - nyalcf_gui: 0.2.3
 - nyalcf_cli: 0.0.3
 - nyalcf_env: 1.0.0
-- nyalcf_core,nyalcf_inject: 1.2.1
+- nyalcf_core,nyalcf_inject: 1.2.2
 
 <!-- Some change log here -->
