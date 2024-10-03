@@ -3,6 +3,7 @@ import 'dart:io';
 
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf_core/network/dio/frpc/download_frpc.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
@@ -33,9 +34,13 @@ class Download implements CommandImplement {
           _providePlatform = args[1];
           _provide = true;
         }
+        if (verbose) {
         Logger.verbose('Provide info: $_provideArch, $_providePlatform');
+        }
         final systemArch = await CPUArch.getCPUArchitecture();
-        Logger.verbose('CPU arch: $systemArch');
+        if (verbose) {
+          Logger.verbose('CPU arch: $systemArch');
+        }
 
         bool supportedSystem = false;
 
@@ -68,9 +73,12 @@ class Download implements CommandImplement {
             cancelToken: _cancelToken,
             useMirror: false,
           );
+          stdout.write('\r${' ' * 30}');
           stdout.write('\rPlease wait, extracting frpc...\n');
           await FrpcArchive.extract(
               platform: platform, arch: _selectedArch, version: '0.51.3-6');
+          stdout.write('\r${' ' * 30}');
+          stdout.write('\rSuccess!\n');
         } else {
           Logger.error(
               'Unsupported system! If you believe this is wrong, please provide arch manually in command.');

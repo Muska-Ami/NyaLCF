@@ -35,16 +35,20 @@ class Start implements CommandImplement {
             Logger.info('Started proxy: $proxyId');
           } else {
             Logger.error('You have no frpc installed yet!');
+            exit(0);
           }
         }
 
         int n = 0;
         ProcessSignal.sigint.watch().listen((signal) {
+          n++;
           if (verbose) {
-            Logger.verbose('Caught ${++n} of 2');
+            Logger.verbose('Caught $n of 2');
           }
 
           Logger.info('Press again to close frpc and exit.');
+
+          Future.delayed(Duration(seconds: 10), () => n = 0);
 
           if (n == 2) {
             for (var process in ProcessManager.processList) {
