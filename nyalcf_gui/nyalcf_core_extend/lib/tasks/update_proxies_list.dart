@@ -49,6 +49,7 @@ class TaskUpdateProxiesList extends TaskBasic {
     final aps = AutostartProxiesStorage();
     final nowList = aps.getList();
     for (ProxyInfoModel item in nowList) {
+      Logger.debug("${item.proxyName} not exists again, removing it from autostart.json");
       if (!proxies.contains(item)) aps.removeFromList(item.id);
     }
     aps.save();
