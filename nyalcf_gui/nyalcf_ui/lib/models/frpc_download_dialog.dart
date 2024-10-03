@@ -49,8 +49,8 @@ Widget frpcDownloadDialog(BuildContext context) {
                   final res = await DownloadFrpc.download(
                     arch: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]['arch'],
                     platform: _fsCtr.platform,
-                    version: '0.51.3-4',
-                    releaseName: 'LoCyanFrp-0.51.3-4 #2024082401',
+                    version: '0.51.3-6',
+                    releaseName: 'LoCyanFrp-0.51.3-6 #2024100301',
                     progressCallback: _fsCtr.downloadFrpcCallback,
                     cancelToken: _fsCtr.downloadCancelToken,
                     useMirror: _fcs.getSettingsFrpcDownloadMirror(),
@@ -61,13 +61,13 @@ Widget frpcDownloadDialog(BuildContext context) {
                     final resExtract = FrpcArchive.extract(
                       platform: _fsCtr.platform,
                       arch: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]['arch'],
-                      version: '0.51.3-4',
+                      version: '0.51.3-6',
                     );
                     if (await resExtract) {
                       Get.close(0);
                       Get.close(0);
-                      _fcs.setSettingsFrpcVersion('0.51.3-4');
-                      _fcs.addInstalledVersion('0.51.3-4');
+                      _fcs.setSettingsFrpcVersion('0.51.3-6');
+                      _fcs.addInstalledVersion('0.51.3-6');
                       _fcs.save();
                       _fsCtr.load();
                     }
