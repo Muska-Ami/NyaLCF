@@ -1,7 +1,7 @@
 // Package imports:
 import 'package:dotenv/dotenv.dart';
 
-final _env = DotEnv(includePlatformEnvironment: true)..load();
+final _env = DotEnv(includePlatformEnvironment: true, quiet: true)..load();
 
 String? ENV_UNIVERSAL_FRPC_PATH = _env['NYA_LCF_FRPC_PATH'];
 String? ENV_UNIVERSAL_FRPC_DOWNLOAD_MIRROR_URL =
