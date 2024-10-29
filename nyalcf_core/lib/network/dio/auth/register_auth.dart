@@ -26,13 +26,13 @@ class RegisterAuth {
       Logger.debug('Post register: $user - $email / $verifyCode');
       final response = await _instance.post(
         '$apiV2Url/auth/register',
-        queryParameters: {
+        data: dio.FormData.fromMap({
           'username': user,
           'password': password,
           'email': email,
           'verify_code': verifyCode,
           'qq_code': qqCode,
-        },
+        }),
         options: dio.Options(
           validateStatus: (status) => [200, 403, 500].contains(status),
         ),

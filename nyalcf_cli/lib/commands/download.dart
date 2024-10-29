@@ -3,7 +3,6 @@ import 'dart:io';
 
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:nyalcf/utils/state.dart';
 import 'package:nyalcf_core/network/dio/frpc/download_frpc.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
@@ -12,6 +11,7 @@ import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
 import 'package:nyalcf/templates/command_implement.dart';
+import 'package:nyalcf/utils/state.dart';
 
 class Download implements CommandImplement {
   List<Map<String, String>> arch = [];

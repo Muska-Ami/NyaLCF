@@ -1,6 +1,6 @@
 name: nyalcf_inject_extend
 description: "Nya LoCyanFrp! communication injector extend module."
-version: 1.2.2
+version: 1.2.3
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 
@@ -17,7 +17,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   import_sorter: ^4.6.0
 
 # For information on the generic Dart part of this file, see the

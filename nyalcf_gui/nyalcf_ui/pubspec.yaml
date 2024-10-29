@@ -22,7 +22,7 @@ dependencies:
     path: ../nyalcf_core_extend
 
   url_launcher: ^6.2.6
-  flutter_launcher_icons: ^0.13.1
+  flutter_launcher_icons: ^0.14.1
   bitsdojo_window: ^0.1.5
   get: ^4.6.6
   flutter_markdown: ^0.7.1
@@ -37,7 +37,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
   import_sorter: ^4.6.0
 
 # For information on the generic Dart part of this file, see the
