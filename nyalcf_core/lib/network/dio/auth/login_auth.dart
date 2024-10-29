@@ -18,10 +18,10 @@ class LoginAuth {
       Logger.debug('Post login: $user');
       final response = await _instance.post(
         '$apiV2Url/auth/login',
-        queryParameters: {
+        data: dio.FormData.fromMap({
           'username': user,
           'password': password,
-        },
+        }),
         options: dio.Options(
           validateStatus: (status) => [200, 403, 404, 500].contains(status),
         ),

@@ -4,26 +4,23 @@
 
 ### GUI
 
-- 修复系统托盘问题 #189
-- 自动移除不存在的自动启动项目 #179
+-/-
 
 ### CLI
 
-- 修复一个错误的 verbose 输出
-- 修复一个错误的启动逻辑
-- 优化下载返回
+-/-
 
 ### 其他
 
-#### NyaLCF Env
+#### NyaLCF Core
 
-- 禁止输出未找到 `.env` 文件的日志
+- 修复 POST 请求数据提交
 
 ## 版本信息
 
 - nyalcf_gui: 0.2.3
 - nyalcf_cli: 0.0.3
-- nyalcf_env: 1.0.1
-- nyalcf_core,nyalcf_inject: 1.2.2
+- nyalcf_env: 1.0.2
+- nyalcf_core,nyalcf_inject: 1.2.3
 
 <!-- Some change log here -->

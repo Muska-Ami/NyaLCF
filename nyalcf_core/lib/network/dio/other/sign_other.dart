@@ -66,9 +66,9 @@ class OtherSign {
     try {
       final response = await instance.post(
         '$apiV2Url/sign',
-        queryParameters: {
+        data: dio.FormData.fromMap({
           'username': username,
-        },
+        }),
         options: dio.Options(
           validateStatus: (status) => [200, 403, 500].contains(status),
         ),
