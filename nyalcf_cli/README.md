@@ -16,6 +16,6 @@
 | 打包类型       | 系统类型    | 编译架构  | 状态 | 已测试通过环境          |
 |------------|---------|-------|----|------------------|
 | EXE        | Windows | x64   | ✅  | Windows 11 (Pro) |
-| EXECUTABLE | Linux   | x64   | ❓  | -                |
+| EXECUTABLE | Linux   | x64   | ✅  | Kali Linux(With WSL, Linux5.9) |
 | EXECUTABLE | MacOS   | arm64 | ❓  | -                |
 | EXECUTABLE | MacOS   | x64   | ✅  | MacOS 14         |
