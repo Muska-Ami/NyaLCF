@@ -24,7 +24,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.3
+          version: 3.24.5
           cache-sdk: true
 
       - name: Install Dependencies
@@ -76,7 +76,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.3
+          version: 3.24.5
           cache-sdk: true
 
       - name: Install Dependencies
@@ -119,7 +119,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.3
+          version: 3.24.5
           cache-sdk: true
 
       - name: Setup Node.js
