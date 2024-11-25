@@ -2,12 +2,12 @@
 import 'dart:io';
 
 // Flutter imports:
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';

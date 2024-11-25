@@ -1,9 +1,6 @@
 // Dart imports:
 import 'dart:io';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';

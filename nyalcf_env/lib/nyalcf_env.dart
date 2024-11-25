@@ -1,4 +1,4 @@
 library;
 
-export 'src/universal.dart';
 export 'src/gui.dart';
+export 'src/universal.dart';
