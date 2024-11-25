@@ -106,6 +106,12 @@ class LauncherSetting {
                             color: Colors.grey.shade600,
                           ),
                         ),
+                        Text(
+                          '您可能需要重启启动器才能应用此更改',
+                          style: TextStyle(
+                            color: Colors.grey.shade600,
+                          ),
+                        ),
                         Row(
                           children: <Widget>[
                             const Expanded(
@@ -123,26 +129,52 @@ class LauncherSetting {
                                 _lsCtr.loadx();
                                 if (value) {
                                   ThemeControl.autoSet();
-                                } else if (_lcs.getThemeDarkEnable()) {
-                                  // 暗色
-                                  Get.changeThemeMode(ThemeMode.dark);
-                                  Get.forceAppUpdate();
                                 } else {
-                                  // 亮色
-                                  Get.changeThemeMode(ThemeMode.light);
-                                  if (_lcs.getThemeLightSeedEnable()) {
-                                    // 自定义
-                                    Get.changeTheme(ThemeControl.custom);
-                                  } else {
-                                    Get.changeTheme(ThemeControl.light);
-                                  }
-                                  Get.forceAppUpdate();
+                                  ThemeControl.switchDarkTheme(_lcs.getThemeDarkEnable());
                                 }
                               },
                             ),
                           ],
                         ),
-                        _lsCtr.switchThemeDark.value,
+                        Visibility(
+                          visible: _lsCtr.switchThemeDarkOption.value,
+                          child: Row(
+                            children: <Widget>[
+                              const Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.dark_mode),
+                                  title: Text('深色主题'),
+                                ),
+                              ),
+                              Switch(
+                                value: _lsCtr.themeDark.value,
+                                onChanged: _lsCtr.switchDarkTheme,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Visibility(
+                          visible: _lsCtr.themeAuto.value,
+                          child: Row(
+                            children: <Widget>[
+                              const Expanded(
+                                child: ListTile(
+                                  leading: Icon(Icons.auto_fix_normal),
+                                  title: Text('Monet 取色'),
+                                ),
+                              ),
+                              Switch(
+                                value: _lsCtr.themeMonet.value,
+                                onChanged: (value) async {
+                                  _lcs.setThemeMonet(value);
+                                  _lcs.save();
+                                  _lsCtr.themeMonet.value = value;
+                                  _lsCtr.loadx();
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                         Row(
                           children: <Widget>[
                             const Expanded(
@@ -163,16 +195,12 @@ class LauncherSetting {
                                         decoration: const InputDecoration(
                                           labelText: '十六进制颜色',
                                         ),
-                                        onSubmitted: (value) async =>
-                                            _customThemeColorSeed(value),
-                                      ),
+                                        onSubmitted: (value) async => _customThemeColorSeed(value)),
                                     ),
                                     Transform.translate(
                                       offset: const Offset(0, 5),
                                       child: ElevatedButton(
-                                        onPressed: () async =>
-                                            _customThemeColorSeed(
-                                                _textEditingController.text),
+                                        onPressed: () async => _customThemeColorSeed(_textEditingController.text),
                                         child: const Text('保存'),
                                       ),
                                     ),
@@ -186,22 +214,16 @@ class LauncherSetting {
                                 _lcs.setThemeLightSeedEnable(value);
                                 Logger.debug(_lcs.getThemeLightSeedEnable());
                                 _lcs.save();
+                                _lsCtr.themeLightSeedEnable.value = value;
                                 // 必须要手动模式才执行操作
                                 if (!_lcs.getThemeAuto()) {
                                   if (value) {
                                     // 自定义
-                                    Get.changeThemeMode(ThemeMode.light);
-                                    Get.changeTheme(ThemeControl.custom);
-                                  } else if (_lcs.getThemeDarkEnable()) {
-                                    // 暗色
-                                    Get.changeThemeMode(ThemeMode.dark);
+                                    ThemeControl.autoSet();
                                   } else {
-                                    // 亮色
-                                    Get.changeThemeMode(ThemeMode.light);
-                                    Get.changeTheme(ThemeControl.light);
+                                    ThemeControl.switchDarkTheme(_lcs.getThemeDarkEnable());
                                   }
                                 }
-                                Get.forceAppUpdate();
                               },
                             ),
                           ],
@@ -243,17 +265,6 @@ class LauncherSetting {
                                 _lsCtr.autoSign.value = value;
                                 _lcs.setAutoSign(value);
                                 _lcs.save();
-                                // if (Platform.isWindows) {
-                                //   _lsCtr.setAutostart(value);
-                                // } else {
-                                //   Get.snackbar(
-                                //     '呜哇！',
-                                //     '这个功能貌似只能在Windows系统上使用，其他平台尚在开发喵~',
-                                //     snackPosition: SnackPosition.BOTTOM,
-                                //     animationDuration:
-                                //     const Duration(milliseconds: 300),
-                                //   );
-                                // }
                               },
                             ),
                           ],
@@ -336,27 +347,21 @@ class LauncherSetting {
                                       onPressed: () async {
                                         File('$_supportPath/logs/run.log')
                                             .delete()
-                                            .then(
-                                              (value) => Get.snackbar(
+                                            .then((value) => Get.snackbar(
                                                 '好耶！',
                                                 '已清除日志文件喵',
-                                                snackPosition:
-                                                    SnackPosition.BOTTOM,
-                                                animationDuration:
-                                                    const Duration(
-                                                        milliseconds: 300),
-                                              ),
-                                            )
+                                                snackPosition: SnackPosition.BOTTOM,
+                                                animationDuration: const Duration(milliseconds: 300),
+                                            ))
                                             .onError((error, stackTrace) {
-                                          Logger.error(error, t: stackTrace);
-                                          return Get.snackbar(
-                                            '坏！',
-                                            '发生了一点小问题QAQ $error',
-                                            snackPosition: SnackPosition.BOTTOM,
-                                            animationDuration: const Duration(
-                                                milliseconds: 300),
-                                          );
-                                        });
+                                              Logger.error(error, t: stackTrace);
+                                              return Get.snackbar(
+                                                '坏！',
+                                                '发生了一点小问题QAQ $error',
+                                                snackPosition: SnackPosition.BOTTOM,
+                                                animationDuration: const Duration(milliseconds: 300),
+                                              );
+                                            });
                                       },
                                       child: const Text('清除日志'),
                                     ),
@@ -476,8 +481,7 @@ class LauncherSetting {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Text(
-                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issue来向我们反馈。'),
+                      const Text('Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issue来向我们反馈。'),
                       TextButton(
                         child: const ListTile(
                           leading: Icon(Icons.link),
@@ -487,15 +491,13 @@ class LauncherSetting {
                           ),
                         ),
                         onPressed: () async {
-                          const url =
-                              'https://github.com/Muska-Ami/NyaLCF/issues';
+                          const url = 'https://github.com/Muska-Ami/NyaLCF/issues';
                           if (!await launchUrl(Uri.parse(url))) {
                             Get.snackbar(
                               '发生错误',
                               '无法打开网页，请检查设备是否存在WebView',
                               snackPosition: SnackPosition.BOTTOM,
-                              animationDuration:
-                                  const Duration(milliseconds: 300),
+                              animationDuration: const Duration(milliseconds: 300),
                             );
                           }
                         },

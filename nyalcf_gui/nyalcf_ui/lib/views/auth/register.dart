@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('$title - 注册', style: TextStyle(color: Colors.white)),
+        title: const Text('$title - 注册'),
         actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

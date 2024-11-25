@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('$title - 登录', style: TextStyle(color: Colors.white)),
+        title: const Text('$title - 登录'),
         actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

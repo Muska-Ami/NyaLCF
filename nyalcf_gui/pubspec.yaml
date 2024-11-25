@@ -1,6 +1,6 @@
 name: nyalcf
 description: "[GUI]The next generation of LoCyanFrp launcher."
-version: 0.2.3+6
+version: 0.2.4
 homepage: https://nyalcf.1l1.icu
 publish_to: 'none'
 
@@ -33,6 +33,7 @@ dependencies:
   window_manager: ^0.4.2
   app_links: ^6.1.4
   system_tray: ^2.0.3
+  dynamic_color: ^1.7.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

@@ -75,7 +75,7 @@ class MainWindow {
                 }
                 windowManager.destroy();
                 _systemTray?.destroy();
-                appWindow.close();
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
               },
             ),
           ],

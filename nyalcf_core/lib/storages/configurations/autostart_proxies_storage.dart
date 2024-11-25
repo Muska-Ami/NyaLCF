@@ -13,12 +13,12 @@ class AutostartProxiesStorage extends JsonConfiguration {
   String get handle => 'PROXIES_AUTOSTART';
 
   @override
-  Future<Map<String, dynamic>> get defConfig async => {
+  Map<String, dynamic> get defConfig => {
         'list': [],
       };
 
   /// 获取自带启动隧道列表
-  List getList() => cfg.getList('list');
+  List getList() => cfg.getList('list', defConfig['list']);
 
   /// 添加自动启动隧道
   /// [proxyId] 隧道 ID

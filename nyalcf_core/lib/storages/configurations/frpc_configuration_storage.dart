@@ -12,7 +12,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   String get handle => 'FRPC';
 
   @override
-  Future<Map<String, dynamic>> get defConfig async => {
+  Map<String, dynamic> get defConfig => {
         'settings': {
           'frpc_version': '0.51.3-6',
           'frpc_download_mirror': true,
@@ -38,7 +38,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
       };
 
   /// 获取使用的 Frpc 版本
-  String getSettingsFrpcVersion() => cfg.getString('settings.frpc_version');
+  String getSettingsFrpcVersion() => cfg.getString('settings.frpc_version', defConfig['settings']['frpc_version']);
 
   /// 设置使用的 Frpc 版本
   /// [value] Frpc 版本
@@ -47,7 +47,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
 
   /// 获取是否使用镜像源
   bool getSettingsFrpcDownloadMirror() =>
-      cfg.getBool('settings.frpc_download_mirror');
+      cfg.getBool('settings.frpc_download_mirror', defConfig['settings']['frpc_download_mirror']);
 
   /// 设置设置使用镜像源
   /// [value] 是否使用镜像源
@@ -56,7 +56,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
 
   /// 获取使用的镜像源 ID
   String getSettingsFrpcDownloadMirrorId() =>
-      cfg.getString('settings.frpc_download_mirror_id');
+      cfg.getString('settings.frpc_download_mirror_id', defConfig['settings']['frpc_download_mirror_id']);
 
   /// 设置使用的镜像源 ID
   void setSettingsFrpcDownloadMirrorId(String value) =>
@@ -86,7 +86,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   List<Map<String, dynamic>> getDownloadMirrors() {
     // 无法 cast，使用 for 转换一下类型
     final list = <Map<String, dynamic>>[];
-    for (var single in cfg.getList('lists.frpc_download_mirrors')) {
+    for (var single in cfg.getList('lists.frpc_download_mirrors', defConfig['lists']['frpc_download_mirrors'])) {
       list.add(single);
     }
     return list;

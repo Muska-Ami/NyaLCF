@@ -11,31 +11,22 @@ class ThemeControl {
   static final _lcs = LauncherConfigurationStorage();
 
   /// 获取主题
-  ThemeData getTheme() {
-    if (_lcs.getThemeAuto()) {
-      final bool systemThemeDarkMode =
-          SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-              Brightness.dark;
-      if (systemThemeDarkMode) {
-        return ThemeControl.dark;
-      } else if (_lcs.getThemeLightSeedEnable()) {
-        return ThemeControl.custom;
-      } else {
-        return ThemeControl.light;
-      }
-    } else if (_lcs.getThemeDarkEnable()) {
-      return ThemeControl.dark;
-    } else if (_lcs.getThemeLightSeedEnable()) {
-      return ThemeControl.custom;
+  static ThemeData getLightTheme() {
+    if (_lcs.getThemeLightSeedEnable()) {
+      return custom;
+    } else {
+      return light;
     }
-    return ThemeControl.light;
+  }
+
+  /// 获取主题
+  static ThemeData getDarkTheme() {
+    return dark;
   }
 
   /// 设置主题为自动模式
   static void autoSet() {
-    final bool isDarkMode =
-        SchedulerBinding.instance.platformDispatcher.platformBrightness ==
-            Brightness.dark;
+    final bool isDarkMode = SchedulerBinding.instance.platformDispatcher.platformBrightness == Brightness.dark;
     switchDarkTheme(isDarkMode);
   }
 
@@ -43,19 +34,15 @@ class ThemeControl {
   static void switchDarkTheme(bool value) {
     if (value) {
       Get.changeThemeMode(ThemeMode.dark);
+      // Get.forceAppUpdate();
+      // Get.changeTheme(dark);
       Logger.info('切换到暗色主题');
     } else {
-      if (_lcs.getThemeLightSeedEnable()) {
-        Get.changeThemeMode(ThemeMode.light);
-        Get.changeTheme(custom);
-        Logger.info('切换到亮色主题，种子：${_lcs.getThemeLightSeedValue()}');
-      } else {
-        Get.changeThemeMode(ThemeMode.light);
-        Get.changeTheme(light);
-        Logger.info('切换到亮色主题');
-      }
+      Get.changeThemeMode(ThemeMode.light);
+      // Get.changeTheme(light);
+      Logger.info('切换到亮色主题');
     }
-    Get.forceAppUpdate();
+    // Get.forceAppUpdate();
   }
 
   /// 暗色主题设置
