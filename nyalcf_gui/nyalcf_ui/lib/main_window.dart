@@ -1,4 +1,6 @@
 // Flutter imports:
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -75,7 +77,7 @@ class MainWindow {
                 }
                 windowManager.destroy();
                 _systemTray?.destroy();
-                appWindow.close();
+                SystemChannels.platform.invokeMethod('SystemNavigator.pop');
               },
             ),
           ],
