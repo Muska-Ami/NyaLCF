@@ -252,21 +252,21 @@ packages:
       path: "../nyalcf_core"
       relative: true
     source: path
-    version: "1.2.2"
+    version: "1.2.4"
   nyalcf_env:
     dependency: "direct main"
     description:
       path: "../nyalcf_env"
       relative: true
     source: path
-    version: "1.0.1"
+    version: "1.0.2"
   nyalcf_inject:
     dependency: "direct main"
     description:
       path: "../nyalcf_inject"
       relative: true
     source: path
-    version: "1.2.2"
+    version: "1.2.4"
   package_config:
     dependency: transitive
     description:
