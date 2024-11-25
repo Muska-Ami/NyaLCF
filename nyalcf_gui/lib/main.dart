@@ -2,12 +2,14 @@
 import 'dart:io';
 
 // Flutter imports:
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -124,30 +126,59 @@ class _AppState extends State<App> with WindowListener {
   /// 根组件
   @override
   Widget build(BuildContext context) {
-    ThemeData themeData = ThemeControl().getTheme();
+    return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      final lcs = LauncherConfigurationStorage();
 
-    final app = GetMaterialApp(
-      logWriterCallback: Logger.getxLogWriter,
-      title: 'Nya LoCyanFrp!',
-      routes: {
-        '/': (context) => Home(),
-        '/auth/login': (context) => const Login(),
-        '/auth/register': (context) => const Register(),
-        '/token_mode/login': (context) => const TokenModeAuth(),
-        '/token_mode/panel': (context) => const TokenModePanel(),
-        '/panel/home': (context) => PanelHome(),
-        '/panel/proxies': (context) => PanelProxies(),
-        '/panel/proxies/configuration': (context) =>
-            PanelProxiesConfiguration(),
-        '/panel/console': (context) => PanelConsole(),
-        '/panel/console/full': (context) => PanelConsoleFull(),
-        '/setting': (context) => const SettingInjector(),
-        '/license': (context) => const License(),
-      },
-      theme: themeData,
-    );
-    _appInit = true;
-    return app;
+      ThemeData lightThemeData = ThemeControl.getLightTheme();
+      ThemeData darkThemeData = ThemeControl.getDarkTheme();
+
+      // 非自动下切换深色主题逻辑
+      if (lcs.getThemeAuto() != true && lcs.getThemeDarkEnable()) Get.changeThemeMode(ThemeMode.dark);
+
+      // Monet 取色
+      if (lcs.getThemeAuto() == true && lcs.getThemeMonet() == true) {
+        if (lightDynamic != null && darkDynamic != null) {
+          // 亮色模式 Monet 取色
+          lightThemeData = ThemeData(
+              useMaterial3: true,
+              fontFamily: 'HarmonyOS Sans',
+              brightness: Brightness.light,
+              colorScheme: lightDynamic.harmonized()
+          );
+          // 暗色模式 Monet 取色
+          darkThemeData = ThemeData(
+              useMaterial3: true,
+              fontFamily: 'HarmonyOS Sans',
+              brightness: Brightness.dark,
+              colorScheme: darkDynamic.harmonized()
+          );
+        }
+      }
+
+      final app = GetMaterialApp(
+        logWriterCallback: Logger.getxLogWriter,
+        title: 'Nya LoCyanFrp!',
+        routes: {
+          '/': (context) => Home(),
+          '/auth/login': (context) => const Login(),
+          '/auth/register': (context) => const Register(),
+          '/token_mode/login': (context) => const TokenModeAuth(),
+          '/token_mode/panel': (context) => const TokenModePanel(),
+          '/panel/home': (context) => PanelHome(),
+          '/panel/proxies': (context) => PanelProxies(),
+          '/panel/proxies/configuration': (context) => PanelProxiesConfiguration(),
+          '/panel/console': (context) => PanelConsole(),
+          '/panel/console/full': (context) => PanelConsoleFull(),
+          '/setting': (context) => const SettingInjector(),
+          '/license': (context) => const License(),
+        },
+        theme: lightThemeData,
+        darkTheme: darkThemeData,
+      );
+
+      _appInit = true;
+      return app;
+    });
   }
 
   /// 组件初始化时操作
@@ -171,7 +202,7 @@ class _AppState extends State<App> with WindowListener {
     super.dispose();
   }
 
-  // 窗口和托盘图标的事件处理
+  /// 窗口和托盘图标的事件处理
   @override
   onWindowClose() => MainWindow.onWindowClose();
 }

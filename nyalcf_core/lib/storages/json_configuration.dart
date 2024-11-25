@@ -19,7 +19,7 @@ abstract class JsonConfiguration {
   String get handle;
 
   /// 配置文件默认内容
-  Future<Map<String, dynamic>> get defConfig async => {};
+  Map<String, dynamic> get defConfig => {};
 
   /// 附加 Init 方法
   void init() => {};
@@ -47,7 +47,7 @@ abstract class JsonConfiguration {
     if (await file?.exists() == true) {
       cfg.fromString(await file!.readAsString());
     } else {
-      cfg.fromMap(await defConfig);
+      cfg.fromMap(defConfig);
       cfg.save();
     }
     init();

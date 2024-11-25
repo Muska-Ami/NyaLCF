@@ -33,7 +33,7 @@ class PanelHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title:
-            const Text('$title - 仪表板', style: TextStyle(color: Colors.white)),
+            const Text('$title - 仪表板'),
 
         //automaticallyImplyLeading: false,
         actions: AppbarActions(append: <Widget>[

@@ -28,37 +28,37 @@ class FileConfiguration {
   /// String
   void setString(String node, String value) => set(node, value);
 
-  String getString(String node) => get(node);
+  String getString(String node, String? defaultValue) => get(node, defaultValue);
 
   void setStringList(String node, List<String> value) => setList(node, value);
 
   List<String> getStringList(String node) =>
-      getList(node).map((item) => item as String).toList();
+      getList(node, []).map((item) => item as String).toList();
 
   /// int
   void setInt(String node, int value) => set(node, value);
 
-  int getInt(String node) => get(node);
+  int getInt(String node, int? defaultValue) => get(node, defaultValue);
 
   /// double
   void setDouble(String node, double value) => set(node, value);
 
-  double getDouble(String node) => get(node);
+  double getDouble(String node, double? defaultValue) => get(node, defaultValue);
 
   /// bool
   void setBool(String node, bool value) => set(node, value);
 
-  bool getBool(String node) => get(node);
+  bool getBool(String node, bool? defaultValue) => get(node, defaultValue);
 
   /// Symbol
   void setSymbol(String node, Symbol value) => set(node, value);
 
-  Symbol getSymbol(String node) => get(node);
+  Symbol getSymbol(String node, Symbol? defaultValue) => get(node, defaultValue);
 
   /// List
   void setList(String node, List value) => set(node, value);
 
-  List getList(String node) => get(node);
+  List getList(String node, List? defaultValue) => get(node, defaultValue);
 
   /// 设置值
   void set(String node, dynamic value) {
@@ -79,7 +79,7 @@ class FileConfiguration {
   }
 
   /// 获取值
-  dynamic get(String node) {
+  dynamic get(String node, dynamic defaultValue) {
     List<String> nl = _parseNode(node);
     dynamic last;
     String? n;
@@ -95,6 +95,11 @@ class FileConfiguration {
         //Logger.debug('读取迭代NODE: $n');
         //Logger.debug('读取迭代LAST: $last');
       }
+    }
+
+    if (last == null && defaultValue != null) {
+      set(node, defaultValue);
+      return defaultValue;
     }
     //Logger.debug('最终值(${n}): ${last}');
     return last;

@@ -30,8 +30,7 @@ class _TokenModeAuthState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('$title - TokenMode',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('$title - TokenMode'),
         actions: AppbarActions(context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,
       ),

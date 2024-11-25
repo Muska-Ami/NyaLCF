@@ -28,7 +28,6 @@ class AppbarActions {
             highlightColor: Colors.transparent,
             focusColor: Colors.transparent,
             hoverColor: Colors.transparent,
-            color: Colors.white,
           ),
         ),
 
@@ -37,7 +36,6 @@ class AppbarActions {
           onPressed: () => {appWindow.minimize()},
           icon: const Icon(Icons.horizontal_rule),
           tooltip: '最小化',
-          color: Colors.white,
         ),
 
         /// 关闭
@@ -45,7 +43,6 @@ class AppbarActions {
           onPressed: () => MainWindow.onWindowClose(),
           icon: const Icon(Icons.close),
           tooltip: '关闭',
-          color: Colors.white,
         ),
       ];
 
@@ -71,10 +68,8 @@ class AppbarActions {
           onPressed: () => Get.toNamed('/setting'),
           icon: const Icon(
             Icons.settings,
-            color: Colors.white,
           ),
           tooltip: '设置',
-          color: Colors.white,
         ),
       );
     }

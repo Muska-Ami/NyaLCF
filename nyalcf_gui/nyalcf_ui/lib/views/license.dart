@@ -18,8 +18,7 @@ class License extends StatelessWidget {
       // 构建应用栏
       appBar: AppBar(
         // 设置应用栏标题
-        title: const Text('$title - License',
-            style: TextStyle(color: Colors.white)),
+        title: const Text('$title - License'),
         // 设置应用栏操作按钮
         actions: AppbarActions(setting: false, context: context).actions(),
         iconTheme: Theme.of(context).iconTheme,

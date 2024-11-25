@@ -25,6 +25,9 @@ class LauncherSettingLauncherController extends GetxController {
   /// <Rx>是否自动设置主题
   var themeAuto = false.obs;
 
+  /// <Rx>是否 Monet 取色
+  var themeMonet = false.obs;
+
   /// <Rx>是否启用暗色模式
   var themeDark = false.obs;
 
@@ -35,7 +38,7 @@ class LauncherSettingLauncherController extends GetxController {
   var themeLightSeedEnable = false.obs;
 
   /// <Rx>切换是否启用深色模式的组件
-  var switchThemeDark = const Row().obs;
+  var switchThemeDarkOption = false.obs;
 
   /// <Rx>是否启用 DEBUG 模式
   var debugMode = false.obs;
@@ -50,6 +53,7 @@ class LauncherSettingLauncherController extends GetxController {
     themeLightSeedEnable.value = _lcs.getThemeLightSeedEnable();
     // 新配置
     themeAuto.value = _lcs.getThemeAuto();
+    themeMonet.value = _lcs.getThemeMonet();
     themeDark.value = _lcs.getThemeDarkEnable();
     debugMode.value = _lcs.getDebug();
     loadx();
@@ -59,22 +63,9 @@ class LauncherSettingLauncherController extends GetxController {
   void loadx() {
     if (!(themeAuto.value)) {
       Logger.debug('Auto theme is disabled, add button to switch theme');
-      switchThemeDark.value = Row(
-        children: <Widget>[
-          const Expanded(
-            child: ListTile(
-              leading: Icon(Icons.dark_mode),
-              title: Text('深色主题'),
-            ),
-          ),
-          Switch(
-            value: themeDark.value,
-            onChanged: switchDarkTheme,
-          ),
-        ],
-      );
+      switchThemeDarkOption.value = true;
     } else {
-      switchThemeDark.value = const Row();
+      switchThemeDarkOption.value = false;
     }
   }
 
@@ -83,13 +74,7 @@ class LauncherSettingLauncherController extends GetxController {
     _lcs.setThemeDarkEnable(value);
     _lcs.save();
     themeDark.value = value;
-    if (value) {
-      Get.changeThemeMode(ThemeMode.dark);
-    } else {
-      Get.changeThemeMode(ThemeMode.light);
-      if (_lcs.getThemeLightSeedEnable()) Get.changeTheme(ThemeControl.custom);
-    }
-    Get.forceAppUpdate();
+    ThemeControl.switchDarkTheme(value);
     loadx();
     // ThemeControl.switchDarkTheme(value);
   }

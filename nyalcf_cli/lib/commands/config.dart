@@ -17,7 +17,7 @@ class Config implements CommandImplement {
     if (args.length == 3) {
       switch (args[0]) {
         case 'launcher':
-          final originValue = _lcs.cfg.get(args[1]);
+          final originValue = _lcs.cfg.get(args[1], null);
           final convertedValue = _convert(originValue, args[2]);
           if (convertedValue != null) {
             _lcs.cfg.set(args[1], convertedValue);

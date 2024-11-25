@@ -33,6 +33,7 @@ dependencies:
   window_manager: ^0.4.2
   app_links: ^6.1.4
   system_tray: ^2.0.3
+  dynamic_color: ^1.7.0
 
 dev_dependencies:
   # The "flutter_lints" package below contains a set of recommended lints to

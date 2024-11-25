@@ -26,7 +26,6 @@ Widget drawer(BuildContext context) {
                           padding: const EdgeInsets.all(5.0),
                           child: const Text(
                             '菜单',
-                            style: TextStyle(color: Colors.white),
                           ))))
             ])),
         ListTile(
