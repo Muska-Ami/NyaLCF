@@ -214,6 +214,7 @@ class LauncherSetting {
                                 _lcs.setThemeLightSeedEnable(value);
                                 Logger.debug(_lcs.getThemeLightSeedEnable());
                                 _lcs.save();
+                                _lsCtr.themeLightSeedEnable.value = value;
                                 // 必须要手动模式才执行操作
                                 if (!_lcs.getThemeAuto()) {
                                   if (value) {
