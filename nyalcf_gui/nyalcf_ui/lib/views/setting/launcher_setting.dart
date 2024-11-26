@@ -525,10 +525,9 @@ class LauncherSetting {
       Logger.debug(code);
       // 检查是否启用
       // 必须要手动模式才执行操作
-      if (_lcs.getThemeLightSeedEnable() && !_lcs.getThemeAuto()) {
+      if (_lcs.getThemeLightSeedEnable() && !_lcs.getThemeAuto() && !_lcs.getThemeDarkEnable()) {
         Get.changeThemeMode(ThemeMode.light);
         Get.changeTheme(ThemeControl.custom);
-        Get.forceAppUpdate();
       }
     } else {
       Get.snackbar(
