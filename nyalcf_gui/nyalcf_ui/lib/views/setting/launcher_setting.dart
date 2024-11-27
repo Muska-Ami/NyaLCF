@@ -11,6 +11,7 @@ import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/tasks/updater.dart';
+import 'package:nyalcf_core_extend/utils/color_utils.dart';
 import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
@@ -20,15 +21,16 @@ import 'package:url_launcher/url_launcher.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/launcher_setting_controller.dart';
+import 'package:nyalcf_ui/models/color_pick_dialog.dart';
 
 class LauncherSetting {
+  LauncherSetting({required this.context});
+  final BuildContext context;
+
   final LauncherSettingLauncherController _lsCtr = Get.find();
   final _lcs = LauncherConfigurationStorage();
 
   static final String? _supportPath = appSupportPath;
-
-  TextEditingController get _textEditingController =>
-      TextEditingController(text: _lcs.getThemeLightSeedValue());
 
   Widget widget() {
     return Container(
@@ -130,7 +132,8 @@ class LauncherSetting {
                                 if (value) {
                                   ThemeControl.autoSet();
                                 } else {
-                                  ThemeControl.switchDarkTheme(_lcs.getThemeDarkEnable());
+                                  ThemeControl.switchDarkTheme(
+                                      _lcs.getThemeDarkEnable());
                                 }
                               },
                             ),
@@ -153,27 +156,24 @@ class LauncherSetting {
                             ],
                           ),
                         ),
-                        Visibility(
-                          visible: _lsCtr.themeAuto.value,
-                          child: Row(
-                            children: <Widget>[
-                              const Expanded(
-                                child: ListTile(
-                                  leading: Icon(Icons.auto_fix_normal),
-                                  title: Text('Monet 取色'),
-                                ),
+                        Row(
+                          children: <Widget>[
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.auto_fix_normal),
+                                title: Text('Monet 取色'),
                               ),
-                              Switch(
-                                value: _lsCtr.themeMonet.value,
-                                onChanged: (value) async {
-                                  _lcs.setThemeMonet(value);
-                                  _lcs.save();
-                                  _lsCtr.themeMonet.value = value;
-                                  _lsCtr.loadx();
-                                },
-                              ),
-                            ],
-                          ),
+                            ),
+                            Switch(
+                              value: _lsCtr.themeMonet.value,
+                              onChanged: (value) async {
+                                _lcs.setThemeMonet(value);
+                                _lcs.save();
+                                _lsCtr.themeMonet.value = value;
+                                _lsCtr.loadx();
+                              },
+                            ),
+                          ],
                         ),
                         Row(
                           children: <Widget>[
@@ -189,19 +189,34 @@ class LauncherSetting {
                                 padding: const EdgeInsets.only(bottom: 10.0),
                                 child: Row(
                                   children: <Widget>[
-                                    Expanded(
-                                      child: TextField(
-                                        controller: _textEditingController,
-                                        decoration: const InputDecoration(
-                                          labelText: '十六进制颜色',
-                                        ),
-                                        onSubmitted: (value) async => _customThemeColorSeed(value)),
-                                    ),
+                                    // Expanded(
+                                    //   child: TextField(
+                                    //     controller: _textEditingController,
+                                    //     decoration: const InputDecoration(
+                                    //       labelText: '十六进制颜色',
+                                    //     ),
+                                    //     onSubmitted: (value) async => _customThemeColorSeed(value)),
+                                    // ),
+                                    // Transform.translate(
+                                    //   offset: const Offset(0, 5),
+                                    //   child: ElevatedButton(
+                                    //     onPressed: () async => _customThemeColorSeed(_textEditingController.text),
+                                    //     child: const Text('保存'),
+                                    //   ),
+                                    // ),
                                     Transform.translate(
-                                      offset: const Offset(0, 5),
+                                      offset: const Offset(80, 6),
                                       child: ElevatedButton(
-                                        onPressed: () async => _customThemeColorSeed(_textEditingController.text),
-                                        child: const Text('保存'),
+                                        onPressed: () async => Get.dialog(
+                                          colorPickDialog(
+                                            context,
+                                            pickerColor: ColorUtils.hexToColor(_lcs.getThemeLightSeedValue()),
+                                            onColorChanged: (value) {
+                                              _customThemeColorSeed(value);
+                                            },
+                                          ),
+                                        ),
+                                        child: const Text('选取颜色'),
                                       ),
                                     ),
                                   ],
@@ -217,11 +232,12 @@ class LauncherSetting {
                                 _lsCtr.themeLightSeedEnable.value = value;
                                 // 必须要手动模式才执行操作
                                 if (!_lcs.getThemeAuto()) {
-                                  if (value) {
+                                  if (value && !_lcs.getThemeDarkEnable()) {
                                     // 自定义
                                     ThemeControl.autoSet();
                                   } else {
-                                    ThemeControl.switchDarkTheme(_lcs.getThemeDarkEnable());
+                                    ThemeControl.switchDarkTheme(
+                                        _lcs.getThemeDarkEnable());
                                   }
                                 }
                               },
@@ -348,20 +364,24 @@ class LauncherSetting {
                                         File('$_supportPath/logs/run.log')
                                             .delete()
                                             .then((value) => Get.snackbar(
-                                                '好耶！',
-                                                '已清除日志文件喵',
-                                                snackPosition: SnackPosition.BOTTOM,
-                                                animationDuration: const Duration(milliseconds: 300),
-                                            ))
+                                                  '好耶！',
+                                                  '已清除日志文件喵',
+                                                  snackPosition:
+                                                      SnackPosition.BOTTOM,
+                                                  animationDuration:
+                                                      const Duration(
+                                                          milliseconds: 300),
+                                                ))
                                             .onError((error, stackTrace) {
-                                              Logger.error(error, t: stackTrace);
-                                              return Get.snackbar(
-                                                '坏！',
-                                                '发生了一点小问题QAQ $error',
-                                                snackPosition: SnackPosition.BOTTOM,
-                                                animationDuration: const Duration(milliseconds: 300),
-                                              );
-                                            });
+                                          Logger.error(error, t: stackTrace);
+                                          return Get.snackbar(
+                                            '坏！',
+                                            '发生了一点小问题QAQ $error',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
+                                          );
+                                        });
                                       },
                                       child: const Text('清除日志'),
                                     ),
@@ -481,7 +501,8 @@ class LauncherSetting {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      const Text('Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issue来向我们反馈。'),
+                      const Text(
+                          'Nya LoCyanFrp! 是免费开源的，欢迎向我们提交BUG或新功能请求。您可以在GitHub上提交Issue来向我们反馈。'),
                       TextButton(
                         child: const ListTile(
                           leading: Icon(Icons.link),
@@ -491,13 +512,15 @@ class LauncherSetting {
                           ),
                         ),
                         onPressed: () async {
-                          const url = 'https://github.com/Muska-Ami/NyaLCF/issues';
+                          const url =
+                              'https://github.com/Muska-Ami/NyaLCF/issues';
                           if (!await launchUrl(Uri.parse(url))) {
                             Get.snackbar(
                               '发生错误',
                               '无法打开网页，请检查设备是否存在WebView',
                               snackPosition: SnackPosition.BOTTOM,
-                              animationDuration: const Duration(milliseconds: 300),
+                              animationDuration:
+                                  const Duration(milliseconds: 300),
                             );
                           }
                         },
@@ -513,29 +536,19 @@ class LauncherSetting {
     );
   }
 
-  void _customThemeColorSeed(String code) {
-    if (code.startsWith('#')) {
-      code = code.substring(1); // 移除 # 符号
-    } else {
-      code = code;
-    }
-    if (code.length == 6 || code.length == 8) {
-      _lcs.setThemeLightSeedValue(code);
-      _lcs.save();
-      Logger.debug(code);
-      // 检查是否启用
-      // 必须要手动模式才执行操作
-      if (_lcs.getThemeLightSeedEnable() && !_lcs.getThemeAuto() && !_lcs.getThemeDarkEnable()) {
-        Get.changeThemeMode(ThemeMode.light);
-        Get.changeTheme(ThemeControl.custom);
-      }
-    } else {
-      Get.snackbar(
-        '大笨蛋！',
-        '这不是有效的十六进制颜色代码哦！',
-        snackPosition: SnackPosition.BOTTOM,
-        animationDuration: const Duration(milliseconds: 300),
-      );
+  void _customThemeColorSeed(Color color) {
+    String code = ColorUtils.colorToHex(color);
+
+    _lcs.setThemeLightSeedValue(code);
+    _lcs.save();
+    Logger.debug(code);
+    // 检查是否启用
+    // 必须要手动模式才执行操作
+    if (_lcs.getThemeLightSeedEnable() &&
+        !_lcs.getThemeAuto() &&
+        !_lcs.getThemeDarkEnable()) {
+      Get.changeThemeMode(ThemeMode.light);
+      Get.changeTheme(ThemeControl.custom);
     }
   }
 }

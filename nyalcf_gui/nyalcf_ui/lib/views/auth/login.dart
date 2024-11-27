@@ -44,7 +44,7 @@ class _LoginState extends State<Login> {
           constraints: const BoxConstraints(maxWidth: 400.0),
           child: Column(children: <Widget>[
             const Text(
-              '登录到LoCyanFrp',
+              '登录到 LoCyanFrp',
               style: TextStyle(fontSize: 30),
             ),
             Form(

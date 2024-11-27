@@ -129,6 +129,7 @@ class _AppState extends State<App> with WindowListener {
     return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       final lcs = LauncherConfigurationStorage();
 
+      // 定义初始主题数据
       ThemeData lightThemeData = ThemeControl.getLightTheme();
       ThemeData darkThemeData = ThemeControl.getDarkTheme();
 
@@ -136,7 +137,7 @@ class _AppState extends State<App> with WindowListener {
       if (lcs.getThemeAuto() != true && lcs.getThemeDarkEnable()) Get.changeThemeMode(ThemeMode.dark);
 
       // Monet 取色
-      if (lcs.getThemeAuto() == true && lcs.getThemeMonet() == true) {
+      if (lcs.getThemeMonet() == true) {
         if (lightDynamic != null && darkDynamic != null) {
           // 亮色模式 Monet 取色
           lightThemeData = ThemeData(

@@ -63,7 +63,7 @@ class PanelProxies extends StatelessWidget {
                 child: const Column(
                   children: <Widget>[
                     Text(
-                      '隧道信息每隔15分钟更新，您也可以点击刷新立即更新。',
+                      '隧道信息每隔 15 分钟更新，您也可以点击刷新立即更新。',
                       style: TextStyle(fontSize: 15),
                     ),
                   ],

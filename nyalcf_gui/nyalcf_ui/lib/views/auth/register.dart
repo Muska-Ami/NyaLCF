@@ -55,7 +55,7 @@ class _RegisterState extends State<Register> {
               child: Column(
                 children: <Widget>[
                   const Text(
-                    '注册LoCyanFrp账户',
+                    '注册 LoCyanFrp 账户',
                     style: TextStyle(fontSize: 30),
                   ),
                   Form(

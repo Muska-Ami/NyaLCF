@@ -23,17 +23,16 @@ class PanelHome extends StatelessWidget {
   PanelHome({super.key});
 
   final UserController _uCtr = Get.find();
-  final HomePanelController _hpCtrtr = Get.put(HomePanelController());
+  final HomePanelController _hpCtr = Get.put(HomePanelController());
 
   @override
   Widget build(BuildContext context) {
     _uCtr.load();
-    _hpCtrtr.load();
+    _hpCtr.load();
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('$title - 仪表板'),
+        title: const Text('$title - 仪表板'),
 
         //automaticallyImplyLeading: false,
         actions: AppbarActions(append: <Widget>[
@@ -121,7 +120,7 @@ class PanelHome extends StatelessWidget {
                                       if (doSignRes.message == "Signed") {
                                         Get.snackbar(
                                           '签到失败',
-                                          '已签到，无法重复签到QwQ',
+                                          '已签到，无法重复签到 QwQ',
                                           snackPosition: SnackPosition.BOTTOM,
                                           animationDuration:
                                               const Duration(milliseconds: 300),
@@ -238,20 +237,23 @@ class PanelHome extends StatelessWidget {
                             title: Text('通知'),
                           ),
                           Flexible(
-                              fit: FlexFit.loose,
-                              child: Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 15.0, right: 15.0, bottom: 15.0),
-                                  child: Obx(() => MarkdownBody(
-                                      selectable: true,
-                                      onTapLink: (text, url, title) {
-                                        if (url != null) {
-                                          Logger.debug(
-                                              'Launch url from Announcement: $url');
-                                          launchUrl(Uri.parse(url));
-                                        }
-                                      },
-                                      data: '${_hpCtrtr.announcement}'))))
+                            fit: FlexFit.loose,
+                            child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 15.0, right: 15.0, bottom: 15.0),
+                              child: Obx(() => MarkdownBody(
+                                    selectable: true,
+                                    onTapLink: (text, url, title) {
+                                      if (url != null) {
+                                        Logger.debug(
+                                            'Launch url from Announcement: $url');
+                                        launchUrl(Uri.parse(url));
+                                      }
+                                    },
+                                    data: '${_hpCtr.announcement}',
+                                  )),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -266,20 +268,23 @@ class PanelHome extends StatelessWidget {
                           title: Text('公告'),
                         ),
                         Flexible(
-                            fit: FlexFit.loose,
-                            child: Container(
-                                margin: const EdgeInsets.only(
-                                    left: 15.0, right: 15.0, bottom: 15.0),
-                                child: Obx(() => MarkdownBody(
-                                    selectable: true,
-                                    onTapLink: (text, url, title) {
-                                      if (url != null) {
-                                        Logger.debug(
-                                            'Launch url from Announcement: $url');
-                                        launchUrl(Uri.parse(url));
-                                      }
-                                    },
-                                    data: '${_hpCtrtr.broadcast}'))))
+                          fit: FlexFit.loose,
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, bottom: 15.0),
+                            child: Obx(() => MarkdownBody(
+                                  selectable: true,
+                                  onTapLink: (text, url, title) {
+                                    if (url != null) {
+                                      Logger.debug(
+                                          'Launch url from Announcement: $url');
+                                      launchUrl(Uri.parse(url));
+                                    }
+                                  },
+                                  data: '${_hpCtr.broadcast}',
+                                )),
+                          ),
+                        ),
                       ],
                     ),
                   )),

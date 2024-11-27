@@ -14,7 +14,8 @@ class HomePanelController extends GetxController {
   var announcement = '喵喵喵？正在请求捏'.obs;
 
   /// 加载控制器
-  load() async {
+  load({bool force = false}) async {
+    if (loaded && !force) return;
     final notice = await OtherAnnouncement.getNotice();
     if (notice.status) {
       notice as NoticeResponse;
