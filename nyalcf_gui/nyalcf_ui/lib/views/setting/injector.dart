@@ -51,7 +51,7 @@ class SettingInjector extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            LauncherSetting().widget(),
+            LauncherSetting(context: context).widget(),
             FrpcSetting(context: context).widget()
           ],
         ),

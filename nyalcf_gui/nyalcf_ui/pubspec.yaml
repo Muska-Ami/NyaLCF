@@ -1,6 +1,6 @@
 name: nyalcf_ui
 description: "Nya LoCyanFrp! user interface module."
-version: 1.2.1
+version: 1.2.2
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 
@@ -33,6 +33,7 @@ dependencies:
   window_manager: ^0.4.2
   dio: ^5.7.0
   system_tray: ^2.0.3
+  flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
   flutter_test:

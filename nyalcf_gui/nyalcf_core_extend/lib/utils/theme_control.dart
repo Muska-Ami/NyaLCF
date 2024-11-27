@@ -11,18 +11,10 @@ class ThemeControl {
   static final _lcs = LauncherConfigurationStorage();
 
   /// 获取主题
-  static ThemeData getLightTheme() {
-    if (_lcs.getThemeLightSeedEnable()) {
-      return custom;
-    } else {
-      return light;
-    }
-  }
+  static ThemeData getLightTheme() => _lcs.getThemeLightSeedEnable() ? custom : light;
 
   /// 获取主题
-  static ThemeData getDarkTheme() {
-    return dark;
-  }
+  static ThemeData getDarkTheme() => dark;
 
   /// 设置主题为自动模式
   static void autoSet() {

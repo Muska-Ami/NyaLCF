@@ -69,7 +69,7 @@ class _TokenModePanelState extends State {
             child: Container(
               margin: const EdgeInsets.all(10.0),
               child: const Text(
-                '提示：您正在使用Frp Token模式，如需使用完整版本，请登录LoCyanFrp账户喵~',
+                '提示：您正在使用 Frp Token 模式，如需使用完整版本，请登录 LoCyanFrp 账户喵~',
                 style: TextStyle(
                   color: Colors.blue,
                 ),
@@ -79,7 +79,7 @@ class _TokenModePanelState extends State {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              const Text('隧道ID'),
+              const Text('隧道 ID'),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -88,7 +88,7 @@ class _TokenModePanelState extends State {
                     margin: const EdgeInsets.all(10.0),
                     child: TextField(
                       decoration: const InputDecoration(
-                        labelText: '隧道ID',
+                        labelText: '隧道 ID',
                         prefixIcon: Icon(Icons.numbers),
                         border: OutlineInputBorder(),
                       ),
@@ -108,8 +108,8 @@ class _TokenModePanelState extends State {
                               proxyId = int.parse(proxyController.text);
                             } on FormatException {
                               Get.snackbar(
-                                '无效隧道ID',
-                                '请填写隧道数字ID',
+                                '无效隧道 ID',
+                                '请填写隧道数字 ID',
                                 snackPosition: SnackPosition.BOTTOM,
                                 animationDuration:
                                     const Duration(milliseconds: 300),
@@ -132,7 +132,7 @@ class _TokenModePanelState extends State {
                           } else {
                             Get.snackbar(
                               '笨..笨蛋！',
-                              '你还没有安装Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
+                              '你还没有安装 Frpc！请先到 设置->FRPC 安装Frpc才能启动喵！',
                               snackPosition: SnackPosition.BOTTOM,
                               animationDuration:
                                   const Duration(milliseconds: 300),

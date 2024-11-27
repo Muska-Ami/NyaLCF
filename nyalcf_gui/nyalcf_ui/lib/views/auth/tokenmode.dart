@@ -43,7 +43,7 @@ class _TokenModeAuthState extends State {
               child: Column(
                 children: <Widget>[
                   const Text(
-                    '请输入Frp Token',
+                    '请输入 Frp Token',
                     style: TextStyle(fontSize: 30),
                   ),
                   Form(
@@ -71,7 +71,7 @@ class _TokenModeAuthState extends State {
                               } else {
                                 Get.snackbar(
                                   '无效数据',
-                                  '请输入Frp Token',
+                                  '请输入 Frp Token',
                                   snackPosition: SnackPosition.BOTTOM,
                                   animationDuration:
                                       const Duration(milliseconds: 300),
@@ -82,7 +82,7 @@ class _TokenModeAuthState extends State {
                           ),
                         ),
                         const Text(
-                          '使用前请确认Frp Token正确喵，猫猫是不会帮你校验Frp Token有效性哒！',
+                          '使用前请确认 Frp Token 正确喵，猫猫是不会帮你校验Frp Token有效性哒！',
                           style: TextStyle(color: Colors.red),
                         ),
                       ],

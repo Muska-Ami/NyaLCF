@@ -16,7 +16,7 @@ Widget toolDialog() {
             if (!await launchUrl(Uri.parse(url))) {
               Get.snackbar(
                 '发生错误',
-                '无法打开网页，请检查设备是否存在WebView',
+                '无法打开网页，请检查设备是否存在 WebView',
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );
@@ -29,7 +29,7 @@ Widget toolDialog() {
             if (!await launchUrl(Uri.parse(url))) {
               Get.snackbar(
                 '发生错误',
-                '无法打开网页，请检查设备是否存在WebView',
+                '无法打开网页，请检查设备是否存在 WebView',
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );
@@ -42,7 +42,7 @@ Widget toolDialog() {
             if (!await launchUrl(Uri.parse(url))) {
               Get.snackbar(
                 '发生错误',
-                '无法打开网页，请检查设备是否存在WebView',
+                '无法打开网页，请检查设备是否存在 WebView',
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );
@@ -55,7 +55,7 @@ Widget toolDialog() {
             if (!await launchUrl(Uri.parse(url))) {
               Get.snackbar(
                 '发生错误',
-                '无法打开网页，请检查设备是否存在WebView',
+                '无法打开网页，请检查设备是否存在 WebView',
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );

@@ -4,23 +4,23 @@
 
 ### GUI
 
-- 新增 Monet 取色，重构了主题功能部分逻辑
+- 修复浅色模式自定义颜色种子开启覆盖已生效主题问题
+- 浅色模式自定义颜色种子改为Material颜色取色板
+- 优化了一些逻辑
 
 ### CLI
 
-- 同步核心更改
+-/-
 
 ### 其他
 
-#### NyaLCF Core
-
-- 为配置文件添加 Fallback 赋值机制
+-/-
 
 ## 版本信息
 
-- nyalcf_gui: 0.2.3
+- nyalcf_gui: 0.2.4
 - nyalcf_cli: 0.0.3
 - nyalcf_env: 1.0.2
-- nyalcf_core,nyalcf_inject: 1.2.4
+- nyalcf_core,nyalcf_inject: 1.2.5
 
 <!-- Some change log here -->

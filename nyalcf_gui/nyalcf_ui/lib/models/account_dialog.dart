@@ -81,7 +81,7 @@ Widget accountDialog(BuildContext context) {
             const url = 'https://cravatar.cn';
             if (!await launchUrl(Uri.parse(url))) {
               const snackBar = SnackBar(
-                content: Text('无法打开网页，请检查设备是否存在WebView'),
+                content: Text('无法打开网页，请检查设备是否存在 WebView'),
               );
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(snackBar);
