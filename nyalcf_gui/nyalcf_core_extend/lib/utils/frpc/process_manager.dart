@@ -133,9 +133,12 @@ class FrpcProcessManager {
             'cannot connect to local service - Frpc 无法连接到本地服务，请检查本地服务状态及本地服务端口',
       },
     ];
-    for (Map<String, String> error in errorList) {
-      if (str.contains(error['key']!)) {
-        _cCtr.appendSystemInfoLog('提示：${error['info']}');
+
+    if (_cCtr.kindTip) {
+      for (Map<String, String> error in errorList) {
+        if (str.contains(error['key']!)) {
+          _cCtr.appendSystemInfoLog('提示：${error['info']}');
+        }
       }
     }
   }

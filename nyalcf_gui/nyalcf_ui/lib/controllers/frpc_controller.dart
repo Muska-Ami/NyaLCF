@@ -11,8 +11,8 @@ class FrpcController extends GetxController {
   final _fss = FrpcStorage();
   final FrpcConfigurationStorage _fcs = FrpcConfigurationStorage();
 
-  /// 是否存在的标志
-  RxBool exist = false.obs;
+  // /// 是否存在的标志
+  // RxBool exists = false.obs;
 
   /// 版本号
   RxString version = ''.obs;
@@ -22,10 +22,10 @@ class FrpcController extends GetxController {
 
   // String? get customPath => Platform.environment['NYA_LCF_FRPC_PATH'];
 
-  /// 加载方法
-  load() async {
-    exist.value = await ((await file)?.exists()) ?? false;
-  }
+  // /// 加载方法
+  // load() async {
+    // exists.value = await ((await file)?.exists()) ?? false;
+  // }
 
   /// 获取Frpc文件对象
   get file => _fss.getFile();
@@ -56,7 +56,7 @@ class FrpcController extends GetxController {
   void clearProcess() {
     processList.clear();
     processList.refresh();
-    load();
+    // load();
     PanelConsole.buildProcessListWidget();
   }
 }
