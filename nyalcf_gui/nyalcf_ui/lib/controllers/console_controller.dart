@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/process_model.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 
 // Project imports:
@@ -14,14 +15,19 @@ import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 
 /// 控制台 GetX 状态控制器
 class ConsoleController extends GetxController {
+  final _lcs = LauncherConfigurationStorage();
+
   /// UI组件列表
   var widgets = <DataRow>[].obs;
 
-  /// {Rx}进程列表
+  /// <Rx>进程列表
   static var processListWidget = <Widget>[].obs;
 
-  /// {Rx}控制台自动滚动
+  /// <Rx>控制台自动滚动
   var autoScroll = true.obs;
+
+  /// 输出提示开关
+  bool get kindTip => _lcs.getConsoleKindTip();
 
   /// 过滤后的输出文本
   RxList<SelectableText> processOut = <SelectableText>[

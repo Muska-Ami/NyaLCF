@@ -37,6 +37,9 @@ class LauncherSettingLauncherController extends GetxController {
   /// <Rx>切换是否启用深色模式的组件
   var switchThemeDarkOption = false.obs;
 
+  /// <Rx>是否启用错误帮助提示
+  var consoleKindTip = false.obs;
+
   /// <Rx>是否启用 DEBUG 模式
   var debugMode = false.obs;
 
@@ -52,6 +55,7 @@ class LauncherSettingLauncherController extends GetxController {
     themeAuto.value = _lcs.getThemeAuto();
     themeMonet.value = _lcs.getThemeMonet();
     themeDark.value = _lcs.getThemeDarkEnable();
+    consoleKindTip.value = _lcs.getConsoleKindTip();
     debugMode.value = _lcs.getDebug();
     loadx();
   }

@@ -256,6 +256,47 @@ class LauncherSetting {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const ListTile(
+                  leading: Icon(Icons.control_camera),
+                  title: Text('控制台'),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30.0, right: 50.0),
+                  child: Obx(
+                        () => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const Expanded(
+                              child: ListTile(
+                                leading: Icon(Icons.error_outline),
+                                title: Text('错误检测及提示'),
+                              ),
+                            ),
+                            Switch(
+                              value: _lsCtr.consoleKindTip.value,
+                              onChanged: (value) async {
+                                _lcs.setConsoleKindTip(value);
+                                _lcs.save();
+                                _lsCtr.consoleKindTip.value = value;
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Card(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const ListTile(
                   leading: Icon(Icons.donut_large),
                   title: Text('杂项'),
                 ),

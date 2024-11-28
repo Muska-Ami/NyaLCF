@@ -28,7 +28,10 @@ class LauncherConfigurationStorage extends JsonConfiguration {
               'enable': false,
               'value': '66ccff',
             },
-          }
+          },
+        },
+        'console': {
+          'kind_tip': true
         },
         'auto_sign': false,
       };
@@ -75,6 +78,13 @@ class LauncherConfigurationStorage extends JsonConfiguration {
   /// [value] 16 进制颜色代码
   void setThemeLightSeedValue(String value) =>
       cfg.setString('theme.light.seed.value', value);
+
+  /// 获取是否开启控制台提示
+  bool getConsoleKindTip() => cfg.getBool('console.kind_tip', defConfig['console']['kind_tip']);
+
+  /// 设置是否开启控制台提示
+  /// [value] 是否开启控制台提示
+  void setConsoleKindTip(bool value) => cfg.setBool('console.kind_tip', value);
 
   /// 获取是否启用自动签到
   bool getAutoSign() => cfg.getBool('auto_sign', defConfig['auto_sign']);
