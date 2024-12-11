@@ -3,10 +3,10 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command_implement.dart';
-import 'package:nyalcf/utils/state.dart';
+import 'package:nyalcf/templates/command.dart';
+import 'package:nyalcf/state.dart';
 
-class Config implements CommandImplement {
+class Config implements Command {
   final _lcs = LauncherConfigurationStorage();
 
   @override

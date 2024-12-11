@@ -1,25 +1,25 @@
 // Package imports:
-import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/network/dio/auth/auth.dart';
+import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command_implement.dart';
-import 'package:nyalcf/utils/text_encrypt.dart';
+import 'package:nyalcf/templates/command.dart';
+import 'package:nyalcf_core_extend/utils/text_encrypt.dart';
 
-class Login implements CommandImplement {
+class Login implements Command {
   @override
   Future<void> main(List<String> args) async {
     if (args.length == 2) {
+      final ApiClient api = ApiClient(accessToken: );
       final res = await LoginAuth.requestLogin(args[0], args[1]);
       if (res.status) {
         res as LoginSuccessResponse;
         final UserInfoModel userInfo = res.userInfo;
         Logger.info('Login successfully.');
         Logger.info('Info:');
-        Logger.info('- name: ${userInfo.user}');
+        Logger.info('- name: ${userInfo.username}');
         Logger.info('- email: ${userInfo.email}');
         Logger.info('- login token: ${TextEncrypt.obscure(userInfo.token)}');
         Logger.info('- frp token: ${TextEncrypt.obscure(userInfo.frpToken)}');

@@ -13,7 +13,7 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_mode_prefs.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/utils/deep_link_executor.dart';
 import 'package:nyalcf_core_extend/utils/path_provider.dart';
 import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
@@ -22,18 +22,17 @@ import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_ui/main_window.dart';
-import 'package:nyalcf_ui/views/auth/login.dart';
-import 'package:nyalcf_ui/views/auth/register.dart';
-import 'package:nyalcf_ui/views/auth/tokenmode.dart';
 import 'package:nyalcf_ui/views/home.dart';
 import 'package:nyalcf_ui/views/license.dart';
+import 'package:nyalcf_ui/views/auth/authorize.dart';
+import 'package:nyalcf_ui/views/auth/token_mode.dart';
+import 'package:nyalcf_ui/views/token_mode_panel.dart';
 import 'package:nyalcf_ui/views/panel/console.dart';
 import 'package:nyalcf_ui/views/panel/console_full.dart';
 import 'package:nyalcf_ui/views/panel/home.dart';
 import 'package:nyalcf_ui/views/panel/proxies.dart';
 import 'package:nyalcf_ui/views/panel/proxies_configuration.dart';
 import 'package:nyalcf_ui/views/setting/injector.dart';
-import 'package:nyalcf_ui/views/tokenmode/panel.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _appLinks = AppLinks();
@@ -89,7 +88,7 @@ void main() async {
       Logger.debug(res);
       if (res[0]) {
         Logger.debug('Started as token-only mode as deeplink executed success');
-        await TokenModePrefs.setToken(res[1]);
+        await TokenInfoPrefs.setFrpToken(res[1]);
         await Future.doWhile(() async {
           if (_appInit) {
             Get.toNamed('/token_mode/panel');
@@ -160,18 +159,17 @@ class _AppState extends State<App> with WindowListener {
         logWriterCallback: Logger.getxLogWriter,
         title: 'Nya LoCyanFrp!',
         routes: {
-          '/': (context) => Home(),
-          '/auth/login': (context) => const Login(),
-          '/auth/register': (context) => const Register(),
-          '/token_mode/login': (context) => const TokenModeAuth(),
-          '/token_mode/panel': (context) => const TokenModePanel(),
-          '/panel/home': (context) => PanelHome(),
-          '/panel/proxies': (context) => PanelProxies(),
-          '/panel/proxies/configuration': (context) => PanelProxiesConfiguration(),
-          '/panel/console': (context) => PanelConsole(),
-          '/panel/console/full': (context) => PanelConsoleFull(),
-          '/setting': (context) => const SettingInjector(),
-          '/license': (context) => const License(),
+          '/': (context) => HomeUI(),
+          '/auth/authorize': (context) => const AuthorizeUI(),
+          '/auth/token_mode/login': (context) => const TokenModeAuthorizeUI(),
+          '/token_mode_panel': (context) => const TokenModePanelUI(),
+          '/panel/home': (context) => HomePanelUI(),
+          '/panel/proxies': (context) => ProxiesPanelUI(),
+          '/panel/proxies/configuration': (context) => ProxiesConfigurationPanelUI(),
+          '/panel/console': (context) => ConsolePanelUI(),
+          '/panel/console/full': (context) => ConsoleFullPanelUI(),
+          '/setting': (context) => const SettingInjectorUI(),
+          '/license': (context) => const LicenseUI(),
         },
         theme: lightThemeData,
         darkTheme: darkThemeData,

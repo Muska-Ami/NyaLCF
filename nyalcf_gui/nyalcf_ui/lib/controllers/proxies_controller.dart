@@ -8,20 +8,24 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/proxy_info_model.dart';
-import 'package:nyalcf_core/models/response/proxies/configuration_proxies_model.dart';
-import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_core/network/dio/proxies/proxies.dart';
+import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/network/client/api/proxy/all.dart' as api_proxy_all;
+import 'package:nyalcf_core/network/client/api/proxy/config.dart' as api_proxy_config;
+import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
 import 'package:nyalcf_core/storages/configurations/proxies_configuration_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
+import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/frpc_configuration_editor_dialog.dart';
+import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
 
 /// 代理 GetX 状态控制器
 class ProxiesController extends GetxController {
@@ -32,51 +36,19 @@ class ProxiesController extends GetxController {
 
   final UserController _uCtr = Get.find();
 
-  // var proxiesListWidgets = <DataRow>[
-  //   const DataRow(cells: <DataCell>[
-  //     DataCell(SizedBox(
-  //       height: 22.0,
-  //       width: 22.0,
-  //       child: CircularProgressIndicator(
-  //         strokeWidth: 2,
-  //       ),
-  //     )),
-  //     DataCell(Text('-')),
-  //     DataCell(Text('-')),
-  //     DataCell(Text('-')),
-  //     DataCell(Text('-')),
-  //     DataCell(Text('-')),
-  //     DataCell(Text('-')),
-  //   ])
-  // ].obs;
-
   /// 隧道状态列表
   static final proxiesStatus = <int, bool?>{};
 
   /// <Rx>隧道列表组件
   var proxiesWidgets = <Widget>[
-    const SizedBox(
-      height: 22.0,
-      width: 22.0,
-      child: CircularProgressIndicator(
-        strokeWidth: 2,
-      ),
-    ),
+    const NyaLoadingCircle(height: 22.0, width: 22.0),
   ].obs;
 
   /// 构建隧道列表
-  /// [username] 用户名
-  /// [token] 登录令牌
-  build(username, token) async {
+  build() async {
     var proxies = ProxiesStorage.get();
     proxiesWidgets.value = [
-      const SizedBox(
-        height: 22.0,
-        width: 22.0,
-        child: CircularProgressIndicator(
-          strokeWidth: 2,
-        ),
-      )
+      const NyaLoadingCircle(height: 22.0, width: 22.0),
     ];
     // List<Widget> list = [];
     proxiesWidgets.clear();
@@ -96,7 +68,7 @@ class ProxiesController extends GetxController {
                 ListTile(
                   title: SizedBox(
                     height: 40.0,
-                    child: SelectableText(element.proxyName),
+                    child: SelectableText(element.name),
                   ),
                   subtitle: Row(
                     children: <Widget>[
@@ -301,25 +273,32 @@ class ProxiesController extends GetxController {
               Logger.error(
                   'Context not mounted while executing a async function!');
             }
-            final res =
-                await ProxiesConfiguration.get(_uCtr.user.value, _uCtr.token.value, element.id);
-            if (res.status) {
-              res as ConfigurationResponse;
-              Logger.info('Successfully get config ini');
-              text = res.config;
-              ProxiesConfigurationStorage.setConfig(element.id, text);
-              Get.close(0);
-              showDialog(text, firstEdit: true);
-            } else {
-              res as ErrorResponse;
-              Logger.debug(res);
+            final ApiClient api = ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
+            final UserInfoModel userInfo = await UserInfoPrefs.getInfo();
+            final rs = await api.get(api_proxy_config.GetConfig(userId: userInfo.id, proxyId: element.id));
+            if (rs == null) {
               Get.snackbar(
                 '获取配置文件失败',
-                res.message,
+                '请求失败',
                 snackPosition: SnackPosition.BOTTOM,
                 animationDuration: const Duration(milliseconds: 300),
               );
               Get.close(0);
+              return;
+            }
+            if (rs.statusCode == 200) {
+              Logger.debug('Successfully get config ini');
+              text = rs.data['data']['config'];
+              ProxiesConfigurationStorage.setConfig(element.id, text);
+              Get.close(0);
+              showDialog(text, firstEdit: true);
+            } else {
+              Get.snackbar(
+                '获取配置文件失败',
+                rs.data['data']['message'],
+                snackPosition: SnackPosition.BOTTOM,
+                animationDuration: const Duration(milliseconds: 300),
+              );
             }
             // Get.snackbar('谁让你点了？', '还没写，爬去面板编辑喵喵喵！');
           }
@@ -344,16 +323,16 @@ class ProxiesController extends GetxController {
       ));
     }
 
-    final pcs = await ProxiesConfigurationStorage.getConfigPath(element.id);
+    final pcsPath = await ProxiesConfigurationStorage.getConfigPath(element.id);
 
-    if (pcs != null) {
+    if (pcsPath != null) {
       list.add(
         IconButton(
           icon: const Icon(Icons.remove),
           tooltip: '移除自定义配置文件',
           onPressed: () async {
-            File(pcs).delete();
-            load(_uCtr.user, _uCtr.token);
+            File(pcsPath).delete();
+            load();
           },
         ),
       );
@@ -363,45 +342,56 @@ class ProxiesController extends GetxController {
   }
 
   /// 重新加载代理列表
-  /// [username] 用户名
-  /// [token] 登录令牌
   /// [request] 是否重新请求
-  load(username, token, {bool request = false}) async {
+  load({bool request = false}) async {
     loading.value = true;
+    final UserInfoModel userInfo = await UserInfoPrefs.getInfo();
     if (request) {
-      final list = await ProxiesGet.get(username, token);
-      if (list.status) {
-        list as ProxiesResponse;
-        ProxiesStorage.clear();
-        ProxiesStorage.addAll(list.proxies);
-      } else {
-        // 我草我之前怎么没写这个
+      final ApiClient api = ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
+      final rs = await api.get(api_proxy_all.GetAll(userId: userInfo.id));
+      if (rs == null) {
         Get.snackbar(
           '坏！',
           '请求隧道列表失败了，再试一次或许能正常响应...',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: const Duration(milliseconds: 300),
         );
+        return;
+      }
+      if (rs.statusCode == 200) {
+        final List<dynamic> list = rs.data['data']['list'];
+
+        final List<ProxyInfoModel> proxies = [];
+        for (Map<String, dynamic> proxy in list) {
+          final model = ProxyInfoModel(
+            id: proxy['id'],
+            name: proxy['proxy_name'],
+            node: proxy['node_id'],
+            localIP: proxy['local_ip'],
+            localPort: proxy['local_port'],
+            remotePort: proxy['remote_port'],
+            proxyType: proxy['proxy_type'],
+            useEncryption: proxy['use_encryption'],
+            useCompression: proxy['use_compression'],
+            domain: proxy['domain'],
+            secretKey: proxy['secret_key'],
+            status: proxy['status'],
+          );
+          proxies.add(model);
+        }
+
+        ProxiesStorage.clear();
+        ProxiesStorage.addAll(proxies);
+      } else {
+        Get.snackbar(
+          '坏！',
+          '请求隧道列表失败了，后端返回: ${rs.data['message']}.',
+          snackPosition: SnackPosition.BOTTOM,
+          animationDuration: const Duration(milliseconds: 300),
+        );
       }
     }
-    // proxiesListWidgets.value = <DataRow>[
-    //   const DataRow(cells: <DataCell>[
-    //     DataCell(SizedBox(
-    //       height: 22.0,
-    //       width: 22.0,
-    //       child: CircularProgressIndicator(
-    //         strokeWidth: 2,
-    //       ),
-    //     )),
-    //     DataCell(Text('-')),
-    //     DataCell(Text('-')),
-    //     DataCell(Text('-')),
-    //     DataCell(Text('-')),
-    //     DataCell(Text('-')),
-    //     DataCell(Text('-')),
-    //   ])
-    // ];
-    build(username, token);
+    build();
     loading.value = false;
   }
 }

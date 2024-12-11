@@ -40,7 +40,7 @@ class FrpcController extends GetxController {
   void addProcess(ProcessModel process) {
     processList.add(process);
     processList.refresh();
-    PanelConsole.buildProcessListWidget();
+    ConsolePanelUI.buildProcessListWidget();
   }
 
   /// 移除进程
@@ -48,7 +48,7 @@ class FrpcController extends GetxController {
   void removeProcess(ProcessModel process) {
     processList.remove(process);
     processList.refresh();
-    PanelConsole.buildProcessListWidget();
+    ConsolePanelUI.buildProcessListWidget();
   }
 
   /// 清空进程
@@ -57,6 +57,6 @@ class FrpcController extends GetxController {
     processList.clear();
     processList.refresh();
     // load();
-    PanelConsole.buildProcessListWidget();
+    ConsolePanelUI.buildProcessListWidget();
   }
 }

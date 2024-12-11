@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf_core_extend/tasks/refresh_access_token.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 
 // Project imports:
@@ -14,6 +15,7 @@ class TaskScheduler {
     if (ENV_GUI_DISABLE_AUTO_UPDATE_CHECK ?? false) _taskUpdater();
     _taskAutoSign();
     _taskUpdateProxiesList();
+    _taskRefreshAccessToken();
   }
 
   static _taskUpdater() async {
@@ -32,6 +34,14 @@ class TaskScheduler {
         }),
       );
     }
+  }
+
+  static _taskRefreshAccessToken() async {
+    TaskRefreshAccessToken().startUp(
+      callback: () => Future.delayed(const Duration(minutes: 30), () {
+        TaskUpdater().startUp();
+      }),
+    );
   }
 
   static _taskUpdateProxiesList() async {

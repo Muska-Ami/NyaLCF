@@ -7,11 +7,11 @@ import 'package:nyalcf_core/storages/stores/frpc_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command_implement.dart';
-import 'package:nyalcf/utils/frpc/process_manager.dart';
-import 'package:nyalcf/utils/state.dart';
+import 'package:nyalcf/templates/command.dart';
+import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
+import 'package:nyalcf/state.dart';
 
-class Start implements CommandImplement {
+class Start implements Command {
   static final _fcs = FrpcConfigurationStorage();
 
   @override
