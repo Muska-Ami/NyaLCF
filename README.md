@@ -26,6 +26,7 @@ The next generation of LoCyanFrp launcher.
   - [nyalcf_core_extend](./nyalcf_gui/nyalcf_core_extend) - 核心扩展模块
   - [nyalcf_inject_extend](./nyalcf_gui/nyalcf_inject_extend) - 通讯扩展模块
 - [nyalcf_cli](nyalcf_cli) - 命令行版本
+  - [nyalcf_core_extend](./nyalcf_cli/nyalcf_core_extend) - 核心扩展模块
 
 ## 开发计划
 
@@ -33,7 +34,6 @@ The next generation of LoCyanFrp launcher.
   - [x] GUI 版本
     - [GUI Features Design](./nyalcf_gui/README.md#设计功能)
   - [x] CLI 版本
-    - [ ] 进程管理
     - [CLI Features Design](./nyalcf_cli/README.md#设计功能)
 - CI/CD
   - GUI 版本

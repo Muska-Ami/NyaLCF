@@ -18,9 +18,9 @@
 
 ## 版本信息
 
-- nyalcf_gui: 0.2.4
-- nyalcf_cli: 0.0.3
-- nyalcf_env: 1.0.2
-- nyalcf_core,nyalcf_inject: 1.2.6
+- nyalcf_gui: 1.0.0
+- nyalcf_cli: 1.0.0
+- nyalcf_env: 2.0.0
+- nyalcf_core,nyalcf_inject: 2.0.0
 
 <!-- Some change log here -->

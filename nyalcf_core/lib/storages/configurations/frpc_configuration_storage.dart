@@ -25,13 +25,13 @@ class FrpcConfigurationStorage extends JsonConfiguration {
               'name': 'Muska Network GitHub Object Mirror',
               'id': 'muska-github-mirror',
               'format':
-                  'https://proxy-gh.1l1.icu/github.com/{owner}/{repo}/releases/download/v{version}/frp_LoCyanFrp-{version_pure}_{platform}_{arch}.{suffix}',
+                  'https://proxy-gh.1l1.icu/github.com/{owner}/{repo}/releases/download/v{version}/frp_LoCyanFrp-{version_main}_{platform}_{arch}.{suffix}',
             },
             {
               'name': 'LoCyan Mirrors',
               'id': 'locyan-mirror',
               'format':
-                  'https://mirrors.locyan.cn/github-release/{owner}/{repo}/{release_name}/frp_LoCyanFrp-{version_pure}_{platform}_{arch}.{suffix}',
+                  'https://mirrors.locyan.cn/github-release/{owner}/{repo}/{release_name}/frp_LoCyanFrp-{version_main}_{platform}_{arch}.{suffix}',
             },
           ],
         },

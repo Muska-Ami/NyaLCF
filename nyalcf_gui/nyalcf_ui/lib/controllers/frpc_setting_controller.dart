@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:get/get.dart' hide Response;
-import 'package:nyalcf_core/models/response/template/error_model.dart';
+import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
@@ -53,13 +52,8 @@ class FrpcSettingController extends GetxController {
   /// 是否取消下载 Frpc
   bool frpcDownloadCancel = false;
 
-  /// Frpc 下载错误响应
-  ErrorResponse? frpcDownloadError;
-
   /// <Rx>是否使用镜像源
   var frpcDownloadUseMirror = false.obs;
-
-  // var frpcDownloadMirror = ''.obs;
 
   /// <Rx>Frpc 版本
   var frpcVersion = ''.obs;
@@ -82,8 +76,6 @@ class FrpcSettingController extends GetxController {
   /// 加载控制器
   load() async {
     cpuArch.value = (await CPUArch.getCPUArchitecture())!;
-    // await FrpcSettingPrefs.refresh();
-    // final frpcinfo = await FrpcSettingPrefs.getFrpcInfo();
     frpcDownloadUseMirror.value = _fcs.getSettingsFrpcDownloadMirror();
 
     frpcVersion.value = _fcs.getSettingsFrpcVersion();
@@ -100,7 +92,7 @@ class FrpcSettingController extends GetxController {
     _loadFrpcDropdownItem();
   }
 
-  /// 加载 Frpc 下载提示信息
+  /// 加载 Frp Client 下载提示信息
   void _loadTip() async {
     if (_fcs.getInstalledVersions().isNotEmpty) {
       if (await FrpcPathProvider.frpcPath() == null) {
@@ -123,14 +115,14 @@ class FrpcSettingController extends GetxController {
     }
   }
 
-  /// 加载Frpc下载列表
+  /// 加载 Frp Client 下载列表
   void _loadFrpcDropdownItem() {
     frpcDownloadArchList.value = _buildArchDMIWidgetList();
     Logger.debug(frpcDownloadArchList);
   }
 
-  /// 刷新 Frpc 下载进度条展示等内容
-  void refreshDownloadShow() async {
+  /// 刷新 Frp Client 下载进度条展示等内容
+  void refreshProgress() async {
     if (frpcDownloadCancel) {
       Logger.debug('Download cancelled.');
       frpcDownloadShow.clear();
@@ -140,12 +132,6 @@ class FrpcSettingController extends GetxController {
       ));
       frpcDownloadCancel = false;
       downloadCancelToken = CancelToken();
-    } else if (frpcDownloadError != null) {
-      frpcDownloadShow.clear();
-      frpcDownloadShow.add(Text(
-        '发生错误：${frpcDownloadError!.message}',
-        style: const TextStyle(color: Colors.red),
-      ));
     } else {
       frpcDownloadShow.clear();
       frpcDownloadShow.add(LinearProgressIndicator(
@@ -154,7 +140,7 @@ class FrpcSettingController extends GetxController {
     }
   }
 
-  /// 构建Arch列表
+  /// 构建 Arch 列表
   List<DropdownMenuItem<dynamic>> _buildArchDMIWidgetList() {
     List<Map<String, String>> arch = [];
     final List<DropdownMenuItem<dynamic>> dmil = <DropdownMenuItem<dynamic>>[];
@@ -213,8 +199,8 @@ class FrpcSettingController extends GetxController {
   /// 取消下载的 CancelToken
   CancelToken downloadCancelToken = CancelToken();
 
-  /// 下载 Frpc 回调函数
-  void downloadFrpcCallback(received, total) {
+  /// 下载 Frp Client 回调函数
+  void downloadFrpClientCallback(received, total) {
     Logger.debug('Download callback: $received');
     if (total != -1) {
       if (!frpcDownloadCancel) {
@@ -225,6 +211,18 @@ class FrpcSettingController extends GetxController {
     } else {
       Logger.info('Download failed: file total is -1');
     }
-    refreshDownloadShow();
+    refreshProgress();
+  }
+
+  void downloadFailed(Object e) {
+    frpcDownloadShow.add(const Text(
+      '下载错误',
+      style: TextStyle(color: Colors.orange),
+    ));
+    frpcDownloadShow.add(Text(
+      e.toString(),
+      style: TextStyle(color: Colors.orange),
+    ));
+    downloadCancelToken = CancelToken();
   }
 }

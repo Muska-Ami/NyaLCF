@@ -3,28 +3,30 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:get/get.dart';
-import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/network/dio/auth/auth.dart';
+import 'package:nyalcf_core/network/client/api/user/info.dart' as api_user;
+import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
+import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
-import 'package:nyalcf_ui/models/floating_action_button.dart';
+import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
+import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
 
-class Home extends StatelessWidget {
-  Home({super.key});
+class HomeUI extends StatelessWidget {
+  HomeUI({super.key});
 
   // _HC控制器实例
-  final hc = Get.put(HC());
+  final hc = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +37,11 @@ class Home extends StatelessWidget {
     hc.load();
 
     // 构建首页Scaffold
-    return Scaffold(
-      // 构建应用栏
-      appBar: AppBar(
-        // 设置应用栏标题
-        title: const Text('$title - 首页'),
-        // 设置应用栏操作按钮
-        actions: AppbarActions(context: context).actions(),
-        iconTheme: Theme.of(context).iconTheme,
-        automaticallyImplyLeading: false,
-      ),
+    return NyaScaffold(
+      name: '首页',
+      // 设置应用栏操作按钮
+      appbarActions: AppbarActions(context: context),
+      appbarAutoImplyLeading: false,
       // 构建首页内容区域
       body: Center(
         child: Container(
@@ -72,13 +69,7 @@ class Home extends StatelessWidget {
                           const Text('にゃ~にゃ~，检测到保存数据，正在校验以自动登录'),
                           Container(
                             margin: EdgeInsets.only(left: 10),
-                            child: SizedBox(
-                              height: 22.0,
-                              width: 22.0,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                              ),
-                            ),
+                            child: NyaLoadingCircle(height: 22.0, width: 22.0),
                           ),
                         ],
                       ),
@@ -93,7 +84,7 @@ class Home extends StatelessWidget {
                         '欢迎使用 Nya LoCyanFrp! Launcher',
                         style: TextStyle(fontSize: 30),
                       ),
-                      const Text('にゃ~にゃ~，请选择一项操作'),
+                      const Text('にゃ~にゃ~，请授权以继续~'),
                       Container(
                         margin: const EdgeInsets.all(20.0),
                         child: Column(
@@ -104,16 +95,9 @@ class Home extends StatelessWidget {
                                 Container(
                                   margin: const EdgeInsets.all(8.0),
                                   child: ElevatedButton(
-                                    onPressed: () => Get.toNamed('/auth/login'),
-                                    child: const Text('登录'),
-                                  ),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.all(8.0),
-                                  child: ElevatedButton(
                                     onPressed: () =>
-                                        Get.toNamed('/auth/register'),
-                                    child: const Text('注册'),
+                                        Get.toNamed('/auth/authorize'),
+                                    child: const Text('授权'),
                                   ),
                                 ),
                               ],
@@ -122,7 +106,7 @@ class Home extends StatelessWidget {
                               margin: const EdgeInsets.all(8.0),
                               child: TextButton(
                                 onPressed: () =>
-                                    Get.toNamed('/token_mode/login'),
+                                    Get.toNamed('/auth/token_mode/login'),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
@@ -130,7 +114,7 @@ class Home extends StatelessWidget {
                                     Container(
                                       // 对齐，防止强迫症当场死亡
                                       margin: const EdgeInsets.only(right: 7.0),
-                                      child: const Text('仅使用使用 Frp Token 登录'),
+                                      child: const Text('仅使用使用 Frp Token 继续'),
                                     ),
                                   ],
                                 ),
@@ -147,14 +131,12 @@ class Home extends StatelessWidget {
           ),
         ),
       ),
-      // 构建底部浮动生成按钮
-      floatingActionButton: floatingActionButton(),
     );
   }
 }
 
 // _HC控制器
-class HC extends GetxController {
+class HomeController extends GetxController {
   static bool loaded = false;
 
   // 内容列表
@@ -165,51 +147,59 @@ class HC extends GetxController {
     if (loaded && !force) return;
     loaded = true;
     // 读取用户信息
-    UserInfoModel? userinfo = await UserInfoStorage.read();
-    if (userinfo != null) {
+    UserInfoModel? userInfo = await UserInfoStorage.read();
+    if (userInfo != null) {
+      UserInfoPrefs.setInfo(userInfo);
+
       showAutoLoginWidget.value = true;
-      // 检查用户令牌是否有效
-      final checkTokenRes = await UserAuth.checkToken(userinfo.token);
-      if (checkTokenRes.status) {
-        // 刷新用户信息
-        await UserAuth().getInfo(userinfo.token, userinfo.user).then((value) {
-          if (value.status) {
-            value as UserInfoResponse;
-            UserInfoPrefs.setTraffic(value.traffic);
-            UserInfoPrefs.setInbound(value.inbound);
-            UserInfoPrefs.setOutbound(value.outbound);
-          } else {
-            Logger.warn(
-                'Check user token success but refresh user info failed. User info may not the latest!');
-          }
-          TaskUpdateProxiesList().startUp();
-          FrpcStartUpLoader().onProgramStartUp();
-        });
-        // 显示自动登录的SnackBar
+      // 刷新用户信息
+      final ApiClient api = ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
+
+      final rs = await api.get(api_user.GetInfo(userId: userInfo.id));
+      if (rs == null) {
         Get.snackbar(
-          '欢迎回来',
-          '已经自动登录啦~',
+          '请求数据失败',
+          '请重新授权哦',
           snackPosition: SnackPosition.BOTTOM,
           animationDuration: const Duration(milliseconds: 300),
         );
-        // 跳转到面板首页
-        Get.toNamed('/panel/home');
-      } else {
-        UserInfoStorage.sigo(
-          userinfo.user,
-          userinfo.token,
-          deleteSessionFileOnly: true,
-        );
-        // 显示令牌校验失败的SnackBar
-        Get.snackbar(
-          '令牌校验失败',
-          '可能登录已过期或网络不畅，请重新登录喵呜...',
-          snackPosition: SnackPosition.BOTTOM,
-          animationDuration: const Duration(milliseconds: 300),
-        );
-        // 重新初始化启动内容
         showAutoLoginWidget.value = false;
+        return;
       }
+      switch (rs.statusCode) {
+        case 200:
+          UserInfoPrefs.setTraffic(num.parse(rs.data['data']['traffic']));
+          UserInfoPrefs.setInbound(rs.data['data']['inbound']);
+          UserInfoPrefs.setOutbound(rs.data['data']['outbound']);
+          break;
+        case 401:
+          UserInfoStorage.logout();
+          PrefsInstance.clear();
+          Get.snackbar(
+            '授权失效',
+            '请重新授权哦',
+            snackPosition: SnackPosition.BOTTOM,
+            animationDuration: const Duration(milliseconds: 300),
+          );
+          showAutoLoginWidget.value = false;
+          return;
+        default:
+          Logger.warn(
+            'Check user token success but refresh user info failed.'
+            ' User info may not the latest!',
+          );
+      }
+      TaskUpdateProxiesList().startUp();
+      FrpcStartUpLoader().onProgramStartUp();
+      // 显示自动登录的SnackBar
+      Get.snackbar(
+        '欢迎回来',
+        '已经自动登录啦~',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+      // 跳转到面板首页
+      Get.toNamed('/panel/home');
     } else {
       // 重新初始化启动内容
       showAutoLoginWidget.value = false;

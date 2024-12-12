@@ -30,4 +30,7 @@ cd ../..
 cd nyalcf_cli
 dart pub get
 
-cd ..
+cd nyalcf_core_extend
+flutter pub get
+
+cd ../..

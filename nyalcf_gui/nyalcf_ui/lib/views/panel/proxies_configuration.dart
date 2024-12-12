@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/proxies_configuration_controller.dart';
 import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
+import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
 
-class PanelProxiesConfiguration extends StatelessWidget {
-  PanelProxiesConfiguration({super.key});
+class ProxiesConfigurationPanelUI extends StatelessWidget {
+  ProxiesConfigurationPanelUI({super.key});
 
   final UserController _uCtr = Get.find();
   final ProxiesConfigurationController _pcCtr =
@@ -21,43 +21,36 @@ class PanelProxiesConfiguration extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AfterLayout(
-      callback: (RenderAfterLayout ral) {
-        _pcCtr.load();
-      },
-      child: Scaffold(
-        appBar: AppBar(
-          title:
-              const Text('$title - 仪表板'),
-
-          //automaticallyImplyLeading: false,
-          actions: AppbarActions(append: <Widget>[
-            IconButton(
-              onPressed: () {
-                Get.dialog(accountDialog(context));
-              },
-              icon: Obx(() => ClipRRect(
-                    borderRadius: BorderRadius.circular(500),
-                    child: Image.network(
-                      '${_uCtr.avatar}',
-                      width: 35,
-                    ),
-                  )),
-            ),
-          ], context: context)
-              .actions(),
-        ),
-        body: Obx(() => _pcCtr.configListWidget.value),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async => Get.back(),
-          elevation: 7.0,
-          highlightElevation: 14.0,
-          mini: false,
-          shape: const CircleBorder(),
-          isExtended: false,
-          child: const Icon(Icons.arrow_back),
-        ),
+    return NyaScaffold(
+      name: '仪表板',
+      appbarActions: AppbarActions(
+        append: <Widget>[
+          IconButton(
+            onPressed: () {
+              Get.dialog(accountDialog(context));
+            },
+            icon: Obx(() => ClipRRect(
+                  borderRadius: BorderRadius.circular(500),
+                  child: Image.network(
+                    '${_uCtr.avatar}',
+                    width: 35,
+                  ),
+                )),
+          ),
+        ],
+        context: context,
       ),
+      body: Obx(() => _pcCtr.configListWidget.value),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async => Get.back(),
+        elevation: 7.0,
+        highlightElevation: 14.0,
+        mini: false,
+        shape: const CircleBorder(),
+        isExtended: false,
+        child: const Icon(Icons.arrow_back),
+      ),
+      afterLayout: (RenderAfterLayout ral) => _pcCtr.load(),
     );
   }
 }

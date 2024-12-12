@@ -8,10 +8,14 @@ import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/main_window.dart';
+import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
 
 class AppbarActions {
-  AppbarActions(
-      {this.context, this.append = const <Widget>[], this.setting = true});
+  AppbarActions({
+    this.context,
+    this.append = const <Widget>[],
+    this.setting = true,
+  });
 
   final BuildContext? context;
   bool setting;
@@ -47,13 +51,10 @@ class AppbarActions {
       ];
 
   List<Widget> get _beforeList => <Widget>[
-        SizedBox(
-          width: 16,
-          height: 16,
-          child: Obx(
-            () =>
-                loading.value ? const CircularProgressIndicator() : Container(),
-          ),
+        Obx(
+          () => loading.value
+              ? const NyaLoadingCircle(height: 16.0, width: 16.0)
+              : Container(),
         ),
       ];
 
