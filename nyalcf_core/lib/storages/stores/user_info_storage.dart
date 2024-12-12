@@ -33,12 +33,7 @@ class UserInfoStorage {
   /// [username] 用户名
   /// [token] 登录令牌
   /// [deleteSessionFileOnly] 是否只删除 session.json
-  static Future<bool> logout() async {
-    deleteFile() async {
-      await File('$_path/session.json').delete();
-      return true;
-    }
-
-    return await deleteFile();
+  static Future<void> logout() async {
+    await File('$_path/session.json').delete();
   }
 }

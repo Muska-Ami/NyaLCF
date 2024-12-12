@@ -1,10 +1,10 @@
 // Package imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf_core_extend/tasks/refresh_access_token.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 
 // Project imports:
 import 'package:nyalcf_core_extend/tasks/auto_sign.dart';
+import 'package:nyalcf_core_extend/tasks/refresh_access_token.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/tasks/updater.dart';
 

@@ -1,10 +1,13 @@
+// Package imports:
+import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
 import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
+// Project imports:
 import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/basic.dart';
-import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
 
 class TaskRefreshAccessToken extends TaskBasic {
   @override

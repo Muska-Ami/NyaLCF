@@ -1,5 +1,8 @@
-import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
+// Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+
+// Project imports:
+import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
 
 class TokenInfoPrefs {
 

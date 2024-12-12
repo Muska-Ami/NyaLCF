@@ -1,13 +1,13 @@
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/network/client/api/sign.dart';
+import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 
 // Project imports:
+import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/basic.dart';
 
 class TaskAutoSign extends TaskBasic {

@@ -3,8 +3,8 @@ import 'package:nyalcf_core/storages/configurations/launcher_configuration_stora
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command.dart';
 import 'package:nyalcf/state.dart';
+import 'package:nyalcf/templates/command.dart';
 
 class Config implements Command {
   final _lcs = LauncherConfigurationStorage();

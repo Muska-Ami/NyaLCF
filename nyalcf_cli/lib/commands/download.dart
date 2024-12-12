@@ -3,15 +3,15 @@ import 'dart:io';
 
 // Package imports:
 import 'package:dio/dio.dart';
+import 'package:nyalcf_core/network/client/common/github/frp_client.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
-import 'package:nyalcf_core/network/client/common/github/frp_client.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command.dart';
 import 'package:nyalcf/state.dart';
+import 'package:nyalcf/templates/command.dart';
 
 class Download implements Command {
   List<Map<String, String>> arch = [];

@@ -1,3 +1,4 @@
+// Project imports:
 import 'package:nyalcf_core/models/api_base_model.dart';
 
 class GetInfo extends ApiBaseModel {
