@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core_extend/utils/frpc/process_manager.dart';
 import 'package:nyalcf_core_extend/utils/widget/after_layout.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
@@ -14,11 +13,11 @@ import 'package:nyalcf_ui/controllers/user_controller.dart';
 import 'package:nyalcf_ui/models/account_dialog.dart';
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/models/drawer.dart';
-import 'package:nyalcf_ui/models/floating_action_button.dart';
 import 'package:nyalcf_ui/models/process_action_dialog.dart';
+import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
 
-class PanelConsole extends StatelessWidget {
-  PanelConsole({super.key});
+class ConsolePanelUI extends StatelessWidget {
+  ConsolePanelUI({super.key});
 
   final UserController _uCtr = Get.find();
   final ConsoleController _cCtr = Get.find();
@@ -35,13 +34,10 @@ class PanelConsole extends StatelessWidget {
         });
       }
     });
-    return Scaffold(
-      appBar: AppBar(
-        title:
-            const Text('$title - 仪表板'),
-
-        //automaticallyImplyLeading: false,
-        actions: AppbarActions(append: <Widget>[
+    return NyaScaffold(
+      name: '仪表板',
+      appbarActions: AppbarActions(
+        append: <Widget>[
           IconButton(
             onPressed: () {
               Get.dialog(accountDialog(context));
@@ -54,8 +50,8 @@ class PanelConsole extends StatelessWidget {
                   ),
                 )),
           ),
-        ], context: context)
-            .actions(),
+        ],
+        context: context,
       ),
       drawer: drawer(context),
       body: Center(
@@ -179,7 +175,6 @@ class PanelConsole extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: floatingActionButton(),
     );
   }
 

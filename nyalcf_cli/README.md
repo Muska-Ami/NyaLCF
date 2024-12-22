@@ -6,16 +6,15 @@
 
 - [x] 登录
 - [x] 隧道启动
-- [ ] 进程管理
 - [x] Frpc 下载
 - [x] 隧道启动
 - [x] 用户信息展示
 
 ## 运行测试
 
-| 打包类型       | 系统类型    | 编译架构  | 状态 | 已测试通过环境          |
-|------------|---------|-------|----|------------------|
-| EXE        | Windows | x64   | ✅  | Windows 11 (Pro) |
+| 打包类型       | 系统类型    | 编译架构  | 状态 | 已测试通过环境                        |
+|------------|---------|-------|----|--------------------------------|
+| EXE        | Windows | x64   | ✅  | Windows 11 (Pro)               |
 | EXECUTABLE | Linux   | x64   | ✅  | Kali Linux(With WSL, Linux5.9) |
-| EXECUTABLE | MacOS   | arm64 | ❓  | -                |
-| EXECUTABLE | MacOS   | x64   | ✅  | MacOS 14         |
+| EXECUTABLE | MacOS   | arm64 | ❓  | -                              |
+| EXECUTABLE | MacOS   | x64   | ✅  | MacOS 14                       |

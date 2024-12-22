@@ -3,26 +3,19 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:nyalcf_core_extend/utils/universe.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/models/appbar_actions.dart';
-import 'package:nyalcf_ui/models/floating_action_button.dart';
+import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
 
-class License extends StatelessWidget {
-  const License({super.key});
+class LicenseUI extends StatelessWidget {
+  const LicenseUI({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // 构建应用栏
-      appBar: AppBar(
-        // 设置应用栏标题
-        title: const Text('$title - License'),
-        // 设置应用栏操作按钮
-        actions: AppbarActions(setting: false, context: context).actions(),
-        iconTheme: Theme.of(context).iconTheme,
-      ),
+    return NyaScaffold(
+      name: 'License',
+      appbarActions: AppbarActions(setting: false, context: context),
       // 构建首页内容区域
       body: Transform.translate(
         offset: const Offset(0, -40),
@@ -34,8 +27,6 @@ class License extends StatelessWidget {
           ),
         ),
       ),
-      // 构建底部浮动生成按钮
-      floatingActionButton: floatingActionButton(),
     );
   }
 }

@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:get/get.dart';
-import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
+import 'package:nyalcf_core/network/client/common/launcher.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/tasks/updater.dart';
@@ -210,7 +209,8 @@ class LauncherSetting {
                                         onPressed: () async => Get.dialog(
                                           colorPickDialog(
                                             context,
-                                            pickerColor: ColorUtils.hexToColor(_lcs.getThemeLightSeedValue()),
+                                            pickerColor: ColorUtils.hexToColor(
+                                                _lcs.getThemeLightSeedValue()),
                                             onColorChanged: (value) {
                                               _customThemeColorSeed(value);
                                             },
@@ -264,7 +264,7 @@ class LauncherSetting {
                       left: 20.0, right: 20.0, bottom: 20.0),
                   padding: const EdgeInsets.only(left: 30.0, right: 50.0),
                   child: Obx(
-                        () => Column(
+                    () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
@@ -468,15 +468,14 @@ class LauncherSetting {
                   child: ElevatedButton(
                     onPressed: () async {
                       loading.value = true;
-                      final remote = await UpdateLauncher.getUpdate();
-                      if (remote.status) {
-                        remote as LauncherVersionResponse;
-                        TaskUpdater.uIf = remote.updateInfo;
+                      final remote = await Launcher().latestVersion();
+                      if (remote != null) {
+                        TaskUpdater.uIf = remote;
                         if (TaskUpdater.check()) TaskUpdater.showDialog();
                       } else {
                         Get.snackbar(
                           '发生错误',
-                          '无法检查版本更新：${remote.message}',
+                          '无法检查版本更新，请求失败惹呜',
                           snackPosition: SnackPosition.BOTTOM,
                           animationDuration: const Duration(milliseconds: 300),
                         );

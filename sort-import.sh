@@ -30,4 +30,7 @@ cd ../..
 cd nyalcf_cli
 dart run import_sorter:main
 
-cd ..
+cd nyalcf_core_extend
+dart run import_sorter:main
+
+cd ../..

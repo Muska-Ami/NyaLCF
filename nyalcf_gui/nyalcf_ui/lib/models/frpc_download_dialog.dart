@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:get/get.dart';
-import 'package:nyalcf_core/models/response/response.dart';
-import 'package:nyalcf_core/network/dio/frpc/frpc.dart';
+import 'package:nyalcf_core/network/client/common/github/frp_client.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
+import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
 
 final _fcs = FrpcConfigurationStorage();
 final FrpcSettingController _fsCtr = Get.find();
@@ -37,57 +37,41 @@ Widget frpcDownloadDialog(BuildContext context) {
             ElevatedButton(
               onPressed: () async {
                 /// 刷新UI，下载frpc
-                _fsCtr.refreshDownloadShow();
+                _fsCtr.refreshProgress();
 
                 final mirror = _fcs.getSettingsFrpcDownloadMirrorId();
 
                 /// 开始下载
                 Get.dialog(_downloading(), barrierDismissible: false);
                 _fsCtr.frpcDownloadProgress.value = 0.0;
-                _fsCtr.refreshDownloadShow();
-                try {
-                  final res = await DownloadFrpc.download(
-                    arch: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]['arch'],
+                _fsCtr.refreshProgress();
+                final success = await FrpClient().download(
+                  architecture: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]
+                      ['arch'],
+                  platform: _fsCtr.platform,
+                  version: '0.51.3-6',
+                  name: 'LoCyanFrp-0.51.3-6 #2024100301',
+                  useMirror: _fcs.getSettingsFrpcDownloadMirror(),
+                  mirrorId: mirror.isNotEmpty ? mirror : null,
+                  cancelToken: _fsCtr.downloadCancelToken,
+                  onReceiveProgress: _fsCtr.downloadFrpClientCallback,
+                  onFailed: _fsCtr.downloadFailed,
+                );
+                if (success) {
+                  final resExtract = FrpcArchive.extract(
                     platform: _fsCtr.platform,
+                    arch: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]['arch'],
                     version: '0.51.3-6',
-                    releaseName: 'LoCyanFrp-0.51.3-6 #2024100301',
-                    progressCallback: _fsCtr.downloadFrpcCallback,
-                    cancelToken: _fsCtr.downloadCancelToken,
-                    useMirror: _fcs.getSettingsFrpcDownloadMirror(),
-                    mirrorId: mirror.isNotEmpty ? mirror : null,
                   );
-                  if (res.status) {
-                    res as FrpcDownloadResponse;
-                    final resExtract = FrpcArchive.extract(
-                      platform: _fsCtr.platform,
-                      arch: _fsCtr.arch[_fsCtr.frpcDownloadArch.value]['arch'],
-                      version: '0.51.3-6',
-                    );
-                    if (await resExtract) {
-                      Get.close(0);
-                      Get.close(0);
-                      _fcs.setSettingsFrpcVersion('0.51.3-6');
-                      _fcs.addInstalledVersion('0.51.3-6');
-                      _fcs.save();
-                      _fsCtr.load();
-                    }
-                    _fsCtr.refreshDownloadShow();
-                  } else {
-                    if (res is FrpcDownloadResponse && res.cancelled) {
-                      _fsCtr.frpcDownloadCancel = true;
-                    } else {
-                      _fsCtr.frpcDownloadError = res as ErrorResponse;
-                    }
+                  if (await resExtract) {
+                    Get.close(0);
+                    Get.close(0);
+                    _fcs.setSettingsFrpcVersion('0.51.3-6');
+                    _fcs.addInstalledVersion('0.51.3-6');
+                    _fcs.save();
+                    _fsCtr.load();
                   }
-                } catch (e, st) {
-                  Logger.error(e, t: st);
-                  Get.close(0);
-                  Get.snackbar(
-                    '下载 Frpc 时发生错误..呜呜..',
-                    e.toString(),
-                    snackPosition: SnackPosition.BOTTOM,
-                    animationDuration: const Duration(milliseconds: 300),
-                  );
+                  _fsCtr.refreshProgress();
                 }
               },
               child: const Text('开始下载'),
@@ -115,7 +99,7 @@ Widget _downloading() {
             ElevatedButton(
               onPressed: () async {
                 _fsCtr.downloadCancelToken.cancel();
-                _fsCtr.refreshDownloadShow();
+                _fsCtr.refreshProgress();
                 Get.close(0);
               },
               child: const Text('取消'),
@@ -144,13 +128,7 @@ Widget frpcUnarchiveDialog() {
             left: 40.0, right: 40.0, bottom: 10.0, top: 5.0),
         child: const Column(
           children: <Widget>[
-            SizedBox(
-              height: 22.0,
-              width: 22.0,
-              child: CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
-            ),
+            NyaLoadingCircle(height: 22.0, width: 22.0),
           ],
         ),
       ),

@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 
 // Package imports:
 import 'package:get/get.dart';
-import 'package:nyalcf_core/models/response/response.dart';
 import 'package:nyalcf_core/models/update_info_model.dart';
-import 'package:nyalcf_core/network/dio/launcher/launcher.dart';
+import 'package:nyalcf_core/network/client/common/launcher.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -29,11 +28,10 @@ class TaskUpdater extends TaskBasic {
     Logger.info('Checking update...');
 
     // 获取远程源版本
-    final remote = await UpdateLauncher.getUpdate();
-    if (remote.status) {
-      remote as LauncherVersionResponse;
+    final remote = await Launcher().latestVersion();
+    if (remote != null) {
       // 远程源版本获取到的时候才检测
-      uIf = remote.updateInfo;
+      uIf = remote;
       if (check()) {
         showDialog();
       } else {
@@ -49,7 +47,10 @@ class TaskUpdater extends TaskBasic {
 
   static bool check() {
     Logger.debug(
-        '${uIf.version}, ${uIf.buildNumber} | v${Universe.appVersion}, ${Universe.appBuildNumber}');
+      '${uIf.version},'
+      ' ${uIf.buildNumber} | v${Universe.appVersion},'
+      ' ${Universe.appBuildNumber}',
+    );
 
     // 比对是否一致
     // 先判断大版本号，大版本号不一致就不检查构建号了

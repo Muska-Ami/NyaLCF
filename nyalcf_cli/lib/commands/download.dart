@@ -3,17 +3,17 @@ import 'dart:io';
 
 // Package imports:
 import 'package:dio/dio.dart';
-import 'package:nyalcf_core/network/dio/frpc/download_frpc.dart';
+import 'package:nyalcf_core/network/client/common/github/frp_client.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
 // Project imports:
-import 'package:nyalcf/templates/command_implement.dart';
-import 'package:nyalcf/utils/state.dart';
+import 'package:nyalcf/state.dart';
+import 'package:nyalcf/templates/command.dart';
 
-class Download implements CommandImplement {
+class Download implements Command {
   List<Map<String, String>> arch = [];
   late String platform;
 
@@ -35,7 +35,7 @@ class Download implements CommandImplement {
           _provide = true;
         }
         if (verbose) {
-        Logger.verbose('Provide info: $_provideArch, $_providePlatform');
+          Logger.verbose('Provide info: $_provideArch, $_providePlatform');
         }
         final systemArch = await CPUArch.getCPUArchitecture();
         if (verbose) {
@@ -64,24 +64,25 @@ class Download implements CommandImplement {
           _cancelToken = CancelToken();
           Logger.info('Starting frpc download...');
 
-          await DownloadFrpc.download(
-            arch: _selectedArch,
+          await FrpClient().download(
+            architecture: _selectedArch,
             platform: platform,
             version: '0.51.3-6',
-            releaseName: 'LoCyanFrp-0.51.3-6 #2024100301',
-            progressCallback: callback,
+            name: 'LoCyanFrp-0.51.3-6 #2024100301',
             cancelToken: _cancelToken,
+            onReceiveProgress: callback,
+            onFailed: onFailed,
             useMirror: false,
           );
-          stdout.write('\r${' ' * 30}');
-          stdout.write('\rPlease wait, extracting frpc...\n');
+          Logger.write('Please wait, extracting frpc...');
           await FrpcArchive.extract(
               platform: platform, arch: _selectedArch, version: '0.51.3-6');
-          stdout.write('\r${' ' * 30}');
-          stdout.write('\rSuccess!\n');
+          Logger.info('Success!');
         } else {
           Logger.error(
-              'Unsupported system! If you believe this is wrong, please provide arch manually in command.');
+            'Unsupported system! If you believe this is wrong,'
+            ' please provide arch manually in command.',
+          );
         }
       default:
         Logger.error('No valid arguments provided.');
@@ -104,7 +105,10 @@ class Download implements CommandImplement {
   }
 
   void callback(downloaded, all) {
-    stdout.write('\r${' ' * 30}');
-    stdout.write('\rProgress: ${(downloaded / all * 100).toStringAsFixed(2)}%');
+    Logger.write('Progress: ${(downloaded / all * 100).toStringAsFixed(2)}%');
+  }
+
+  void onFailed(Object e) {
+    Logger.error('Download failed: $e, check your internet connection.');
   }
 }
