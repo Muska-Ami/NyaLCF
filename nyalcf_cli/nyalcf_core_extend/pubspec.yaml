@@ -8,9 +8,6 @@ environment:
   sdk: '>=3.4.3 <4.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-
   nyalcf_core:
     path: ../../nyalcf_core
 
