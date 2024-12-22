@@ -20,6 +20,7 @@ dependencies:
     path: ./nyalcf_core_extend
   dio: ^5.7.0
   args: ^2.4.2
+  crypto: ^3.0.6
 
 dev_dependencies:
   lints: ^5.0.0

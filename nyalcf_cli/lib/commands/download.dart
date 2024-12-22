@@ -35,7 +35,7 @@ class Download implements Command {
           _provide = true;
         }
         if (verbose) {
-        Logger.verbose('Provide info: $_provideArch, $_providePlatform');
+          Logger.verbose('Provide info: $_provideArch, $_providePlatform');
         }
         final systemArch = await CPUArch.getCPUArchitecture();
         if (verbose) {
@@ -74,15 +74,15 @@ class Download implements Command {
             onFailed: onFailed,
             useMirror: false,
           );
-          stdout.write('\r${' ' * 30}');
-          stdout.write('\rPlease wait, extracting frpc...\n');
+          Logger.write('Please wait, extracting frpc...');
           await FrpcArchive.extract(
               platform: platform, arch: _selectedArch, version: '0.51.3-6');
-          stdout.write('\r${' ' * 30}');
-          stdout.write('\rSuccess!\n');
+          Logger.info('Success!');
         } else {
           Logger.error(
-              'Unsupported system! If you believe this is wrong, please provide arch manually in command.');
+            'Unsupported system! If you believe this is wrong,'
+            ' please provide arch manually in command.',
+          );
         }
       default:
         Logger.error('No valid arguments provided.');
@@ -105,8 +105,7 @@ class Download implements Command {
   }
 
   void callback(downloaded, all) {
-    stdout.write('\r${' ' * 30}');
-    stdout.write('\rProgress: ${(downloaded / all * 100).toStringAsFixed(2)}%');
+    Logger.write('Progress: ${(downloaded / all * 100).toStringAsFixed(2)}%');
   }
 
   void onFailed(Object e) {

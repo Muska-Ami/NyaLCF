@@ -11,9 +11,9 @@ import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
 import 'package:nyalcf/arguments.dart';
+import 'package:nyalcf/commands/authorize.dart';
 import 'package:nyalcf/commands/config.dart';
 import 'package:nyalcf/commands/download.dart';
-import 'package:nyalcf/commands/login.dart';
 import 'package:nyalcf/commands/logout.dart';
 import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/state.dart';
@@ -57,8 +57,8 @@ void main(List<String> arguments) async {
     }
 
     // 登录登出
-    if (results.wasParsed('login')) {
-      await Login().main(results.rest);
+    if (results.wasParsed('authorize')) {
+      await Authorize().main(results.rest);
     }
     if (results.wasParsed('logout')) {
       await Logout().main(results.rest);

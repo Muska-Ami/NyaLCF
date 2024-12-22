@@ -34,7 +34,7 @@ class Logger {
   }
 
   /// 获取 Logger 对象
-  static get _logger async {
+  static Future<log_u.Logger> get _logger async {
     List<log_u.LogOutput> multiOutput = [_consoleOutput, await _fileOutPut];
     return log_u.Logger(
       filter: LogFilter(),
@@ -89,6 +89,11 @@ class Logger {
     if (_lcs.getDebug()) {
       (await _logger).d(s);
     }
+  }
+
+  static Future<void> write(s) async {
+    stdout.write('\r${' ' * 30}');
+    stdout.write('\r$s');
   }
 
   /// FRPC INFO

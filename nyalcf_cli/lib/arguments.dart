@@ -10,10 +10,10 @@ class Arguments {
       help: 'Print this usage information.',
     )
     ..addFlag(
-      'login',
-      abbr: 'l',
+      'authorize',
+      abbr: 'a',
       negatable: false,
-      help: 'Login to LoCyanFrp. usage: <username> <password>',
+      help: 'Authorize. usage: <username> <password>',
     )
     ..addFlag(
       'logout',
