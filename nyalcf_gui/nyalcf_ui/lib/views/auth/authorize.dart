@@ -108,7 +108,7 @@ class _AuthorizeState extends State<AuthorizeUI> {
 
   @override
   void initState() {
-    const url = 'http://localhost:5173/auth/oauth/authorize'
+    const url = 'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
         '?app_id=1'
         '&scopes=User,Proxy,Sign'
         '&redirect_url=http://localhost:21131/oauth/callback';
