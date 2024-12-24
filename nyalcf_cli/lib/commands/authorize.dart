@@ -34,10 +34,7 @@ class Authorize implements Command {
       '?app_id=1'
       '&scopes=User,Proxy,Sign'
       '&redirect_url='
-      'https://dashboard.locyanfrp.cn/callback/auth/oauth/localhost'
-      '?port=21131'
-      '&ssl=false'
-      '&path=/oauth/callback',
+      'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D21131%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback',
     );
     Logger.write('Waiting callback...');
     Future.doWhile(() async {
