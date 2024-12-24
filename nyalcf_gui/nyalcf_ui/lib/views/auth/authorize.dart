@@ -111,7 +111,11 @@ class _AuthorizeState extends State<AuthorizeUI> {
     const url = 'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
         '?app_id=1'
         '&scopes=User,Proxy,Sign'
-        '&redirect_url=http://localhost:21131/oauth/callback';
+        '&redirect_url='
+        'https://dashboard.locyanfrp.cn/callback/auth/oauth/localhost'
+        '?port=21131'
+        '&ssl=false'
+        '&path=/oauth/callback';
     launchUrl(Uri.parse(url));
     OAuth.initRoute(
       response: OAuthResponseBody(success: '授权成功', error: '授权失败'),
