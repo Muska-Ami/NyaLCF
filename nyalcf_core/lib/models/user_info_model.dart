@@ -33,7 +33,7 @@ class UserInfoModel {
         avatar = json['avatar'],
         inbound = json['inbound'],
         outbound = json['outbound'],
-        traffic = num.parse(json['traffic']);
+        traffic = num.parse(json['traffic'].toString());
 
   /// 转为 JSON 数据
   Map<String, dynamic> toJson() => {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
 import 'package:nyalcf_core/network/client/api/user/info.dart' as api_user;
 import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
@@ -144,16 +145,30 @@ class HomeController extends GetxController {
 
   // 加载控制器
   load({bool force = false}) async {
+    authorizeFailed() {
+      UserInfoStorage.logout();
+      PrefsInstance.clear();
+      Get.snackbar(
+        '授权失效',
+        '请重新授权哦',
+        snackPosition: SnackPosition.BOTTOM,
+        animationDuration: const Duration(milliseconds: 300),
+      );
+      showAutoLoginWidget.value = false;
+    }
+
     if (loaded && !force) return;
     loaded = true;
     // 读取用户信息
     UserInfoModel? userInfo = await UserInfoStorage.read();
+    Logger.debug(userInfo);
     if (userInfo != null) {
       UserInfoPrefs.setInfo(userInfo);
 
       showAutoLoginWidget.value = true;
       // 刷新用户信息
-      final ApiClient api = ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
+      final ApiClient api =
+          ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
 
       final rs = await api.get(api_user.GetInfo(userId: userInfo.id));
       if (rs == null) {
@@ -171,18 +186,25 @@ class HomeController extends GetxController {
           UserInfoPrefs.setTraffic(num.parse(rs.data['data']['traffic']));
           UserInfoPrefs.setInbound(rs.data['data']['inbound']);
           UserInfoPrefs.setOutbound(rs.data['data']['outbound']);
+          UserInfoPrefs.saveToFile();
           break;
         case 401:
-          UserInfoStorage.logout();
-          PrefsInstance.clear();
-          Get.snackbar(
-            '授权失效',
-            '请重新授权哦',
-            snackPosition: SnackPosition.BOTTOM,
-            animationDuration: const Duration(milliseconds: 300),
-          );
-          showAutoLoginWidget.value = false;
-          return;
+          final apix = ApiClient();
+          final refreshToken = await TokenInfoPrefs.getRefreshToken();
+          if (refreshToken != null) {
+            final rsAcc = await apix
+                .post(PostAccessToken(appId: 1, refreshToken: refreshToken));
+            if (rsAcc == null) {
+              authorizeFailed();
+              return;
+            }
+            TokenInfoPrefs.setAccessToken(rsAcc.data['data']['access_token']);
+            load(force: true);
+            return;
+          } else {
+            authorizeFailed();
+            return;
+          }
         default:
           Logger.warn(
             'Check user token success but refresh user info failed.'

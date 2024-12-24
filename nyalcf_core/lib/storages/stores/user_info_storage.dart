@@ -7,6 +7,7 @@ import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
 import 'package:nyalcf_core/models/user_info_model.dart';
+import 'package:nyalcf_core/utils/logger.dart';
 
 class UserInfoStorage {
   static final _path = appSupportPath;
@@ -24,7 +25,8 @@ class UserInfoStorage {
       final String result =
           await File('$_path/session.json').readAsString(encoding: utf8);
       return UserInfoModel.fromJson(jsonDecode(result));
-    } catch (e) {
+    } catch (e, t) {
+      Logger.error(e, t: t);
       return null;
     }
   }
