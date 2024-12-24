@@ -4,20 +4,18 @@ import 'dart:io';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+// Project imports:
+import 'package:nyalcf/templates/command.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
+import 'package:nyalcf_core/network/client/api/user/frp/token.dart'
+    as user_frp_token;
 import 'package:nyalcf_core/network/client/api/user/info.dart' as user_info;
 import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/network/server/oauth.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/storages/token_storage.dart';
-
-// Project imports:
-import 'package:nyalcf/templates/command.dart';
-
-import 'package:nyalcf_core/network/client/api/user/frp/token.dart'
-    as user_frp_token;
 
 class Authorize implements Command {
   static final _tokenStorage = TokenStorage();
@@ -42,7 +40,10 @@ class Authorize implements Command {
       '&path=/oauth/callback',
     );
     Logger.write('Waiting callback...');
-    while (!_callback) {}
+    Future.doWhile(() async {
+      await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
+      return !_callback;
+    });
     if (_refreshToken == null) exit(1);
     final rs = await api.post(PostAccessToken(
       appId: 1,
