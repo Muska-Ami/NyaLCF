@@ -1,11 +1,10 @@
 // Dart imports:
 import 'dart:convert';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:crypto/crypto.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
@@ -15,12 +14,11 @@ import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/network/server/oauth.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // Project imports:
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
 import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AuthorizeUI extends StatefulWidget {
   const AuthorizeUI({super.key});
@@ -111,7 +109,8 @@ class _AuthorizeState extends State<AuthorizeUI> {
     const url = 'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
         '?app_id=1'
         '&scopes=User,Proxy,Sign'
-        '&redirect_url=http://localhost:21131/oauth/callback';
+        '&redirect_url='
+        'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D21131%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback';
     launchUrl(Uri.parse(url));
     OAuth.initRoute(
       response: OAuthResponseBody(success: '授权成功', error: '授权失败'),
