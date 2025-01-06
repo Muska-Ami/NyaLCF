@@ -32,7 +32,7 @@ class TaskUpdateProxiesList extends TaskBasic {
       return;
     }
     if (rs.statusCode == 200) {
-      final List<Map<String, dynamic>> list = rs.data['data']['list'];
+      final List<dynamic> list = rs.data['data']['list'];
 
       final List<ProxyInfoModel> proxies = [];
       for (Map<String, dynamic> proxy in list) {

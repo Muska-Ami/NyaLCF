@@ -108,18 +108,19 @@ class _AuthorizeState extends State<AuthorizeUI> {
 
   @override
   void initState() {
-    const url = 'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
-        '?app_id=1'
-        '&scopes=User,Proxy,Sign'
-        '&redirect_url='
-        'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D21131%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback';
-    launchUrl(Uri.parse(url));
     OAuth.initRoute(
       response: OAuthResponseBody(success: '授权成功', error: '授权失败'),
       callback: ctr.callback,
     );
     OAuth.close();
-    OAuth.start();
+    OAuth.start().then((port) {
+      final url = 'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
+          '?app_id=1'
+          '&scopes=User,Proxy,Sign'
+          '&redirect_url='
+          'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D$port%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback';
+      launchUrl(Uri.parse(url));
+    });
     super.initState();
   }
 
@@ -142,6 +143,7 @@ class _Controller extends GetxController {
     if (error != null) {
       this.error.value = error;
     } else {
+      OAuth.close();
       ApiClient api = ApiClient();
       message.value = '已取得返回数据，正在获取访问令牌，请稍后...';
       final rs = await api

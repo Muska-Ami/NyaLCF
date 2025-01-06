@@ -22,8 +22,9 @@ class UserInfoStorage {
   /// 读取用户数据
   static Future<UserInfoModel?> read() async {
     try {
-      final String result =
-          await File('$_path/session.json').readAsString(encoding: utf8);
+      final file = File('$_path/session.json');
+      if (!await file.exists()) return null;
+      final String result = await file.readAsString(encoding: utf8);
       return UserInfoModel.fromJson(jsonDecode(result));
     } catch (e, t) {
       Logger.error(e, t: t);

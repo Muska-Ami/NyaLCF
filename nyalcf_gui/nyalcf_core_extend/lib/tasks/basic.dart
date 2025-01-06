@@ -1,4 +1,4 @@
 abstract class TaskBasic {
-  late Function? callback;
+  Function? callback;
   startUp({Function? callback});
 }
