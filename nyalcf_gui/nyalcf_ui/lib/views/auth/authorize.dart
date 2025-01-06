@@ -141,6 +141,7 @@ class _Controller extends GetxController {
     if (error != null) {
       this.error.value = error;
     } else {
+      OAuth.close();
       ApiClient api = ApiClient();
       message.value = '已取得返回数据，正在获取访问令牌，请稍后...';
       final rs = await api

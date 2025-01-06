@@ -2,12 +2,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-// Package imports:
-import 'package:nyalcf_inject/nyalcf_inject.dart';
-
 // Project imports:
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+// Package imports:
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class UserInfoStorage {
   static final _path = appSupportPath;
@@ -22,8 +21,9 @@ class UserInfoStorage {
   /// 读取用户数据
   static Future<UserInfoModel?> read() async {
     try {
-      final String result =
-          await File('$_path/session.json').readAsString(encoding: utf8);
+      final file = File('$_path/session.json');
+      if (!await file.exists()) return null;
+      final String result = await file.readAsString(encoding: utf8);
       return UserInfoModel.fromJson(jsonDecode(result));
     } catch (e, t) {
       Logger.error(e, t: t);
