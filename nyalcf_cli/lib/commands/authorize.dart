@@ -4,20 +4,18 @@ import 'dart:io';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
+// Project imports:
+import 'package:nyalcf/templates/command.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
+import 'package:nyalcf_core/network/client/api/user/frp/token.dart'
+    as user_frp_token;
 import 'package:nyalcf_core/network/client/api/user/info.dart' as user_info;
 import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/network/server/oauth.dart';
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/storages/token_storage.dart';
-
-// Project imports:
-import 'package:nyalcf/templates/command.dart';
-
-import 'package:nyalcf_core/network/client/api/user/frp/token.dart'
-    as user_frp_token;
 
 class Authorize implements Command {
   static final _tokenStorage = TokenStorage();
@@ -29,14 +27,14 @@ class Authorize implements Command {
   Future<void> main(List<String> args) async {
     final ApiClient api = ApiClient();
 
-    await startHttpServer();
+    final port = await startHttpServer();
     Logger.info(
       'Please open this link to authorize: '
       'http://dashboard.locyanfrp.cn/auth/oauth/authorize'
       '?app_id=1'
       '&scopes=User,Proxy,Sign'
       '&redirect_url='
-      'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D21131%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback',
+      'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D$port%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback',
     );
     Logger.write('Waiting callback...');
     Future.doWhile(() async {
@@ -77,12 +75,12 @@ class Authorize implements Command {
     _tokenStorage.setFrpToken(frpToken);
   }
 
-  Future<void> startHttpServer() async {
+  Future<int> startHttpServer() async {
     OAuth.initRoute(
       response: OAuthResponseBody(success: '授权成功', error: '授权失败'),
       callback: callback,
     );
-    await OAuth.start();
+    return await OAuth.start();
   }
 
   void callback({String? refreshToken, String? error}) {

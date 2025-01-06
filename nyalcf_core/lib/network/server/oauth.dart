@@ -20,7 +20,8 @@ class OAuth {
   }) {
     app.get('/oauth/callback', (Request request) {
       String? error = request.requestedUri.queryParameters['error'];
-      String? refreshToken = request.requestedUri.queryParameters['refresh_token'];
+      String? refreshToken =
+          request.requestedUri.queryParameters['refresh_token'];
 
       if (error != null) {
         callback(error: error);
@@ -40,8 +41,9 @@ class OAuth {
     });
   }
 
-  static start() async {
-    _server = await io.serve(app.call, 'localhost', 21131);
+  static Future<int> start() async {
+    _server = await io.serve(app.call, 'localhost', 0);
+    return _server!.port;
   }
 
   static close() {
