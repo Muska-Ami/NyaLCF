@@ -1,10 +1,11 @@
 // Dart imports:
 import 'dart:convert';
 
-// Package imports:
-import 'package:crypto/crypto.dart';
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:crypto/crypto.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/network/client/api/auth/oauth/access_token.dart';
@@ -14,11 +15,12 @@ import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/network/server/oauth.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 // Project imports:
 import 'package:nyalcf_ui/models/appbar_actions.dart';
 import 'package:nyalcf_ui/widgets/nya_loading_circle.dart';
 import 'package:nyalcf_ui/widgets/nya_scaffold.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AuthorizeUI extends StatefulWidget {
   const AuthorizeUI({super.key});

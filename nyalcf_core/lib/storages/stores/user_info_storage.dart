@@ -2,11 +2,12 @@
 import 'dart:convert';
 import 'dart:io';
 
+// Package imports:
+import 'package:nyalcf_inject/nyalcf_inject.dart';
+
 // Project imports:
 import 'package:nyalcf_core/models/user_info_model.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-// Package imports:
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 class UserInfoStorage {
   static final _path = appSupportPath;

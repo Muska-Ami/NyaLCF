@@ -7,12 +7,13 @@ import 'package:nyalcf_core/network/client/api_client.dart';
 import 'package:nyalcf_core/storages/configurations/autostart_proxies_storage.dart';
 import 'package:nyalcf_core/storages/stores/proxies_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+import 'package:nyalcf_ui/controllers/proxies_controller.dart';
+
 // Project imports:
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/basic.dart';
-import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
-import 'package:nyalcf_ui/controllers/proxies_controller.dart';
 
 class TaskUpdateProxiesList extends TaskBasic {
   @override
