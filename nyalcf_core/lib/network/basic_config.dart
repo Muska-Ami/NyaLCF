@@ -17,7 +17,7 @@ BaseOptions baseOptions = BaseOptions(
         '${Platform.operatingSystemVersion}',
   },
 );
-final apiV2Url = ENV_UNIVERSAL_API_URL ?? 'https://api-v2.locyanfrp.cn/api/v2';
+final apiV2Url = ENV_UNIVERSAL_API_URL ?? 'https://api.locyanfrp.cn/v2';
 // const apiV2Url = 'http://localhost:18080/api/v2';
 const githubApiUrl = 'https://api-gh.1l1.icu';
 const githubMainUrl = 'https://github.com';
