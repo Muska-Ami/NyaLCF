@@ -67,8 +67,8 @@ class Download implements Command {
           await FrpClient().download(
             architecture: _selectedArch,
             platform: platform,
-            version: '0.51.3-6',
-            name: 'LoCyanFrp-0.51.3-6 #2024100301',
+            version: '0.51.3-8',
+            name: 'LoCyanFrp-0.51.3-8 #2025020201',
             cancelToken: _cancelToken,
             onReceiveProgress: callback,
             onFailed: onFailed,
@@ -76,7 +76,7 @@ class Download implements Command {
           );
           Logger.write('Please wait, extracting frpc...');
           await FrpcArchive.extract(
-              platform: platform, arch: _selectedArch, version: '0.51.3-6');
+              platform: platform, arch: _selectedArch, version: '0.51.3-8');
           Logger.info('Success!');
         } else {
           Logger.error(
@@ -87,6 +87,7 @@ class Download implements Command {
       default:
         Logger.error('No valid arguments provided.');
     }
+    exit(0);
   }
 
   void getPlatformFrpcArchList() {

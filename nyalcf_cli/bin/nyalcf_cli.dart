@@ -3,12 +3,6 @@ import 'dart:io';
 
 // Package imports:
 import 'package:args/args.dart';
-import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf_core/storages/injector.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/utils/path_provider.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
-
 // Project imports:
 import 'package:nyalcf/arguments.dart';
 import 'package:nyalcf/commands/authorize.dart';
@@ -17,8 +11,14 @@ import 'package:nyalcf/commands/download.dart';
 import 'package:nyalcf/commands/logout.dart';
 import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/state.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf_core/storages/injector.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/injector.dart';
+import 'package:nyalcf_core_extend/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
 
-final version = '0.0.3';
+final version = '1.0.1+1';
 
 ArgParser buildParser() {
   return Arguments.all;
@@ -36,6 +36,7 @@ void main(List<String> arguments) async {
   /// 初始化配置文件等
   await PathProvider.loadPath();
   await StoragesInjector.init();
+  await CliStoragesInjector.init();
   await Logger.init();
 
   final lcs = LauncherConfigurationStorage();
@@ -53,7 +54,6 @@ void main(List<String> arguments) async {
     // Process the parsed arguments.
     if (results.wasParsed('help')) {
       printUsage(argParser);
-      return;
     }
 
     // 登录登出
@@ -72,7 +72,6 @@ void main(List<String> arguments) async {
     // 版本信息
     if (results.wasParsed('version')) {
       Logger.info('Nya LoCyanFrp! CLI version: $version');
-      return;
     }
 
     // 下载 Frpc

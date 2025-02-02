@@ -1,3 +1,6 @@
+// Dart imports:
+import 'dart:io';
+
 // Package imports:
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -35,6 +38,7 @@ class Config implements Command {
     } else {
       Logger.error('No valid arguments provided.');
     }
+    exit(0);
   }
 
   dynamic _convert(dynamic originValue, String input) {

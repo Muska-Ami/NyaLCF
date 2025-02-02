@@ -1,5 +1,8 @@
 // Package imports:
 
+// Dart imports:
+import 'dart:io';
+
 // Package imports:
 import 'package:nyalcf_core/storages/stores/user_info_storage.dart';
 import 'package:nyalcf_core/utils/logger.dart';
@@ -12,5 +15,6 @@ class Logout implements Command {
   Future<void> main(List<String> args) async {
     await UserInfoStorage.logout();
     Logger.info('Session data removed.');
+    exit(0);
   }
 }
