@@ -22,11 +22,11 @@ class Start implements Command {
       final user = await userInfo;
       if (_tokenStorage.getFrpToken() == null) {
         Logger.error('No frp token found, please do authorize first.');
-        return;
+        exit(0);
       }
       if (user == null) {
         Logger.error('No valid arguments provided.');
-        return;
+        exit(0);
       }
       for (var proxyId in args) {
         final frpcPath = await FrpcStorage().getFilePath(skipCheck: false);
@@ -44,7 +44,7 @@ class Start implements Command {
           Logger.info('Started proxy: $proxyId');
         } else {
           Logger.error('You have no frpc installed yet!');
-          return;
+          exit(0);
         }
       }
 
@@ -63,7 +63,7 @@ class Start implements Command {
           for (var process in ProcessManager.processList) {
             process.process.kill();
           }
-          return;
+          exit(0);
         }
       });
     } else {

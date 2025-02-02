@@ -30,29 +30,38 @@ class Authorize implements Command {
     final ApiClient api = ApiClient();
 
     final port = await startHttpServer();
-    Logger.info(
-      'Please open this link to authorize: '
-      'http://dashboard.locyanfrp.cn/auth/oauth/authorize'
+    await Logger.info('Please open this link to authorize:');
+    await Logger.info(
+      'https://dashboard.locyanfrp.cn/auth/oauth/authorize'
       '?app_id=1'
       '&scopes=User,Proxy,Sign'
       '&redirect_url='
       'https%3A%2F%2Fdashboard.locyanfrp.cn%2Fcallback%2Fauth%2Foauth%2Flocalhost%3Fport%3D$port%26ssl%3Dfalse%26path%3D%2Foauth%2Fcallback',
     );
     Logger.write('Waiting callback...');
-    Future.doWhile(() async {
+    await Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
       return !_callback;
     });
-    if (_refreshToken == null) exit(1);
+    Logger.write('Continuing authorizing...\n');
+    if (_refreshToken == null) {
+      Logger.error('No refresh token callback, quit.');
+      exit(1);
+    }
     final rs = await api.post(PostAccessToken(
       appId: 1,
       refreshToken: _refreshToken!,
     ));
-    if (rs == null) exit(1);
+    if (rs == null) {
+      Logger.error('Request access token failed.');
+      exit(1);
+    }
     final int userId = rs.data['data']['user_id'];
     final String accessToken = rs.data['data']['access_token'];
     _tokenStorage.setRefreshToken(_refreshToken!);
     _tokenStorage.setAccessToken(accessToken);
+
+    Logger.info('Getting user info...');
 
     final apix = ApiClient(accessToken: accessToken);
     final rsInfo = await apix.get(user_info.GetInfo(
@@ -61,6 +70,8 @@ class Authorize implements Command {
     final rsFrpToken = await apix.get(user_frp_token.GetToken(
       userId: userId,
     ));
+    Logger.debug(rsInfo);
+    Logger.debug(rsFrpToken);
     if (rsInfo == null || rsFrpToken == null) exit(1);
     final userInfo = UserInfoModel(
       username: rsInfo.data['data']['username'],
@@ -70,11 +81,15 @@ class Authorize implements Command {
           "${md5.convert(utf8.encode(rsInfo.data['data']['email']))}",
       inbound: rsInfo.data['data']['inbound'],
       outbound: rsInfo.data['data']['outbound'],
-      traffic: rsInfo.data['data']['traffic'],
+      traffic: num.parse(rsInfo.data['data']['traffic']),
     );
     UserInfoStorage.save(userInfo);
     final frpToken = rsFrpToken.data['data']['frp_token'];
     _tokenStorage.setFrpToken(frpToken);
+    _tokenStorage.save();
+    Logger.info('Authorized success.');
+    await OAuth.close();
+    exit(0);
   }
 
   Future<int> startHttpServer() async {
