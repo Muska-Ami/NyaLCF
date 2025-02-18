@@ -78,7 +78,7 @@ jobs:
         run: |-
           sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm libayatana-appindicator3-dev patchelf locate libfuse2
-          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Setup AppImageTool
         run: |-
@@ -125,7 +125,7 @@ jobs:
       - name: Install Dependencies
         run: |-
           npm install -g appdmg
-          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Pack DMG Installer
         run: |-
