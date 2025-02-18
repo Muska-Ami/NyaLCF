@@ -197,7 +197,7 @@ class FrpcSettingController extends GetxController {
   }
 
   /// 取消下载的 CancelToken
-  CancelToken downloadCancelToken = CancelToken();
+  static CancelToken downloadCancelToken = CancelToken();
 
   /// 下载 Frp Client 回调函数
   void downloadFrpClientCallback(received, total) {

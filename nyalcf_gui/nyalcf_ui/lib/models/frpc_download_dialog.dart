@@ -53,7 +53,7 @@ Widget frpcDownloadDialog(BuildContext context) {
                   name: 'LoCyanFrp-0.51.3-8 #2025020201',
                   useMirror: _fcs.getSettingsFrpcDownloadMirror(),
                   mirrorId: mirror.isNotEmpty ? mirror : null,
-                  cancelToken: _fsCtr.downloadCancelToken,
+                  cancelToken: FrpcSettingController.downloadCancelToken,
                   onReceiveProgress: _fsCtr.downloadFrpClientCallback,
                   onFailed: _fsCtr.downloadFailed,
                 );
@@ -98,7 +98,7 @@ Widget _downloading() {
                 '进度：${(_fsCtr.frpcDownloadProgress.value * 100).toStringAsFixed(2)}%')),
             ElevatedButton(
               onPressed: () async {
-                _fsCtr.downloadCancelToken.cancel();
+                FrpcSettingController.downloadCancelToken.cancel();
                 _fsCtr.refreshProgress();
                 Get.close(0);
               },

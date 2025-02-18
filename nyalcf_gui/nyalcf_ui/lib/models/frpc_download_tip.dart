@@ -70,7 +70,9 @@ class FrpcDownloadTip {
                 children: <Widget>[
                   const Text('Frpc 好像不见了，无法启动隧道了...呜呜...'),
                   SelectableText(
-                      '期望的 Frpc 文件路径：${await FrpcPathProvider.frpcPath(skipCheck: true)}'),
+                    '期望的 Frpc 文件路径：'
+                    '${await FrpcPathProvider.frpcPath(skipCheck: true)}',
+                  ),
                   const Text('可是猫猫没有发现它！'),
                   Container(
                     margin: const EdgeInsets.only(top: 10.0),

@@ -493,7 +493,7 @@ packages:
     source: path
     version: "2.0.0"
   nyalcf_inject_extend:
-    dependency: transitive
+    dependency: "direct main"
     description:
       path: nyalcf_inject_extend
       relative: true

@@ -3,6 +3,13 @@ import 'dart:io';
 
 // Package imports:
 import 'package:args/args.dart';
+import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:nyalcf_core/storages/injector.dart';
+import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core_extend/storages/injector.dart';
+import 'package:nyalcf_core_extend/utils/path_provider.dart';
+import 'package:nyalcf_inject/nyalcf_inject.dart';
+
 // Project imports:
 import 'package:nyalcf/arguments.dart';
 import 'package:nyalcf/commands/authorize.dart';
@@ -11,12 +18,6 @@ import 'package:nyalcf/commands/download.dart';
 import 'package:nyalcf/commands/logout.dart';
 import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/state.dart';
-import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
-import 'package:nyalcf_core/storages/injector.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/storages/injector.dart';
-import 'package:nyalcf_core_extend/utils/path_provider.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 final version = '1.0.1+1';
 
