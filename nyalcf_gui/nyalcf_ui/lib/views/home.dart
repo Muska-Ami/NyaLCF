@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
@@ -13,6 +14,8 @@ import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
+
 // Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
@@ -221,6 +224,10 @@ class HomeController extends GetxController {
         animationDuration: const Duration(milliseconds: 300),
       );
       // 跳转到面板首页
+      if (deeplinkStartup) {
+        Logger.info('Skipped routing to panel due deeplink execution');
+        return;
+      }
       Get.toNamed('/panel/home');
     } else {
       // 重新初始化启动内容

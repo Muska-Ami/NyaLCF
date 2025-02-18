@@ -21,6 +21,7 @@ import 'package:nyalcf_core_extend/utils/theme_control.dart';
 import 'package:nyalcf_core_extend/utils/universe.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
 import 'package:nyalcf_ui/main_window.dart';
 import 'package:nyalcf_ui/views/auth/authorize.dart';
 import 'package:nyalcf_ui/views/auth/token_mode.dart';
@@ -88,6 +89,7 @@ void main() async {
       Logger.debug(res);
       if (res[0]) {
         Logger.debug('Started as token-only mode as deeplink executed success');
+        deeplinkStartup = true;
         await TokenInfoPrefs.setFrpToken(res[1]);
         await Future.doWhile(() async {
           if (_appInit) {
@@ -125,7 +127,8 @@ class _AppState extends State<App> with WindowListener {
   /// 根组件
   @override
   Widget build(BuildContext context) {
-    return DynamicColorBuilder(builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
       final lcs = LauncherConfigurationStorage();
 
       // 定义初始主题数据
@@ -133,7 +136,9 @@ class _AppState extends State<App> with WindowListener {
       ThemeData darkThemeData = ThemeControl.getDarkTheme();
 
       // 非自动下切换深色主题逻辑
-      if (lcs.getThemeAuto() != true && lcs.getThemeDarkEnable()) Get.changeThemeMode(ThemeMode.dark);
+      if (lcs.getThemeAuto() != true && lcs.getThemeDarkEnable()) {
+        Get.changeThemeMode(ThemeMode.dark);
+      }
 
       // Monet 取色
       if (lcs.getThemeMonet() == true) {
@@ -143,15 +148,13 @@ class _AppState extends State<App> with WindowListener {
               useMaterial3: true,
               fontFamily: 'HarmonyOS Sans',
               brightness: Brightness.light,
-              colorScheme: lightDynamic.harmonized()
-          );
+              colorScheme: lightDynamic.harmonized());
           // 暗色模式 Monet 取色
           darkThemeData = ThemeData(
               useMaterial3: true,
               fontFamily: 'HarmonyOS Sans',
               brightness: Brightness.dark,
-              colorScheme: darkDynamic.harmonized()
-          );
+              colorScheme: darkDynamic.harmonized());
         }
       }
 
@@ -165,7 +168,8 @@ class _AppState extends State<App> with WindowListener {
           '/token_mode_panel': (context) => const TokenModePanelUI(),
           '/panel/home': (context) => HomePanelUI(),
           '/panel/proxies': (context) => ProxiesPanelUI(),
-          '/panel/proxies/configuration': (context) => ProxiesConfigurationPanelUI(),
+          '/panel/proxies/configuration': (context) =>
+              ProxiesConfigurationPanelUI(),
           '/panel/console': (context) => ConsolePanelUI(),
           '/panel/console/full': (context) => ConsoleFullPanelUI(),
           '/setting': (context) => const SettingInjectorUI(),

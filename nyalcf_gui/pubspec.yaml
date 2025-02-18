@@ -21,6 +21,8 @@ dependencies:
     path: ../nyalcf_env
   nyalcf_inject:
     path: ../nyalcf_inject
+  nyalcf_inject_extend:
+    path: ./nyalcf_inject_extend
   nyalcf_core:
     path: ../nyalcf_core
   nyalcf_core_extend:

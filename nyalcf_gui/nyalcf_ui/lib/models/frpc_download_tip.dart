@@ -1,10 +1,12 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
+
 // Project imports:
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
