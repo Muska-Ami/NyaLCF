@@ -1,6 +1,5 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
@@ -14,7 +13,6 @@ import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
-
 // Project imports:
 import 'package:nyalcf_ui/controllers/console_controller.dart';
 import 'package:nyalcf_ui/controllers/frpc_controller.dart';
@@ -198,7 +196,9 @@ class HomeController extends GetxController {
               authorizeFailed();
               return;
             }
-            TokenInfoPrefs.setAccessToken(rsAcc.data['data']['access_token']);
+            await TokenInfoPrefs.setAccessToken(
+                rsAcc.data['data']['access_token']);
+            // 刷新用户信息
             load(force: true);
             return;
           } else {

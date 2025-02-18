@@ -1,18 +1,16 @@
 // Dart imports:
 import 'dart:io';
 
-// Flutter imports:
-import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:dio/dio.dart';
+// Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/cpu_arch.dart';
 import 'package:nyalcf_core/utils/frpc/arch.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-
 // Project imports:
 import 'package:nyalcf_ui/models/frpc_download_tip.dart';
 
@@ -197,7 +195,7 @@ class FrpcSettingController extends GetxController {
   }
 
   /// 取消下载的 CancelToken
-  CancelToken downloadCancelToken = CancelToken();
+  static CancelToken downloadCancelToken = CancelToken();
 
   /// 下载 Frp Client 回调函数
   void downloadFrpClientCallback(received, total) {

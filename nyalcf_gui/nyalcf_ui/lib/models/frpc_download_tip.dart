@@ -1,12 +1,10 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
-
 // Package imports:
 import 'package:get/get.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
 import 'package:nyalcf_core/utils/frpc/path_provider.dart';
 import 'package:nyalcf_core/utils/logger.dart';
-
 // Project imports:
 import 'package:nyalcf_ui/controllers/frpc_setting_controller.dart';
 import 'package:nyalcf_ui/models/frpc_download_dialog.dart';
@@ -70,7 +68,9 @@ class FrpcDownloadTip {
                 children: <Widget>[
                   const Text('Frpc 好像不见了，无法启动隧道了...呜呜...'),
                   SelectableText(
-                      '期望的 Frpc 文件路径：${await FrpcPathProvider.frpcPath(skipCheck: true)}'),
+                    '期望的 Frpc 文件路径：'
+                    '${await FrpcPathProvider.frpcPath(skipCheck: true)}',
+                  ),
                   const Text('可是猫猫没有发现它！'),
                   Container(
                     margin: const EdgeInsets.only(top: 10.0),
