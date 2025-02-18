@@ -30,10 +30,10 @@ dependencies:
   nyalcf_ui:
     path: ./nyalcf_ui
 
-  get: ^4.6.6
-  bitsdojo_window: ^0.1.5
-  window_manager: ^0.4.2
-  app_links: ^6.1.4
+  get: ^4.7.2
+  bitsdojo_window: ^0.1.6
+  window_manager: ^0.4.3
+  app_links: ^6.4.0
   system_tray: ^2.0.3
   dynamic_color: ^1.7.0
 
