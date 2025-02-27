@@ -26,7 +26,7 @@ dependencies:
   url_launcher: ^6.3.1
   dio: ^5.8.0+1
   shared_preferences: ^2.5.2
-  package_info_plus: ^8.2.1
+  package_info_plus: ^8.3.0
   path_provider: ^2.1.5
 
 dev_dependencies:
