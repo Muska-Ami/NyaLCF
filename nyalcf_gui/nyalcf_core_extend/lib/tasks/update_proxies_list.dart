@@ -79,12 +79,14 @@ class TaskUpdateProxiesList extends TaskBasic {
   _removeNonExistsAutostart(List<ProxyInfoModel> proxies) async {
     final aps = AutostartProxiesStorage();
     final nowList = aps.getList();
-    for (ProxyInfoModel item in nowList) {
-      Logger.debug(
-        "${item.name} not exists again,"
-        " removing it from autostart.json",
-      );
-      if (!proxies.contains(item)) aps.removeFromList(item.id);
+    for (int id in nowList) {
+      final item = ProxiesStorage.get(id);
+      if (item == null) {
+        Logger.debug(
+          "$id not exists again, removing it from autostart.json",
+        );
+        if (!proxies.contains(item)) aps.removeFromList(id);
+      }
     }
     aps.save();
   }

@@ -103,7 +103,7 @@ class ProxiesPanelUI extends StatelessWidget {
         ),
       ),
       afterLayout: (RenderAfterLayout ral) async {
-        if (ProxiesStorage.get().isEmpty) {
+        if (ProxiesStorage.getAll().isEmpty) {
           pCtr.load(request: true);
         } else {
           pCtr.load();
