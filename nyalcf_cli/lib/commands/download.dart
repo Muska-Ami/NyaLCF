@@ -67,8 +67,8 @@ class Download implements Command {
           await FrpClient().download(
             architecture: _selectedArch,
             platform: platform,
-            version: '0.51.3-8',
-            name: 'LoCyanFrp-0.51.3-8 #2025020201',
+            version: '0.51.3-9',
+            name: 'LoCyanFrp-0.51.3-9 #2025022501',
             cancelToken: _cancelToken,
             onReceiveProgress: callback,
             onFailed: onFailed,
@@ -76,7 +76,7 @@ class Download implements Command {
           );
           Logger.write('Please wait, extracting frpc...');
           await FrpcArchive.extract(
-              platform: platform, arch: _selectedArch, version: '0.51.3-8');
+              platform: platform, arch: _selectedArch, version: '0.51.3-9');
           Logger.info('Success!');
         } else {
           Logger.error(

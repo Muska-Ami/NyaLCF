@@ -14,7 +14,7 @@ class FrpcConfigurationStorage extends JsonConfiguration {
   @override
   Map<String, dynamic> get defConfig => {
         'settings': {
-          'frpc_version': '0.51.3-8',
+          'frpc_version': '0.51.3-9',
           'frpc_download_mirror': true,
           'frpc_download_mirror_id': 'muska-github-mirror',
         },

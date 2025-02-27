@@ -19,7 +19,7 @@ import 'package:nyalcf/commands/logout.dart';
 import 'package:nyalcf/commands/start.dart';
 import 'package:nyalcf/state.dart';
 
-final version = '1.0.1+1';
+final version = '1.0.1+4';
 
 ArgParser buildParser() {
   return Arguments.all;
@@ -32,7 +32,8 @@ void printUsage(ArgParser argParser) {
 
 void main(List<String> arguments) async {
   /// 加载环境
-  setAppendInfo('CLI v$version an=${Platform.executable}');
+  setAppendInfo('CLI; Name ${Platform.executable}');
+  setVersion(version);
 
   /// 初始化配置文件等
   await PathProvider.loadPath();

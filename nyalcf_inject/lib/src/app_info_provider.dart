@@ -1,5 +1,5 @@
-String appendInfo = "Unknown";
+String appendInfo = "unknown";
+String version = "unknown";
 
-void setAppendInfo(value) {
-  appendInfo = value;
-}
+void setAppendInfo(String value) => appendInfo = value;
+void setVersion(String value) => version = value;
