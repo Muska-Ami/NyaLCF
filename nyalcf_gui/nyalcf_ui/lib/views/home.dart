@@ -12,6 +12,7 @@ import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
+import 'package:nyalcf_core_extend/tasks/refresh_access_token.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
@@ -168,10 +169,15 @@ class HomeController extends GetxController {
 
       showAutoLoginWidget.value = true;
       // 刷新用户信息
-      final ApiClient api =
-          ApiClient(accessToken: await TokenInfoPrefs.getAccessToken());
+      final ApiClient api = ApiClient(
+        accessToken: await TokenInfoPrefs.getAccessToken(),
+      );
 
-      final rs = await api.get(api_user.GetInfo(userId: userInfo.id));
+      final rs = await api.get(
+        api_user.GetInfo(
+          userId: userInfo.id,
+        ),
+      );
       if (rs == null) {
         Get.snackbar(
           '请求数据失败',
@@ -193,8 +199,12 @@ class HomeController extends GetxController {
           final apix = ApiClient();
           final refreshToken = await TokenInfoPrefs.getRefreshToken();
           if (refreshToken != null) {
-            final rsAcc = await apix
-                .post(PostAccessToken(appId: 1, refreshToken: refreshToken));
+            final rsAcc = await apix.post(
+              PostAccessToken(
+                appId: 1,
+                refreshToken: refreshToken,
+              ),
+            );
             if (rsAcc == null) {
               authorizeFailed();
               return;
@@ -215,6 +225,7 @@ class HomeController extends GetxController {
           );
       }
       TaskUpdateProxiesList().startUp();
+      TaskRefreshAccessToken().startUp();
       FrpcStartUpLoader().onProgramStartUp();
       // 显示自动登录的SnackBar
       Get.snackbar(
