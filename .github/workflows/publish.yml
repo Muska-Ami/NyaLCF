@@ -23,7 +23,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.5
+          version: 3.29.0
           cache-sdk: true
 
       - name: Install Dependencies
@@ -80,14 +80,14 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.5
+          version: 3.29.0
           cache-sdk: true
 
       - name: Install Dependencies
         run: |-
           sudo apt-get update
           sudo apt-get install clang cmake git ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev rpm libayatana-appindicator3-dev patchelf locate libfuse2
-          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Setup AppImageTool
         run: |-
@@ -136,7 +136,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v3
         with:
           channel: 'stable'
-          version: 3.24.5
+          version: 3.29.0
           cache-sdk: true
 
       - name: Setup Node.js
@@ -147,7 +147,7 @@ jobs:
       - name: Install Dependencies
         run: |-
           npm install -g appdmg
-          dart pub global activate -s path tools/flutter_distributor/packages/flutter_distributor
+          dart pub global activate flutter_distributor
 
       - name: Pack DMG Installer
         if: ${{ matrix.os == 'macos-latest' }}

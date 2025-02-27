@@ -13,6 +13,6 @@ dependencies:
   # path: ^1.8.0
 
 dev_dependencies:
-  lints: ^5.0.0
-  test: ^1.24.0
+  lints: ^5.1.1
+  test: ^1.25.15
   import_sorter: ^4.6.0

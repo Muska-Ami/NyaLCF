@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  get: ^4.6.6
+  get: ^4.7.2
 
 dev_dependencies:
   flutter_test:

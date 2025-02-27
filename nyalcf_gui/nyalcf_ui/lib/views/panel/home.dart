@@ -105,8 +105,11 @@ class HomePanelUI extends StatelessWidget {
                                     accessToken:
                                         await TokenInfoPrefs.getAccessToken());
 
-                                final rs = await api
-                                    .get(api_sign.GetSign(userId: userInfo.id));
+                                final rs = await api.get(
+                                  api_sign.GetSign(
+                                    userId: userInfo.id,
+                                  ),
+                                );
                                 if (rs == null) {
                                   Get.snackbar(
                                     '签到失败',
@@ -115,67 +118,55 @@ class HomePanelUI extends StatelessWidget {
                                     animationDuration:
                                         const Duration(milliseconds: 300),
                                   );
+                                  loading.value = false;
                                   return;
                                 }
+                                Logger.debug(rs);
                                 if (rs.statusCode == 200) {
+                                  doSign() async {
+                                    final rsx = await api.post(
+                                      api_sign.PostSign(
+                                        userId: userInfo.id,
+                                      ),
+                                    );
+                                    if (rsx == null) {
+                                      Get.snackbar(
+                                        '签到失败',
+                                        '请求失败惹 QwQ',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        animationDuration:
+                                            const Duration(milliseconds: 300),
+                                      );
+                                      loading.value = false;
+                                      return;
+                                    }
+                                    success() async {
+                                      Get.snackbar(
+                                        '签到成功',
+                                        rsx.data['data']['first_sign']
+                                            ? '获得 ${rsx.data['data']['get_traffic'] / 1024}GiB 流量，这是您的第一次签到呐~'
+                                            : '获得 ${rsx.data['data']['get_traffic'] / 1024}GiB 流量，您已签到 ${rsx.data['data']['sign_count']} 次，总计获得 ${rsx.data['data']['total_get_traffic'] / 1024} GiB 流量',
+                                        snackPosition: SnackPosition.BOTTOM,
+                                        animationDuration:
+                                            const Duration(milliseconds: 300),
+                                      );
+                                    }
+
+                                    Logger.debug(rsx);
+
+                                    rsx.statusCode == 200
+                                        ? success()
+                                        : Get.snackbar(
+                                            '签到失败',
+                                            '无法请求签到： ${rsx.data['message']}',
+                                            snackPosition: SnackPosition.BOTTOM,
+                                            animationDuration: const Duration(
+                                                milliseconds: 300),
+                                          );
+                                  }
+
                                   !rs.data['data']['status']
-                                      ? () async {
-                                          final rsx = await api.get(
-                                              api_sign.PostSign(
-                                                  userId: userInfo.id));
-                                          if (rsx == null) {
-                                            Get.snackbar(
-                                              '签到失败',
-                                              '请求失败惹 QwQ',
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                              animationDuration: const Duration(
-                                                  milliseconds: 300),
-                                            );
-                                            return;
-                                          }
-                                          rsx.data['data']['status']
-                                              ? () async {
-                                                  Get.snackbar(
-                                                    '签到成功',
-                                                    rsx.data['data']
-                                                            ['first_sign']
-                                                        ? '获得 ${rsx.data['data']['get_traffic'] / 1024}GiB 流量，这是您的第一次签到呐~'
-                                                        : '获得 ${rsx.data['data']['get_traffic'] / 1024}GiB 流量，您已签到 ${rsx.data['data']['sign_count']} 次，总计获得 ${rsx.data['data']['total_get_traffic'] / 1024} GiB 流量',
-                                                    snackPosition:
-                                                        SnackPosition.BOTTOM,
-                                                    animationDuration:
-                                                        const Duration(
-                                                            milliseconds: 300),
-                                                  );
-                                                }
-                                              : () async {
-                                                  rsx.data['message'] ==
-                                                          "Signed"
-                                                      ? Get.snackbar(
-                                                          '签到失败',
-                                                          '已签到，无法重复签到 QwQ',
-                                                          snackPosition:
-                                                              SnackPosition
-                                                                  .BOTTOM,
-                                                          animationDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      300),
-                                                        )
-                                                      : Get.snackbar(
-                                                          '签到失败',
-                                                          '无法请求签到： ${rsx.data['message']}',
-                                                          snackPosition:
-                                                              SnackPosition
-                                                                  .BOTTOM,
-                                                          animationDuration:
-                                                              const Duration(
-                                                                  milliseconds:
-                                                                      300),
-                                                        );
-                                                };
-                                        }
+                                      ? doSign()
                                       : Get.snackbar(
                                           '签到失败',
                                           '已签到，无法重复签到 Baka!',
