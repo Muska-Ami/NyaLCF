@@ -49,7 +49,8 @@ void main() async {
 
   /// 设置 HTTP 请求附加信息
   setAppendInfo(
-      'v${Universe.appVersion}(+${Universe.appBuildNumber}) an=${Universe.appName}');
+      'GUI; Build ${Universe.appBuildNumber}; Name ${Universe.appName}');
+  setVersion(Universe.appVersion);
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
@@ -59,6 +60,7 @@ void main() async {
 
   /// 初始化 Logger
   await Logger.init();
+  Logger.debug(Platform.operatingSystem);
 
   /// 自动旧版迁移数据
   final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
