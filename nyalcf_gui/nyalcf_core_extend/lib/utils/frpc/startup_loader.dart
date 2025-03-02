@@ -20,7 +20,7 @@ class FrpcStartUpLoader {
     if (execPath != null) {
       for (var proxy in proxiesList) {
         Logger.info('Starting proxy: $proxy');
-        pm.newProcess(
+        await pm.newProcess(
           frpToken: uc.frpToken.value,
           proxyId: proxy,
           frpcPath: execPath,

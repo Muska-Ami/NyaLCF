@@ -20,7 +20,7 @@ class FrpcProcessManager {
   final FrpcController _fCtr = Get.find();
   final ConsoleController _cCtr = Get.find();
 
-  void newProcess({
+  Future<void> newProcess({
     required String frpToken,
     required int proxyId,
     required String frpcPath,

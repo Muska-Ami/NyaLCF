@@ -21,7 +21,7 @@ class Launcher {
     try {
       request = await _instance.get(
         '$githubApiUrl'
-        '/repos/LoCyan-Team/LoCyanFrpPureApp/releases',
+        '/repos/Muska-Ami/NyaLCF/releases',
       );
     } catch (e, trace) {
       Logger.error(e, t: trace);
@@ -33,7 +33,7 @@ class Launcher {
     final List<String> verArr = version['tag_name'].split('+');
 
     return UpdateInfoModel(
-      version: version['name'],
+      version: verArr[0],
       tag: version['tag_name'],
       buildNumber: verArr[1],
       downloadUrl: version['assets'],

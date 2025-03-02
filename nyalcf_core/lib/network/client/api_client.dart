@@ -15,7 +15,9 @@ class ApiClient {
 
   /// 获取对象
   dio.Dio get _instance {
-    dio.BaseOptions options = baseOptions;
+    dio.BaseOptions options = dio.BaseOptions(
+      headers: baseOptions.headers
+    );
     if (accessToken != null) {
       options.headers.addAll({
         'Authorization': 'Bearer $accessToken',

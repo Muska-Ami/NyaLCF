@@ -21,7 +21,15 @@ class ProxiesStorage {
   }
 
   /// 获取隧道列表
-  static List<ProxyInfoModel> get() => _proxies;
+  static List<ProxyInfoModel> getAll() => _proxies;
+
+  /// 获取单个隧道
+  static ProxyInfoModel? get(int i) {
+    for (ProxyInfoModel proxy in _proxies) {
+      if (proxy.id == i) return proxy;
+    }
+    return null;
+  }
 
   /// 清除隧道列表
   static void clear() {

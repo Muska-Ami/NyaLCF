@@ -225,7 +225,6 @@ class HomeController extends GetxController {
           );
       }
       TaskUpdateProxiesList().startUp();
-      TaskRefreshAccessToken().startUp();
       FrpcStartUpLoader().onProgramStartUp();
       // 显示自动登录的SnackBar
       Get.snackbar(

@@ -17,7 +17,7 @@ class AutostartProxiesStorage extends JsonConfiguration {
         'list': [],
       };
 
-  /// 获取自带启动隧道列表
+  /// 获取自动启动隧道列表
   List getList() => cfg.getList('list', defConfig['list']);
 
   /// 添加自动启动隧道

@@ -11,5 +11,6 @@ class PostAccessToken extends ApiBaseModel {
             'app_id': appId,
             'refresh_token': refreshToken,
           },
+          validateStatus: [200, 401],
         );
 }

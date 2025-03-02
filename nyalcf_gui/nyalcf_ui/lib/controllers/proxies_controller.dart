@@ -46,7 +46,7 @@ class ProxiesController extends GetxController {
 
   /// 构建隧道列表
   build() async {
-    var proxies = ProxiesStorage.get();
+    var proxies = ProxiesStorage.getAll();
     proxiesWidgets.value = [
       const NyaLoadingCircle(height: 22.0, width: 22.0),
     ];
