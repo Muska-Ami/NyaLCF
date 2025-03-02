@@ -16,7 +16,7 @@ import 'package:nyalcf_core_extend/utils/universe.dart';
 class TaskUpdater extends TaskBasic {
   static UpdateInfoModel uIf = UpdateInfoModel(
     version: Universe.appVersion,
-    tag: Universe.appVersion,
+    tag: Universe.appVersion + '+' + Universe.appBuildNumber,
     buildNumber: Universe.appBuildNumber,
     downloadUrl: [],
   );
