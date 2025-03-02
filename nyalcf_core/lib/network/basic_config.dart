@@ -9,8 +9,8 @@ import 'package:nyalcf_inject/nyalcf_inject.dart';
 BaseOptions baseOptions = BaseOptions(
   headers: {
     'User-Agent': 'Nya LoCyanFrp/$version'
-        '$appendInfo; '
-        '${Platform.operatingSystem}',
+        ' ($appendInfo; '
+        '${Platform.operatingSystem})',
   },
 );
 final apiV2Url = ENV_UNIVERSAL_API_URL ?? 'https://api.locyanfrp.cn/v2';
