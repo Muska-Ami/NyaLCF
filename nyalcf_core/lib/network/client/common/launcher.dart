@@ -33,7 +33,7 @@ class Launcher {
     final List<String> verArr = version['tag_name'].split('+');
 
     return UpdateInfoModel(
-      version: version['name'],
+      version: verArr[0],
       tag: version['tag_name'],
       buildNumber: verArr[1],
       downloadUrl: version['assets'],
