@@ -21,7 +21,7 @@ class Launcher {
     try {
       request = await _instance.get(
         '$githubApiUrl'
-        '/repos/LoCyan-Team/LoCyanFrpPureApp/releases',
+        '/repos/Muska-Ami/NyaLCF/releases',
       );
     } catch (e, trace) {
       Logger.error(e, t: trace);
