@@ -1,4 +1,5 @@
 // Dart imports:
+import 'dart:async';
 import 'dart:io';
 
 // Flutter imports:
@@ -40,10 +41,6 @@ final _appLinks = AppLinks();
 bool _appInit = false;
 
 void main() async {
-  /// 确保前置内容完成初始化
-  WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
-
   /// 读取信息
   await Universe.loadUniverse();
 
@@ -61,6 +58,7 @@ void main() async {
   /// 初始化 Logger
   await Logger.init();
   Logger.debug(Platform.operatingSystem);
+  Logger.debug('Append info has been set: $appendInfo');
 
   /// 自动旧版迁移数据
   final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
@@ -79,40 +77,51 @@ void main() async {
     }
   }
 
-  Logger.debug('Append info has been set: $appendInfo');
-
-  /// 注册并监听深度链接
-  if (!(ENV_GUI_DISABLE_DEEPLINK ?? false)) {
-    if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
-    _appLinks.uriLinkStream.listen((uri) async {
-      Logger.debug('Received uri scheme: $uri');
-      final res = await DeepLinkExecutor(uri: uri.toString()).execute();
-
-      Logger.debug(res);
-      if (res[0]) {
-        Logger.debug('Started as token-only mode as deeplink executed success');
-        deeplinkStartup = true;
-        await TokenInfoPrefs.setFrpToken(res[1]);
-        await Future.doWhile(() async {
-          if (_appInit) {
-            Get.toNamed('/token_mode/panel');
-            return false; // 结束循环
-          }
-          Logger.debug('Waiting for app init...');
-          await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
-          return true; // 继续循环
-        });
-      } else {
-        Logger.debug('Skip for enter token-only mode');
-      }
-    });
-  }
-
-  /// 启动定时任务
-  TaskScheduler.start();
-
   /// 运行 App
-  runApp(const App());
+  runZonedGuarded(() async {
+    /// 确保前置内容完成初始化
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+
+    /// 启动定时任务
+    TaskScheduler.start();
+
+    /// 注册并监听深度链接
+    if (!(ENV_GUI_DISABLE_DEEPLINK ?? false)) {
+      if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
+      _appLinks.uriLinkStream.listen((uri) async {
+        Logger.debug('Received uri scheme: $uri');
+        final res = await DeepLinkExecutor(uri: uri.toString()).execute();
+
+        Logger.debug(res);
+        if (res[0]) {
+          Logger.debug('Started as token-only mode as deeplink executed success');
+          deeplinkStartup = true;
+          await TokenInfoPrefs.setFrpToken(res[1]);
+          await Future.doWhile(() async {
+            if (_appInit) {
+              Get.toNamed('/token_mode/panel');
+              return false; // 结束循环
+            }
+            Logger.debug('Waiting for app init...');
+            await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
+            return true; // 继续循环
+          });
+        } else {
+          Logger.debug('Skip for enter token-only mode');
+        }
+      });
+    }
+
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.dumpErrorToConsole(details);
+      Logger.error('Unhandled error on Flutter library: ${details.exception}', t: details.stack);
+    };
+
+    runApp(const App());
+  }, (Object error, StackTrace stack) {
+    Logger.error('Unhandled error: $error', t: stack);
+  });
 
   /// 当窗口初始化完毕执行
   doWhenWindowReady(MainWindow.doWhenWindowReady);

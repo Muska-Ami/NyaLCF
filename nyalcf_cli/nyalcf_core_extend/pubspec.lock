@@ -247,7 +247,7 @@ packages:
       path: "../../nyalcf_core"
       relative: true
     source: path
-    version: "2.0.4"
+    version: "2.0.5"
   nyalcf_env:
     dependency: transitive
     description:

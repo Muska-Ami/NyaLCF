@@ -4,9 +4,7 @@
 
 ### GUI
 
-- 修复了定时任务只执行两次的 BUG
-- 修复了检查更新
-- 修复异步导致的自启动隧道异常 #175 #225
+- 添加了全局错误捕获
 
 ### CLI
 
@@ -14,14 +12,15 @@
 
 ### Core
 
-- 修复了意外修改 `baseOptions` 的 BUG
+- 修复无法监听授权回调地址的问题
+- 将 `Logger.verbose` 从弃用的 `logger.v` 改用 `logger.t`
 
 ## 版本信息
 
-- nyalcf_gui: 1.0.2
-- nyalcf_cli: 1.0.1
+- nyalcf_gui: 1.0.3
+- nyalcf_cli: 1.0.2
 - nyalcf_env: 2.0.0
-- nyalcf_core: 2.0.4
+- nyalcf_core: 2.0.5
 - nyalcf_inject: 2.0.0
 
 <!-- Some change log here -->
