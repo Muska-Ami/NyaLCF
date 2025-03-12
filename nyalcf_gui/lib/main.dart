@@ -38,7 +38,6 @@ import 'package:nyalcf_ui/views/token_mode_panel.dart';
 import 'package:window_manager/window_manager.dart';
 
 final _appLinks = AppLinks();
-bool _appInit = false;
 
 void main() async {
   /// 读取信息
@@ -98,15 +97,6 @@ void main() async {
           Logger.debug('Started as token-only mode as deeplink executed success');
           deeplinkStartup = true;
           await TokenInfoPrefs.setFrpToken(res[1]);
-          await Future.doWhile(() async {
-            if (_appInit) {
-              Get.toNamed('/token_mode/panel');
-              return false; // 结束循环
-            }
-            Logger.debug('Waiting for app init...');
-            await Future.delayed(const Duration(milliseconds: 1000)); // 延迟检查
-            return true; // 继续循环
-          });
         } else {
           Logger.debug('Skip for enter token-only mode');
         }
@@ -190,7 +180,6 @@ class _AppState extends State<App> with WindowListener {
         darkTheme: darkThemeData,
       );
 
-      _appInit = true;
       return app;
     });
   }
