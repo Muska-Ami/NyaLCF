@@ -67,13 +67,13 @@ class Logger {
   static Future<void> error(s, {StackTrace? t}) async {
     final sb = StringBuffer();
     if (s is Exception) {
-      sb.write('${s.toString()}\n');
-      if (t != null) {
-        sb.write('Trace:\n');
-        sb.write(t);
-      }
+      sb.write(s.toString());
     } else {
       sb.write(s);
+    }
+    if (t != null) {
+      sb.write('\nTrace:\n');
+      sb.write(t);
     }
     (await _logger).e(sb.toString());
   }
@@ -81,7 +81,7 @@ class Logger {
   /// VERBOSE
   /// 基本上没用，被 DEBUG 替代了
   static Future<void> verbose(s) async {
-    (await _logger).v(s);
+    (await _logger).t(s);
   }
 
   /// DEBUG
