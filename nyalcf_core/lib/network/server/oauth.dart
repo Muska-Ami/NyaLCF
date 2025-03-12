@@ -42,7 +42,7 @@ class OAuth {
   }
 
   static Future<int> start() async {
-    _server = await io.serve(app.call, 'localhost', 0);
+    _server = await io.serve(app.call, '127.0.0.1', 0);
     return _server!.port;
   }
 
