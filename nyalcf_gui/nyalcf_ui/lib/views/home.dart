@@ -12,7 +12,6 @@ import 'package:nyalcf_core/utils/logger.dart';
 import 'package:nyalcf_core_extend/storages/prefs/instance.dart';
 import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
 import 'package:nyalcf_core_extend/storages/prefs/user_info_prefs.dart';
-import 'package:nyalcf_core_extend/tasks/refresh_access_token.dart';
 import 'package:nyalcf_core_extend/tasks/update_proxies_list.dart';
 import 'package:nyalcf_core_extend/utils/frpc/startup_loader.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
@@ -148,6 +147,11 @@ class HomeController extends GetxController {
   // 加载控制器
   load({bool force = false}) async {
     authorizeFailed() {
+      if (deeplinkStartup) {
+        deeplinkStartup = false;
+        Get.toNamed('/token_mode_panel');
+        return;
+      }
       UserInfoStorage.logout();
       PrefsInstance.clear();
       Get.snackbar(
@@ -235,11 +239,18 @@ class HomeController extends GetxController {
       );
       // 跳转到面板首页
       if (deeplinkStartup) {
-        Logger.info('Skipped routing to panel due deeplink execution');
+        Logger.info('Routing to console due deeplink execution');
+        deeplinkStartup = false;
+        Get.toNamed('/panel/console');
         return;
       }
       Get.toNamed('/panel/home');
     } else {
+      if (deeplinkStartup) {
+        deeplinkStartup = false;
+        Get.toNamed('/token_mode_panel');
+        return;
+      }
       // 重新初始化启动内容
       showAutoLoginWidget.value = false;
     }
