@@ -40,13 +40,6 @@ import 'package:window_manager/window_manager.dart';
 final _appLinks = AppLinks();
 
 void main() async {
-  /// 读取信息
-  await Universe.loadUniverse();
-
-  /// 设置 HTTP 请求附加信息
-  setAppendInfo(
-      'GUI; Build ${Universe.appBuildNumber}; Name ${Universe.appName}');
-  setVersion(Universe.appVersion);
 
   /// 初始化配置文件等
   await PathProvider.loadSyncPath();
@@ -81,6 +74,16 @@ void main() async {
     /// 确保前置内容完成初始化
     WidgetsFlutterBinding.ensureInitialized();
     await windowManager.ensureInitialized();
+
+    /// 读取信息
+    await Universe.loadUniverse();
+
+    /// 设置 HTTP 请求附加信息
+    setAppendInfo(
+        'GUI; Build ${Universe.appBuildNumber};'
+        ' Name ${Universe.appName}'
+    );
+    setVersion(Universe.appVersion);
 
     /// 启动定时任务
     TaskScheduler.start();
