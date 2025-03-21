@@ -1,6 +1,6 @@
 name: nyalcf_core
 description: 'Nya LoCyanFrp! core module.'
-version: 2.0.5
+version: 2.0.6
 homepage: https://nyalcf.1l1.icu
 publish_to: none
 # repository: https://github.com/my_org/my_repo
@@ -18,7 +18,7 @@ dependencies:
   archive: ^4.0.2
   logger: ^2.5.0
   crypto: ^3.0.6
-  win32_registry: ^1.1.5
+  win32_registry: ^2.1.0
   shelf_router: ^1.1.4
   shelf: ^1.4.2
   # path: ^1.8.0
