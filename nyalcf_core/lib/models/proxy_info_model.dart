@@ -33,7 +33,7 @@ class ProxyInfoModel {
   final String localIP;
   final int node;
   final int localPort;
-  final int remotePort;
+  final int? remotePort;
   final String? domain;
   final String? secretKey;
   final int id;

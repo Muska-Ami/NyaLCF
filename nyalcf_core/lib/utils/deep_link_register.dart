@@ -9,21 +9,31 @@ class DeepLinkRegister {
   static Future<void> registerWindows(String scheme) async {
     String appPath = Platform.resolvedExecutable;
 
-    String protocolRegKey = 'Software\\Classes\\$scheme';
-    RegistryValue protocolRegValue = const RegistryValue(
-      'URL Protocol',
-      RegistryValueType.string,
-      '',
+    String path = 'Software\\Classes';
+    final defPath = Registry.openPath(
+      RegistryHive.currentUser,
+      path: path,
+      desiredAccessRights: AccessRights.allAccess,
     );
-    String protocolCmdRegKey = 'shell\\open\\command';
-    RegistryValue protocolCmdRegValue = RegistryValue(
-      '',
-      RegistryValueType.string,
-      '"$appPath" "%1"',
-    );
+    defPath.createKey(scheme);
+    defPath.close();
 
-    final regKey = Registry.currentUser.createKey(protocolRegKey);
-    regKey.createValue(protocolRegValue);
-    regKey.createKey(protocolCmdRegKey).createValue(protocolCmdRegValue);
+    final protocolPath = Registry.openPath(
+      RegistryHive.currentUser,
+      path: '$path\\$scheme',
+      desiredAccessRights: AccessRights.allAccess,
+    );
+    protocolPath.createValue(RegistryValue.string('URL Protocol', ''));
+    protocolPath.createValue(RegistryValue.string('Default', 'URL:$scheme Protocol'));
+    protocolPath.close();
+
+    final cmdKey = Registry.openPath(
+      RegistryHive.currentUser,
+      path: '$path\\$scheme\\shell\\open\\command',
+      desiredAccessRights: AccessRights.allAccess,
+    );
+    cmdKey.createValue(RegistryValue.string('', '"$appPath" "%1"'));
+    cmdKey.close();
   }
 }
+

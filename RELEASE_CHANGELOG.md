@@ -4,22 +4,23 @@
 
 ### GUI
 
-- 修复一键启动，及其引发的一系列 BUG
+- 更新了依赖
+- 修改了一部分 `runZoneGuarded` 包裹逻辑
 
 ### CLI
 
--/-
+- 更新了依赖
 
 ### Core
 
--/-
+- 更新了依赖
 
 ## 版本信息
 
-- nyalcf_gui: 1.0.3
-- nyalcf_cli: 1.0.2
+- nyalcf_gui: 1.0.4
+- nyalcf_cli: 1.0.3
 - nyalcf_env: 2.0.0
-- nyalcf_core: 2.0.5
+- nyalcf_core: 2.0.6
 - nyalcf_inject: 2.0.0
 
-<!-- Some change log here -->
+<!-- Some changelogs here -->
