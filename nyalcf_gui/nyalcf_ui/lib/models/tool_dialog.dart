@@ -36,19 +36,6 @@ Widget toolDialog() {
             }
           }),
       SimpleDialogOption(
-          child: const Text('LoCyanFrp Dashboard (Preview)'),
-          onPressed: () async {
-            const url = 'https://preview.locyanfrp.cn';
-            if (!await launchUrl(Uri.parse(url))) {
-              Get.snackbar(
-                '发生错误',
-                '无法打开网页，请检查设备是否存在 WebView',
-                snackPosition: SnackPosition.BOTTOM,
-                animationDuration: const Duration(milliseconds: 300),
-              );
-            }
-          }),
-      SimpleDialogOption(
           child: const Text('中国内网穿透联盟 (China Frp Union)'),
           onPressed: () async {
             const url = 'https://xn--v6qw21h0gd43u.xn--fiqs8s/';
