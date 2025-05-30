@@ -30,7 +30,7 @@ dependencies:
   flutter_highlight: ^0.7.0
   open_filex: ^4.7.0
 #  flukit: ^3.0.1
-  window_manager: ^0.4.2
+  window_manager: ^0.5.0
   dio: ^5.7.0
   system_tray: ^2.0.3
   flutter_colorpicker: ^1.1.0
