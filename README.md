@@ -6,25 +6,14 @@
 
 The next generation of LoCyanFrp launcher.
 
-## 为什么选择 Nya LoCyanFrp! (GUI)？
-
-- [x] 质感，美观，基于 Material Design 3 设计
-- [x] 跨平台可用
-- [x] 高性能，低占用
-- [x] 轻量化体积，启动器总大小不超过 50 MB，本体不足 1 MB
-- [x] 流畅的界面动画
-- [x] 可爱喵！にゃ~
-- [x] HarmonyOS Sans 字体，可读性强
-
 ## 项目结构
 
 - [nyalcf_core](./nyalcf_core) - 核心模块
 - [nyalcf_env](./nyalcf_env) - 环境模块
 - [nyalcf_inject](./nyalcf_inject) - 通讯模块
 - [nyalcf_gui](./nyalcf_gui) - 图形化版本
-  - [nyalcf_ui](./nyalcf_gui/nyalcf_ui) - 用户界面模块
-  - [nyalcf_core_extend](./nyalcf_gui/nyalcf_core_extend) - 核心扩展模块
-  - [nyalcf_inject_extend](./nyalcf_gui/nyalcf_inject_extend) - 通讯扩展模块
+  - [core_material](./nyalcf_gui/core_material) - 用户界面模块（Material Design 3）
+  - [core_fluent](./nyalcf_gui/core_fluent) - 用户界面模块（Fluent）
 - [nyalcf_cli](nyalcf_cli) - 命令行版本
   - [nyalcf_core_extend](./nyalcf_cli/nyalcf_core_extend) - 核心扩展模块
 

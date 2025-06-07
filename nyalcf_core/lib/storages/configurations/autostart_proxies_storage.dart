@@ -3,7 +3,7 @@ import 'dart:io';
 
 // Project imports:
 import 'package:nyalcf_core/storages/json_configuration.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 class AutostartProxiesStorage extends JsonConfiguration {
   @override

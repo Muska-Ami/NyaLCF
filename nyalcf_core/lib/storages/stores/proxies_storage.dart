@@ -1,6 +1,6 @@
 // Project imports:
 import 'package:nyalcf_core/models/proxy_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 class ProxiesStorage {
   static final List<ProxyInfoModel> _proxies = <ProxyInfoModel>[];

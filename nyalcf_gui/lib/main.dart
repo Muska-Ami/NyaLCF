@@ -10,16 +10,19 @@ import 'package:app_links/app_links.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:get/get.dart';
+import 'package:nyalcf/core/global_state.dart' as global;
+import 'package:nyalcf_core/init.dart';
+import 'package:nyalcf_core/io/io_util.dart';
 import 'package:nyalcf_core/storages/configurations/launcher_configuration_storage.dart';
 import 'package:nyalcf_core/storages/injector.dart';
 import 'package:nyalcf_core/utils/deep_link_register.dart';
-import 'package:nyalcf_core/utils/logger.dart';
-import 'package:nyalcf_core_extend/storages/prefs/token_info_prefs.dart';
-import 'package:nyalcf_core_extend/utils/deep_link_executor.dart';
-import 'package:nyalcf_core_extend/utils/path_provider.dart';
-import 'package:nyalcf_core_extend/utils/task_scheduler.dart';
-import 'package:nyalcf_core_extend/utils/theme_control.dart';
-import 'package:nyalcf_core_extend/utils/universe.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
+import 'package:nyalcf/core/storages/prefs/token_info_prefs.dart';
+import 'package:nyalcf/core/utils/deep_link_executor.dart';
+import 'package:nyalcf/core/utils/path_provider.dart';
+import 'package:nyalcf/core/utils/task_scheduler.dart';
+import 'package:nyalcf/core/utils/theme_control.dart';
+import 'package:nyalcf/core/utils/universe.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_inject_extend/nyalcf_inject_extend.dart';
@@ -42,7 +45,7 @@ final _appLinks = AppLinks();
 void main() async {
 
   /// 初始化配置文件等
-  await PathProvider.loadSyncPath();
+  // TODO: 初始化 UI 客户端数据
 
   /// 初始化数据存储
   await StoragesInjector.init();
@@ -53,7 +56,7 @@ void main() async {
   Logger.debug('Append info has been set: $appendInfo');
 
   /// 自动旧版迁移数据
-  final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
+  final appSupportParentPath = Directory(Init.getSupportPath()).parent.parent.path;
   if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
     if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
       Directory('$appSupportParentPath/moe.muska.ami').createSync();
@@ -89,7 +92,7 @@ void main() async {
     TaskScheduler.start();
 
     /// 注册并监听深度链接
-    if (!(ENV_GUI_DISABLE_DEEPLINK ?? false)) {
+    if (!(Env.gui.disableDeeplink ?? false)) {
       if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
       _appLinks.uriLinkStream.listen((uri) async {
         Logger.debug('Received uri scheme: $uri');

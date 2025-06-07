@@ -37,7 +37,7 @@ class LauncherConfigurationStorage extends JsonConfiguration {
       };
 
   /// 获取是否开启 DEBUG
-  bool getDebug() => ENV_UNIVERSAL_DEBUG ?? cfg.getBool('debug', defConfig['debug']);
+  bool getDebug() => Env.universal.debug ?? cfg.getBool('debug', defConfig['debug']);
 
   /// 设置是否开启 DEBUG
   /// [value] 是否开启 DEBUG

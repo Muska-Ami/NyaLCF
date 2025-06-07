@@ -2,15 +2,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-// Package imports:
-import 'package:nyalcf_inject/nyalcf_inject.dart';
-
 // Project imports:
+import 'package:nyalcf_core/init.dart';
 import 'package:nyalcf_core/models/user_info_model.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 class UserInfoStorage {
-  static final _path = appSupportPath;
+  static final _path = Init.getSupportPath();
 
   /// 保存用户数据
   /// [data] 用户信息

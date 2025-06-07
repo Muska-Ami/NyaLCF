@@ -4,13 +4,13 @@ import 'dart:io';
 
 // Package imports:
 import 'package:crypto/crypto.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_core/init.dart';
 
 // Project imports:
 import 'package:nyalcf_core/utils/file_configuration.dart';
 
 abstract class JsonConfiguration {
-  var path = appSupportPath;
+  var path = Init.getSupportPath();
 
   /// 配置文件和默认 ConfigMap
   File? file;

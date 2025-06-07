@@ -3,14 +3,16 @@ import 'dart:io';
 
 // Package imports:
 import 'package:archive/archive_io.dart';
-import 'package:nyalcf_inject/nyalcf_inject.dart';
+import 'package:nyalcf_core/init.dart';
+import 'package:nyalcf_core/io/io_util.dart';
 
 // Project imports:
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
+@Deprecated("Should implement by platform.")
 class FrpcArchive {
-  static final _cachePath = appCachePath;
-  static final _supportPath = appSupportPath;
+  static final _cachePath = Init.getCachePath();
+  static final _supportPath = Init.getSupportPath();
 
   /// 解压下载的 Frpc
   /// [platform] 平台
@@ -34,9 +36,10 @@ class FrpcArchive {
     if (await f.exists()) {
       try {
         Logger.debug('Extract frpc into cache: $_cachePath');
-        await extractFileToDisk(f.path, _cachePath!);
+        await extractFileToDisk(f.path, _cachePath);
         final dir = Directory(
-            '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch');
+            '$_cachePath/frp_LoCyanFrp-${version.toString().split('-')[0]}_${platform}_$arch',
+        );
         Logger.debug('Move frpc into: $_supportPath/frpc/$version');
         await moveDirectory(dir, Directory('$_supportPath/frpc/$version'));
         Logger.debug('Extract frpc package done.');

@@ -4,8 +4,8 @@ import 'dart:io';
 // Package imports:
 import 'package:dio/dio.dart';
 import 'package:nyalcf_core/network/client/common/github/frp_client.dart';
-import 'package:nyalcf_core/utils/cpu_arch.dart';
-import 'package:nyalcf_core/utils/frpc/arch.dart';
+import 'package:nyalcf_core/utils/architecture.dart';
+import 'package:nyalcf_core/utils/frpc/platform.dart';
 import 'package:nyalcf_core/utils/frpc/archive.dart';
 import 'package:nyalcf_core/utils/logger.dart';
 
@@ -37,7 +37,7 @@ class Download implements Command {
         if (verbose) {
           Logger.verbose('Provide info: $_provideArch, $_providePlatform');
         }
-        final systemArch = await CPUArch.getCPUArchitecture();
+        final systemArch = await Architecture.getCPUArchitecture();
         if (verbose) {
           Logger.verbose('CPU arch: $systemArch');
         }
@@ -93,15 +93,15 @@ class Download implements Command {
   void getPlatformFrpcArchList() {
     if (Platform.isWindows) {
       platform = 'windows';
-      arch = Arch.windows;
+      arch = FrpcPlatform.windows;
     }
     if (Platform.isLinux) {
       platform = 'linux';
-      arch = Arch.linux;
+      arch = FrpcPlatform.linux;
     }
     if (Platform.isMacOS) {
       platform = 'darwin';
-      arch = Arch.macos;
+      arch = FrpcPlatform.macos;
     }
   }
 

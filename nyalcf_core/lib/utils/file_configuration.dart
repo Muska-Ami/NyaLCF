@@ -15,7 +15,7 @@ class FileConfiguration {
   /// 配置唯一 handle 用于区分配置
   final String handle;
 
-  /// 临时数据，会存储在内存种
+  /// 临时数据，会存储在内存中
   static Map<String, dynamic> tmpData = {};
 
   /// 初始化内存对象
@@ -122,7 +122,7 @@ class FileConfiguration {
         await fi.writeAsString(toString());
       }
     } else {
-      throw UnimplementedError(
+      throw UnsupportedError(
           'No specified file selected. Please set a file to use save() method!');
     }
   }
@@ -156,7 +156,7 @@ class FileConfiguration {
     if (file != null) {
       fromString(await file!.readAsString());
     } else {
-      throw UnimplementedError(
+      throw UnsupportedError(
           'Could not load configuration from undefined file!');
     }
   }

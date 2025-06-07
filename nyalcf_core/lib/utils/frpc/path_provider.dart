@@ -16,16 +16,11 @@ class FrpcPathProvider {
       await _fss.getRunPath(_fcs.getSettingsFrpcVersion());
 
   /// 获取 Frpc 可执行文件路径
-  static Future<String?> frpcPath(
-      {String? version, bool skipCheck = false}) async {
-    final String? path;
-    final String? appFrpcPath = await _fss.getFilePath(skipCheck: skipCheck);
-    final String? envFrpcPath = ENV_UNIVERSAL_FRPC_PATH;
-    if (envFrpcPath != null) {
-      path = envFrpcPath;
-    } else {
-      path = appFrpcPath;
-    }
-    return path;
+  static Future<String?> frpcPath({
+    String? version,
+    bool skipCheck = false,
+  }) async {
+    return Env.universal.frpcPath ??
+        await _fss.getFilePath(skipCheck: skipCheck);
   }
 }

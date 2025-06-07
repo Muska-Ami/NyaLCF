@@ -1,5 +1,6 @@
 // Package imports:
 import 'package:dio/dio.dart' as dio;
+import 'package:nyalcf_core/init.dart';
 import 'package:nyalcf_env/nyalcf_env.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
@@ -7,10 +8,10 @@ import 'package:nyalcf_inject/nyalcf_inject.dart';
 import 'package:nyalcf_core/models/frpc_version_model.dart';
 import 'package:nyalcf_core/network/basic_config.dart';
 import 'package:nyalcf_core/storages/configurations/frpc_configuration_storage.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 /// 获取缓存路经
-final _cachePath = appCachePath;
+final _cachePath = Init.getCachePath();
 
 /// 获取 Frp Client 配置数据
 final _fcs = FrpcConfigurationStorage();
@@ -72,7 +73,7 @@ class FrpClient {
     String? downloadUrl;
 
     // 环境数据
-    String? envUrl = ENV_UNIVERSAL_FRPC_DOWNLOAD_MIRROR_URL;
+    String? envUrl = Env.universal.frpcDownloadMirrorUrl;
 
     // 镜像下载链接
     String? mirrorDownloadUrl;

@@ -2,13 +2,14 @@
 import 'dart:io';
 
 // Package imports:
+import 'package:nyalcf_core/init.dart';
 import 'package:nyalcf_inject/nyalcf_inject.dart';
 
 // Project imports:
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 class ProxiesConfigurationStorage {
-  static final _path = appSupportPath;
+  static final _path = Init.getSupportPath();
 
   /// 配置文件目录路径
   static get _configDir async {

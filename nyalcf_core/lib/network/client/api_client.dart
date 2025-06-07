@@ -4,7 +4,7 @@ import 'package:dio/dio.dart' as dio;
 // Project imports:
 import 'package:nyalcf_core/models/api_base_model.dart';
 import 'package:nyalcf_core/network/basic_config.dart';
-import 'package:nyalcf_core/utils/logger.dart';
+import 'package:nyalcf_core/utils/logger/logger.dart';
 
 class ApiClient {
   ApiClient({
