@@ -40,39 +40,37 @@ import 'package:window_manager/window_manager.dart';
 final _appLinks = AppLinks();
 
 void main() async {
-
-  /// 初始化配置文件等
-  await PathProvider.loadSyncPath();
-
-  /// 初始化数据存储
-  await StoragesInjector.init();
-
-  /// 初始化 Logger
-  await Logger.init();
-  Logger.debug(Platform.operatingSystem);
-  Logger.debug('Append info has been set: $appendInfo');
-
-  /// 自动旧版迁移数据
-  final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
-  if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
-    if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
-      Directory('$appSupportParentPath/moe.muska.ami').createSync();
-    }
-    try {
-      await moveDirectory(
-        Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
-        Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
-      );
-    } catch (e, st) {
-      Logger.error('Could not automatic move launcher data to new folder!');
-      Logger.error(e, t: st);
-    }
-  }
-
-  /// 运行 App
   runZonedGuarded(() async {
-    /// 确保前置内容完成初始化
     WidgetsFlutterBinding.ensureInitialized();
+    
+    /// 初始化配置文件等
+    await PathProvider.loadSyncPath();
+
+    /// 初始化数据存储
+    await StoragesInjector.init();
+
+    /// 初始化 Logger
+    await Logger.init();
+    Logger.debug(Platform.operatingSystem);
+    Logger.debug('Append info has been set: $appendInfo');
+
+    /// 自动旧版迁移数据
+    final appSupportParentPath = Directory(appSupportPath!).parent.parent.path;
+    if (Directory('$appSupportParentPath/moe.xmcn.nyanana').existsSync()) {
+      if (!Directory('$appSupportParentPath/moe.muska.ami').existsSync()) {
+        Directory('$appSupportParentPath/moe.muska.ami').createSync();
+      }
+      try {
+        await moveDirectory(
+          Directory('$appSupportParentPath/moe.xmcn.nyanana/nyanana'),
+          Directory('$appSupportParentPath/moe.muska.ami/nyanana'),
+        );
+      } catch (e, st) {
+        Logger.error('Could not automatic move launcher data to new folder!');
+        Logger.error(e, t: st);
+      }
+    }
+    
     await windowManager.ensureInitialized();
 
     /// 读取信息
