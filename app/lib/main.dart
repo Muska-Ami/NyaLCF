@@ -1,0 +1,173 @@
+// Dart imports:
+import 'dart:async';
+import 'dart:io';
+
+// Flutter imports:
+import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:app_links/app_links.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:dynamic_color/dynamic_color.dart';
+import 'package:get/get.dart';
+import 'package:nyalcf/global_state.dart' as global;
+import 'package:core/init.dart';
+import 'package:core/io/io_util.dart';
+import 'package:core/storages/configurations/launcher_configuration_storage.dart';
+import 'package:core/storages/injector.dart';
+import 'package:core/utils/deep_link_register.dart';
+import 'package:core/utils/logger/logger.dart';
+import 'package:core_env/env.dart';
+import 'package:window_manager/window_manager.dart';
+
+import 'package:nyalcf/main_window.dart';
+
+final _appLinks = AppLinks();
+
+void main() async {
+
+  /// 初始化配置文件等
+  // TODO: 初始化 UI 客户端数据
+
+  /// 初始化数据存储
+  await StoragesInjector.init();
+
+  /// 初始化 Logger
+  await Logger.init();
+  Logger.debug(Platform.operatingSystem);
+
+  /// 运行 App
+  runZonedGuarded(() async {
+    /// 确保前置内容完成初始化
+    WidgetsFlutterBinding.ensureInitialized();
+    await windowManager.ensureInitialized();
+
+    /// 启动定时任务
+    TaskScheduler.start();
+
+    /// 注册并监听深度链接
+    if (!(Env.gui.disableDeeplink ?? false)) {
+      if (Platform.isWindows) DeepLinkRegister.registerWindows('locyanfrp');
+      _appLinks.uriLinkStream.listen((uri) async {
+        Logger.debug('Received uri scheme: $uri');
+        final res = await DeepLinkExecutor(uri: uri.toString()).execute();
+
+        Logger.debug(res);
+        if (res[0]) {
+          Logger.debug('Started as token-only mode as deeplink executed success');
+          deeplinkStartup = true;
+          await TokenInfoPrefs.setFrpToken(res[1]);
+        } else {
+          Logger.debug('Skip for enter token-only mode');
+        }
+      });
+    }
+
+    FlutterError.onError = (FlutterErrorDetails details) {
+      FlutterError.dumpErrorToConsole(details);
+      Logger.error('Unhandled error on Flutter library: ${details.exception}', t: details.stack);
+    };
+
+    runApp(const App());
+  }, (Object error, StackTrace stack) {
+    Logger.error('Unhandled error: $error', t: stack);
+  });
+
+  /// 当窗口初始化完毕执行
+  doWhenWindowReady(MainWindow.doWhenWindowReady);
+}
+
+class App extends StatefulWidget {
+  const App({super.key});
+
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> with WindowListener {
+  /// 根组件
+  @override
+  Widget build(BuildContext context) {
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      final lcs = LauncherConfigurationStorage();
+
+      // 定义初始主题数据
+      ThemeData lightThemeData = ThemeControl.getLightTheme();
+      ThemeData darkThemeData = ThemeControl.getDarkTheme();
+
+      // 非自动下切换深色主题逻辑
+      if (lcs.getThemeAuto() != true && lcs.getThemeDarkEnable()) {
+        Get.changeThemeMode(ThemeMode.dark);
+      }
+
+      // Monet 取色
+      if (lcs.getThemeMonet() == true) {
+        if (lightDynamic != null && darkDynamic != null) {
+          // 亮色模式 Monet 取色
+          lightThemeData = ThemeData(
+              useMaterial3: true,
+              fontFamily: 'HarmonyOS Sans',
+              brightness: Brightness.light,
+              colorScheme: lightDynamic.harmonized());
+          // 暗色模式 Monet 取色
+          darkThemeData = ThemeData(
+              useMaterial3: true,
+              fontFamily: 'HarmonyOS Sans',
+              brightness: Brightness.dark,
+              colorScheme: darkDynamic.harmonized());
+        }
+      }
+
+      // TODO: register from UI libraries
+      final app = GetMaterialApp(
+        logWriterCallback: Logger.getxLogWriter,
+        title: 'Nya LoCyanFrp!',
+        routes: {
+          '/': (context) => HomeUI(),
+          '/auth/authorize': (context) => const AuthorizeUI(),
+          '/auth/token_mode/login': (context) => const TokenModeAuthorizeUI(),
+          '/token_mode_panel': (context) => const TokenModePanelUI(),
+          '/panel/home': (context) => HomePanelUI(),
+          '/panel/proxies': (context) => ProxiesPanelUI(),
+          '/panel/proxies/configuration': (context) =>
+              ProxiesConfigurationPanelUI(),
+          '/panel/console': (context) => ConsolePanelUI(),
+          '/panel/console/full': (context) => ConsoleFullPanelUI(),
+          '/setting': (context) => const SettingInjectorUI(),
+          '/license': (context) => const LicenseUI(),
+        },
+        theme: lightThemeData,
+        darkTheme: darkThemeData,
+      );
+
+      return app;
+    });
+  }
+
+  /// 组件初始化时操作
+  @override
+  void initState() {
+    windowManager.addListener(this);
+    super.initState();
+    _init();
+  }
+
+  /// 异步初始化内容
+  Future<void> _init() async {
+    await windowManager.setPreventClose(true);
+    setState(() {});
+  }
+
+  /// 组件销毁时操作
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  // TODO: register from UI libraries
+  /// 窗口和托盘图标的事件处理
+  @override
+  onWindowClose() => MainWindow.onWindowClose();
+}
